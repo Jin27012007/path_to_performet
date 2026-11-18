@@ -15,7 +15,7 @@ The byte counts below were calculated from the GitHub Base64 file contents after
 
 | Layout | Declared size | Expected bytes | File bytes | Bytes after active grid |
 |---|---:|---:|---:|---:|
-| LAY​OUT_LILYCOVE_CITY | 80×40 | 6,400 | 6,400 | 0 |
+| LAYOUT_LILYCOVE_CITY | 80×40 | 6,400 | 6,400 | 0 |
 | LAYOUT_ROUTE121 | 80×20 | 3,200 | 4,385 | 1,185 |
 | LAYOUT_LILYCOVE_CITY_COVE_LILY_MOTEL_1F | 12×9 | 216 | 230 | 14 |
 | LAYOUT_LILYCOVE_CITY_COVE_LILY_MOTEL_2F | 12×9 | 216 | 231 | 15 |
