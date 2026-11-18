@@ -42,3 +42,7 @@ A associação oficial está em [data/layouts/layouts.json](../../../data/layout
 
 Foi criado um levantamento do compartilhamento dos tilesets usados por Lilycove e pelo Centro de Concursos: [auditoria de dependências](contest-hall-dependencies.md). Ele registra que `gTileset_Lilycove`, `gTileset_Contest` e `gTileset_Building` são compartilhados por vários layouts e explica os cuidados antes de editar as folhas gráficas.
 Inventário mapa a mapa: [mapas, layouts e tilesets](map-graphics-inventory.md). Use essa tabela antes de editar qualquer gráfico para conferir dependências e reutilização.
+
+## Catálogo técnico dos tilesets
+
+O [catálogo técnico completo dos 10 tilesets](tileset-technical-catalog.md) reúne dimensões reais das folhas, quantidade de tiles e metatiles, arquivos associados, paletas, animações, combinação primário/secundário por layout e limitações ainda pendentes na extração dos índices binários.
