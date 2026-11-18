@@ -38,3 +38,6 @@ A associação oficial está em [data/layouts/layouts.json](../../../data/layout
 5. Depois de editar, abrir Lilycove e Route 121 no jogo para conferir alinhamento, transparência, colisões e animações.
 
 **Importante:** os diretórios de tilesets são recursos compartilhados da engine. O catálogo facilita encontrá-los, mas não significa que sejam exclusivos de Lilycove.
+## Auditoria de dependências
+
+Foi criado um levantamento do compartilhamento dos tilesets usados por Lilycove e pelo Centro de Concursos: [auditoria de dependências](contest-hall-dependencies.md). Ele registra que `gTileset_Lilycove`, `gTileset_Contest` e `gTileset_Building` são compartilhados por vários layouts e explica os cuidados antes de editar as folhas gráficas.
