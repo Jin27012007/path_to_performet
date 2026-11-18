@@ -60,3 +60,8 @@ Ele deriva automaticamente os 24 layouts únicos a partir das 26 entradas de `as
 
 
 A investigação do formato e a comparação de tamanho dos 24 arquivos estão em [auditoria do formato binário dos mapas](map-binary-audit.md). Ela documenta por que somente `width × height × 2` bytes formam a grade ativa, com referência às rotinas de carregamento do motor. O script revisado foi commitado, mas ainda precisa ser executado em um checkout completo do repositório; nenhum CSV gerado foi apresentado como resultado de execução.
+
+
+## Integridade das referências de metatile
+
+A inspeção direta dos mapas e dos binários encontrou referências fora do intervalo dos arquivos de metatiles em 19 dos 24 layouts auditados. São 204 combinações layout/índice e 1.574 células afetadas. O problema já está presente em `main`; não foi criado pela branch de trabalho. Consulte o [relatório de integridade](metatile-reference-integrity.md), o [JSON detalhado](../reports/tilesets/metatile-reference-integrity.json) e o [CSV das referências inválidas](../reports/tilesets/invalid-metatile-refs.csv). Não remapeie IDs nem substitua tilesets até a origem dessa divergência ser esclarecida.
