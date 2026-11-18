@@ -19,6 +19,19 @@ ROOT = Path(__file__).resolve().parents[3]
 LAYOUTS_FILE = ROOT / "data/layouts/layouts.json"
 OUT = ROOT / "work/lilycove/reports/tilesets"
 
+TILESET_DIRS = {
+    "gTileset_General": "data/tilesets/primary/general",
+    "gTileset_Building": "data/tilesets/primary/building",
+    "gTileset_Lilycove": "data/tilesets/secondary/lilycove",
+    "gTileset_GenericBuilding": "data/tilesets/secondary/generic_building",
+    "gTileset_PokemonCenter": "data/tilesets/secondary/pokemon_center",
+    "gTileset_Shop": "data/tilesets/secondary/shop",
+    "gTileset_Facility": "data/tilesets/secondary/facility",
+    "gTileset_LilycoveMuseum": "data/tilesets/secondary/lilycove_museum",
+    "gTileset_Contest": "data/tilesets/secondary/contest",
+    "gTileset_BattleFrontier": "data/tilesets/secondary/battle_frontier",
+}
+
 TARGET_IDS = {
     "LAYOUT_LILYCOVE_CITY",
     "LAYOUT_ROUTE121",
@@ -99,11 +112,13 @@ def main() -> None:
         writer.writerows(layout_rows)
 
     rows = []
+    used_metatiles = defaultdict(set)
     for layout_id, counts in sorted(usage.items()):
         layout = next(x for x in selected if x["id"] == layout_id)
         for metatile_id, count in sorted(counts.items()):
             is_primary = metatile_id < 512
             tileset = layout["primary_tileset"] if is_primary else layout["secondary_tileset"]
+            used_metatiles[tileset].add(metatile_id - (0 if is_primary else 512))
             rows.append({
                 "layout_id": layout_id,
                 "metatile_id_absolute": metatile_id,
@@ -118,18 +133,56 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(rows)
 
+    composition_rows = []
+    for tileset, local_ids in sorted(used_metatiles.items()):
+        directory = ROOT / TILESET_DIRS[tileset]
+        metatile_words = read_u16(directory / "metatiles.bin")
+        attributes = read_u16(directory / "metatile_attributes.bin")
+        if len(metatile_words) % 8:
+            raise ValueError(f"{tileset}: metatiles.bin não contém registros completos de 8 u16")
+        metatile_count = len(metatile_words) // 8
+        if len(attributes) != metatile_count:
+            raise ValueError(
+                f"{tileset}: {metatile_count} metatiles, mas {len(attributes)} atributos"
+            )
+        for local_id in sorted(local_ids):
+            if local_id >= metatile_count:
+                raise ValueError(
+                    f"{tileset}: índice {local_id} excede {metatile_count - 1}"
+                )
+            attr = attributes[local_id]
+            words = metatile_words[local_id * 8:(local_id + 1) * 8]
+            row = {
+                "tileset": tileset,
+                "metatile_index_local": local_id,
+                "attribute_hex": f"0x{attr:04X}",
+                "behavior_id": attr & 0x00FF,
+                "layer_type": (attr >> 12) & 0x0F,
+            }
+            for i, word in enumerate(words):
+                row[f"tile_{i}_index"] = word & 0x03FF
+                row[f"tile_{i}_hflip"] = (word >> 10) & 1
+                row[f"tile_{i}_vflip"] = (word >> 11) & 1
+                row[f"tile_{i}_palette"] = (word >> 12) & 0x0F
+            composition_rows.append(row)
+
+    with (OUT / "metatile-composition.csv").open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=list(composition_rows[0]))
+        writer.writeheader()
+        writer.writerows(composition_rows)
+
     summary = {
         "status": "success",
         "layouts_audited": len(selected),
         "layout_cells": sum(x["cells"] for x in layout_rows),
-        "distinct_layout_metatile_pairs": len(rows),
+        "distinct_layout_metatile_pairs": len(rows),\n        "distinct_used_metatiles": len(composition_rows),
         "unique_absolute_metatile_ids": sorted({
             int(row["metatile_id_absolute"]) for row in rows
         }),
         "notes": [
             "Metatile ID: bits 0-9; collision: bits 10-11; elevation: bits 12-15.",
             "IDs 0-511 are primary; IDs 512-1023 are secondary (local ID = absolute ID - 512).",
-            "This report maps usage only. It does not decode metatiles.bin or attributes.",
+            "Metatile composition includes 8 tile references per metatile: tile index, H/V flip, and palette slot.\",\n            "Attributes expose behavior bits 0-7 and layer type bits 12-15; interpret behavior IDs against the engine constants.");
         ],
     }
     (OUT / "summary.json").write_text(
