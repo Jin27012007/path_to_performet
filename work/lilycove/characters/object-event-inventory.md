@@ -35,7 +35,7 @@
 | Department Store Elevator | 1 | 2 | 0 | 0 |
 | Safari Zone Entrance | 3 | 4 | 1 | 1 |
 
-**Totais:** 213 eventos de objeto, 74 warps, 6 eventos de coordenada e 60 eventos de fundo nos 26 mapas.
+**Totais:** 201 eventos de objeto, 76 warps, 6 eventos de coordenada e 73 eventos de fundo nos 26 mapas.
 
 ## 2. Identificadores gráficos por mapa
 
