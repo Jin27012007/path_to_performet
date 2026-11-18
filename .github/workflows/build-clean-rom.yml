@@ -21,6 +21,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3 make
 
+      - name: Build ROM tools
+        run: make tools
+
+      - name: Generate map data in a separate step
+        run: |
+          printf 'emerald\n' > .map_version
+          make MAP_VERSION=emerald generated
+
       - name: Build unmodified Pokémon Emerald
         env:
           GAME_VERSION: EMERALD
@@ -28,7 +36,7 @@ jobs:
           COMPARE: 0
           UNUSED_ERROR: 1
           DEPRECATED_ERROR: 1
-        run: make -j2 -O all
+        run: make -j2 -O all SETUP_PREREQS=0
 
       - name: Upload ROM
         uses: actions/upload-artifact@v4
