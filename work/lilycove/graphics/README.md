@@ -67,3 +67,8 @@ A investigação do formato e a comparação de tamanho dos 24 arquivos estão e
 A inspeção direta dos mapas e dos binários encontrou referências fora do intervalo dos arquivos de metatiles em 19 dos 24 layouts auditados. São 204 combinações layout/índice e 1.574 células afetadas. O problema já está presente em `main`; não foi criado pela branch de trabalho. Consulte o [relatório de integridade](metatile-reference-integrity.md), o [JSON detalhado](../reports/tilesets/metatile-reference-integrity.json) e o [CSV das referências inválidas](../reports/tilesets/invalid-metatile-refs.csv). Não remapeie IDs nem substitua tilesets até a origem dessa divergência ser esclarecida.
 
 O [catálogo das 1.006 composições válidas de metatiles](../reports/tilesets/valid-metatile-composition.json) lista os oito tiles usados por cada metatile, flips, paleta, comportamento e mapas onde aparece. As 204 referências fora dos arquivos ficam separadas no CSV de integridade; não foram inventadas composições para esses índices.
+
+
+## Folhas visuais numeradas
+
+Foram adicionadas folhas SVG para os dez tilesets, com cada tile 8×8 identificado pelo índice row-major. [Abrir índice de folhas numeradas](tile-indexes/README.md). Os índices dos tiles não devem ser confundidos com os índices dos metatiles. As folhas ainda não aplicam as paletas individuais.
