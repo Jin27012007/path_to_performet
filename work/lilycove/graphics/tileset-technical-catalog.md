@@ -2,7 +2,7 @@
 
 **Escopo:** os 26 mapas da área Lilycove / Rota 121 e os 10 tilesets referenciados pelos seus layouts.  
 **Branch:** `work/lilycove-route121-workspace`  
-**Estado:** arquivos e estrutura catalogados; rastreamento de uso por índice dentro de cada mapa ainda pendente de leitura binária confiável. Nenhum PNG, metatile, paleta, atributo ou fonte executável foi editado.
+**Estado:** estrutura dos 10 tilesets catalogada; foi adicionado um auditor reproduzível para cruzar mapas, metatiles, referências de tiles e atributos. O relatório ainda precisa ser executado no Codespaces. Nenhum PNG, metatile, paleta, atributo ou fonte executável foi editado.
 
 ## 1. Como a engine organiza os gráficos
 
@@ -152,7 +152,7 @@ O catálogo estrutural dos dez tilesets está confirmado. Ainda não vou declara
 4. Uma folha de referência visual numerada (tiles, metatiles e paletas) que permita ao editor identificar o que está vendo sem adivinhar coordenadas.
 5. Um índice de animações com o tile de destino na VRAM e o ciclo aplicado pelo callback.
 
-**Limitação encontrada:** a leitura dos arquivos binários `.bin` pelo conector GitHub está convertendo alguns valores de 16 bits para texto com perda. Um primeiro arquivo experimental de uso por layout foi removido por não ser confiável. Não usar contagens ou índices extraídos daquela tentativa. É necessário obter os bytes originais sem conversão para concluir esta etapa com segurança.
+**Limitação encontrada:** a leitura dos arquivos binários `.bin` pelo conector GitHub não é adequada para decodificar os valores de 16 bits com segurança. Por isso, não vou publicar índices de uso presumidos. Foi adicionado `work/lilycove/tools/audit_tilesets.py`, que lê os bytes diretamente no checkout do repositório e valida os tamanhos antes de gerar os relatórios. O script ainda não foi executado nesta etapa.
 
 ## 8. Referências-fonte
 
@@ -166,4 +166,4 @@ O catálogo estrutural dos dez tilesets está confirmado. Ainda não vou declara
 
 ## 9. Próximo passo técnico
 
-A próxima etapa deve ser gerar um extrator determinístico para `map.bin`, `metatiles.bin` e `metatile_attributes.bin` a partir dos bytes originais no próprio Codespaces/build workspace, validando o tamanho de cada arquivo antes de produzir qualquer índice. Depois, gerar mapas de uso por layout e folhas de referência numeradas. Só então teremos um mapa visual por índice realmente completo e seguro para edição.
+Execute no terminal do Codespaces, a partir da raiz do repositório:\n\n```bash\npython3 work/lilycove/tools/audit_tilesets.py\n```\n\nO script valida os 24 layouts-alvo e gera `layout-index.csv`, `metatile-usage.csv`, `metatile-composition.csv` e `summary.json` em `work/lilycove/reports/tilesets/`. A composição registra os oito tiles de cada metatile, índice de tile, flips horizontal/vertical, paleta, comportamento e camada. Se a validação interromper o processo, não force a geração: o erro indicará qual arquivo ou hipótese de formato precisa ser investigado.\n\nDepois dessa auditoria, ainda será necessário gerar folhas visuais numeradas dos tiles e metatiles, relacionar os IDs de comportamento aos nomes da engine e auditar os destinos de animação na VRAM. Esses são os passos que transformam o catálogo estrutural em um mapa visual realmente completo.
