@@ -201,6 +201,7 @@ def main() -> None:
             })
 
     composition_rows: list[dict] = []
+    invalid_ref_rows: list[dict] = []
     tileset_summary: dict[str, dict] = {}
     for tileset, local_ids in sorted(used_metatiles.items()):
         directory = ROOT / TILESET_DIRS[tileset]
@@ -218,18 +219,26 @@ def main() -> None:
                 f"{len(attributes)} atributos"
             )
 
+        valid_ids = [local_id for local_id in sorted(local_ids) if local_id < metatile_count]
+        invalid_ids = [local_id for local_id in sorted(local_ids) if local_id >= metatile_count]
         tileset_summary[tileset] = {
             "metatile_count": metatile_count,
             "attribute_count": len(attributes),
             "used_local_metatiles": len(local_ids),
+            "valid_used_metatiles": len(valid_ids),
+            "invalid_used_metatiles": len(invalid_ids),
         }
 
-        for local_id in sorted(local_ids):
-            if local_id >= metatile_count:
-                raise ValueError(
-                    f"{tileset}: índice local {local_id} excede "
-                    f"{metatile_count - 1}"
-                )
+        for item in rows:
+            if item["tileset"] == tileset and item["metatile_index_local"] >= metatile_count:
+                invalid_ref_rows.append({
+                    **item,
+                    "available_metatile_count": metatile_count,
+                    "highest_valid_local_index": metatile_count - 1,
+                    "reference_status": "out_of_range",
+                })
+
+        for local_id in valid_ids:
             attr = attributes[local_id]
             words = metatile_words[local_id * 8:(local_id + 1) * 8]
             row = {
@@ -268,15 +277,45 @@ def main() -> None:
     write_csv(OUT / "metatile-composition.csv", composition_rows)
     write_csv(OUT / "collision-usage.csv", collision_rows)
     write_csv(OUT / "elevation-usage.csv", elevation_rows)
+    write_csv(OUT / "invalid-metatile-refs.csv", invalid_ref_rows or [{
+        "status": "no_out_of_range_references"
+    }])
+
+    invalid_by_tileset: dict[str, dict] = {}
+    for item in invalid_ref_rows:
+        ts = item["tileset"]
+        entry = invalid_by_tileset.setdefault(ts, {
+            "invalid_layout_metatile_pairs": 0,
+            "affected_cells": 0,
+            "unique_local_ids": set(),
+            "affected_layouts": set(),
+        })
+        entry["invalid_layout_metatile_pairs"] += 1
+        entry["affected_cells"] += item["occurrences"]
+        entry["unique_local_ids"].add(item["metatile_index_local"])
+        entry["affected_layouts"].add(item["layout_id"])
+
+    invalid_by_tileset = {
+        ts: {
+            "invalid_layout_metatile_pairs": value["invalid_layout_metatile_pairs"],
+            "affected_cells": value["affected_cells"],
+            "unique_local_ids": len(value["unique_local_ids"]),
+            "highest_invalid_local_id": max(value["unique_local_ids"]),
+            "affected_layouts": sorted(value["affected_layouts"]),
+        }
+        for ts, value in sorted(invalid_by_tileset.items())
+    }
 
     summary = {
-        "status": "success_with_warnings" if trailing_data else "success",
+        "status": "success_with_warnings" if trailing_data or invalid_ref_rows else "success",
         "map_entries_in_asset_index": map_entry_count,
         "unique_layouts_audited": len(selected),
         "layout_cells_audited": sum(row["cells_audited"] for row in layout_rows),
         "distinct_layout_metatile_pairs": len(rows),
         "distinct_used_metatiles": len(composition_rows),
         "tilesets_used": tileset_summary,
+        "out_of_range_metatile_reference_rows": len(invalid_ref_rows),
+        "out_of_range_references_by_tileset": invalid_by_tileset,
         "trailing_data_files": trailing_data,
         "notes": [
             "Cada célula do mapa é um u16 little-endian: metatile bits 0-9, colisão bits 10-11 e elevação bits 12-15.",
@@ -285,6 +324,8 @@ def main() -> None:
             "Cada metatile tem 8 referências u16; cada referência contém índice do tile, flips H/V e slot de paleta.",
             "Atributos de metatile Emerald: comportamento nos bits 0-7 e tipo de camada nos bits 12-15.",
             "Arquivos com bytes excedentes são reportados; os bytes extras não são apagados nem incluídos na análise da grade.",
+            "Referências de metatile fora do limite real do tileset são exportadas em invalid-metatile-refs.csv; a composição é gerada apenas para IDs válidos.",
+            "Uma referência fora do limite indica incompatibilidade entre map.bin, layout e tileset; não corrigir automaticamente os IDs ou a atribuição dos tilesets.",
         ],
     }
     (OUT / "summary.json").write_text(
