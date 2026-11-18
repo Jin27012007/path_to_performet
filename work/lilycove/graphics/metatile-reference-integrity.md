@@ -45,13 +45,16 @@ Comparei hashes de arquivos em `main` e `work/lilycove-route121-workspace`. Os s
 - `src/fieldmap.c`
 - binários de metatiles e atributos de Building, Contest, Shop, Lilycove, Lilycove Museum e Pokémon Center.
 
-Logo, a incompatibilidade observada já existe em `main` e não foi introduzida pelos commits de documentação/auditoria desta branch. Essa comparação não identifica ainda qual revisão upstream ou conjunto de assets deveria substituir os dados atuais.
+Também comparei os hashes de arquivos-chave com o release oficial `rh-hideout/pokeemerald-expansion`, tag `expansion/1.17.2`. Os hashes coincidem, por exemplo, em `data/tilesets/primary/building/metatiles.bin` (`21830728c1ff75a5be73635940d54a87a0289233`), `data/tilesets/secondary/contest/metatiles.bin` (`6920af351a557f2688b6e482d6debce0972b5342`), `data/layouts/Route121/map.bin` (`cfee98f2aee4d59b4e9edab329b0c2e8483d02f8`), `data/layouts/House1/map.bin` (`ea185484d6c64c15c0f6a5d479d5bc3541207bcd`), `data/layouts/layouts.json` (`2b25587ac142c0fcd0b90755a3347ee16e785857`) e `src/fieldmap.c` (`b3451193a2003c9d09268e8d203a10a4f702824b`).
+
+Logo, a incompatibilidade observada já existe em `main` e os arquivos comparados também são idênticos aos do release oficial 1.17.2. Não é uma alteração introduzida pelos commits desta auditoria. Ainda não há evidência suficiente para classificar isso como convenção especial de indexação; pelo código de seleção dos atributos, os índices fora do comprimento real apontam para além dos arrays. A auditoria não deve tentar corrigir isso sem uma comparação funcional com a ROM compilada dessa base.
 
 ## Arquivos de auditoria
 
 - `../reports/tilesets/map-grid-audit.json`: leitura das 9.993 células de grade nos 24 layouts, com contagem de metatile, colisão e elevação.
 - `../reports/tilesets/metatile-reference-integrity.json`: contagens por tileset e lista detalhada das referências inválidas.
 - `../reports/tilesets/invalid-metatile-refs.csv`: 204 combinações inválidas, com layout, ID absoluto, índice local, quantidade de ocorrências e limite real.
+- `../reports/tilesets/valid-metatile-composition.json`: 1.006 composições válidas de metatile, com oito referências de tile, flips, slot de paleta, atributo e layouts em que são usadas.
 
 ## Como o auditor foi ajustado
 
