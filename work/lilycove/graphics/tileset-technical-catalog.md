@@ -143,18 +143,62 @@ A associação abaixo vem de `data/layouts/layouts.json` e do inventário dos ma
 - **Colisões e camadas:** alterar apenas o desenho pode deixar o metatile com colisão errada, comportamento de terreno errado ou camada de renderização inadequada. Os arquivos de atributos devem ser auditados junto com os gráficos.
 - **Compartilhamento:** apesar de o escopo de jogo priorizar Lilycove e Route 121, os tilesets e layouts são recursos canônicos da engine. Algumas alterações podem atingir outros mapas que usem a mesma combinação. A prioridade será validar o conjunto-alvo, sem duplicar assets desnecessariamente.
 
-## 7. O que ainda falta para o mapeamento visual ficar realmente fechado
+## 7. Resultado da auditoria dos mapas e metatiles
 
-O catálogo estrutural dos dez tilesets está confirmado. Ainda não vou declarar o mapeamento de índices como concluído, pois falta uma extração binária sem perda para cruzar:
-1. Cada célula de cada `map.bin` com o ID absoluto do metatile e seu índice local no tileset primário/secundário.
-2. Cada índice de metatile com os oito tiles que o compõem, incluindo flip horizontal/vertical e paleta selecionada em cada referência.
-3. Cada metatile com seu registro em `metatile_attributes.bin`: comportamento, tipo de camada e implicações de colisão.
-4. Uma folha de referência visual numerada (tiles, metatiles e paletas) que permita ao editor identificar o que está vendo sem adivinhar coordenadas.
-5. Um índice de animações com o tile de destino na VRAM e o ciclo aplicado pelo callback.
+A leitura direta dos arquivos binários da branch foi concluída para os 24 layouts únicos (26 entradas de mapas). Foram lidas 9.993 células. O relatório por layout registra o ID absoluto de metatile, colisão, elevação e as ocorrências de cada ID.
 
-**Limitação encontrada:** a leitura dos arquivos binários `.bin` pelo conector GitHub não é adequada para decodificar os valores de 16 bits com segurança. Por isso, não vou publicar índices de uso presumidos. Foi adicionado `work/lilycove/tools/audit_tilesets.py`, que lê os bytes diretamente no checkout do repositório e valida os tamanhos antes de gerar os relatórios. O script ainda não foi executado nesta etapa.
+Arquivos gerados por inspeção direta da branch:
+- `work/lilycove/reports/tilesets/map-grid-audit.json`: células e uso de metatiles por layout.
+- `work/lilycove/reports/tilesets/valid-metatile-composition.json`: 1.006 composições válidas, cada uma com oito referências de tile, flips, slot de paleta, atributo, comportamento, camada e mapas onde aparece.
+- `work/lilycove/reports/tilesets/metatile-reference-integrity.json`: validação dos índices contra os tamanhos reais dos arquivos binários.
+- `work/lilycove/reports/tilesets/invalid-metatile-refs.csv`: 204 referências layout/índice fora dos limites dos binários.
 
-## 8. Referências-fonte
+### Incompatibilidade encontrada
+
+19 dos 24 layouts têm referências a metatiles além dos registros presentes nos tilesets atribuídos. São 204 combinações layout/metatile e 1.574 células afetadas. O caso mais extenso é `gTileset_Building`: o arquivo primário tem 8 registros, mas 18 layouts usam 45 índices locais acima desse limite, cobrindo 1.246 células.
+
+Também há referências acima do limite em Lilycove, Contest, Shop, LilycoveMuseum e PokemonCenter. Os registros inválidos foram separados; nenhuma composição foi inventada para eles.
+
+Comparei os hashes dos arquivos-chave com `main` e com o release oficial `rh-hideout/pokeemerald-expansion`, tag `expansion/1.17.2`. Os arquivos comparados coincidem. Isso indica que a divergência já está presente na base 1.17.2, não foi introduzida pelas alterações de documentação desta branch. Ainda não foi determinada a razão funcional exata; portanto, não remapear IDs ou trocar os tilesets sem validar uma ROM de controle.
+
+### Tamanho dos arquivos map.bin
+
+O código do motor copia exatamente `width × 2` bytes por linha, por `height` linhas. Assim, a grade ativa usa `width × height × 2` bytes. 20 dos 24 arquivos têm bytes adicionais depois desse trecho; eles são registrados como dados excedentes, não incorporados à grade e não apagados.
+
+## 8. O que ainda falta para fechar o mapeamento visual
+
+A auditoria numérica da grade e a composição dos metatiles válidos já estão catalogadas. Ainda falta transformar esse inventário em ferramentas visuais e confirmar as anomalias antes de editar gráficos:
+
+1. Gerar folhas visuais numeradas dos tiles e dos metatiles válidos, com a paleta correta aplicada.
+2. Montar um índice visual das 16 paletas por tileset, identificando quais metatiles usam cada slot.
+3. Resolver as 204 referências inválidas contra a base 1.17.2 e confirmar se vêm de dados de mapa, associação de tilesets ou recursos incompletos.
+4. Relacionar os valores de comportamento e camada aos nomes e efeitos concretos da engine.
+5. Mapear os destinos de animação na VRAM e os ciclos associados aos callbacks.
+6. Executar o auditor Python num checkout completo do Codespaces e comparar seus CSVs com os relatórios manuais já presentes.
+
+## 9. Auditor reproduzível
+
+O script `work/lilycove/tools/audit_tilesets.py` foi revisado para derivar automaticamente os 24 layouts a partir das 26 entradas do `asset-index.json`, processar a grade ativa e registrar os bytes excedentes. Ele também foi ajustado para não abortar diante de referências fora do intervalo: a composição deve conter apenas índices válidos, e os inválidos devem sair em `invalid-metatile-refs.csv`.
+
+Execute no terminal do Codespaces, a partir da raiz do repositório:
+
+```bash
+python3 work/lilycove/tools/audit_tilesets.py
+```
+
+Saídas esperadas em `work/lilycove/reports/tilesets/`:
+- `layout-index.csv`
+- `map-cells.csv`
+- `metatile-usage.csv`
+- `metatile-composition.csv`
+- `collision-usage.csv`
+- `elevation-usage.csv`
+- `invalid-metatile-refs.csv`
+- `summary.json`
+
+**Status honesto:** os relatórios JSON e CSV ligados acima foram montados por inspeção direta dos arquivos binários da branch através da API GitHub. O script foi commitado e atualizado, mas ainda não foi executado em um checkout completo do repositório. Nenhum PNG, paleta, metatile, atributo, mapa ou fonte executável foi alterado nesta etapa.
+
+## 10. Referências-fonte
 
 - [Definição dos layouts](../../../data/layouts/layouts.json)
 - [Definições dos tilesets](../../../src/data/tilesets/headers.h)
@@ -162,8 +206,6 @@ O catálogo estrutural dos dez tilesets está confirmado. Ainda não vou declara
 - [Referências de metatiles](../../../src/data/tilesets/metatiles.h)
 - [Estruturas e contagens de tilesets](../../../include/fieldmap.h)
 - [Formato dos IDs, colisões, elevação e atributos](../../../include/global.fieldmap.h)
+- [Carregamento dos mapas e leitura dos atributos](../../../src/fieldmap.c)
 - [Callbacks e ciclos de animação](../../../src/tileset_anims.c)
-
-## 9. Próximo passo técnico
-
-Execute no terminal do Codespaces, a partir da raiz do repositório:\n\n```bash\npython3 work/lilycove/tools/audit_tilesets.py\n```\n\nO script valida os 24 layouts-alvo e gera `layout-index.csv`, `metatile-usage.csv`, `metatile-composition.csv` e `summary.json` em `work/lilycove/reports/tilesets/`. A composição registra os oito tiles de cada metatile, índice de tile, flips horizontal/vertical, paleta, comportamento e camada. Se a validação interromper o processo, não force a geração: o erro indicará qual arquivo ou hipótese de formato precisa ser investigado.\n\nDepois dessa auditoria, ainda será necessário gerar folhas visuais numeradas dos tiles e metatiles, relacionar os IDs de comportamento aos nomes da engine e auditar os destinos de animação na VRAM. Esses são os passos que transformam o catálogo estrutural em um mapa visual realmente completo.
+- [Relatório completo de integridade](metatile-reference-integrity.md)
