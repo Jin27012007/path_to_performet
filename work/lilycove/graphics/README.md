@@ -46,3 +46,14 @@ Inventário mapa a mapa: [mapas, layouts e tilesets](map-graphics-inventory.md).
 ## Catálogo técnico dos tilesets
 
 O [catálogo técnico completo dos 10 tilesets](tileset-technical-catalog.md) reúne dimensões reais das folhas, quantidade de tiles e metatiles, arquivos associados, paletas, animações, combinação primário/secundário por layout e limitações ainda pendentes na extração dos índices binários.
+
+
+## Auditoria reproduzível de índices
+
+Foi adicionado um script somente de leitura: [audit_tilesets.py](../tools/audit_tilesets.py). Execute a partir da raiz do repositório no terminal do Codespaces:
+
+```bash
+python3 work/lilycove/tools/audit_tilesets.py
+```
+
+Ele cruza os 24 layouts-alvo com `map.bin`, separa IDs primários/secundários e decodifica as oito referências de tile de cada metatile usado, incluindo flips, slot de paleta, comportamento e camada. Os relatórios são gravados em `work/lilycove/reports/tilesets/`. A execução ainda precisa ser feita; os CSVs não foram gerados nem validados nesta alteração.
