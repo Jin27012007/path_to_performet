@@ -72,3 +72,7 @@ O [catálogo das 1.006 composições válidas de metatiles](../reports/tilesets/
 ## Folhas visuais numeradas
 
 Foram adicionadas folhas SVG para os dez tilesets, com cada tile 8×8 identificado pelo índice row-major. [Abrir índice de folhas numeradas](tile-indexes/README.md). Os índices dos tiles não devem ser confundidos com os índices dos metatiles. As folhas ainda não aplicam as paletas individuais.
+
+## Validação dos dados dos mapas
+
+- [Validação do carregamento de `map.bin`](map-bin-loading-validation.md): comportamento confirmado em `src/fieldmap.c`, limites da grade e pendências antes da execução do auditor.
