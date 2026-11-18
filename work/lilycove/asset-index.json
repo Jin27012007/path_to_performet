@@ -1,0 +1,285 @@
+{
+  "workspace": "Lilycove + Route 121",
+  "status": "cataloged",
+  "branch": "work/lilycove-route121-workspace",
+  "scope": {
+    "outdoorMaps": 2,
+    "lilycoveIndoorMaps": 23,
+    "route121IndoorMaps": 1,
+    "totalMapEntries": 26
+  },
+  "sourceIndexes": {
+    "mapGroups": {
+      "path": "data/maps/map_groups.json",
+      "blobSha": "d6320f485b9f48724f0ccfc1429974812c4b22f0"
+    },
+    "layouts": {
+      "path": "data/layouts/layouts.json",
+      "blobSha": "2b25587ac142c0fcd0b90755a3347ee16e785857"
+    }
+  },
+  "maps": [
+    {
+      "name": "LilycoveCity",
+      "group": "gMapGroup_TownsAndRoutes",
+      "layout": "LAYOUT_LILYCOVE_CITY",
+      "source": "data/maps/LilycoveCity/map.json",
+      "scripts": "data/maps/LilycoveCity/scripts.inc",
+      "connections": [
+        "MAP_ROUTE121",
+        "MAP_ROUTE124"
+      ]
+    },
+    {
+      "name": "Route121",
+      "group": "gMapGroup_TownsAndRoutes",
+      "layout": "LAYOUT_ROUTE121",
+      "source": "data/maps/Route121/map.json",
+      "connections": [
+        "MAP_ROUTE122",
+        "MAP_ROUTE120",
+        "MAP_LILYCOVE_CITY"
+      ]
+    },
+    {
+      "name": "LilycoveCity_CoveLilyMotel_1F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_COVE_LILY_MOTEL_1F"
+    },
+    {
+      "name": "LilycoveCity_CoveLilyMotel_2F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_COVE_LILY_MOTEL_2F"
+    },
+    {
+      "name": "LilycoveCity_LilycoveMuseum_1F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F"
+    },
+    {
+      "name": "LilycoveCity_LilycoveMuseum_2F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_LILYCOVE_MUSEUM_2F"
+    },
+    {
+      "name": "LilycoveCity_ContestLobby",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_CONTEST_LOBBY"
+    },
+    {
+      "name": "LilycoveCity_ContestHall",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_CONTEST_HALL"
+    },
+    {
+      "name": "LilycoveCity_PokemonCenter_1F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_POKEMON_CENTER_1F"
+    },
+    {
+      "name": "LilycoveCity_PokemonCenter_2F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_POKEMON_CENTER_2F"
+    },
+    {
+      "name": "LilycoveCity_UnusedMart",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_MART",
+      "note": "Map is listed in the group as UnusedMart; check accessibility before editing."
+    },
+    {
+      "name": "LilycoveCity_PokemonTrainerFanClub",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_POKEMON_TRAINER_FAN_CLUB"
+    },
+    {
+      "name": "LilycoveCity_Harbor",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_HARBOR"
+    },
+    {
+      "name": "LilycoveCity_MoveDeletersHouse",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_HOUSE2",
+      "sharedLayout": true
+    },
+    {
+      "name": "LilycoveCity_House1",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_HOUSE1",
+      "sharedLayout": true
+    },
+    {
+      "name": "LilycoveCity_House2",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_HOUSE2"
+    },
+    {
+      "name": "LilycoveCity_House3",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_HOUSE2",
+      "sharedLayout": true
+    },
+    {
+      "name": "LilycoveCity_House4",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_HOUSE1",
+      "sharedLayout": true
+    },
+    {
+      "name": "LilycoveCity_DepartmentStore_1F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_1F"
+    },
+    {
+      "name": "LilycoveCity_DepartmentStore_2F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_2F"
+    },
+    {
+      "name": "LilycoveCity_DepartmentStore_3F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_3F"
+    },
+    {
+      "name": "LilycoveCity_DepartmentStore_4F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_4F"
+    },
+    {
+      "name": "LilycoveCity_DepartmentStore_5F",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_5F"
+    },
+    {
+      "name": "LilycoveCity_DepartmentStoreRooftop",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_ROOFTOP"
+    },
+    {
+      "name": "LilycoveCity_DepartmentStoreElevator",
+      "group": "gMapGroup_IndoorLilycove",
+      "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_ELEVATOR"
+    },
+    {
+      "name": "Route121_SafariZoneEntrance",
+      "group": "gMapGroup_IndoorRoute121",
+      "layout": "LAYOUT_ROUTE121_SAFARI_ZONE_ENTRANCE"
+    }
+  ],
+  "layouts": {
+    "path": "data/layouts/layouts.json",
+    "outdoor": [
+      {
+        "id": "LAYOUT_LILYCOVE_CITY",
+        "width": 80,
+        "height": 40,
+        "primary": "gTileset_General",
+        "secondary": "gTileset_Lilycove",
+        "directory": "data/layouts/LilycoveCity/"
+      },
+      {
+        "id": "LAYOUT_ROUTE121",
+        "width": 80,
+        "height": 20,
+        "primary": "gTileset_General",
+        "secondary": "gTileset_Lilycove",
+        "directory": "data/layouts/Route121/"
+      }
+    ],
+    "shared": [
+      {
+        "id": "LAYOUT_HOUSE1",
+        "maps": [
+          "LilycoveCity_House1",
+          "LilycoveCity_House4"
+        ],
+        "directory": "data/layouts/House1/"
+      },
+      {
+        "id": "LAYOUT_HOUSE2",
+        "maps": [
+          "LilycoveCity_MoveDeletersHouse",
+          "LilycoveCity_House3"
+        ],
+        "directory": "data/layouts/House2/"
+      },
+      {
+        "id": "LAYOUT_POKEMON_CENTER_1F",
+        "maps": [
+          "LilycoveCity_PokemonCenter_1F"
+        ],
+        "directory": "data/layouts/PokemonCenter_1F/"
+      },
+      {
+        "id": "LAYOUT_POKEMON_CENTER_2F",
+        "maps": [
+          "LilycoveCity_PokemonCenter_2F"
+        ],
+        "directory": "data/layouts/PokemonCenter_2F/"
+      },
+      {
+        "id": "LAYOUT_MART",
+        "maps": [
+          "LilycoveCity_UnusedMart"
+        ],
+        "directory": "data/layouts/Mart/"
+      },
+      {
+        "id": "LAYOUT_HARBOR",
+        "maps": [
+          "LilycoveCity_Harbor"
+        ],
+        "directory": "data/layouts/Harbor/"
+      }
+    ]
+  },
+  "tilesets": [
+    {
+      "id": "gTileset_General",
+      "path": "data/tilesets/primary/general/"
+    },
+    {
+      "id": "gTileset_Lilycove",
+      "path": "data/tilesets/secondary/lilycove/"
+    },
+    {
+      "id": "gTileset_Building",
+      "path": "data/tilesets/primary/building/"
+    },
+    {
+      "id": "gTileset_GenericBuilding",
+      "path": "data/tilesets/secondary/generic_building/"
+    },
+    {
+      "id": "gTileset_PokemonCenter",
+      "path": "data/tilesets/secondary/pokemon_center/"
+    },
+    {
+      "id": "gTileset_Shop",
+      "path": "data/tilesets/secondary/shop/"
+    },
+    {
+      "id": "gTileset_Facility",
+      "path": "data/tilesets/secondary/facility/"
+    },
+    {
+      "id": "gTileset_LilycoveMuseum",
+      "path": "data/tilesets/secondary/lilycove_museum/"
+    },
+    {
+      "id": "gTileset_Contest",
+      "path": "data/tilesets/secondary/contest/"
+    },
+    {
+      "id": "gTileset_BattleFrontier",
+      "path": "data/tilesets/secondary/battle_frontier/"
+    }
+  ],
+  "safetyRules": [
+    "Keep source files at compiler-expected paths.",
+    "Do not modify shared tilesets without checking all maps that use them.",
+    "Do not change layout dimensions, metatile indices, palette order or collision attributes without validating dependants.",
+    "Preserve links to Route 120, Route 122 and Route 124 until the intended game boundary behavior is decided."
+  ]
+}
