@@ -11,3 +11,7 @@ Escopo:
 - Sprites, paletas, animações e dimensões.
 
 Não alterar identificadores gráficos nem suas tabelas de definição durante uma simples reformulação visual. Manter a correspondência com os eventos de mapa.
+
+## Inventário atual
+
+- [Inventário de NPCs, sprites e objetos de mapa](object-event-inventory.md): referências `graphics_id`, quantidade de eventos por mapa, eventos de fundo e próximos passos para localizar os arquivos gráficos físicos.
