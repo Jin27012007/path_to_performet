@@ -175,14 +175,16 @@ def main() -> None:
         "status": "success",
         "layouts_audited": len(selected),
         "layout_cells": sum(x["cells"] for x in layout_rows),
-        "distinct_layout_metatile_pairs": len(rows),\n        "distinct_used_metatiles": len(composition_rows),
+        "distinct_layout_metatile_pairs": len(rows),
+        "distinct_used_metatiles": len(composition_rows),
         "unique_absolute_metatile_ids": sorted({
             int(row["metatile_id_absolute"]) for row in rows
         }),
         "notes": [
             "Metatile ID: bits 0-9; collision: bits 10-11; elevation: bits 12-15.",
             "IDs 0-511 are primary; IDs 512-1023 are secondary (local ID = absolute ID - 512).",
-            "Metatile composition includes 8 tile references per metatile: tile index, H/V flip, and palette slot.\",\n            "Attributes expose behavior bits 0-7 and layer type bits 12-15; interpret behavior IDs against the engine constants.");
+            "Each metatile contains 8 tile references with tile index, H/V flip, and palette slot.",
+            "Attributes expose behavior bits 0-7 and layer type bits 12-15; interpret behavior IDs against engine constants.",
         ],
     }
     (OUT / "summary.json").write_text(
