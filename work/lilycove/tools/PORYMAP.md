@@ -51,3 +51,11 @@ O Porymap oficial é desktop (Windows/macOS; Linux via build/pacote). Não é po
 - Nenhum binário do Porymap foi incorporado ao repositório.
 - Nenhum mapa foi aberto ou salvo no Porymap nesta etapa.
 - Compatibilidade real com a versão atual do projeto ainda precisa de teste.
+
+## Execução pelo GitHub Codespaces
+
+Foi preparada uma configuração de desktop remoto Linux com Qt, XFCE e noVNC para permitir abrir o aplicativo no navegador:
+- [Guia de Codespaces + Porymap](CODESPACES-PORYMAP.md)
+- Arquivos de ambiente: [`.devcontainer/`](../../../.devcontainer/)
+
+A configuração ainda precisa ser testada criando um Codespace real. Não considerar a instalação validada até o Porymap abrir e carregar Lilycove e Route121.
