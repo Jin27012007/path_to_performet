@@ -1,5 +1,5 @@
 {
-  "source": "data/layouts/layouts.json + layout map.bin",
+  "source": "data/layouts/layouts.json + 16-bit little-endian map.bin",
   "branch": "work/lilycove-route121-workspace",
   "part": 1,
   "layouts": [
@@ -11,8 +11,8 @@
       "primary": "gTileset_General",
       "secondary": "gTileset_Lilycove",
       "block": "data/layouts/LilycoveCity/map.bin",
-      "bytes": 6400,
-      "expectedBytes": 6400,
+      "byteLength": 6400,
+      "expectedByteLength": 6400,
       "metatileUse": [
         {
           "tileset": "gTileset_General",
@@ -1689,8 +1689,8 @@
       "primary": "gTileset_General",
       "secondary": "gTileset_Lilycove",
       "block": "data/layouts/Route121/map.bin",
-      "bytes": 4385,
-      "expectedBytes": 3200,
+      "byteLength": 4385,
+      "expectedByteLength": 3200,
       "metatileUse": [
         {
           "tileset": "gTileset_General",
@@ -2192,8 +2192,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_PokemonCenter",
       "block": "data/layouts/PokemonCenter_1F/map.bin",
-      "bytes": 261,
-      "expectedBytes": 252,
+      "byteLength": 261,
+      "expectedByteLength": 252,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -2595,8 +2595,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_PokemonCenter",
       "block": "data/layouts/PokemonCenter_2F/map.bin",
-      "bytes": 328,
-      "expectedBytes": 280,
+      "byteLength": 328,
+      "expectedByteLength": 280,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -2957,8 +2957,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_Shop",
       "block": "data/layouts/Mart/map.bin",
-      "bytes": 176,
-      "expectedBytes": 176,
+      "byteLength": 176,
+      "expectedByteLength": 176,
       "metatileUse": [
         {
           "tileset": "gTileset_Shop",
@@ -3203,8 +3203,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_LilycoveMuseum",
       "block": "data/layouts/LilycoveCity_LilycoveMuseum_1F/map.bin",
-      "bytes": 590,
-      "expectedBytes": 588,
+      "byteLength": 590,
+      "expectedByteLength": 588,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -3600,8 +3600,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_LilycoveMuseum",
       "block": "data/layouts/LilycoveCity_LilycoveMuseum_2F/map.bin",
-      "bytes": 656,
-      "expectedBytes": 572,
+      "byteLength": 656,
+      "expectedByteLength": 572,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -3892,8 +3892,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_Contest",
       "block": "data/layouts/LilycoveCity_ContestLobby/map.bin",
-      "bytes": 798,
-      "expectedBytes": 744,
+      "byteLength": 798,
+      "expectedByteLength": 744,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -4179,8 +4179,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_Contest",
       "block": "data/layouts/LilycoveCity_ContestHall/map.bin",
-      "bytes": 3423,
-      "expectedBytes": 3366,
+      "byteLength": 3423,
+      "expectedByteLength": 3366,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -4769,8 +4769,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_GenericBuilding",
       "block": "data/layouts/LilycoveCity_PokemonTrainerFanClub/map.bin",
-      "bytes": 353,
-      "expectedBytes": 336,
+      "byteLength": 353,
+      "expectedByteLength": 336,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -5056,8 +5056,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_GenericBuilding",
       "block": "data/layouts/LilycoveCity_CoveLilyMotel_1F/map.bin",
-      "bytes": 230,
-      "expectedBytes": 216,
+      "byteLength": 230,
+      "expectedByteLength": 216,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
@@ -5273,8 +5273,8 @@
       "primary": "gTileset_Building",
       "secondary": "gTileset_GenericBuilding",
       "block": "data/layouts/LilycoveCity_CoveLilyMotel_2F/map.bin",
-      "bytes": 231,
-      "expectedBytes": 216,
+      "byteLength": 231,
+      "expectedByteLength": 216,
       "metatileUse": [
         {
           "tileset": "gTileset_Building",
