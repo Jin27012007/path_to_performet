@@ -56,4 +56,7 @@ Foi adicionado um script somente de leitura: [audit_tilesets.py](../tools/audit_
 python3 work/lilycove/tools/audit_tilesets.py
 ```
 
-Ele cruza os 24 layouts-alvo com `map.bin`, separa IDs primários/secundários e decodifica as oito referências de tile de cada metatile usado, incluindo flips, slot de paleta, comportamento e camada. Os relatórios são gravados em `work/lilycove/reports/tilesets/`. A execução ainda precisa ser feita; os CSVs não foram gerados nem validados nesta alteração.
+Ele deriva automaticamente os 24 layouts únicos a partir das 26 entradas de `asset-index.json`, cruza cada `map.bin` com as dimensões declaradas e decodifica as células, separando metatile, colisão e elevação. Também separa IDs primários/secundários e decodifica as oito referências de tile de cada metatile usado, incluindo flips, slot de paleta, comportamento e camada. Os relatórios incluem índice de layouts, células, uso/composição de metatiles e distribuição de colisão/elevação. O script registra bytes excedentes após a grade ativa em vez de descartá-los.
+
+
+A investigação do formato e a comparação de tamanho dos 24 arquivos estão em [auditoria do formato binário dos mapas](map-binary-audit.md). Ela documenta por que somente `width × height × 2` bytes formam a grade ativa, com referência às rotinas de carregamento do motor. O script revisado foi commitado, mas ainda precisa ser executado em um checkout completo do repositório; nenhum CSV gerado foi apresentado como resultado de execução.
