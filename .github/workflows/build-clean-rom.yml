@@ -1,0 +1,36 @@
+name: Build clean Emerald ROM
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-emerald:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3 make
+
+      - name: Build unmodified Pokémon Emerald
+        env:
+          GAME_VERSION: EMERALD
+          GAME_REVISION: 0
+          COMPARE: 0
+          UNUSED_ERROR: 1
+          DEPRECATED_ERROR: 1
+        run: make -j2 -O all
+
+      - name: Upload ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: pokeemerald-clean-rom
+          path: pokeemerald.gba
+          if-no-files-found: error
+          retention-days: 7
