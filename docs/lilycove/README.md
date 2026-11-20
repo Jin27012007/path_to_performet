@@ -71,6 +71,20 @@ python3 dev_scripts/lilycove_redesign/vivid_palettes.py
 python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.png
 ```
 
+## Porto (zona sul)
+* Calçadão de madeira com 4 fileiras, do Porto até a praia, com **barracas de comércio**
+  (peixe, frutas e lembranças, toldos vermelhos e azuis), caixotes e postes de amarração.
+* **Píer principal** longo com o **cruzeiro** atracado ao lado: é onde o protagonista
+  desembarca e reencontra o pai.
+* **Píer dos pescadores** com dois atracadouros laterais e barcos amarrados.
+* **Barcos pesqueiros** espalhados pela baía e na água rasa da praia.
+
+O mapa agora tem 64×60. A cidade passou a usar um tileset só dela,
+`gTileset_LilycoveCity`, gerado por `build_city_tileset.py`. Ele mantém os mesmos ids de
+metatile que a cidade já usava (as animações de porta continuam funcionando) e
+reaproveita o espaço que só servia à Rota 121 e ao Safari para a arte nova
+(`port_art.py`). Ainda sobram ~120 tiles e ~185 metatiles.
+
 ## Próximos passos
 * Interior da Casa 4 (sala, cozinha, quarto extra) conforme o roteiro.
 * Abertura: comercial, formulário de inscrição, cabine e chegada ao porto.

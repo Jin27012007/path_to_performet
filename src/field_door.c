@@ -481,8 +481,24 @@ static const struct DoorGraphics sDoorAnimGraphicsTable[] =
         .palettes = sDoorAnimPalettes_Lilycove
     },
     {
+        .metatileNum = METATILE_Lilycove_Door,
+        .tileset = &gTileset_LilycoveCity,
+        .sound = DOOR_SOUND_NORMAL,
+        .size = DOOR_SIZE_1x2,
+        .tiles = sDoorAnimTiles_Lilycove,
+        .palettes = sDoorAnimPalettes_Lilycove
+    },
+    {
         .metatileNum = METATILE_Lilycove_Door_Wooden,
         .tileset = &gTileset_Lilycove,
+        .sound = DOOR_SOUND_NORMAL,
+        .size = DOOR_SIZE_1x2,
+        .tiles = sDoorAnimTiles_LilycoveWooden,
+        .palettes = sDoorAnimPalettes_LilycoveWooden
+    },
+    {
+        .metatileNum = METATILE_Lilycove_Door_Wooden,
+        .tileset = &gTileset_LilycoveCity,
         .sound = DOOR_SOUND_NORMAL,
         .size = DOOR_SIZE_1x2,
         .tiles = sDoorAnimTiles_LilycoveWooden,
@@ -547,6 +563,14 @@ static const struct DoorGraphics sDoorAnimGraphicsTable[] =
     {
         .metatileNum = METATILE_Lilycove_Door_DeptStore,
         .tileset = &gTileset_Lilycove,
+        .sound = DOOR_SOUND_SLIDING,
+        .size = DOOR_SIZE_1x2,
+        .tiles = sDoorAnimTiles_LilycoveDeptStore,
+        .palettes = sDoorAnimPalettes_LilycoveDeptStore
+    },
+    {
+        .metatileNum = METATILE_Lilycove_Door_DeptStore,
+        .tileset = &gTileset_LilycoveCity,
         .sound = DOOR_SOUND_SLIDING,
         .size = DOOR_SIZE_1x2,
         .tiles = sDoorAnimTiles_LilycoveDeptStore,

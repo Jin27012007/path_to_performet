@@ -140,6 +140,19 @@ const struct Tileset gTileset_Lilycove =
     .callback = InitTilesetAnim_Lilycove,
 };
 
+// Lilycove City only (port art, festival tiles). Same metatile ids as gTileset_Lilycove
+// for everything the city uses; see dev_scripts/lilycove_redesign/build_city_tileset.py.
+const struct Tileset gTileset_LilycoveCity =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_LilycoveCity,
+    .palettes = gTilesetPalettes_LilycoveCity,
+    .metatiles = gMetatiles_LilycoveCity,
+    .metatileAttributes = gMetatileAttributes_LilycoveCity,
+    .callback = InitTilesetAnim_Lilycove,
+};
+
 const struct Tileset gTileset_Mossdeep =
 {
     .isCompressed = TRUE,

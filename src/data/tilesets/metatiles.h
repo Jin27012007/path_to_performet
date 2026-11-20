@@ -36,6 +36,9 @@ const u16 gMetatileAttributes_Fortree[] = INCBIN_U16("data/tilesets/secondary/fo
 const u16 gMetatiles_Lilycove[] = INCBIN_U16("data/tilesets/secondary/lilycove/metatiles.bin");
 const u16 gMetatileAttributes_Lilycove[] = INCBIN_U16("data/tilesets/secondary/lilycove/metatile_attributes.bin");
 
+const u16 gMetatiles_LilycoveCity[] = INCBIN_U16("data/tilesets/secondary/lilycove_city/metatiles.bin");
+const u16 gMetatileAttributes_LilycoveCity[] = INCBIN_U16("data/tilesets/secondary/lilycove_city/metatile_attributes.bin");
+
 const u16 gMetatiles_Mossdeep[] = INCBIN_U16("data/tilesets/secondary/mossdeep/metatiles.bin");
 const u16 gMetatileAttributes_Mossdeep[] = INCBIN_U16("data/tilesets/secondary/mossdeep/metatile_attributes.bin");
 

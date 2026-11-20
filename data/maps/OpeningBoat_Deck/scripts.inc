@@ -37,7 +37,7 @@ OpeningBoat_Deck_EventScript_Crew::
 	closemessage
 	waitse
 	setvar VAR_OPENING_STATE, OPENING_STATE_ARRIVING
-	warp MAP_LILYCOVE_CITY, 27, 43
+	warp MAP_LILYCOVE_CITY, 25, 49
 	waitstate
 	release
 	end
