@@ -44,9 +44,32 @@ Edite `dev_scripts/lilycove_redesign/layout.py` (funções `house`, `contest`, `
 `path`, `trees`, `lamp`…) e rode de novo; o script regrava `map.bin` e gera a prévia.
 Se mover prédios, atualize as coordenadas em `data/maps/LilycoveCity/map.json`.
 
-## Próximos passos sugeridos
-* Tiles novos (o tileset secundário de Lilycove tem espaço para ~80 tiles / ~160
-  metatiles): bandeirolas da temporada, guarda-sóis, palmeiras, piso de tijolo
-  vermelho na praça, fachada maior para o Centro de Concursos.
-* Ajuste de paleta para cores mais saturadas.
+## Atmosfera da Temporada Mundial de Concursos
+Tiles novos no tileset secundário de Lilycove (gerados por
+`dev_scripts/lilycove_redesign/festival_tiles.py`, usando as paletas 6 e 12, que
+estavam vazias):
+
+| Elemento | Onde aparece |
+|---|---|
+| Piso de tijolo vermelho | Praça das Fontes, orla e frente do Porto |
+| Tapete vermelho | Da porta do Centro de Concursos até a fonte central |
+| Bandeirolas (vermelho/azul) | Avenida, rua norte, borda da praça e orla |
+| Estandartes da temporada | Ao lado do Centro de Concursos e nos cantos da praça |
+| Guarda-sóis (vermelho/azul) e palmeiras | Praia; palmeiras também na orla |
+
+Uso: 475/512 tiles e 399/512 metatiles do tileset secundário.
+
+`vivid_palettes.py` aumenta a saturação (+22%) e o brilho (+4%) das paletas externas
+(General 0–5 e Lilycove 7–11). Os originais ficam em `base_tileset/`, e os dois
+scripts podem ser rodados de novo sem acumular o efeito.
+
+Ordem para regenerar tudo:
+```
+python3 dev_scripts/lilycove_redesign/festival_tiles.py
+python3 dev_scripts/lilycove_redesign/vivid_palettes.py
+python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.png
+```
+
+## Próximos passos
 * Interior da Casa 4 (sala, cozinha, quarto extra) conforme o roteiro.
+* Abertura: comercial, formulário de inscrição, cabine e chegada ao porto.

@@ -37,7 +37,7 @@ path(0,20,42,23)
 # boulevard lamps
 for x in (5,11,35,39): lamp(x,23)
 # ================= PLAZA (y23-35) =================
-path(14,23,41,36)
+brickfill(14,23,41,36)
 for gx in (15,31):
     fill(gx,25,gx+9,34,GRASS)
     flowers(gx,25,gx+9,26); flowers(gx,33,gx+9,34)
@@ -49,12 +49,12 @@ for y in (25,33): lamp(25,y); lamp(29,y)
 lamp(24,29); lamp(30,29)
 # ================= HARBOR (left) =================
 harbor(4,26)                                 # door (7,31)
-path(2,32,14,36)
+brickfill(2,32,14,36)
 tree1(2,23) if False else None
 trees(11,24,13,31)
 flowers(2,24,4,31)
 # ================= PROMENADE + SEAWALL =================
-path(2,36,42,40)
+brickfill(2,36,42,40)
 for x in range(2,42): put(x,40,T(0x07c,1,0)); put(x,41,T(0x189,0,1))
 # piers
 def pier(px,py0,py1,dx0,dx1):
@@ -88,8 +88,22 @@ stamp(66,0,76,8,54,0)
 for yy in range(4,8): put(54,yy,SHALLOW)
 
 # promenade planters (avoid pier axes x=7, x=27)
-for x in (3,11,15,19,23,31,35,39): put(x,37,T(0x005,1,0))
+for x in (3,15,23,31): put(x,37,T(0x005,1,0))
 # central fountain on main axis
 pond(26,29)
 # sign posts for bg_events
 for sx,sy in [(10,10),(47,9),(2,19),(31,19),(40,17),(3,31),(22,10),(16,5)]: sign(sx,sy)
+
+# ================= FESTIVAL DRESSING (World Contest Season) =================
+carpet(27,20,29)                                   # red carpet hall -> fountain
+for bx,blue in ((23,False),(31,True)): banner(bx,17,'grass',blue)
+for bx,by,blue in ((14,24,True),(40,24,False),(14,34,False),(40,34,True)): banner(bx,by,'brick',blue)
+bunting(2,46,21)                                   # across the avenue
+bunting(15,40,24)                                  # plaza north edge
+bunting(2,42,38)                                   # promenade
+bunting(16,38,11)                                  # north street
+# palms along the promenade
+for px_ in (10,18,35,38): palm(px_,35,'brick')
+# beach: umbrellas + palms
+umbrella(44,22); umbrella(46,28,True); umbrella(43,33)
+palm(43,25); palm(46,33)

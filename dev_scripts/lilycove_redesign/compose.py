@@ -69,3 +69,26 @@ def contest(x,y):stamp(20,18,27,25,x,y)        # door (x+3,y+6)
 def motel(x,y):  stamp(36,20,42,25,x,y)        # door (x+1,y+4)
 def fanclub(x,y):stamp(37,11,42,15,x,y)        # door (x+2,y+3)
 def harbor(x,y): stamp(9,27,16,33,x,y)         # door (x+3,y+5)
+# ---------------- festival tiles (see festival_tiles.py) ----------------
+import json as _json
+F=_json.load(open(os.path.join(os.path.dirname(__file__),'festival_ids.json')))
+def fobj(name,x,y,w,h,walk_rows=1):
+    for j in range(h):
+        for i in range(w):
+            m=F['%s_%d_%d'%(name,i,j)]
+            put(x+i,y+j,T(m,0,3) if j<walk_rows else T(m,1,0))
+def umbrella(x,y,blue=False): fobj('umbrella_blue_sand' if blue else 'umbrella_sand',x,y,2,2)
+def palm(x,y,under='sand'): fobj('palm_'+under,x,y,2,3)
+def banner(x,y,under='brick',blue=False): fobj('banner%s_%s'%('_blue' if blue else '',under),x,y,1,2)
+def brickfill(x0,y0,x1,y1): fill(x0,y0,x1,y1,T(F['brick']))
+def carpet(x,y0,y1):
+    for y in range(y0,y1): put(x,y,T(F['carpet']))
+def bunting(x0,x1,y,under='cobble'):
+    for x in range(x0,x1):
+        cur=M[y][x]&0x3ff
+        if cur==F['brick']: u='brick'
+        elif cur in (0x233,0x22b,0x23b): u='cobble'
+        elif cur in (0x001,0x002): u='grass'
+        elif cur in (0x121,0x124): u='sand'
+        else: continue
+        put(x,y,T(F['bunting_%s%s'%(u,'_blue' if (x//4)%2 else '')]))
