@@ -547,6 +547,17 @@ const struct Tileset gTileset_GenericBuilding =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_Hotel =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Hotel,
+    .palettes = gTilesetPalettes_Hotel,
+    .metatiles = gMetatiles_Hotel,
+    .metatileAttributes = gMetatileAttributes_Hotel,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_MauvilleGameCorner =
 {
     .isCompressed = TRUE,
