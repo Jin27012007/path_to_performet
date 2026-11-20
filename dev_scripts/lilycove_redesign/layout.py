@@ -53,15 +53,9 @@ brickfill(2,32,14,36)
 tree1(2,23) if False else None
 trees(11,24,13,31)
 flowers(2,24,4,31)
-# ================= PROMENADE + SEAWALL =================
+# ================= PROMENADE + WOODEN BOARDWALK =================
 brickfill(2,36,42,40)
-for x in range(2,42): put(x,40,T(0x07c,1,0)); put(x,41,T(0x189,0,1))
-# piers
-def pier(px,py0,py1,dx0,dx1):
-    for y in range(py0,py1): put(px,y,T(0x0f4,0,3))
-    for x in range(dx0,dx1): put(x,py1,T(0x0f1,0,3)); put(x,py1+1,T(0x0f5,1,0))
-pier(27,40,46,21,34)
-pier(7,40,44,4,11)
+# (the boardwalk itself is drawn at the end, after the beach, see boardwalk())
 # ================= BEACH (right) =================
 SX0,SX1,SY0,SY1=42,49,19,39   # sand area
 fill(42,19,52,42,SHALLOW)
@@ -82,7 +76,6 @@ for x in range(42,52): put(x,42,T(0x1be,0,1))
 put(52,42,T(0x1bf,0,1)); put(41,42,T(0x1bd,0,1))
 # bottom-left corner tidy
 trees(0,24,2,40); 
-for x in range(0,2): put(x,40,T(0x07c,1,0)); put(x,41,T(0x189,0,1))
 # Aqua cave islet (keeps original warp target)
 stamp(66,0,76,8,54,0)
 for yy in range(4,8): put(54,yy,SHALLOW)
@@ -107,3 +100,35 @@ for px_ in (10,18,35,38): palm(px_,35,'brick')
 # beach: umbrellas + palms
 umbrella(44,22); umbrella(46,28,True); umbrella(43,33)
 palm(43,25); palm(46,33)
+
+# ================= WOODEN BOARDWALK, PIERS AND DOCK PROPS =================
+def D(name, walk=True): return T(F[name],0,3) if walk else T(F[name],1,0)
+def posts(x0,x1,y):
+    for x in range(x0,x1): put(x,y,T(F['dock_posts'],1,1))
+def platform(x0,x1,y0,y1,joins=()):
+    """rectangle of planks with beams on its outer edges; joins = x columns open to the north"""
+    for y in range(y0,y1):
+        for x in range(x0,x1):
+            t = y==y0 and x not in joins; b = y==y1-1; l = x==x0; r = x==x1-1
+            name='dock'+('_'+''.join(k for k,f in zip('tblr',(t,b,l,r)) if f) if (t or b or l or r) else '')
+            put(x,y,D(name))
+    posts(x0,x1,y1)
+def pier(x0,y0,y1):      # 3-wide vertical pier
+    for y in range(y0,y1):
+        put(x0,y,D('dock_l')); put(x0+1,y,D('dock')); put(x0+2,y,D('dock_r'))
+# boardwalk along the whole waterfront (2 rows) with pilings below
+for x in range(0,42):
+    put(x,40,D('dock_t')); put(x,41,D('dock_b'))
+put(41,40,D('dock_tr')); put(41,41,D('dock_br'))
+posts(0,42,42)
+# central pier + landing platform (the ship docks to its right)
+for x in (26,27,28): put(x,41,D('dock'))
+pier(26,42,47)
+platform(21,35,47,49,joins=(26,27,28))
+# harbor pier + platform for the fishing boats
+for x in (6,7,8): put(x,41,D('dock'))
+pier(6,42,45)
+platform(3,12,45,47,joins=(6,7,8))
+# props: crates and mooring posts
+for (x,y) in [(34,40),(35,40),(22,47),(3,45)]: put(x,y,D('dock_crate',False))
+for (x,y) in [(12,41),(20,41),(37,41),(21,48),(34,48),(11,46)]: put(x,y,D('dock_bollard',False))

@@ -130,6 +130,59 @@ def banner():    # 16x32 top layer: season banner on a pole
     rect(c, 1, 30, 6, 32, DB)
     return c
 
+
+# ---------------------------------------------------------------- wooden boardwalk
+def dock(t=False, b=False, l=False, r=False):  # 16x16 opaque planks with optional edge beams
+    c = canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            ry = y % 4
+            v = OR if ry == 0 else (DB if ry == 3 else BN)
+            joint = 5 if (y // 4) % 2 == 0 else 13
+            if x == joint and ry != 0: v = DB
+            c[y][x] = v
+    if t:
+        for x in range(16): c[0][x] = DB; c[1][x] = OR
+    if b:
+        for x in range(16): c[13][x] = OR; c[14][x] = BN; c[15][x] = DB
+    if l:
+        for y in range(16): c[y][0] = DB; c[y][1] = OR
+    if r:
+        for y in range(16): c[y][15] = DB; c[y][14] = BN
+    return c
+
+def dock_posts():  # top layer over water: shadow of the deck + two wooden pilings
+    c = canvas(16, 16)
+    for y in range(3):
+        for x in range(16):
+            if (x + y) % 2 == 0 or y == 0: c[y][x] = NV
+    for x0 in (2, 11):
+        for y in range(0, 13):
+            for x in range(x0, x0 + 3):
+                c[y][x] = BN
+            c[y][x0] = DB; c[y][x0 + 2] = DB
+        for x in range(x0 - 1, x0 + 4): c[13][x] = LB      # ripple
+        c[14][x0 + 1] = WH
+    return c
+
+def crate():
+    c = canvas(16, 16)
+    rect(c, 1, 2, 15, 15, BN)
+    for i in range(1, 15): c[2][i] = DB; c[14][i] = DB
+    for j in range(2, 15): c[j][1] = DB; c[j][14] = DB
+    for k in range(3, 14):
+        px(c, k, k + 1 - 1, OR); px(c, 15 - k, k, OR)
+    rect(c, 1, 15, 15, 16, DB)
+    return c
+
+def bollard():
+    c = canvas(16, 16)
+    rect(c, 5, 4, 11, 14, DB); rect(c, 6, 4, 10, 6, BN); rect(c, 4, 3, 12, 4, DB)
+    for x in range(3, 13): px(c, x, 9, CR)                 # rope
+    px(c, 3, 10, CR); px(c, 2, 11, CR); px(c, 2, 12, CR)
+    rect(c, 5, 14, 11, 15, NV)
+    return c
+
 # ---------------------------------------------------------------- tile bank
 def split(c):
     h, w = len(c), len(c[0])
@@ -196,6 +249,21 @@ def main():
                         q = [g[my * 2][mx * 2], g[my * 2][mx * 2 + 1], g[my * 2 + 1][mx * 2], g[my * 2 + 1][mx * 2 + 1]]
                         top = [entry(bank.add(t), pal) for t in q]
                         add_meta('%s%s_%s_%d_%d' % (name, sfx, unm, mx, my), un, top)
+    # wooden boardwalk / piers
+    def quad(art_):
+        g = split(art_)
+        return [entry(bank.add(g[0][0]), 6), entry(bank.add(g[0][1]), 6), entry(bank.add(g[1][0]), 6), entry(bank.add(g[1][1]), 6)]
+    for t in (0, 1):
+        for b in (0, 1):
+            for l in (0, 1):
+                for r in (0, 1):
+                    name = 'dock' + ('_' + ''.join(k for k, f in zip('tblr', (t, b, l, r)) if f) if (t or b or l or r) else '')
+                    add_meta(name, quad(dock(t, b, l, r)), [0] * 4)
+    WATER = [0x41c6, 0x41c7, 0x41c7, 0x41c6]
+    add_meta('dock_posts', WATER, quad(dock_posts()))
+    PLANK = quad(dock())
+    add_meta('dock_crate', PLANK, quad(crate()))
+    add_meta('dock_bollard', PLANK, quad(bollard()))
     obj('umbrella', umbrella(), [(SAND, 'sand')], [(6, ''), (12, '_blue')])
     obj('palm', palm(), [(SAND, 'sand'), (GRASS, 'grass'), (BRICK, 'brick')], [(6, '')])
     obj('banner', banner(), [(BRICK, 'brick'), (GRASS, 'grass'), (COB, 'cobble')], [(6, ''), (12, '_blue')])

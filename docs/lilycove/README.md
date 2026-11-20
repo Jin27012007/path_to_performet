@@ -52,12 +52,13 @@ estavam vazias):
 | Elemento | Onde aparece |
 |---|---|
 | Piso de tijolo vermelho | Praça das Fontes, orla e frente do Porto |
+| Calçadão e píeres de madeira (pranchas, vigas, estacas na água, caixotes e postes de amarração) | Toda a orla sul, píer central e píer dos pescadores |
 | Tapete vermelho | Da porta do Centro de Concursos até a fonte central |
 | Bandeirolas (vermelho/azul) | Avenida, rua norte, borda da praça e orla |
 | Estandartes da temporada | Ao lado do Centro de Concursos e nos cantos da praça |
 | Guarda-sóis (vermelho/azul) e palmeiras | Praia; palmeiras também na orla |
 
-Uso: 475/512 tiles e 399/512 metatiles do tileset secundário.
+Uso: 499/512 tiles e 418/512 metatiles do tileset secundário.
 
 `vivid_palettes.py` aumenta a saturação (+22%) e o brilho (+4%) das paletas externas
 (General 0–5 e Lilycove 7–11). Os originais ficam em `base_tileset/`, e os dois
