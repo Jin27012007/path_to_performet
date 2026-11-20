@@ -3002,3 +3002,23 @@
 	getbraillestringwidth \text
 	call EventScript_BrailleCursorWaitButton
 	.endm
+
+@ ---------------------------------------------------------------- Lilycove contest hack
+	@ Shows the affinity bar of a character (AFFINITY_*) in the corner of the screen.
+	.macro affinity_show character:req
+	setvar VAR_0x8004, \character
+	special AffinityShowBar
+	.endm
+
+	@ Adds a signed delta to a character's affinity (clamped to -100..100).
+	@ The bar animates if it is currently shown for that character.
+	.macro affinity_add character:req, delta:req
+	setvar VAR_0x8004, \character
+	setvar VAR_0x8005, (\delta) & 0xFFFF
+	special AffinityAdd
+	.endm
+
+	@ Hides the affinity bar.
+	.macro affinity_hide
+	special AffinityHideBar
+	.endm

@@ -360,6 +360,34 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_LILYCOVE_FATHER",
+      "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+      "x": 31,
+      "y": 39,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LilycoveCity_EventScript_FatherPort",
+      "flag": "FLAG_HIDE_LILYCOVE_FATHER_PORT"
+    },
+    {
+      "local_id": "LOCALID_LILYCOVE_FATHER_BEACH",
+      "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+      "x": 48,
+      "y": 32,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LilycoveCity_EventScript_FatherBeach",
+      "flag": "FLAG_HIDE_LILYCOVE_FATHER_BEACH"
     }
   ],
   "warp_events": [

@@ -41,6 +41,7 @@
 #include "mystery_event_script.h"
 #include "palette.h"
 #include "party_menu.h"
+#include "pokemon.h"
 #include "pokedex.h"
 #include "pokemon_storage_system.h"
 #include "random.h"
@@ -2405,10 +2406,18 @@ bool8 ScrCmd_updatecoinsbox(struct ScriptContext *ctx)
     return FALSE;
 }
 
+extern const u8 EventScript_TrainerNoPartner[];
+
 bool8 ScrCmd_trainerbattle(struct ScriptContext *ctx)
 {
     Script_RequestEffects(SCREFF_V1 | SCREFF_TRAINERBATTLE);
 
+    // Before adopting a first Pokémon the player cannot battle trainers.
+    if (CalculatePlayerPartyCount() == 0)
+    {
+        ctx->scriptPtr = EventScript_TrainerNoPartner;
+        return FALSE;
+    }
     ConfigureTrainerBattle(ctx);
     return FALSE;
 }

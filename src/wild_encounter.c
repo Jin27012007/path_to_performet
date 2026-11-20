@@ -671,6 +671,10 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
     if (sWildEncountersDisabled == TRUE)
         return FALSE;
 
+    // No wild battles before the player has adopted a partner.
+    if (CalculatePlayerPartyCount() == 0)
+        return FALSE;
+
     headerId = GetCurrentMapWildMonHeaderId();
     if (headerId == HEADER_NONE)
     {

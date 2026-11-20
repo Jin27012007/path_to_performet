@@ -1,7 +1,11 @@
 LilycoveCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_OnTransition
-	map_script MAP_SCRIPT_ON_LOAD, LilycoveCity_OnLoad
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, LilycoveCity_OnFrame
 	.byte 0
+
+LilycoveCity_OnFrame:
+	map_script_2 VAR_OPENING_STATE, OPENING_STATE_ARRIVING, LilycoveCity_EventScript_PortArrival
+	.2byte 0
 
 LilycoveCity_OnTransition:
 	setflag FLAG_VISITED_LILYCOVE_CITY
@@ -9,10 +13,6 @@ LilycoveCity_OnTransition:
 	setflag FLAG_HIDE_LILYCOVE_CONTEST_HALL_REPORTER
 	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
 	call Common_EventScript_SetupRivalGfxId
-	end
-
-LilycoveCity_OnLoad:
-	call_if_unset FLAG_TEAM_AQUA_ESCAPED_IN_SUBMARINE, LilycoveCity_EventScript_SetWailmerMetatiles
 	end
 
 LilycoveCity_EventScript_SetWailmerMetatiles::
@@ -754,3 +754,289 @@ LilycoveCity_Text_HoneymoonVowToSeeRarePokemon:
 	.string "POKéMON as soon as we arrived.\p"
 	.string "I mean, we are totally happy!$"
 
+
+@ =============================================================================
+@ Lilycove contest hack — Cena 5 (porto) e Cena 6 (caminhada até a Casa 4)
+@ =============================================================================
+
+LilycoveCity_EventScript_PortArrival::
+	lockall
+	setflag FLAG_OPENING_ARRIVED
+	applymovement LOCALID_PLAYER, LilycoveCity_Movement_PlayerWalkUpPier
+	waitmovement 0
+	delay 20
+	applymovement LOCALID_LILYCOVE_FATHER, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_LILYCOVE_FATHER, LilycoveCity_Movement_FatherApproach
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_FaceRight
+	waitmovement 0
+	@ --- primeira troca ---
+	affinity_show AFFINITY_FATHER
+	msgbox LilycoveCity_Text_FatherYouArrived, MSGBOX_DEFAULT
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, LilycoveCity_EventScript_TripChoiceFemale
+	dynmultichoice 0, 7, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, LilycoveCity_Text_ChoiceTripA_M, LilycoveCity_Text_ChoiceTripB, LilycoveCity_Text_ChoiceTripC
+	goto LilycoveCity_EventScript_TripChoiceResult
+LilycoveCity_EventScript_TripChoiceFemale:
+	dynmultichoice 0, 7, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, LilycoveCity_Text_ChoiceTripA_F, LilycoveCity_Text_ChoiceTripB, LilycoveCity_Text_ChoiceTripC
+LilycoveCity_EventScript_TripChoiceResult:
+	switch VAR_RESULT
+	case 0, LilycoveCity_EventScript_TripA
+	case 1, LilycoveCity_EventScript_TripB
+	goto LilycoveCity_EventScript_TripC
+
+LilycoveCity_EventScript_TripA:
+	affinity_add AFFINITY_FATHER, 2
+	msgbox LilycoveCity_Text_FatherOfCourse, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_Luggage
+LilycoveCity_EventScript_TripB:
+	msgbox LilycoveCity_Text_FatherLongTrip, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_Luggage
+LilycoveCity_EventScript_TripC:
+	affinity_add AFFINITY_FATHER, -3
+	msgbox LilycoveCity_Text_FatherISaidIdBeHere, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_Luggage
+
+	@ --- bagagem ---
+LilycoveCity_EventScript_Luggage:
+	msgbox LilycoveCity_Text_FatherOffersHelp, MSGBOX_DEFAULT
+	dynmultichoice 0, 7, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, LilycoveCity_Text_ChoiceBagA, LilycoveCity_Text_ChoiceBagB, LilycoveCity_Text_ChoiceBagC
+	switch VAR_RESULT
+	case 0, LilycoveCity_EventScript_BagA
+	case 1, LilycoveCity_EventScript_BagB
+	goto LilycoveCity_EventScript_BagC
+
+LilycoveCity_EventScript_BagA:
+	affinity_add AFFINITY_FATHER, 1
+	msgbox LilycoveCity_Text_FatherTakesBag, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_Season
+LilycoveCity_EventScript_BagB:
+	msgbox LilycoveCity_Text_FatherRespects, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_Season
+LilycoveCity_EventScript_BagC:
+	affinity_add AFFINITY_FATHER, -2
+	msgbox LilycoveCity_Text_FatherStepsBack, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_Season
+
+	@ --- temporada / inscrição ---
+LilycoveCity_EventScript_Season:
+	msgbox LilycoveCity_Text_FatherSawTheAd, MSGBOX_DEFAULT
+	dynmultichoice 0, 7, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, LilycoveCity_Text_ChoiceSeasonA, LilycoveCity_Text_ChoiceSeasonB, LilycoveCity_Text_ChoiceSeasonC
+	switch VAR_RESULT
+	case 0, LilycoveCity_EventScript_SeasonA
+	case 1, LilycoveCity_EventScript_SeasonB
+	goto LilycoveCity_EventScript_SeasonC
+
+LilycoveCity_EventScript_SeasonA:
+	affinity_add AFFINITY_FATHER, 2
+	msgbox LilycoveCity_Text_FatherHopeYouKnow, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_GoHome
+LilycoveCity_EventScript_SeasonB:
+	msgbox LilycoveCity_Text_FatherAlreadyDecided, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_GoHome
+LilycoveCity_EventScript_SeasonC:
+	affinity_add AFFINITY_FATHER, -5
+	msgbox LilycoveCity_Text_FatherSameHouse, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_GoHome
+
+LilycoveCity_EventScript_GoHome:
+	msgbox LilycoveCity_Text_FatherLetsGoHome, MSGBOX_DEFAULT
+	closemessage
+	affinity_hide
+	setflag FLAG_PORT_REUNION_DONE
+	@ --- Cena 6: caminhada ---
+	applymovement LOCALID_LILYCOVE_FATHER, LilycoveCity_Movement_FatherWalkUp
+	applymovement LOCALID_PLAYER, LilycoveCity_Movement_PlayerFollowUp
+	waitmovement 0
+	affinity_show AFFINITY_FATHER
+	msgbox LilycoveCity_Text_FatherHouseNotFar, MSGBOX_DEFAULT
+	dynmultichoice 0, 9, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, LilycoveCity_Text_ChoiceTalk, LilycoveCity_Text_ChoiceSilence
+	goto_if_eq VAR_RESULT, 1, LilycoveCity_EventScript_WalkSilence
+	msgbox LilycoveCity_Text_WhatToAsk, MSGBOX_DEFAULT
+	dynmultichoice 0, 7, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, LilycoveCity_Text_ChoiceWalkA, LilycoveCity_Text_ChoiceWalkB, LilycoveCity_Text_ChoiceWalkC
+	switch VAR_RESULT
+	case 0, LilycoveCity_EventScript_WalkA
+	case 1, LilycoveCity_EventScript_WalkB
+	goto LilycoveCity_EventScript_WalkC
+
+LilycoveCity_EventScript_WalkA:
+	msgbox LilycoveCity_Text_FatherHouse4, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_ArriveHome
+LilycoveCity_EventScript_WalkB:
+	affinity_add AFFINITY_FATHER, 1
+	msgbox LilycoveCity_Text_FatherRoutine, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_ArriveHome
+LilycoveCity_EventScript_WalkC:
+	msgbox LilycoveCity_Text_FatherLongTime, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_ArriveHome
+LilycoveCity_EventScript_WalkSilence:
+	closemessage
+	delay 30
+	goto LilycoveCity_EventScript_ArriveHome
+
+LilycoveCity_EventScript_ArriveHome:
+	closemessage
+	affinity_hide
+	setflag FLAG_HIDE_LILYCOVE_FATHER_PORT
+	setvar VAR_OPENING_STATE, OPENING_STATE_HOUSE
+	warp MAP_LILYCOVE_CITY_HOUSE4, 4, 8
+	waitstate
+	releaseall
+	end
+
+@ Fala com o pai no porto (só se a cena for interrompida de algum modo)
+LilycoveCity_EventScript_FatherPort::
+	msgbox LilycoveCity_Text_FatherLetsGoHome, MSGBOX_NPC
+	end
+
+@ Pai trabalhando na praia, perto dos barcos de pesca (depois de sair de casa)
+LilycoveCity_EventScript_FatherBeach::
+	lock
+	faceplayer
+	affinity_show AFFINITY_FATHER
+	goto_if_set FLAG_FIRST_ADOPTION_COMPLETE, LilycoveCity_EventScript_FatherBeachAfterAdoption
+	msgbox LilycoveCity_Text_FatherBeach, MSGBOX_DEFAULT
+	goto LilycoveCity_EventScript_FatherBeachEnd
+LilycoveCity_EventScript_FatherBeachAfterAdoption:
+	msgbox LilycoveCity_Text_FatherBeachAdopted, MSGBOX_DEFAULT
+LilycoveCity_EventScript_FatherBeachEnd:
+	closemessage
+	affinity_hide
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+LilycoveCity_Movement_PlayerWalkUpPier:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+LilycoveCity_Movement_FatherApproach:
+	walk_left
+	walk_left
+	walk_left
+	face_left
+	step_end
+
+LilycoveCity_Movement_FatherWalkUp:
+	face_up
+	walk_up
+	walk_up
+	walk_up
+	face_left
+	step_end
+
+LilycoveCity_Movement_PlayerFollowUp:
+	delay_8
+	walk_up
+	walk_up
+	walk_up
+	face_right
+	step_end
+
+@ ----------------------------------------------------------------- textos
+LilycoveCity_Text_FatherYouArrived:
+	.string "PAI: Você chegou.\p"
+	.string "A viagem foi tranquila?$"
+
+LilycoveCity_Text_ChoiceTripA_M:
+	.string "Foi. Obrigado por vir me buscar.$"
+LilycoveCity_Text_ChoiceTripA_F:
+	.string "Foi. Obrigada por vir me buscar.$"
+LilycoveCity_Text_ChoiceTripB:
+	.string "Demorou, mas cheguei.$"
+LilycoveCity_Text_ChoiceTripC:
+	.string "Achei que talvez você nem viesse.$"
+
+LilycoveCity_Text_FatherOfCourse:
+	.string "PAI: Claro.$"
+LilycoveCity_Text_FatherLongTrip:
+	.string "PAI: É uma viagem longa.$"
+LilycoveCity_Text_FatherISaidIdBeHere:
+	.string "PAI: …Eu disse que estaria aqui.$"
+
+LilycoveCity_Text_FatherOffersHelp:
+	.string "Seu pai olha para a bagagem.\p"
+	.string "PAI: Quer que eu leve alguma coisa?$"
+
+LilycoveCity_Text_ChoiceBagA:
+	.string "Pode levar esta, por favor.$"
+LilycoveCity_Text_ChoiceBagB:
+	.string "Eu consigo carregar.$"
+LilycoveCity_Text_ChoiceBagC:
+	.string "Não preciso da sua ajuda.$"
+
+LilycoveCity_Text_FatherTakesBag:
+	.string "Seu pai pega uma das malas.$"
+LilycoveCity_Text_FatherRespects:
+	.string "PAI: Tudo bem.\p"
+	.string "Seu pai segue ao seu lado.$"
+LilycoveCity_Text_FatherStepsBack:
+	.string "Seu pai recua um passo,\n"
+	.string "sem discutir.$"
+
+LilycoveCity_Text_FatherSawTheAd:
+	.string "PAI: Vi o anúncio da temporada.\n"
+	.string "A cidade inteira só fala disso.\p"
+	.string "{PLAYER}: Eu me inscrevi.\p"
+	.string "PAI: Você já fez isso?$"
+
+LilycoveCity_Text_ChoiceSeasonA:
+	.string "Sim. Quero construir meu caminho.$"
+LilycoveCity_Text_ChoiceSeasonB:
+	.string "Não vim até aqui para ficar parado.$"
+LilycoveCity_Text_ChoiceSeasonC:
+	.string "Não é da sua conta.$"
+
+LilycoveCity_Text_FatherHopeYouKnow:
+	.string "PAI: Só espero que saiba o quanto\n"
+	.string "isso exige.$"
+LilycoveCity_Text_FatherAlreadyDecided:
+	.string "PAI: Você parece já ter decidido.$"
+LilycoveCity_Text_FatherSameHouse:
+	.string "PAI: Ainda estamos tentando aprender\n"
+	.string "a viver na mesma casa.$"
+
+LilycoveCity_Text_FatherLetsGoHome:
+	.string "PAI: Vamos para casa.$"
+
+LilycoveCity_Text_FatherHouseNotFar:
+	.string "PAI: Vamos. A casa não fica longe\n"
+	.string "daqui.$"
+
+LilycoveCity_Text_ChoiceTalk:
+	.string "Puxar conversa$"
+LilycoveCity_Text_ChoiceSilence:
+	.string "Ficar em silêncio$"
+
+LilycoveCity_Text_WhatToAsk:
+	.string "O que você diz?$"
+
+LilycoveCity_Text_ChoiceWalkA:
+	.string "Você ainda mora na mesma casa?$"
+LilycoveCity_Text_ChoiceWalkB:
+	.string "Como está sendo viver aqui?$"
+LilycoveCity_Text_ChoiceWalkC:
+	.string "Você parece diferente.$"
+
+LilycoveCity_Text_FatherHouse4:
+	.string "PAI: Na Casa 4. Não achei motivo\n"
+	.string "para mudar.$"
+LilycoveCity_Text_FatherRoutine:
+	.string "PAI: Trabalho, contas…\n"
+	.string "a rotina de sempre.$"
+LilycoveCity_Text_FatherLongTime:
+	.string "PAI: Faz tempo que a gente\n"
+	.string "não se vê.$"
+
+LilycoveCity_Text_FatherBeach:
+	.string "PAI: Estou ajudando o pessoal\n"
+	.string "dos barcos hoje.\p"
+	.string "Já passou no Safari com o ticket?$"
+LilycoveCity_Text_FatherBeachAdopted:
+	.string "PAI: Então esse é o seu parceiro.\p"
+	.string "…Cuidem bem um do outro.$"

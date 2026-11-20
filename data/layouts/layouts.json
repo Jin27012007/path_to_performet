@@ -871,6 +871,28 @@
       "layout_version": "emerald"
     },
     {
+      "id": "LAYOUT_LILYCOVE_CITY_HOUSE4",
+      "name": "LilycoveCity_House4_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/LilycoveCity_House4/border.bin",
+      "blockdata_filepath": "data/layouts/LilycoveCity_House4/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_LILYCOVE_CITY_HOUSE4_ROOM",
+      "name": "LilycoveCity_House4_Room_Layout",
+      "width": 10,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/LilycoveCity_House4_Room/border.bin",
+      "blockdata_filepath": "data/layouts/LilycoveCity_House4_Room/map.bin",
+      "layout_version": "emerald"
+    },
+    {
       "id": "LAYOUT_HOUSE_WITH_BED",
       "name": "HouseWithBed_Layout",
       "width": 10,

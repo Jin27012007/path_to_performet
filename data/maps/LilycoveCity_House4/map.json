@@ -1,8 +1,8 @@
 {
   "id": "MAP_LILYCOVE_CITY_HOUSE4",
   "name": "LilycoveCity_House4",
-  "layout": "LAYOUT_HOUSE1",
-  "music": "MUS_LILYCOVE",
+  "layout": "LAYOUT_LILYCOVE_CITY_HOUSE4",
+  "music": "MUS_LITTLEROOT",
   "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_LILYCOVE_CITY",
   "requires_flash": false,
@@ -16,33 +16,28 @@
   "connections": null,
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
-      "x": 1,
-      "y": 4,
+      "local_id": "LOCALID_HOUSE4_FATHER",
+      "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+      "x": 6,
+      "y": 8,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "LilycoveCity_House4_EventScript_Man1",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MAN_1",
-      "x": 7,
-      "y": 4,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "LilycoveCity_House4_EventScript_Man2",
-      "flag": "0"
+      "script": "LilycoveCity_House4_EventScript_Father",
+      "flag": "FLAG_HIDE_HOUSE4_FATHER"
     }
   ],
   "warp_events": [
+    {
+      "x": 2,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_LILYCOVE_CITY",
+      "dest_warp_id": "11"
+    },
     {
       "x": 3,
       "y": 8,
@@ -51,13 +46,89 @@
       "dest_warp_id": "11"
     },
     {
-      "x": 4,
-      "y": 8,
+      "x": 3,
+      "y": 1,
       "elevation": 0,
-      "dest_map": "MAP_LILYCOVE_CITY",
-      "dest_warp_id": "11"
+      "dest_map": "MAP_LILYCOVE_CITY_HOUSE4_ROOM",
+      "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 2,
+      "y": 8,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "1",
+      "script": "LilycoveCity_House4_EventScript_BlockExit"
+    },
+    {
+      "type": "trigger",
+      "x": 3,
+      "y": 8,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "1",
+      "script": "LilycoveCity_House4_EventScript_BlockExit"
+    }
+  ],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 3,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "LilycoveCity_House4_EventScript_Table"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 4,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "LilycoveCity_House4_EventScript_Table"
+    },
+    {
+      "type": "sign",
+      "x": 10,
+      "y": 3,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "LilycoveCity_House4_EventScript_Table"
+    },
+    {
+      "type": "sign",
+      "x": 10,
+      "y": 4,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "LilycoveCity_House4_EventScript_Table"
+    },
+    {
+      "type": "sign",
+      "x": 6,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "LilycoveCity_House4_EventScript_Calendar"
+    },
+    {
+      "type": "sign",
+      "x": 12,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "LilycoveCity_House4_EventScript_Kitchen"
+    },
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "LilycoveCity_House4_EventScript_Kitchen"
+    }
+  ]
 }

@@ -51,23 +51,23 @@
 
 #else
 
-#define FLAG_UNUSED_0x020    0x20 // Unused Flag
-#define FLAG_UNUSED_0x021    0x21 // Unused Flag
-#define FLAG_UNUSED_0x022    0x22 // Unused Flag
-#define FLAG_UNUSED_0x023    0x23 // Unused Flag
-#define FLAG_UNUSED_0x024    0x24 // Unused Flag
-#define FLAG_UNUSED_0x025    0x25 // Unused Flag
-#define FLAG_UNUSED_0x026    0x26 // Unused Flag
-#define FLAG_UNUSED_0x027    0x27 // Unused Flag
-#define FLAG_UNUSED_0x028    0x28 // Unused Flag
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
-#define FLAG_UNUSED_0x02A    0x2A // Unused Flag
-#define FLAG_UNUSED_0x02B    0x2B // Unused Flag
-#define FLAG_UNUSED_0x02C    0x2C // Unused Flag
-#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
+#define FLAG_OPENING_REGISTERED            0x20 // Lilycove opening
+#define FLAG_ADOPTION_TICKET_RECEIVED      0x21 // Lilycove opening
+#define FLAG_FISHING_ROD_RECEIVED          0x22 // Lilycove opening
+#define FLAG_BAGS_STORED                   0x23 // Lilycove opening
+#define FLAG_FATHER_LEFT_FOR_WORK          0x24 // Lilycove opening
+#define FLAG_ADOPTION_TICKET_USED          0x25 // Lilycove opening
+#define FLAG_FIRST_ADOPTION_COMPLETE       0x26 // Lilycove opening
+#define FLAG_PORT_REUNION_DONE             0x27 // Lilycove opening
+#define FLAG_HIDE_LILYCOVE_FATHER_PORT     0x28 // Lilycove opening
+#define FLAG_HIDE_LILYCOVE_FATHER_BEACH    0x29 // Lilycove opening
+#define FLAG_HIDE_HOUSE4_FATHER            0x2A // Lilycove opening
+#define FLAG_HOUSE4_GIFTS_DONE             0x2B // Lilycove opening
+#define FLAG_READ_FATHER_NOTE              0x2C // Lilycove opening
+#define FLAG_HIDE_OPENING_PERFORMERS       0x2D // Lilycove opening
+#define FLAG_OPENING_COMMERCIAL_DONE       0x2E // Lilycove opening
+#define FLAG_OPENING_ARRIVED               0x2F // Lilycove opening
+#define FLAG_SAW_EMPTY_LIVING_ROOM         0x30 // Lilycove opening
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag
 #define FLAG_UNUSED_0x032    0x32 // Unused Flag
 #define FLAG_UNUSED_0x033    0x33 // Unused Flag

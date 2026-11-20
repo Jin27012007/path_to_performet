@@ -192,6 +192,8 @@ static void Task_HandleMainMenuInput(u8);
 static void Task_HandleMainMenuAPressed(u8);
 static void Task_HandleMainMenuBPressed(u8);
 static void Task_NewGameBirchSpeech_Init(u8);
+static void Task_RegistrationForm_WaitIntro(u8);
+static void Task_RegistrationForm_Received(u8);
 static void Task_DisplayMainMenuInvalidActionError(u8);
 static void AddBirchSpeechObjects(u8);
 static void Task_NewGameBirchSpeech_WaitToShowBirch(u8);
@@ -472,9 +474,12 @@ static const union AffineAnimCmd *const sSpriteAffineAnimTable_PlayerShrink[] =
     sSpriteAffineAnim_PlayerShrink
 };
 
+static const u8 sText_FormPronounHe[] = _("Ele");
+static const u8 sText_FormPronounShe[] = _("Ela");
+
 static const struct MenuAction sMenuActions_Gender[] = {
-    {gText_Boy, {NULL}},
-    {gText_Girl, {NULL}}
+    {sText_FormPronounHe, {NULL}},
+    {sText_FormPronounShe, {NULL}}
 };
 
 static const u8 *const sMalePresetNames[] = {
@@ -1322,7 +1327,7 @@ static void Task_NewGameBirchSpeech_Init(u8 taskId)
     gTasks[taskId].tPlayerSpriteId = SPRITE_NONE;
     gTasks[taskId].data[3] = 0xFF;
     gTasks[taskId].tTimer = 0xD8;
-    PlayBGM(MUS_ROUTE122);
+    PlayBGM(MUS_CONTEST_LOBBY);
     ShowBg(0);
     ShowBg(1);
 }
@@ -1337,19 +1342,42 @@ static void Task_NewGameBirchSpeech_WaitToShowBirch(u8 taskId)
     }
     else
     {
-        spriteId = gTasks[taskId].tBirchSpriteId;
-        gSprites[spriteId].x = 136;
-        gSprites[spriteId].y = 60;
-        gSprites[spriteId].invisible = FALSE;
-        gSprites[spriteId].oam.objMode = ST_OAM_OBJ_BLEND;
-        NewGameBirchSpeech_StartFadeInTarget1OutTarget2(taskId, 10);
-        NewGameBirchSpeech_StartFadePlatformOut(taskId, 20);
-        gTasks[taskId].tTimer = 80;
-        gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForSpriteFadeInWelcome;
+        // Lilycove contest hack: no Professor. The player fills in the
+        // official World Contest Season registration form instead.
+        InitWindows(sNewGameBirchSpeechTextWindows);
+        LoadMainMenuWindowFrameTiles(0, 0xF3);
+        LoadMessageBoxGfx(0, BIRCH_DLG_BASE_TILE_NUM, BG_PLTT_ID(15));
+        DrawDialogFrameWithCustomTile(0, TRUE, BIRCH_DLG_BASE_TILE_NUM);
+        PutWindowTilemap(0);
+        CopyWindowToVram(0, COPYWIN_GFX);
+        NewGameBirchSpeech_ClearWindow(0);
+        StringExpandPlaceholders(gStringVar4, gText_Form_Intro);
+        AddTextPrinterForMessage(TRUE);
+        gTasks[taskId].tBG1HOFS = -60;
+        SetGpuReg(REG_OFFSET_BG1HOFS, -60);
+        gTasks[taskId].tIsDoneFadingSprites = TRUE;
+        gTasks[taskId].tTimer = 0;
+        gTasks[taskId].func = Task_RegistrationForm_WaitIntro;
+    }
+    (void)spriteId;
+}
+
+static void Task_RegistrationForm_WaitIntro(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+        gTasks[taskId].func = Task_NewGameBirchSpeech_StartPlayerFadeIn;
+}
+
+static void Task_RegistrationForm_Received(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        gTasks[taskId].tIsDoneFadingSprites = TRUE;
+        gTasks[taskId].func = Task_NewGameBirchSpeech_ShrinkPlayer;
     }
 }
 
-static void Task_NewGameBirchSpeech_WaitForSpriteFadeInWelcome(u8 taskId)
+UNUSED static void Task_NewGameBirchSpeech_WaitForSpriteFadeInWelcome(u8 taskId)
 {
     if (gTasks[taskId].tIsDoneFadingSprites)
     {
@@ -1662,11 +1690,11 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
     case 0:
-        PlaySE(SE_SELECT);
-        gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
-        NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
-        NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_SlidePlatformAway2;
+        PlaySE(SE_EXP_MAX);
+        NewGameBirchSpeech_ClearWindow(0);
+        StringExpandPlaceholders(gStringVar4, gText_Form_Received);
+        AddTextPrinterForMessage(TRUE);
+        gTasks[taskId].func = Task_RegistrationForm_Received;
         break;
     case MENU_B_PRESSED:
     case 1:
@@ -1675,7 +1703,7 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
     }
 }
 
-static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8 taskId)
+UNUSED static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8 taskId)
 {
     if (gTasks[taskId].tBG1HOFS)
     {

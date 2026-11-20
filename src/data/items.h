@@ -14042,7 +14042,7 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_OLD_ROD] =
     {
-        .name = ITEM_NAME("Old Rod"),
+        .name = ITEM_NAME("Vara de Pesca"),
         .price = 0,
         .description = COMPOUND_STRING(
             "Use by any body of\n"
@@ -16098,6 +16098,21 @@ const struct ItemInfo gItemsInfo[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
+    },
+    [ITEM_ADOPTION_TICKET] =
+    {
+        .name = ITEM_NAME("Ticket de Adoção"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Presente do pai.\n"
+            "Dá direito a adotar\n"
+            "um Pokémon no Safari."),
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_SSTicket,
+        .iconPalette = gItemIconPalette_SSTicket,
     },
 };
 

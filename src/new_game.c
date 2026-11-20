@@ -1,4 +1,5 @@
 #include "global.h"
+#include "constants/lilycove_opening.h"
 #include "clock.h"
 #include "new_game.h"
 #include "random.h"
@@ -133,12 +134,19 @@ static void ClearFrontierRecord(void)
     gSaveBlock2Ptr->frontier.opponentNames[1][0] = EOS;
 }
 
+// Lilycove contest hack: the game starts with the season opening instead of the truck.
+static void WarpToLilycoveOpening(void)
+{
+    VarSet(VAR_OPENING_STATE, OPENING_STATE_ARRIVING);
+    SetWarpDestination(MAP_GROUP(MAP_LILYCOVE_CITY), MAP_NUM(MAP_LILYCOVE_CITY), WARP_ID_NONE, 27, 43);
+}
+
 static void WarpToTruck(void)
 {
     if (IS_FRLG)
         SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), WARP_ID_NONE, 6, 6);
     else
-        SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
+        WarpToLilycoveOpening();
     WarpIntoMap();
 }
 

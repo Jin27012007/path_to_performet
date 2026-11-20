@@ -442,6 +442,10 @@ bool8 CheckForTrainersWantingBattle(void)
     if (FlagGet(OW_FLAG_NO_TRAINER_SEE))
         return FALSE;
 
+    // Trainers ignore the player until they have a Pokémon.
+    if (CalculatePlayerPartyCount() == 0)
+        return FALSE;
+
     gNoOfApproachingTrainers = 0;
     gApproachingTrainerId = 0;
 

@@ -340,9 +340,15 @@ static bool32 CanFish(void)
     return FALSE;
 }
 
+static const u8 sText_NeedPartnerToFish[] = _("Você ainda não tem um Pokémon\nparceiro para ajudar na pesca.");
+
 void ItemUseOutOfBattle_Rod(u8 taskId)
 {
-    if (CanFish() == TRUE)
+    if (CalculatePlayerPartyCount() == 0)
+    {
+        DisplayCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem, sText_NeedPartnerToFish);
+    }
+    else if (CanFish() == TRUE)
     {
         sItemUseOnFieldCB = ItemUseOnFieldCB_Rod;
         SetUpItemUseOnFieldCallback(taskId);

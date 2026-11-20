@@ -32,15 +32,16 @@ gText_Birch_AndYouAre::
 	.string "And you are?$"
 
 gText_Birch_BoyOrGirl::
-	.string "Are you a boy?\n"
-	.string "Or are you a girl?$"
+	.string "CAMPO 1 - APRESENTAÇÃO\n"
+	.string "Como você se apresenta?$"
 
 gText_Birch_WhatsYourName::
-	.string "All right.\n"
-	.string "What's your name?$"
+	.string "CAMPO 2 - NOME\n"
+	.string "Digite o nome do participante.$"
 
 gText_Birch_SoItsPlayer::
-	.string "So it's {PLAYER}{KUN}?$"
+	.string "Participante: {PLAYER}.\n"
+	.string "Confirmar inscrição?$"
 
 gText_Birch_YourePlayer::
 	.string "Ah, okay!\p"
@@ -59,3 +60,17 @@ gText_Birch_AreYouReady::
 	.string "Well, I'll be expecting you later.\n"
 	.string "Come see me in my POKéMON LAB.\p"
 	.string "$"
+
+gText_Form_Intro::
+	.string "REGISTRO DE PARTICIPANTE\n"
+	.string "TEMPORADA MUNDIAL DE CONCURSOS\p"
+	.string "Preencha os campos para concluir\n"
+	.string "sua inscrição na temporada.\p$"
+
+gText_Form_Received::
+	.string "Inscrição recebida.\p"
+	.string "Apresente-se ao Centro de Concursos\n"
+	.string "de Lilycove para confirmar sua\l"
+	.string "participação e receber as\l"
+	.string "orientações da temporada.\p"
+	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}+ INSCRIÇÃO CONCLUÍDA +\p$"
