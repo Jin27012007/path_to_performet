@@ -309,6 +309,8 @@ gStdScripts_End::
 	.include "data/maps/LilycoveCity_House3/scripts.inc"
 	.include "data/maps/LilycoveCity_House4/scripts.inc"
 	.include "data/maps/LilycoveCity_House4_Room/scripts.inc"
+	.include "data/maps/OpeningBoat_Cabin/scripts.inc"
+	.include "data/maps/OpeningBoat_Deck/scripts.inc"
 	.include "data/maps/LilycoveCity_DepartmentStore_1F/scripts.inc"
 	.include "data/maps/LilycoveCity_DepartmentStore_2F/scripts.inc"
 	.include "data/maps/LilycoveCity_DepartmentStore_3F/scripts.inc"

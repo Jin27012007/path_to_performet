@@ -1,11 +1,47 @@
 LilycoveCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_OnTransition
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LilycoveCity_OnWarp
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LilycoveCity_OnFrame
 	.byte 0
 
+LilycoveCity_OnWarp:
+	map_script_2 VAR_OPENING_STATE, OPENING_STATE_COMMERCIAL, Opening_EventScript_HidePlayer
+	.2byte 0
+
 LilycoveCity_OnFrame:
+	map_script_2 VAR_OPENING_STATE, OPENING_STATE_COMMERCIAL, LilycoveCity_EventScript_CommercialCity
 	map_script_2 VAR_OPENING_STATE, OPENING_STATE_ARRIVING, LilycoveCity_EventScript_PortArrival
 	.2byte 0
+
+@ Cena 1 (segunda tomada): Lilycove decorada para a temporada.
+LilycoveCity_EventScript_CommercialCity::
+	lockall
+	playbgm MUS_CONTEST_WINNER, FALSE
+	delay 40
+	msgbox LilycoveCity_Text_CommercialFinal, MSGBOX_DEFAULT
+	closemessage
+	playfanfare MUS_OBTAIN_BADGE
+	message LilycoveCity_Text_SeasonEmblem
+	waitfanfare
+	waitmessage
+	delay 40
+	closemessage
+	fadescreen FADE_TO_BLACK
+	setflag FLAG_OPENING_COMMERCIAL_DONE
+	setvar VAR_OPENING_STATE, OPENING_STATE_CABIN
+	warpsilent MAP_OPENING_BOAT_CABIN, 4, 4
+	waitstate
+	releaseall
+	end
+
+LilycoveCity_Text_CommercialFinal:
+	.string "LOCUTOR: Temporada Mundial de\n"
+	.string "Concursos Pokémon.\p"
+	.string "O próximo grande nome pode ser você!$"
+
+LilycoveCity_Text_SeasonEmblem:
+	.string "{COLOR RED}{SHADOW LIGHT_RED}+ TEMPORADA MUNDIAL DE CONCURSOS +\n"
+	.string "{COLOR BLUE}{SHADOW LIGHT_BLUE}          LILYCOVE · HOENN$"
 
 LilycoveCity_OnTransition:
 	setflag FLAG_VISITED_LILYCOVE_CITY

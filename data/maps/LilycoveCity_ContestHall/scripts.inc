@@ -3,7 +3,58 @@
 @ their original direction (because they're watching/participating in the contests).
 @ They could all be substituted for VAR_LAST_TALKED.
 LilycoveCity_ContestHall_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_ContestHall_OnTransition
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LilycoveCity_ContestHall_OnWarp
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, LilycoveCity_ContestHall_OnFrame
 	.byte 0
+
+@ ------------------------------------------------------------------------------
+@ Lilycove contest hack — Cena 1: comercial da Temporada Mundial (palco)
+@ ------------------------------------------------------------------------------
+LilycoveCity_ContestHall_OnTransition:
+	setflag FLAG_HIDE_OPENING_PERFORMERS
+	call_if_eq VAR_OPENING_STATE, OPENING_STATE_COMMERCIAL, LilycoveCity_ContestHall_EventScript_ShowPerformers
+	end
+
+LilycoveCity_ContestHall_EventScript_ShowPerformers::
+	clearflag FLAG_HIDE_OPENING_PERFORMERS
+	return
+
+LilycoveCity_ContestHall_OnWarp:
+	map_script_2 VAR_OPENING_STATE, OPENING_STATE_COMMERCIAL, Opening_EventScript_HidePlayer
+	.2byte 0
+
+LilycoveCity_ContestHall_OnFrame:
+	map_script_2 VAR_OPENING_STATE, OPENING_STATE_COMMERCIAL, LilycoveCity_ContestHall_EventScript_Commercial
+	.2byte 0
+
+LilycoveCity_ContestHall_EventScript_Commercial::
+	lockall
+	playbgm MUS_CONTEST_WINNER, FALSE
+	delay 20
+	msgbox LilycoveCity_ContestHall_Text_Commercial1, MSGBOX_DEFAULT
+	closemessage
+	@ coordenadores e Pokémon se apresentam
+	applymovement LOCALID_CONTEST_HALL_PERFORMER_1, Opening_Movement_PerformerJump
+	applymovement LOCALID_CONTEST_HALL_PERFORMER_2, Opening_Movement_PerformerSpin
+	applymovement LOCALID_CONTEST_HALL_PERFORMER_3, Opening_Movement_PerformerJump
+	playse SE_M_ATTRACT
+	dofieldeffectsparkle 23, 12, 0
+	dofieldeffectsparkle 27, 12, 0
+	waitmovement 0
+	msgbox LilycoveCity_ContestHall_Text_Commercial2, MSGBOX_DEFAULT
+	closemessage
+	playse SE_APPLAUSE
+	applymovement LOCALID_CONTEST_HALL_PERFORMER_2, Opening_Movement_PerformerJump
+	waitmovement 0
+	msgbox LilycoveCity_ContestHall_Text_Commercial3, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	@ segunda tomada: vista de Lilycove decorada (o jogador continua invisível)
+	warpsilent MAP_LILYCOVE_CITY, 27, 22
+	waitstate
+	releaseall
+	end
 
 LilycoveCity_ContestHall_EventScript_Boy1::
 	msgbox LilycoveCity_ContestHall_Text_TodayWonSmartnessContest, MSGBOX_NPC
@@ -511,3 +562,22 @@ LilycoveCity_ContestHall_Text_SmartContestStage:
 	.string "SMARTNESS CONTEST STAGE\n"
 	.string "BE IMPRESSED BY SMART POKéMON!$"
 
+
+LilycoveCity_ContestHall_Text_Commercial1:
+	.string "LOCUTOR: Atenção, Treinadores e\n"
+	.string "Coordenadores de todas as regiões!\p"
+	.string "Está chegando a Temporada Mundial\n"
+	.string "de Concursos Pokémon!$"
+
+LilycoveCity_ContestHall_Text_Commercial2:
+	.string "LOCUTOR: Nesta temporada, Lilycove\n"
+	.string "será o ponto de encontro de talentos\l"
+	.string "de Hoenn e de muito além.\p"
+	.string "Apresentações, criatividade, técnica\n"
+	.string "e parceria entre Pokémon e\l"
+	.string "Coordenadores!$"
+
+LilycoveCity_ContestHall_Text_Commercial3:
+	.string "LOCUTOR: Faça sua inscrição, prepare\n"
+	.string "sua equipe e venha mostrar ao mundo\l"
+	.string "o que torna sua apresentação única!$"

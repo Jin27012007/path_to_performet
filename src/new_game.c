@@ -137,8 +137,11 @@ static void ClearFrontierRecord(void)
 // Lilycove contest hack: the game starts with the season opening instead of the truck.
 static void WarpToLilycoveOpening(void)
 {
-    VarSet(VAR_OPENING_STATE, OPENING_STATE_ARRIVING);
-    SetWarpDestination(MAP_GROUP(MAP_LILYCOVE_CITY), MAP_NUM(MAP_LILYCOVE_CITY), WARP_ID_NONE, 27, 43);
+    // Registration form already done (main menu). Start with the TV commercial:
+    // contest stage -> decorated Lilycove -> boat cabin -> deck -> port.
+    VarSet(VAR_OPENING_STATE, OPENING_STATE_COMMERCIAL);
+    FlagSet(FLAG_OPENING_REGISTERED);
+    SetWarpDestination(MAP_GROUP(MAP_LILYCOVE_CITY_CONTEST_HALL), MAP_NUM(MAP_LILYCOVE_CITY_CONTEST_HALL), WARP_ID_NONE, 25, 11);
 }
 
 static void WarpToTruck(void)

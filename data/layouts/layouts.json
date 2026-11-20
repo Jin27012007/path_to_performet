@@ -893,6 +893,28 @@
       "layout_version": "emerald"
     },
     {
+      "id": "LAYOUT_OPENING_BOAT_CABIN",
+      "name": "OpeningBoat_Cabin_Layout",
+      "width": 9,
+      "height": 9,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_InsideShip",
+      "border_filepath": "data/layouts/OpeningBoat_Cabin/border.bin",
+      "blockdata_filepath": "data/layouts/OpeningBoat_Cabin/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_OPENING_BOAT_DECK",
+      "name": "OpeningBoat_Deck_Layout",
+      "width": 23,
+      "height": 19,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/OpeningBoat_Deck/border.bin",
+      "blockdata_filepath": "data/layouts/OpeningBoat_Deck/map.bin",
+      "layout_version": "emerald"
+    },
+    {
       "id": "LAYOUT_HOUSE_WITH_BED",
       "name": "HouseWithBed_Layout",
       "width": 10,

@@ -1,0 +1,233 @@
+{
+  "id": "MAP_OPENING_BOAT_DECK",
+  "name": "OpeningBoat_Deck",
+  "layout": "LAYOUT_OPENING_BOAT_DECK",
+  "music": "MUS_SAILING",
+  "region": "REGION_HOENN",
+  "region_map_section": "MAPSEC_LILYCOVE_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_OCEAN_ROUTE",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": false,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [
+    {
+      "local_id": "LOCALID_DECK_CREW",
+      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
+      "x": 18,
+      "y": 10,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "OpeningBoat_Deck_EventScript_Crew",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_DECK_PASSENGER",
+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+      "x": 13,
+      "y": 10,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "OpeningBoat_Deck_EventScript_Passenger",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_DECK_PASSENGER_2",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+      "x": 21,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "OpeningBoat_Deck_EventScript_Passenger2",
+      "flag": "0"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 8,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_OPENING_BOAT_CABIN",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 3,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 4,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 5,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 6,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 7,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 8,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 10,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 12,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 14,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 15,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 16,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 17,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 18,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 19,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 20,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 21,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    },
+    {
+      "type": "sign",
+      "x": 22,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_SOUTH",
+      "script": "OpeningBoat_Deck_EventScript_Railing"
+    }
+  ]
+}
