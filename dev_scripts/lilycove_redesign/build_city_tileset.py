@@ -44,6 +44,8 @@ def build(M, festival_ids):
         'water': pmeta(0x170)[:4],
         'shallow': pmeta(0x19e)[:4],
         'dock': metas[festival_ids['dock'] - 512][:4],
+        'brick': metas[festival_ids['brick'] - 512][:4],
+        'grass': pmeta(0x001)[:4],
     }
     used = {v & 0x3ff for row in M for v in row if isinstance(v, int) and (v & 0x3ff) >= 512} | set(DOORS)
     keep_tiles = set()

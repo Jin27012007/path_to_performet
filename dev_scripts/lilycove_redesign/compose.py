@@ -118,3 +118,11 @@ def flowerbed(x0,y0,w,h):
             elif b: k='bl' if l else ('br' if r else 'b')
             else: k='l' if l else ('r' if r else None)
             put(x0+i,y0+j,T(CURB[k],1,0) if k else T(0x004,1,0))
+
+def lamp2(x,y,under='paving'):  art('lamp',x,y,bottom=under)
+def bunting2(x0,x1,y,under='paving'):
+    for x in range(x0,x1):
+        art('bunting_blue' if (x//4)%2 else 'bunting',x,y,bottom=under,walk_rows=1)
+def string_lights(xa,xb,y,under='paving'):
+    """two lamp posts with bunting strung between them"""
+    lamp2(xa,y,under); lamp2(xb,y,under); bunting2(xa+1,xb,y,under)

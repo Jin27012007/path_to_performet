@@ -74,3 +74,73 @@ def fountain():
     for (x, y) in [(17, 4), (30, 4), (16, 8), (31, 8)]:
         _px(out, x, y, WH)
     return out
+
+
+def fountain_modern():
+    """64x48 modern fountain: rounded rectangular pool, stone rim, three water jets."""
+    W, H = 64, 48
+    c = _canvas(W, H)
+    x0, x1, y0, y1, r = 2, 61, 16, 41, 6
+    def inside(x, y, x0, x1, y0, y1, r):
+        if x < x0 or x > x1 or y < y0 or y > y1: return False
+        cx = min(max(x, x0 + r), x1 - r); cy = min(max(y, y0 + r), y1 - r)
+        return (x - cx) ** 2 + (y - cy) ** 2 <= r * r
+    # front wall (depth) of the pool
+    for y in range(y0, y1 + 5):
+        for x in range(W):
+            if inside(x, y - 4, x0, x1, y0, y1, r) and not inside(x, y, x0, x1, y0, y1, r):
+                c[y][x] = MGR if y < y1 + 3 else DGR
+    # rim (3 px) and water
+    for y in range(H):
+        for x in range(W):
+            if inside(x, y, x0, x1, y0, y1, r):
+                if inside(x, y, x0 + 3, x1 - 3, y0 + 3, y1 - 3, max(1, r - 3)):
+                    c[y][x] = LB1
+                    if y < y0 + 6: c[y][x] = B1           # shade under the far rim
+                    elif y < y0 + 8: c[y][x] = LB2
+                else:
+                    c[y][x] = LGR if y < (y0 + y1) // 2 else PALE
+    # ripple lines on the water
+    for (xa, xb, y) in [(8, 16, 30), (22, 28, 34), (36, 44, 29), (48, 55, 35), (12, 18, 37), (40, 47, 37)]:
+        for x in range(xa, xb): c[y][x] = WH
+    # nozzles (small stone discs) for the three jets
+    jets = [(16, 14), (32, 4), (47, 14)]
+    for jx, top in jets:
+        for x in range(jx - 3, jx + 4):
+            for y in range(28, 31): c[y][x] = MGR if y == 30 else LGR
+    # dark outline around the stone
+    out = [row[:] for row in c]
+    for y in range(H):
+        for x in range(W):
+            if c[y][x] == 0 and any(0 <= y + dy < H and 0 <= x + dx < W and c[y + dy][x + dx]
+                                    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                out[y][x] = OUT
+    # jets: thin columns of water with a white core and splash rings
+    for jx, top in jets:
+        for y in range(top, 28):
+            out[y][jx - 1] = LB1; out[y][jx] = WH; out[y][jx + 1] = LB1
+        for dx in (-4, -3, 3, 4): _px(out, jx + dx, 27, WH)
+        for dx in (-5, 5): _px(out, jx + dx, 28, LB2)
+        _px(out, jx - 2, top + 1, LB1); _px(out, jx + 2, top + 1, LB1)
+        _px(out, jx - 3, top + 3, WH); _px(out, jx + 3, top + 3, WH)
+    return out
+
+
+def lamp_post():
+    """Lilycove's street lamp (metatile 0x29A) without its grass, recoloured to palette 8."""
+    mimg = render.build('primary/general', 'secondary/lilycove_city')[0]
+    lamp = mimg(0x29a).load(); grass = mimg(0x001).load()
+    pal = render_palette8()
+    c = _canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            if lamp[x, y] != grass[x, y]:
+                col = lamp[x, y]
+                c[y][x] = min(range(1, 16), key=lambda i: sum((a - b) ** 2 for a, b in zip(pal[i], col)))
+    return c
+
+def render_palette8():
+    import os
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data/tilesets/secondary/lilycove/palettes/08.pal')
+    L = open(p).read().split('\n')[3:19]
+    return [tuple(int(v) for v in l.split()) for l in L]

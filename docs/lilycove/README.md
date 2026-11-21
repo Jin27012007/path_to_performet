@@ -72,13 +72,15 @@ python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.
 ```
 
 ## Praça (em frente ao Centro de Concursos)
-* Contorno e piso em **ladrilho cinza** (desenhado na paleta 8 de Lilycove).
-* **Cruz invertida de tijolos**: braço longo no eixo do Centro de Concursos e travessa
-  logo abaixo do prédio.
-* Duas **fontes** de pedra (desenho novo, contorno escuro e 3 tons como no Emerald),
-  cada uma entre **canteiros** com o meio-fio de pedra branca original do jogo e flores.
-* **Árvores médias** nas bordas e **postes de luz** ao longo do caminho de tijolos.
-* A rua (avenida) separa o prédio da praça. O tapete vermelho foi removido.
+* Contorno e caminhos em **ladrilho cinza** (desenhado na paleta 8 de Lilycove).
+* **Cruz invertida de tijolos**: braço longo no eixo do Centro de Concursos, indo até o
+  calçadão, e travessa logo abaixo do prédio.
+* Dois **gramados** com flores, árvores médias e um canteiro longo (meio-fio branco
+  original do jogo). As **fontes modernas** (piscina retangular com três jatos) ficam
+  no meio dos gramados, fora do caminho.
+* **Bandeirinhas presas entre postes de luz** atravessando os caminhos de tijolos. Os
+  postes foram extraídos do tile original sem a grama, então ficam sobre o piso certo.
+* A praça vai da avenida até o calçadão do porto (o píer não mudou).
 
 ## Porto (zona sul)
 Arte no estilo do próprio Emerald, extraída dos gráficos originais por

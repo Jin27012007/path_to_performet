@@ -36,21 +36,7 @@ path(0,20,42,23)
 
 # boulevard lamps
 for x in (5,11,35,39): lamp(x,23)
-# ================= PLAZA (y23-35): grey tiles, inverted brick cross, fountains =================
-PX0,PX1,PY0,PY1 = 14,41,23,36          # plaza area; axis x=27 (Contest Hall door)
-paving(PX0,PY0,PX1,PY1)                # grey tiles: contour and floor
-brickfill(25,PY0,30,PY1)               # long arm of the cross, pointing at the hall
-brickfill(16,24,39,27)                 # cross bar, right below the hall
-for qx,flip in ((14,False),(30,True)): # the two lower quadrants (11 x 9)
-    fx = qx+4                          # fountain column
-    flowerbed(qx+2,27,7,3)             # bed above the fountain
-    flowerbed(qx+2,33,7,3)             # bed below the fountain
-    art('fountain',fx,30,bottom='paving')
-    tx = qx if not flip else qx+9      # medium trees on the outer edge
-    tree1(tx,27); tree1(tx,33)
-    lx = qx+10 if not flip else qx     # lamp posts along the brick path
-    lamp(lx,28); lamp(lx,34)
-for x in (17,21,33,37): lamp(x,23)     # lamps along the top contour
+# ================= PLAZA: drawn at the end (see PLAZA section below) =================
 # ================= HARBOR (left) =================
 harbor(4,26)                                 # door (7,31)
 brickfill(2,32,14,36)
@@ -58,7 +44,7 @@ tree1(2,23) if False else None
 trees(11,24,13,31)
 flowers(2,24,4,31)
 # ================= PROMENADE + WOODEN BOARDWALK =================
-brickfill(2,36,42,40)
+brickfill(2,36,14,40)                  # promenade west of the plaza
 # (the boardwalk itself is drawn at the end, after the beach, see boardwalk())
 # ================= BEACH (right) =================
 SX0,SX1,SY0,SY1=42,49,19,40   # sand area (meets the boardwalk at row 40)
@@ -83,16 +69,15 @@ stamp(66,0,76,8,54,0)
 for yy in range(4,8): put(54,yy,SHALLOW)
 
 # promenade planters (avoid pier axes x=7, x=27)
-for x in (3,15,23,31): put(x,37,T(0x005,1,0))
+for x in (3,): put(x,37,T(0x005,1,0))
 # central fountain on main axis
 # sign posts for bg_events
 for sx,sy in [(10,10),(47,9),(2,19),(31,19),(40,17),(3,31),(22,10),(16,5)]: sign(sx,sy)
 
 # ================= FESTIVAL DRESSING (World Contest Season) =================
 for bx,blue in ((23,False),(31,True)): banner(bx,17,'grass',blue)
-for bx,blue in ((15,True),(38,False)): banner(bx,24,'brick',blue)   # season banners at the ends of the cross bar
 bunting(2,46,21)                                   # across the avenue
-bunting(2,42,38)                                   # promenade
+bunting(2,14,38)                                   # promenade (west part)
 bunting(16,38,11)                                  # north street
 # palms along the promenade
 for px_ in (2,10): palm(px_,36,'brick')   # promenade palms, outside the plaza
@@ -146,3 +131,20 @@ for (x,y) in [(21,43),(33,43),(46,43),(19,56),(31,56)]: put(x,y,D('dock_bollard'
 art('boat_side',15,52); art('boat_side_l',35,56); art('boat_front',44,48); art('boat_side',47,54)
 art('boat_side_l',56,45); art('boat_front',58,52); art('boat_side',55,37)
 art('boat_side_l',49,32,bottom='shallow'); art('boat_front',49,35,bottom='shallow')
+
+# ================= PLAZA (x14-40, y23-39): grey tiles, inverted brick cross, lawns, fountains ===========
+paving(14,23,41,40)                       # grey tiles: contour and walkways
+brickfill(25,23,30,40)                    # long arm of the cross, pointing at the Contest Hall
+brickfill(16,24,39,27)                    # cross bar, right below the hall
+for qx in (14,30):                        # two lawns (left / right), fountains set apart from the paths
+    lx0 = qx+1                            # lawn x lx0..lx0+8, rows 28..38
+    fill(lx0,28,lx0+9,39,GRASS)
+    flowers(lx0+1,29,lx0+8,30); flowers(lx0+1,35,lx0+8,36)
+    art('fountain_modern',lx0+2,31,bottom='grass')
+    tree1(lx0,31) if qx==14 else tree1(lx0+7,31)
+    tree1(lx0+7,31) if qx==14 else tree1(lx0,31)
+    flowerbed(lx0,36,9,3)                 # long flowerbed along the bottom of the lawn
+# bunting strung between lamp posts across the brick paths
+for y in (28,33,38):
+    lamp2(24,y); lamp2(30,y); bunting2(25,30,y,'brick')
+lamp2(15,25); lamp2(39,25); bunting2(16,39,25,'brick')
