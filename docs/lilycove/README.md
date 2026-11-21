@@ -124,18 +124,18 @@ Substitui o Centro Pokémon e o prédio do Porto. Montado com peças do próprio
 * **Café**: a floricultura da Rota 104 (telhado laranja levemente escurecido, toldo
   listrado), com paredes creme, revestimento de madeira no lugar das floreiras, pilares
   claros e uma boia salva-vidas na parede.
-* **Terraço de madeira clara** de deck de praia (bege com juntas marrons suaves), até o poste da rua.
+* **Terraço de madeira fosca** (tom médio, juntas suaves, na paleta 10), até o poste da rua,
+  **cercado** por cerca baixa marrom nos três lados, com entrada alinhada à porta do café.
 * **Mesinhas redondas modernas** (desenhadas no estilo do jogo) com **duas cadeiras
   vermelhas do lounge da Battle Frontier**, e conjuntos de **guarda-sol da praia da Rota
   109** sobre mesa e cadeiras (o mastro entra no centro da mesa; sombra pontilhada).
-* **Palmeirinhas em vaso** (também do lounge da Battle Frontier) junto ao café, ao quiosque
-  e à entrada.
+* **Palmeirinhas em vaso** (também do lounge da Battle Frontier) organizadas em pares:
+  ladeando o café e a entrada do terraço; mais duas no calçadão.
 * **Máquinas de bebida** do terraço da Loja de Departamentos (água, limonada e soda, cada
   uma com garrafas de uma cor), com o script original de compra; **cerca baixa marrom** com entrada alinhada à
-  porta, calçada ligando a rua à praça e calçadão de tijolos com barraca de flores e
-  palmeiras.
+  porta, calçada ligando a rua à praça e piso cinza até o calçadão, com barraca de flores.
 * Café, móveis e guarda-sóis na paleta 11 do mercado (o índice 6, que estava livre, virou
-  um vermelho-coral); piso também na 11; vasos e cerca na paleta 6 do festival.
+  um vermelho-coral); piso na paleta 10 (duas entradas livres viraram madeira fosca); vasos e cerca na 6.
 * Placas: letreiro do café e aviso na porta.
 * O Centro Pokémon e o Porto saíram do mapa. Os warps deles ficam na calçada, para
   que o renascimento depois de desmaiar e o Fly continuem funcionando, até o Centro

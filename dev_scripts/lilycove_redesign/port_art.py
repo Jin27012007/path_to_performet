@@ -73,6 +73,7 @@ FLOWER_NAMES = list(_P.FLOWER_COLOURS)
 _V = list(PALETTES[12])
 _V[4], _V[5], _V[6] = (232, 144, 120), (224, 208, 192), (192, 168, 152)     # coral roof, warm walls
 _V[9], _V[10], _V[11] = (168, 136, 192), (192, 168, 216), (216, 200, 232)   # lilac
+_V[14], _V[15] = (176, 140, 100), (120, 92, 64)                         # matte wood for the café deck
 PALETTES[10] = _V
 for _n, _src in (('house_grey_coral', 'house_grey'), ('house_beige_lilac', 'house_beige')):
     _CANVAS[_n] = _CANVAS[_src]; PAL_OF[_n] = 10; ART[_n] = (lambda n=_n: _CANVAS[n])
@@ -162,8 +163,8 @@ for _n, _mk in (('table_set', _table_set), ('umbrella_set_red', lambda: _umbrell
 
 # lighter terrace planks: the dock planks without the saturated orange highlight (OR -> cream)
 # light beach-deck planks with soft joints, in the market palette 11 (beige body, brown joints)
-_CANVAS['terrace'] = [[{4: 3, 14: 3, 15: 12}.get(v, v) for v in row] for row in _F.dock()]
-PAL_OF['terrace'] = 11; ART['terrace'] = lambda: _CANVAS['terrace']; FLOOR.add('terrace')
+_CANVAS['terrace'] = [[{4: 14, 14: 14, 15: 15}.get(v, v) for v in row] for row in _F.dock()]
+PAL_OF['terrace'] = 10; ART['terrace'] = lambda: _CANVAS['terrace']; FLOOR.add('terrace')
 PALETTES[6] = list(_F.PAL6)        # festival palette (greens for the potted palms); only used for mapping,
 _CANVAS['potted_palm'] = _fixed(_palm_pot(), 6); PAL_OF['potted_palm'] = 6; ART['potted_palm'] = lambda: _CANVAS['potted_palm']
 del PALETTES[6]                    # slot 6 itself is written by festival_tiles.py (shared with Route 121)
@@ -173,3 +174,15 @@ _vm = _fixed(A.vending_machine(), 11)
 for _n, _to in (('vending_water', 8), ('vending_lemonade', 4), ('vending_soda', 6)):   # bottles = index 10
     _CANVAS[_n] = [[_to if v == 10 else v for v in row] for row in _vm]; PAL_OF[_n] = 11
     ART[_n] = (lambda n=_n: _CANVAS[n])
+
+def _wood_fence_v():
+    """vertical run of the low wooden fence (a rail seen from above with a post every 8 px)"""
+    _, WH, CR, YE, OR, RE, DR, BR, LB, BL, NV, LG, GR, DG, BN, DB = range(16)
+    c = [[0] * 16 for _ in range(16)]
+    for y in range(16):                            # rail
+        c[y][6] = DB; c[y][7] = OR; c[y][8] = BN; c[y][9] = DB
+    for y0 in (1, 9):                              # posts
+        for y in range(y0, y0 + 5):
+            for x in range(5, 11): c[y][x] = DB if x in (5, 10) or y in (y0, y0 + 4) else (OR if x == 6 else BN)
+    return c
+_CANVAS['fence_wood_v'] = _wood_fence_v(); PAL_OF['fence_wood_v'] = 6; ART['fence_wood_v'] = lambda: _CANVAS['fence_wood_v']
