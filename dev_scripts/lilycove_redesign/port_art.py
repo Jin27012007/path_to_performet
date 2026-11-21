@@ -31,6 +31,11 @@ _GROUPS = {
         'box_wood': lambda: A.slateport_clean(7, 46, 1, 1),
         'fruit': lambda: A.slateport_clean(8, 41, 1, 1),
     },
+    12: {   # Rustboro buildings: modern houses and apartments (residential district)
+        'house_grey': lambda: A.from_map('RustboroCity', 40, 'secondary/rustboro', 28, 24, 5, 5, bg=0x2bb),
+        'house_beige': lambda: A.from_map('RustboroCity', 40, 'secondary/rustboro', 7, 34, 5, 5, bg=0x2bb),
+        'apartments': lambda: A.from_map('RustboroCity', 40, 'secondary/rustboro', 24, 30, 7, 5, bg=0x2bb),
+    },
 }
 
 PALETTES = {}

@@ -4,7 +4,8 @@ REPO=os.path.abspath(os.path.join(os.path.dirname(__file__),'..','..'))+'/'
 ORIG=open(os.path.join(os.path.dirname(__file__),'lilycove_original.bin'),'rb').read()
 OW=80
 def o(x,y): return struct.unpack_from('<H',ORIG,(y*OW+x)*2)[0]
-W,H=64,62
+OX=10            # the map was widened 10 columns to the west; layout coords are logical (x may be negative)
+W,H=74,62
 M=[[0]*W for _ in range(H)]
 def T(i,col=0,el=3): return i|(col<<10)|(el<<12)
 GRASS=T(0x001); GRASS2=T(0x002); FLOWERS=T(0x004); 
@@ -12,6 +13,7 @@ DEEP=T(0x170,0,1); SHALLOW=T(0x19e)
 COB=T(0x233); COBT=T(0x22b); COBB=T(0x23b)
 SAND=T(0x124)
 def put(x,y,v):
+    x+=OX
     if 0<=x<W and 0<=y<H: M[y][x]=v
 def fill(x0,y0,x1,y1,v):
     for y in range(y0,y1):
@@ -77,21 +79,21 @@ def fobj(name,x,y,w,h,walk_rows=1):
         for i in range(w):
             m=F['%s_%d_%d'%(name,i,j)]
             put(x+i,y+j,T(m,0,3) if j<walk_rows else T(m,1,0))
-def umbrella(x,y,blue=False): fobj('umbrella_blue_sand' if blue else 'umbrella_sand',x,y,2,2)
+def umbrella(x,y,blue=False): fobj('umbrella_sand',x,y,2,2)
 def palm(x,y,under='sand'): fobj('palm_'+under,x,y,2,3)
-def banner(x,y,under='brick',blue=False): fobj('banner%s_%s'%('_blue' if blue else '',under),x,y,1,2)
+def banner(x,y,under='brick',blue=False): fobj('banner_%s'%under,x,y,1,2)
 def brickfill(x0,y0,x1,y1): fill(x0,y0,x1,y1,T(F['brick']))
 def carpet(x,y0,y1):
     for y in range(y0,y1): put(x,y,T(F['carpet']))
 def bunting(x0,x1,y,under='cobble'):
     for x in range(x0,x1):
-        cur=M[y][x]&0x3ff
+        cur=M[y][x+OX]&0x3ff if isinstance(M[y][x+OX],int) else -1
         if cur==F['brick']: u='brick'
         elif cur in (0x233,0x22b,0x23b): u='cobble'
         elif cur in (0x001,0x002): u='grass'
         elif cur in (0x121,0x124): u='sand'
         else: continue
-        put(x,y,T(F['bunting_%s%s'%(u,'_blue' if (x//4)%2 else '')]))
+        put(x,y,T(F['bunting_%s'%u]))
 
 # ---------------- port art (resolved by build_city_tileset.py) ----------------
 import port_art as _pa
@@ -107,7 +109,7 @@ def art(name,x,y,pal=None,bottom='water',walk_rows=0):
 
 def paving(x0,y0,x1,y1):
     for y in range(y0,y1):
-        for x in range(x0,x1): put(x,y,('ART',('paving',0,0,None,'none'),0,3))
+        for x in range(x0,x1): put(x,y,T(F['paving']))
 CURB={'tl':0x3d,'t':0x3e,'tr':0x3f,'l':0x45,'c':0x46,'r':0x47,'bl':0x4d,'b':0x4e,'br':0x4f}
 def flowerbed(x0,y0,w,h):
     """Emerald white stone kerb with red flowers inside (solid)."""
@@ -123,7 +125,7 @@ def lamp2(x,y,under='paving',facing='right'):   # modern lamp: head at row y-1 (
     art('lamp_modern' if facing=='right' else 'lamp_modern_l',x,y-1,bottom=under,walk_rows=1)
 def bunting2(x0,x1,y,under='paving'):
     for x in range(x0,x1):
-        art('bunting_blue' if (x//4)%2 else 'bunting',x,y,bottom=under,walk_rows=1)
+        art('bunting',x,y,bottom=under,walk_rows=1)
 def string_lights(xa,xb,y,under='paving'):
     """two lamp posts with bunting strung between them"""
     lamp2(xa,y,under); lamp2(xb,y,under); bunting2(xa+1,xb,y,under)

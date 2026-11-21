@@ -1085,3 +1085,53 @@ LilycoveCity_Text_FatherBeach:
 LilycoveCity_Text_FatherBeachAdopted:
 	.string "PAI: Então esse é o seu parceiro.\p"
 	.string "…Cuidem bem um do outro.$"
+
+@ ----------------------------------------------------------------------------- Bairro residencial 1
+LilycoveCity_EventScript_SignH1::
+	msgbox LilycoveCity_Text_SignH1, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_SignH2::
+	msgbox LilycoveCity_Text_SignH2, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_SignH3::
+	msgbox LilycoveCity_Text_SignH3, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_SignH4::
+	msgbox LilycoveCity_Text_SignH4, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_SignH5::
+	msgbox LilycoveCity_Text_SignH5, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_SignL1::
+	msgbox LilycoveCity_Text_SignL1, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_SignL2::
+	msgbox LilycoveCity_Text_SignL2, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_SignL3::
+	msgbox LilycoveCity_Text_SignL3, MSGBOX_SIGN
+	end
+LilycoveCity_EventScript_LockedDoor::
+	msgbox LilycoveCity_Text_LockedDoor, MSGBOX_SIGN
+	end
+
+LilycoveCity_Text_SignH1:
+	.string "Residência Coral.$"
+LilycoveCity_Text_SignH2:
+	.string "EDIFÍCIO BRISA DO MAR\n"
+	.string "Apartamentos 101 a 302$"
+LilycoveCity_Text_SignH3:
+	.string "Casa da família Ventura.$"
+LilycoveCity_Text_SignH4:
+	.string "EDIFÍCIO LILÁS\n"
+	.string "Apartamentos 1 a 6$"
+LilycoveCity_Text_SignH5:
+	.string "Casa da família Neves.$"
+LilycoveCity_Text_SignL1:
+	.string "Casa 3.$"
+LilycoveCity_Text_SignL2:
+	.string "Residência Lírio.$"
+LilycoveCity_Text_SignL3:
+	.string "Residência Aurora.$"
+LilycoveCity_Text_LockedDoor:
+	.string "A porta está trancada.$"

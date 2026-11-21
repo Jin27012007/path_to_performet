@@ -1,5 +1,5 @@
 from compose import *
-fill(0,0,W,H,GRASS)
+fill(-OX,0,W-OX,H,GRASS)
 # ================= sea =================
 fill(52,0,W,H,DEEP); fill(0,42,W,H,DEEP)
 # ================= borders =================
@@ -65,8 +65,6 @@ for y in range(19,40): put(52,y,T(0x1b7,0,1))
 # bottom-left corner tidy
 trees(0,24,2,40); 
 # Aqua cave islet (keeps original warp target)
-stamp(66,0,76,8,54,0)
-for yy in range(4,8): put(54,yy,SHALLOW)
 
 # promenade planters (avoid pier axes x=7, x=27)
 for x in (3,): put(x,37,T(0x005,1,0))
@@ -86,7 +84,7 @@ umbrella(44,22); umbrella(46,28,True); umbrella(43,33)
 palm(43,25); palm(46,33)
 
 # ================= PORT: BOARDWALK, PIERS, STALLS, BOATS AND THE CRUISE SHIP =================
-fill(0,40,52,H,DEEP)
+fill(-OX,40,52,H,DEEP)
 def D(name, walk=True): return T(F[name],0,3) if walk else T(F[name],1,0)
 def posts(x0,x1,y):
     for x in range(x0,x1): put(x,y,T(F['dock_posts'],1,1))
@@ -106,8 +104,8 @@ def pier(x0,y0,y1):      # 3-wide vertical pier
 MAIN_PIER=24             # columns 24..26
 FISH_PIER=4              # columns 4..6
 # boardwalk: 4 rows, from the harbor all the way to the beach (x 0..51)
-deck(0,52,40,44,joins_bottom=(MAIN_PIER,MAIN_PIER+1,MAIN_PIER+2,FISH_PIER,FISH_PIER+1,FISH_PIER+2),posts_below=False)
-for x in range(0,52):
+deck(-OX,52,40,44,joins_bottom=(MAIN_PIER,MAIN_PIER+1,MAIN_PIER+2,FISH_PIER,FISH_PIER+1,FISH_PIER+2),posts_below=False)
+for x in range(-OX,52):
     if x not in (MAIN_PIER,MAIN_PIER+1,MAIN_PIER+2,FISH_PIER,FISH_PIER+1,FISH_PIER+2): put(x,44,T(F['dock_posts'],1,1))
 # main pier: long, the cruise ship is moored along its east side
 pier(MAIN_PIER,44,55)
@@ -122,10 +120,10 @@ art('boat_side',9,48); art('boat_side_l',0,47); art('boat_side',13,50); art('boa
 # market tents along the boardwalk (Slateport-style), with goods around them
 art('tent_green',8,40,bottom='dock',walk_rows=2); art('tent_pots',14,40,bottom='dock',walk_rows=2)
 art('tent_flowers',32,40,bottom='dock',walk_rows=2); art('tent_green',38,40,bottom='dock',walk_rows=2)
-for (n,x,y) in [('basket_orange',13,42),('crate_label',19,41),('fruit',37,42),('box_wood',43,41),('basket_green',31,42),('basket_orange',7,42)]:
+for (n,x,y) in [('basket_orange',13,42),('crate_label',19,41),('basket_green',31,42),('basket_orange',7,42)]:
     art(n,x,y,bottom='dock')
 # crates and mooring posts (the father waits next to the crates)
-for (x,y) in [(30,42),(30,41),(2,41),(22,41)]: put(x,y,D('dock_crate',False))
+for (x,y) in [(30,42),(30,41),(2,41),(22,41),(37,42),(43,41)]: put(x,y,D('dock_crate',False))
 for (x,y) in [(21,43),(33,43),(46,43),(19,56),(31,56)]: put(x,y,D('dock_bollard',False))
 # fishing boats around the bay and at the beach
 art('boat_side',15,52); art('boat_side_l',35,56); art('boat_front',44,48); art('boat_side',47,54)
@@ -152,3 +150,49 @@ for side,lx0 in (('L',15),('R',31)):      # two lawns (x lx0..lx0+8, rows 28..38
 for y in (28,33,38):
     lamp2(24,y); lamp2(30,y,facing='left'); bunting2(25,30,y-1,'brick')
 lamp2(15,25); lamp2(39,25,facing='left'); bunting2(16,39,24,'brick')
+
+# ================= RESIDENTIAL DISTRICT 1 (west): uphill street from the pier to Route 121 =========
+# logical x -10..13 (the map was widened 10 columns to the west for it)
+STREET = (-2, 1)                       # street columns -2..0, stone paving, from the boardwalk up to row 11
+def sand_trail(x0,y0,x1,y1):           # light dirt trail (Emerald sand path) linking a door to the street
+    for y in range(y0,y1):
+        for x in range(x0,x1): put(x,y,T(0x121))
+def house_sign(x,y): sign(x,y)
+fill(-10,2,14,40,GRASS)                 # clear the old west part (PC, House 3, trees...)
+trees(-10,0,2,10,grass_above=False)     # forest west of the museum, above the Route 121 connection
+museum(2,2); path(6,10,10,11)           # (redrawn: the clear above wiped its lower rows)
+for cx in (0,1,9,10,11,12): put(2+cx,2,GRASS)
+paving(-10,11,14,13)                    # north street, west part, open to Route 121 (rows 10..13)
+paving(STREET[0],13,STREET[1],40)       # the uphill residential street
+paving(STREET[0],20,14,23)              # avenue to the plaza
+# --- west houses, bottom to top: H1, H2 | terrain step with stairs | H3, H4, H5 (upper level)
+# The strip x -10..-2, rows 5..24 is what Route 121 shows across the connection (drawn with the
+# shared Lilycove tileset), so it only uses original/shared pieces: classic houses there.
+fill(-10,5,-3,11,GRASS)                                              # clearing in the forest for H5
+house(-8,6);              house_sign(-4,9)                           # H5 classic, door (-7,9) onto the north street
+fanclub(-8,13);           sand_trail(-6,17,-2,18); house_sign(-8,17) # H4 "Edificio Lilas" (classic apartments), door (-6,16)
+house(-8,19);             sand_trail(-7,23,-2,24); house_sign(-8,23) # H3 classic, door (-7,22)
+for x in range(-10,-2): put(x,24,T(0x07c,1,0))                       # low cliff: the terrain step
+for y in (24,25): put(-2,y,T(0x0af)); put(-1,y,T(0x0cf)); put(0,y,T(0x07c,1,0))   # stairs on the street
+art('apartments',-9,26);  sand_trail(-6,31,-2,32); house_sign(-8,31) # H2 modern apartments, door (-6,30)
+art('house_grey',-9,32);  sand_trail(-7,37,-2,38); house_sign(-8,37) # H1 modern grey, door (-7,36)
+fence(-10,-8,38); fence(-6,-3,38)
+for (fx,fy) in ((-10,23),(-10,31),(-3,19),(-3,20),(-3,21),(-3,13),(-3,14),(-3,15),(-10,16),(-10,15),(-10,39),(-9,39),(-7,39),(-6,39),(-5,39),(-4,39),(-2,26) if False else (-3,26),(-3,27)):
+    put(fx,fy,FLOWERS)
+# --- the L: three houses along the north street (doors face the avenue)
+house(1,14); sand_trail(2,18,3,20); house_sign(0,17)                                  # L1 classic = House 3, door (2,17)
+art('house_beige',5,13); sand_trail(7,18,8,20); house_sign(4,17)                      # L2 modern beige, door (7,17)
+art('house_grey',10,13); sand_trail(12,18,13,20); house_sign(15,17)                   # L3 modern grey, door (12,17)
+for (fx0,fx1) in ((3,6),(9,11)): fence(fx0,fx1,18) if False else None
+# --- east of the street (lower level): hedge of trees hides the level change, harbor, Pokémon Center
+fill(1,23,14,26,GRASS)
+for x in range(3,14): put(x,25,T(0x07c,1,0))                 # low ledge under the avenue level
+tree1(1,23); tree1(1,26); trees(1,29,3,32)
+harbor(4,26)                                                  # door (7,31)
+brickfill(3,32,14,40); pc(10,32)                              # Pokémon Center next to the port, door (11,35)
+for x in (4,8): lamp2(x,33,'brick')
+palm(1,36,'grass') if False else None
+palm(3,36,'brick'); palm(7,36,'brick')
+bunting(-2,14,21)                                             # avenue bunting (west part)
+for x in (-3,1): lamp2(x,13) if False else None
+sign(-10,14); sign(3,31); sign(10,10)                                     # city sign at the Route 121 entrance, harbor sign

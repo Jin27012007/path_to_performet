@@ -15,15 +15,24 @@ def _px(c, x, y, v):
     if 0 <= y < len(c) and 0 <= x < len(c[0]): c[y][x] = v
 
 def paving():
-    """16x16 grey square tiles (4 per metatile): light face, subtle grout, top-left highlight."""
-    c = _canvas(16, 16)
-    for y in range(16):
-        for x in range(16):
-            gx, gy = x % 8, y % 8
-            if gx == 7 or gy == 7: v = PALE                 # grout
-            elif gx == 0 or gy == 0: v = WH if (gx + gy) < 6 else LGR
-            else: v = LGR
-            c[y][x] = v
+    """16x16 natural stone paving: three courses of stones of different lengths with
+    staggered joints, thin soft grout and a light top edge. Seamless and calm."""
+    # (first row, last row of the course, x positions of the vertical joints)
+    courses = [(0, 4, (6, 15)), (6, 10, (3, 11)), (12, 14, (8, 15))]
+    c = [[PALE] * 16 for _ in range(16)]           # grout everywhere first
+    for (y0, y1, joints) in courses:
+        for y in range(y0, y1 + 1):
+            for x in range(16):
+                if x in joints: continue
+                c[y][x] = WH if y == y0 else LGR
+    # soften: round the stone corners a little
+    for (y0, y1, joints) in courses:
+        for j in joints:
+            for x in ((j + 1) % 16, j - 1):
+                c[y0][x] = LGR if c[y0][x] == WH else c[y0][x]
+    # a few grout gaps so the courses don't read as perfect lines
+    for (x, y) in ((2, 5), (13, 11), (5, 15)):
+        c[y][x] = LGR
     return c
 
 def fountain():

@@ -264,10 +264,14 @@ def main():
     PLANK = quad(dock())
     add_meta('dock_crate', PLANK, quad(crate()))
     add_meta('dock_bollard', PLANK, quad(bollard()))
+    # grey stone paving (palette 8), shared so it also looks right across the Route 121 seam
+    import plaza_art
+    pv = plaza_art.paving()
+    add_meta('paving', [entry(bank.add(q), 8) for q in [[r[0:8] for r in pv[0:8]], [r[8:16] for r in pv[0:8]], [r[0:8] for r in pv[8:16]], [r[8:16] for r in pv[8:16]]]], [0] * 4)
     obj('umbrella', umbrella(), [(SAND, 'sand')], [(6, ''), (12, '_blue')])
     obj('palm', palm(), [(SAND, 'sand'), (GRASS, 'grass'), (BRICK, 'brick')], [(6, '')])
     obj('banner', banner(), [(BRICK, 'brick'), (GRASS, 'grass'), (COB, 'cobble')], [(6, ''), (12, '_blue')])
-    assert len(bank.tiles) <= 512, len(bank.tiles)
+    assert len(bank.tiles) <= 504, len(bank.tiles)   # tiles 504-511: door animations
     assert len(attrs) <= 512, len(attrs)
     # write tiles.png (pad to full rows)
     n = len(bank.tiles); rows = (n + 15) // 16

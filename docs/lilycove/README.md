@@ -71,6 +71,25 @@ python3 dev_scripts/lilycove_redesign/vivid_palettes.py
 python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.png
 ```
 
+## Bairro residencial 1 (oeste)
+O mapa ganhou 10 colunas a oeste (agora 74×62).
+* **Rua de pedra** subindo do calçadão do porto até a entrada da Rota 121, com 5 casas
+  (de baixo para cima): Residência Coral (moderna), Edifício Brisa do Mar (apartamentos
+  modernos), **degrau de terreno com escada**, Casa Ventura, Edifício Lilás (apartamentos
+  clássicos) e Casa Neves, já na entrada da rota.
+* No topo a rua vira à direita em **L** com mais 3 casas: Casa 3 (com interior),
+  Residência Lírio e Residência Aurora (modernas).
+* Casas modernas vêm de Rustboro (gráficos originais, paleta 12); as clássicas são as de
+  Lilycove. Cercas, **placas com o nome** de cada casa/edifício, trilhas de terra ligando
+  as portas à rua e grama com flores em volta das árvores.
+* O **ladrilho de pedra** foi redesenhado: pedras de tamanhos diferentes com juntas
+  desencontradas, mais natural e simples. É o mesmo da praça.
+* O **Centro Pokémon** fica agora junto ao porto, ao lado do Porto (ferry).
+* Junção com a Rota 121: o GBA desenha o mapa vizinho com o tileset do mapa atual. Por
+  isso a faixa da cidade visível a partir da rota usa só peças compartilhadas (casas
+  clássicas, ladrilho compartilhado), e o tileset da cidade mantém as peças da borda da
+  rota. Testado nos dois sentidos.
+
 ## Praça (em frente ao Centro de Concursos)
 * Contorno e caminhos em **ladrilho cinza** (desenhado na paleta 8 de Lilycove).
 * **Cruz invertida de tijolos**: braço longo no eixo do Centro de Concursos, indo até o
@@ -100,7 +119,7 @@ slots 10 e 11):
 O mapa agora tem 64×62. A cidade usa um tileset só dela, `gTileset_LilycoveCity`,
 gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade já usava
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
-Rota 121 e ao Safari. Ainda sobram ~19 tiles e ~155 metatiles no tileset da cidade.
+Rota 121 e ao Safari. Ainda sobram ~5 tiles e ~85 metatiles no tileset da cidade (tiles iguais ou espelhados são reaproveitados).
 
 ## Próximos passos
 * Interior da Casa 4 (sala, cozinha, quarto extra) conforme o roteiro.

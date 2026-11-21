@@ -115,3 +115,21 @@ def tent_with(goods_x, goods_y):
     clear = Image.new('RGBA', (32, 16), (0, 0, 0, 0))
     t.paste(clear, (16, 32)); t.paste(goods, (16, 32), goods)
     return t
+
+def _region_colours(layout, width, sec, rects):
+    cols = set()
+    for (x0, y0, w, h) in rects:
+        im = from_map(layout, width, sec, x0, y0, w, h, bg=0x3ff)
+        cols |= {c[:3] for c in im.getdata() if c[3]}
+    return cols
+
+def rustboro(x0, y0, w, h):
+    """A Rustboro building with ground, shadows and grass keyed out."""
+    ground = _region_colours('RustboroCity', 40, 'secondary/rustboro',
+                             [(19, 24, 3, 5), (12, 31, 3, 2), (14, 26, 1, 3), (20, 40, 3, 2), (25, 28, 1, 1), (28, 35, 2, 1)])
+    img = from_map('RustboroCity', 40, 'secondary/rustboro', x0, y0, w, h, bg=0x3ff)
+    p = img.load()
+    for y in range(img.height):
+        for x in range(img.width):
+            if p[x, y][3] and p[x, y][:3] in ground: p[x, y] = (0, 0, 0, 0)
+    return img

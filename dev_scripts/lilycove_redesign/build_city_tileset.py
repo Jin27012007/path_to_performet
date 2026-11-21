@@ -16,8 +16,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, '..', '..'))
 SRC = os.path.join(REPO, 'data/tilesets/secondary/lilycove')
 DST = os.path.join(REPO, 'data/tilesets/secondary/lilycove_city')
+SHORT = [0]
 MAX_TILES = 504          # tiles 504-511 of the secondary block are used by door animations
 DOORS = (0x246, 0x28E, 0x30C, 0x32D)
+SHARED_LAYOUTS = (('Route121', 80, 66),)
 
 def _load():
     im = Image.open(os.path.join(SRC, 'tiles.png')); p = im.load()
@@ -46,8 +48,18 @@ def build(M, festival_ids):
         'dock': metas[festival_ids['dock'] - 512][:4],
         'brick': metas[festival_ids['brick'] - 512][:4],
         'grass': pmeta(0x001)[:4],
+        'paving': metas[festival_ids['paving'] - 512][:4],
     }
     used = {v & 0x3ff for row in M for v in row if isinstance(v, int) and (v & 0x3ff) >= 512} | set(DOORS)
+    # Route 121 shares this tileset (connected maps are drawn with the current map's
+    # tileset), so its metatiles are kept with their original ids too.
+    # Connected maps are drawn with the CURRENT map's tileset: keep the metatiles of
+    # Route 121's east strip (visible from Lilycove) with their original ids.
+    for shared, width, x0 in SHARED_LAYOUTS:
+        d = open(os.path.join(REPO, 'data/layouts', shared, 'map.bin'), 'rb').read()
+        h = len(d) // 2 // width
+        used |= {struct.unpack_from('<H', d, (y * width + x) * 2)[0] & 0x3ff
+                 for y in range(h) for x in range(x0, width)} - set(range(512))
     keep_tiles = set()
     for m in used:
         for e in metas[m - 512]:
@@ -64,11 +76,17 @@ def build(M, festival_ids):
     tile_index = {}
     art_ids = {}
     def add_tile(t):
+        """Adds an 8x8 tile, reusing an existing one when it matches directly or mirrored
+        (the returned value carries the GBA h/v-flip bits)."""
         if all(v == 0 for r in t for v in r): return 0
         k = tuple(tuple(r) for r in t)
         if k not in tile_index:
-            if not free_tiles: raise SystemExit('out of tiles for port art')
-            i = free_tiles.pop(0); new_tiles[i] = t; tile_index[k] = 512 + i
+            if not free_tiles:
+                SHORT[0] += 1; return 0
+            i = free_tiles.pop(0); new_tiles[i] = [list(r) for r in t]; base = 512 + i
+            h = tuple(tuple(r[::-1]) for r in k); v = tuple(k[::-1]); hv = tuple(tuple(r[::-1]) for r in k[::-1])
+            for key, bits in ((hv, 0xC00), (v, 0x800), (h, 0x400), (k, 0)):
+                tile_index[key] = base | bits
         return tile_index[k]
     keys = sorted({v[1] for row in M for v in row if isinstance(v, tuple)}, key=str)
     for key in keys:
@@ -81,9 +99,6 @@ def build(M, festival_ids):
             top.append(t | (pal << 12) if t else 0)
         if not free_meta: raise SystemExit('out of metatiles for port art')
         mid = free_meta.pop(0)
-        if bottom == 'paving' and 'paving' not in BOTTOM:
-            pv = port_art.ART['paving']()
-            BOTTOM['paving'] = [(add_tile(q) or 0) | (port_art.PAL_OF['paving'] << 12) for q in _split16(pv, 0, 0)]
         if name in port_art.FLOOR:
             new_metas[mid] = top + [0] * 4
         else:
@@ -110,6 +125,7 @@ def build(M, festival_ids):
     ab = b''.join(struct.pack('<H', new_attrs.get(512 + i, 0)) for i in range(count))
     open(os.path.join(DST, 'metatiles.bin'), 'wb').write(mb)
     open(os.path.join(DST, 'metatile_attributes.bin'), 'wb').write(ab)
+    if SHORT[0]: print('*** SHORT OF %d TILES ***' % SHORT[0])
     print('city tileset: %d metatiles used, %d art metatiles, %d free tiles left, %d free metatiles left'
           % (len(used), len(art_ids), len(free_tiles), len(free_meta)))
     return out
