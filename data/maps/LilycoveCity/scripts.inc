@@ -951,6 +951,13 @@ LilycoveCity_Movement_PlayerWalkUpPier:
 	walk_up
 	walk_up
 	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
 	step_end
 
 LilycoveCity_Movement_FatherApproach:

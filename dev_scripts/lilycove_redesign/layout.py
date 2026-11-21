@@ -126,20 +126,22 @@ for x in range(0,52):
 # main pier: long, the cruise ship is moored along its east side
 pier(MAIN_PIER,44,55)
 deck(19,32,55,57,joins_top=(MAIN_PIER,MAIN_PIER+1,MAIN_PIER+2))
-art('cruise',27,47)
-for (x,y) in [(MAIN_PIER+2,46),(MAIN_PIER+2,52)]: put(x,y,D('dock_bollard',False))   # ship mooring
+art('cruise',19,57)   # moored along the landing platform
+
 # fishermen's pier with two finger docks and moored boats
 pier(FISH_PIER,44,53)
 deck(FISH_PIER+3,13,47,48); deck(FISH_PIER+3,13,51,52)
 deck(1,10,53,55,joins_top=(FISH_PIER,FISH_PIER+1,FISH_PIER+2))
-art('boat',10,45); art('boat',8,49,pal=12); art('boat',13,51); art('boat',1,49,pal=12); art('boat',1,45)
-# market stalls along the boardwalk (fish by the fishermen, fruit and souvenirs by the cruise)
-art('stall_fish',8,40); art('stall_fish',11,40,pal=12); art('stall_fruit',15,40); art('stall_fruit',18,40,pal=12)
-art('stall_souvenir',33,40); art('stall_fruit',36,40,pal=12); art('stall_souvenir',39,40,pal=12)
+art('boat_side',9,48); art('boat_side_l',0,47); art('boat_side',13,50); art('boat_front',1,50)
+# market tents along the boardwalk (Slateport-style), with goods around them
+art('tent_green',8,40,bottom='dock',walk_rows=2); art('tent_pots',14,40,bottom='dock',walk_rows=2)
+art('tent_flowers',32,40,bottom='dock',walk_rows=2); art('tent_green',38,40,bottom='dock',walk_rows=2)
+for (n,x,y) in [('basket_orange',13,42),('crate_label',19,41),('fruit',37,42),('box_wood',43,41),('basket_green',31,42),('basket_orange',7,42)]:
+    art(n,x,y,bottom='dock')
 # crates and mooring posts (the father waits next to the crates)
-for (x,y) in [(30,42),(31,42),(30,41),(2,41),(22,41)]: put(x,y,D('dock_crate',False))
-for (x,y) in [(14,43),(21,43),(32,43),(44,43),(19,56),(31,56)]: put(x,y,D('dock_bollard',False))
-# fishing boats scattered around the bay and at the beach
-art('boat',15,52,pal=12); art('boat',35,56); art('boat',44,49,pal=12); art('boat',47,55)
-art('boat',56,46); art('boat',58,54,pal=12); art('boat',55,38,pal=12)
-art('boat',49,33,bottom='shallow'); art('boat',49,36,bottom='shallow',pal=12)
+for (x,y) in [(30,42),(30,41),(2,41),(22,41)]: put(x,y,D('dock_crate',False))
+for (x,y) in [(21,43),(33,43),(46,43),(19,56),(31,56)]: put(x,y,D('dock_bollard',False))
+# fishing boats around the bay and at the beach
+art('boat_side',15,52); art('boat_side_l',35,56); art('boat_front',44,48); art('boat_side',47,54)
+art('boat_side_l',56,45); art('boat_front',58,52); art('boat_side',55,37)
+art('boat_side_l',49,32,bottom='shallow'); art('boat_front',49,35,bottom='shallow')

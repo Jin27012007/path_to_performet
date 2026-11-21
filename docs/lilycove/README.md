@@ -72,18 +72,21 @@ python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.
 ```
 
 ## Porto (zona sul)
-* Calçadão de madeira com 4 fileiras, do Porto até a praia, com **barracas de comércio**
-  (peixe, frutas e lembranças, toldos vermelhos e azuis), caixotes e postes de amarração.
-* **Píer principal** longo com o **cruzeiro** atracado ao lado: é onde o protagonista
-  desembarca e reencontra o pai.
-* **Píer dos pescadores** com dois atracadouros laterais e barcos amarrados.
-* **Barcos pesqueiros** espalhados pela baía e na água rasa da praia.
+Arte no estilo do próprio Emerald, extraída dos gráficos originais por
+`authentic_art.py` (fundo removido e cores reunidas em duas paletas próprias da cidade,
+slots 10 e 11):
+* **Cruzeiro**: o sprite do S.S. Tidal alongado (seção de janelas repetida), atracado na
+  plataforma horizontal do píer principal. É onde o protagonista desembarca.
+* **Barcos pesqueiros**: o barco do Mr. Briney (lateral, espelhado e de frente),
+  espalhados pela baía, no píer dos pescadores e na água rasa da praia.
+* **Mercado**: tendas e mercadorias do mercado de Slateport (cestos, potes, frutas,
+  flores, caixotes) ao longo do calçadão.
+* Calçadão e píeres de madeira em tom mais claro, ligados à praia.
 
-O mapa agora tem 64×60. A cidade passou a usar um tileset só dela,
-`gTileset_LilycoveCity`, gerado por `build_city_tileset.py`. Ele mantém os mesmos ids de
-metatile que a cidade já usava (as animações de porta continuam funcionando) e
-reaproveita o espaço que só servia à Rota 121 e ao Safari para a arte nova
-(`port_art.py`). Ainda sobram ~120 tiles e ~185 metatiles.
+O mapa agora tem 64×62. A cidade usa um tileset só dela, `gTileset_LilycoveCity`,
+gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade já usava
+(as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
+Rota 121 e ao Safari. Ainda sobram ~100 tiles e ~180 metatiles.
 
 ## Próximos passos
 * Interior da Casa 4 (sala, cozinha, quarto extra) conforme o roteiro.

@@ -4,7 +4,7 @@ REPO=os.path.abspath(os.path.join(os.path.dirname(__file__),'..','..'))+'/'
 ORIG=open(os.path.join(os.path.dirname(__file__),'lilycove_original.bin'),'rb').read()
 OW=80
 def o(x,y): return struct.unpack_from('<H',ORIG,(y*OW+x)*2)[0]
-W,H=64,60
+W,H=64,62
 M=[[0]*W for _ in range(H)]
 def T(i,col=0,el=3): return i|(col<<10)|(el<<12)
 GRASS=T(0x001); GRASS2=T(0x002); FLOWERS=T(0x004); 
@@ -96,7 +96,7 @@ def bunting(x0,x1,y,under='cobble'):
 # ---------------- port art (resolved by build_city_tileset.py) ----------------
 import port_art as _pa
 _ART_SIZE={}
-def art(name,x,y,pal=6,bottom='water',walk_rows=0):
+def art(name,x,y,pal=None,bottom='water',walk_rows=0):
     if name not in _ART_SIZE:
         c=_pa.ART[name](); _ART_SIZE[name]=(len(c[0])//16,len(c)//16)
     w,h=_ART_SIZE[name]

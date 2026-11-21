@@ -71,6 +71,7 @@ def build(M, festival_ids):
     keys = sorted({v[1] for row in M for v in row if isinstance(v, tuple)}, key=str)
     for key in keys:
         name, mx, my, pal, bottom = key
+        pal = port_art.PAL_OF[name]
         if name not in canvases: canvases[name] = port_art.ART[name]()
         top = []
         for q in _split16(canvases[name], mx, my):
@@ -87,6 +88,9 @@ def build(M, festival_ids):
     os.makedirs(os.path.join(DST, 'palettes'), exist_ok=True)
     for f in os.listdir(os.path.join(SRC, 'palettes')):
         shutil.copy(os.path.join(SRC, 'palettes', f), os.path.join(DST, 'palettes', f))
+    for slot, pal in port_art.PALETTES.items():      # authentic port art palettes
+        with open(os.path.join(DST, 'palettes', '%02d.pal' % slot), 'w', newline='\r\n') as f:
+            f.write('JASC-PAL\n0100\n16\n' + ''.join('%d %d %d\n' % c for c in pal))
     src_png = Image.open(os.path.join(SRC, 'tiles.png'))
     img = Image.new('P', (128, 256)); img.putpalette(src_png.getpalette()); p = img.load()
     for i, t in enumerate(new_tiles):
