@@ -872,6 +872,118 @@ static const struct Subsprite sOamTable_96x40_3[] = {
     }
 };
 
+static const struct Subsprite sOamTable_64x48_0[] = {
+    {
+        .x = -32,
+        .y = -24,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 0,
+        .priority = 2
+    },
+    {
+        .x = 0,
+        .y = -24,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 8,
+        .priority = 2
+    },
+    {
+        .x = -32,
+        .y = -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 16,
+        .priority = 2
+    },
+    {
+        .x = 0,
+        .y = -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 24,
+        .priority = 2
+    },
+    {
+        .x = -32,
+        .y = 8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 32,
+        .priority = 2
+    },
+    {
+        .x = 0,
+        .y = 8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 40,
+        .priority = 2
+    },
+};
+
+static const struct Subsprite sOamTable_64x48_1[] = {
+    {
+        .x = -32,
+        .y = -24,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 0,
+        .priority = 1
+    },
+    {
+        .x = 0,
+        .y = -24,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 8,
+        .priority = 1
+    },
+    {
+        .x = -32,
+        .y = -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 16,
+        .priority = 1
+    },
+    {
+        .x = 0,
+        .y = -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 24,
+        .priority = 1
+    },
+    {
+        .x = -32,
+        .y = 8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 32,
+        .priority = 1
+    },
+    {
+        .x = 0,
+        .y = 8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 40,
+        .priority = 1
+    },
+};
+
+// Used by the Lilycove cruise ship segments
+static const struct SubspriteTable sOamTables_64x48[] = {
+    {ARRAY_COUNT(sOamTable_64x48_0), sOamTable_64x48_0},
+    {ARRAY_COUNT(sOamTable_64x48_0), sOamTable_64x48_0},
+    {ARRAY_COUNT(sOamTable_64x48_1), sOamTable_64x48_1},
+    {ARRAY_COUNT(sOamTable_64x48_0), sOamTable_64x48_0},
+    {ARRAY_COUNT(sOamTable_64x48_1), sOamTable_64x48_1},
+    {ARRAY_COUNT(sOamTable_64x48_1), sOamTable_64x48_1}
+};
+
 // Used by SS Tidal
 static const struct SubspriteTable sOamTables_96x40[] = {
     {ARRAY_COUNT(sOamTable_96x40_0), sOamTable_96x40_0},

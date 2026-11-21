@@ -656,6 +656,22 @@ static const struct SpriteFrameImage sPicTable_HotSpringsOldWoman[] = {
     overworld_ascending_frames(gObjectEventPic_HotSpringsOldWoman, 2, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_CruiseShip0[] = {
+    obj_frame_tiles(gObjectEventPic_CruiseShip0),
+};
+
+static const struct SpriteFrameImage sPicTable_CruiseShip1[] = {
+    obj_frame_tiles(gObjectEventPic_CruiseShip1),
+};
+
+static const struct SpriteFrameImage sPicTable_CruiseShip2[] = {
+    obj_frame_tiles(gObjectEventPic_CruiseShip2),
+};
+
+static const struct SpriteFrameImage sPicTable_CruiseShip3[] = {
+    obj_frame_tiles(gObjectEventPic_CruiseShip3),
+};
+
 static const struct SpriteFrameImage sPicTable_SSTidal[] = {
     obj_frame_tiles(gObjectEventPic_SSTidal),
     obj_frame_tiles(gObjectEventPic_SSTidal),

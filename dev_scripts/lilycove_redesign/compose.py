@@ -110,7 +110,7 @@ def art(name,x,y,pal=None,bottom='water',walk_rows=0):
 
 def paving(x0,y0,x1,y1):
     for y in range(y0,y1):
-        for x in range(x0,x1): put(x,y,T(F['paving']))
+        for x in range(x0,x1): put(x,y,('ART',('paving',0,0,None,'water'),0,3))   # primary-tileset floor
 CURB={'tl':0x3d,'t':0x3e,'tr':0x3f,'l':0x45,'c':0x46,'r':0x47,'bl':0x4d,'b':0x4e,'br':0x4f}
 def flowerbed(x0,y0,w,h):
     """Emerald white stone kerb with red flowers inside (solid)."""

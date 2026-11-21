@@ -2518,6 +2518,78 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HotSpringsOldWoman
     .images = sPicTable_HotSpringsOldWoman,
 };
 
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip0 = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_SSTIDAL,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 1536,
+    .width = 64,
+    .height = 48,
+    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE,
+    .compressed = FALSE,
+    .tracks = TRACKS_NONE,
+    .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_64x48,
+    .anims = sAnimTable_Inanimate,
+    .images = sPicTable_CruiseShip0,
+};
+
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip1 = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_SSTIDAL,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 1536,
+    .width = 64,
+    .height = 48,
+    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE,
+    .compressed = FALSE,
+    .tracks = TRACKS_NONE,
+    .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_64x48,
+    .anims = sAnimTable_Inanimate,
+    .images = sPicTable_CruiseShip1,
+};
+
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip2 = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_SSTIDAL,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 1536,
+    .width = 64,
+    .height = 48,
+    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE,
+    .compressed = FALSE,
+    .tracks = TRACKS_NONE,
+    .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_64x48,
+    .anims = sAnimTable_Inanimate,
+    .images = sPicTable_CruiseShip2,
+};
+
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip3 = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_SSTIDAL,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 1536,
+    .width = 64,
+    .height = 48,
+    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE,
+    .compressed = FALSE,
+    .tracks = TRACKS_NONE,
+    .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_64x48,
+    .anims = sAnimTable_Inanimate,
+    .images = sPicTable_CruiseShip3,
+};
+
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSTidal = {
     .tileTag = TAG_NONE,
     .paletteTag = OBJ_EVENT_PAL_TAG_SSTIDAL,

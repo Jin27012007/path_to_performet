@@ -138,6 +138,10 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BrendanFish
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_MayFishing;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HotSpringsOldWoman;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSTidal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip0;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip1;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip2;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip3;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SubmarineShadow;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PichuDoll;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PikachuDoll;
@@ -543,6 +547,10 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_MAY_FISHING] =              &gObjectEventGraphicsInfo_MayFishing,
     [OBJ_EVENT_GFX_HOT_SPRINGS_OLD_WOMAN] =    &gObjectEventGraphicsInfo_HotSpringsOldWoman,
     [OBJ_EVENT_GFX_SS_TIDAL] =                 &gObjectEventGraphicsInfo_SSTidal,
+    [OBJ_EVENT_GFX_CRUISE_SHIP_0] =            &gObjectEventGraphicsInfo_CruiseShip0,
+    [OBJ_EVENT_GFX_CRUISE_SHIP_1] =            &gObjectEventGraphicsInfo_CruiseShip1,
+    [OBJ_EVENT_GFX_CRUISE_SHIP_2] =            &gObjectEventGraphicsInfo_CruiseShip2,
+    [OBJ_EVENT_GFX_CRUISE_SHIP_3] =            &gObjectEventGraphicsInfo_CruiseShip3,
     [OBJ_EVENT_GFX_SUBMARINE_SHADOW] =         &gObjectEventGraphicsInfo_SubmarineShadow,
     [OBJ_EVENT_GFX_PICHU_DOLL] =               &gObjectEventGraphicsInfo_PichuDoll,
     [OBJ_EVENT_GFX_PIKACHU_DOLL] =             &gObjectEventGraphicsInfo_PikachuDoll,

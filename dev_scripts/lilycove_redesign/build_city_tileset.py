@@ -20,6 +20,29 @@ SHORT = [0]
 MAX_TILES = 504          # tiles 504-511 of the secondary block are used by door animations
 DOORS = (0x246, 0x28E, 0x30C, 0x32D)
 SHARED_LAYOUTS = (('Route121', 80, 66),)
+# Generic pieces live in the PRIMARY tileset (gTileset_General), so they cost no city tiles and
+# also render across the Route 121 seam. Built from a pristine copy in base_tileset/general.
+PRIM = os.path.join(REPO, 'data/tilesets/primary/general')
+PRIM_BASE = os.path.join(HERE, 'base_tileset/general')
+PRIMARY_ART = {'paving', 'lamp_modern', 'lamp_modern_l', 'bunting'} | set(port_art.FLOWER_NAMES)
+PRIMARY_BOTTOMS = {'grass', 'paving'}
+# General metatiles no General-tileset map uses and no metatile label names (checked over all layouts)
+PRIMARY_META_POOL = [0x1ea, 0x1eb, 0x1f8, 0x1f9, 0x1fa, 0x1fb, 0x183, 0x187, 0x18b, 0x18c, 0x199, 0x1a2,
+                     0x1b6, 0x1e3, 0x17f, 0x160, 0x161, 0x143, 0x144, 0x13f, 0x13b, 0x13c]
+ANIM_TILES = set(range(432, 462)) | set(range(464, 474)) | set(range(480, 490)) | set(range(496, 502)) | set(range(508, 512))
+
+def _load_primary():
+    im = Image.open(os.path.join(PRIM_BASE, 'tiles.png')); p = im.load(); tw = im.width // 8
+    tiles = [[[p[(i % tw) * 8 + x, (i // tw) * 8 + y] & 15 for x in range(8)] for y in range(8)]
+             for i in range(tw * (im.height // 8))]
+    raw = open(os.path.join(PRIM_BASE, 'metatiles.bin'), 'rb').read()
+    metas = [list(struct.unpack_from('<8H', raw, i)) for i in range(0, len(raw), 16)]
+    att = open(os.path.join(PRIM_BASE, 'metatile_attributes.bin'), 'rb').read()
+    attrs = list(struct.unpack('<%dH' % (len(att) // 2), att))
+    used = {e & 0x3ff for m in metas for e in m}
+    free = [i for i, t in enumerate(tiles) if i and i not in used and i not in ANIM_TILES
+            and all(v == 0 for r in t for v in r)]
+    return im, tiles, metas, attrs, free
 
 def _load():
     im = Image.open(os.path.join(SRC, 'tiles.png')); p = im.load()
@@ -48,7 +71,6 @@ def build(M, festival_ids):
         'dock': metas[festival_ids['dock'] - 512][:4],
         'brick': metas[festival_ids['brick'] - 512][:4],
         'grass': pmeta(0x001)[:4],
-        'paving': metas[festival_ids['paving'] - 512][:4],
     }
     used = {v & 0x3ff for row in M for v in row if isinstance(v, int) and (v & 0x3ff) >= 512} | set(DOORS)
     # Route 121 shares this tileset (connected maps are drawn with the current map's
@@ -75,6 +97,18 @@ def build(M, festival_ids):
     canvases = {}
     tile_index = {}
     art_ids = {}
+    pim, ptiles, pmetas, pattrs, pfree = _load_primary()
+    pmeta_pool = list(PRIMARY_META_POOL); ptile_index = {}
+    def add_ptile(t):
+        if all(v == 0 for r in t for v in r): return 0
+        k = tuple(tuple(r) for r in t)
+        if k not in ptile_index:
+            if not pfree: raise SystemExit('primary tileset: out of free tiles')
+            i = pfree.pop(0); ptiles[i] = [list(r) for r in t]
+            h = tuple(tuple(r[::-1]) for r in k); v = tuple(k[::-1]); hv = tuple(tuple(r[::-1]) for r in k[::-1])
+            for key, bits in ((hv, 0xC00), (v, 0x800), (h, 0x400), (k, 0)):
+                ptile_index[key] = i | bits
+        return ptile_index[k]
     def add_tile(t):
         """Adds an 8x8 tile, reusing an existing one when it matches directly or mirrored
         (the returned value carries the GBA h/v-flip bits)."""
@@ -88,22 +122,26 @@ def build(M, festival_ids):
             for key, bits in ((hv, 0xC00), (v, 0x800), (h, 0x400), (k, 0)):
                 tile_index[key] = base | bits
         return tile_index[k]
-    keys = sorted({v[1] for row in M for v in row if isinstance(v, tuple)}, key=str)
+    keys = sorted({v[1] for row in M for v in row if isinstance(v, tuple)}, key=lambda k: (k[0] != 'paving', str(k)))
+    prim_ids = []
     for key in keys:
         name, mx, my, pal, bottom = key
         pal = port_art.PAL_OF[name]
         if name not in canvases: canvases[name] = port_art.ART[name]()
+        prim = name in PRIMARY_ART
         top = []
         for q in _split16(canvases[name], mx, my):
-            t = add_tile(q)
+            t = add_ptile(q) if prim else add_tile(q)
             top.append(t | (pal << 12) if t else 0)
-        if not free_meta: raise SystemExit('out of metatiles for port art')
-        mid = free_meta.pop(0)
-        if name in port_art.FLOOR:
-            new_metas[mid] = top + [0] * 4
+        entries = top + [0] * 4 if name in port_art.FLOOR else BOTTOM[bottom] + top
+        if name == 'paving': BOTTOM['paving'] = top
+        if prim and (name in port_art.FLOOR or bottom in PRIMARY_BOTTOMS):
+            if not pmeta_pool: raise SystemExit('primary tileset: out of free metatiles')
+            mid = pmeta_pool.pop(0); pmetas[mid] = entries; pattrs[mid] = 0; prim_ids.append(mid)
         else:
-            new_metas[mid] = BOTTOM[bottom] + top
-        new_attrs[mid] = 0
+            if not free_meta: raise SystemExit('out of metatiles for port art')
+            mid = free_meta.pop(0)
+            new_metas[mid] = entries; new_attrs[mid] = 0
         art_ids[key] = mid
     # resolve placeholders
     out = [[(art_ids[v[1]] | (v[2] << 10) | (v[3] << 12)) if isinstance(v, tuple) else v for v in row] for row in M]
@@ -125,6 +163,15 @@ def build(M, festival_ids):
     ab = b''.join(struct.pack('<H', new_attrs.get(512 + i, 0)) for i in range(count))
     open(os.path.join(DST, 'metatiles.bin'), 'wb').write(mb)
     open(os.path.join(DST, 'metatile_attributes.bin'), 'wb').write(ab)
+    # write the primary tileset (pristine base + generic pieces)
+    out_im = Image.new('P', pim.size); out_im.putpalette(pim.getpalette()); op = out_im.load(); tw = pim.width // 8
+    for i, t in enumerate(ptiles):
+        for y in range(8):
+            for x in range(8): op[(i % tw) * 8 + x, (i // tw) * 8 + y] = t[y][x]
+    out_im.save(os.path.join(PRIM, 'tiles.png'))
+    open(os.path.join(PRIM, 'metatiles.bin'), 'wb').write(b''.join(struct.pack('<8H', *m) for m in pmetas))
+    open(os.path.join(PRIM, 'metatile_attributes.bin'), 'wb').write(struct.pack('<%dH' % len(pattrs), *pattrs))
+    print('primary tileset: %d generic metatiles, %d free tiles left' % (len(prim_ids), len(pfree)))
     if SHORT[0]: print('*** SHORT OF %d TILES ***' % SHORT[0])
     print('city tileset: %d metatiles used, %d art metatiles, %d free tiles left, %d free metatiles left'
           % (len(used), len(art_ids), len(free_tiles), len(free_meta)))

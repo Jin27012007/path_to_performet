@@ -110,13 +110,13 @@ for x in range(-OX,52):
 # main pier: long, the cruise ship is moored along its east side
 pier(MAIN_PIER,44,55)
 deck(19,32,55,57,joins_top=(MAIN_PIER,MAIN_PIER+1,MAIN_PIER+2))
-art('cruise',18,57)   # moored along the landing platform
+# the cruise ship is a sprite (object events OBJ_EVENT_GFX_CRUISE_SHIP_0..3, see map.json)
 
 # fishermen's pier with two finger docks and moored boats
 pier(FISH_PIER,44,53)
 deck(FISH_PIER+3,13,47,48); deck(FISH_PIER+3,13,51,52)
 deck(1,10,53,55,joins_top=(FISH_PIER,FISH_PIER+1,FISH_PIER+2))
-art('boat_side',9,48); art('boat_side_l',0,47); art('boat_side',13,50); art('boat_front',1,50)
+# moored fishing boats: Mr. Briney's boat sprite (object events, see map.json)
 # market tents along the boardwalk (Slateport-style), with goods around them
 art('tent_green',8,40,bottom='dock',walk_rows=2); art('tent_pots',14,40,bottom='dock',walk_rows=2)
 art('tent_flowers',32,40,bottom='dock',walk_rows=2); art('tent_green',38,40,bottom='dock',walk_rows=2)
@@ -126,9 +126,6 @@ for (n,x,y) in [('basket_orange',13,42),('crate_label',19,41),('basket_green',31
 for (x,y) in [(30,42),(30,41),(2,41),(22,41),(37,42),(43,41)]: put(x,y,D('dock_crate',False))
 for (x,y) in [(21,43),(33,43),(46,43),(19,56),(31,56)]: put(x,y,D('dock_bollard',False))
 # fishing boats around the bay and at the beach
-art('boat_side',15,52); art('boat_side_l',35,56); art('boat_front',44,48); art('boat_side',47,54)
-art('boat_side_l',56,45); art('boat_front',58,52); art('boat_side',55,37)
-art('boat_side_l',49,32,bottom='shallow'); art('boat_front',49,35,bottom='shallow')
 
 # ================= PLAZA (x14-40, y23-39): grey tiles, inverted brick cross, lawns, fountains ===========
 paving(14,23,41,40)                       # grey tiles: contour and walkways
@@ -194,12 +191,13 @@ paving(STREET[0],20,14,23)                                         # avenue to t
 
 # --- upper line (row of H5): H5 west of the street, the L houses east of it; back gardens above
 # x -16..-9, rows 3..25 is what Route 121 shows across the connection (drawn with the shared Lilycove
-# tileset), so that strip only uses original/shared pieces: classic houses, red flowers, fences.
+# tileset), so that strip only uses original/shared pieces: classic houses, fences and the generic
+# pieces of the primary tileset (flowers, lamps, paving).
 house(-14,5); trail(-14,9,-11,11,'b',(-13,)); house_sign(-10,8)            # H5 classic, door (-13,8)
-garden(-16,1,-10,5,11,shared=True); fence(-16,-14,10); fence(-11,-9,10)
+garden(-16,1,-10,5,11,shared=False); fence(-16,-14,10); fence(-11,-9,10)
 tree1(-16,6) if False else None
 house(-4,5);  trail(-4,9,-1,11,'b',(-3,)); house_sign(-5,8)               # L1 classic = House 3, door (-3,8)
-art('house_beige',2,4); trail(3,9,6,11,'b',(4,)); house_sign(1,8)         # L2 modern beige, door (4,8)
+art('house_beige_lilac',2,4); trail(3,9,6,11,'b',(4,)); house_sign(1,8)         # L2 modern beige, door (4,8)
 art('house_grey',9,4);  trail(10,9,13,11,'b',(11,)); house_sign(8,8)      # L3 modern grey, door (11,8)
 garden(-4,1,15,4,12); tree1(-1,1); tree1(6,1); tree1(13,1)                 # back gardens with small trees
 garden(0,4,2,9,13); garden(7,4,9,9,14); garden(14,4,15,9,15)               # side yards with flowers
@@ -209,14 +207,14 @@ fence(-5,-4,10) if False else None
 
 # --- west lot, below the north street: H4, H3 | terrain step | H2, H1
 fanclub(-15,13); trail(-14,17,-8,19,'r',(-13,)); house_sign(-10,16)        # H4 "Edificio Lilas", door (-13,16)
-garden(-16,13,-15,17,21,shared=True); garden(-10,13,-8,16,22,shared=True)
+garden(-16,13,-15,17,21,shared=False); garden(-10,13,-8,16,22,shared=False)
 fence(-16,-9,19)                                                            # lot boundary
 house(-14,20); trail(-14,24,-8,26,'r',(-13,)); house_sign(-10,23)          # H3 classic, door (-13,23)
-garden(-16,20,-14,24,23,shared=True); garden(-10,20,-8,23,24,shared=True)
+garden(-16,20,-14,24,23,shared=False); garden(-10,20,-8,23,24,shared=False)
 ledge(-16,-8,26); stairs3(STREET[0],26,28)                                  # terrain step + 3-wide stairs
 art('apartments',-16,28); trail(-14,33,-8,35,'r',(-13,)); house_sign(-9,32)  # H2 modern apartments, door (-13,32)
 garden(-16,27,-8,28,25); garden(-9,28,-8,32,26)
-art('house_grey',-15,35); house_sign(-10,38)                               # H1 modern grey, door (-13,39) onto the boardwalk
+art('house_grey_coral',-15,35); house_sign(-10,38)                               # H1 modern grey, door (-13,39) onto the boardwalk
 garden(-16,35,-15,40,27); garden(-10,35,-8,38,28); fence(-10,-8,39) if False else None
 # --- east of the street: the old L lot becomes a small neighbourhood garden
 garden(-5,13,14,20,31,skip={(x,y) for x in range(-5,-3) for y in range(13,20)})

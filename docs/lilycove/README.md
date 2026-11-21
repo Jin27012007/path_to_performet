@@ -108,7 +108,7 @@ Arte no estilo do próprio Emerald, extraída dos gráficos originais por
 `authentic_art.py` (fundo removido e cores reunidas em duas paletas próprias da cidade,
 slots 10 e 11):
 * **Cruzeiro**: o sprite do S.S. Tidal alongado (seção de janelas repetida), atracado na
-  plataforma horizontal do píer principal. É onde o protagonista desembarca.
+  plataforma horizontal do píer principal (hoje como sprite, ver abaixo). É onde o protagonista desembarca.
 * **Barcos pesqueiros**: o barco do Mr. Briney (lateral, espelhado e de frente),
   espalhados pela baía, no píer dos pescadores e na água rasa da praia.
 * **Mercado**: tendas e mercadorias do mercado de Slateport (cestos, potes, frutas,
@@ -118,7 +118,24 @@ slots 10 e 11):
 O mapa agora tem 80×70. A cidade usa um tileset só dela, `gTileset_LilycoveCity`,
 gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade já usava
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
-Rota 121 e ao Safari. Ainda sobram ~5 tiles e ~85 metatiles no tileset da cidade (tiles iguais ou espelhados são reaproveitados).
+Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
+
+## Orçamento de tiles: sprites, peças genéricas e variações por paleta
+* **Cruzeiro e barcos são sprites** (object events), como o S.S. Tidal e o barco do
+  Mr. Briney no jogo original. O cruzeiro é dividido em 4 segmentos de 64×48
+  (`OBJ_EVENT_GFX_CRUISE_SHIP_0..3`, paleta do S.S. Tidal) para não "surgir" na borda da
+  tela; os 13 barcos usam o gráfico original do Mr. Briney (`OBJ_EVENT_GFX_MR_BRINEYS_BOAT`).
+  No máximo 9 desses objetos ficam ativos numa mesma tela (limite do jogo: 16).
+* **Peças genéricas no tileset primário** (`gTileset_General`): ladrilho de pedra, flores
+  coloridas, postes modernos e bandeirinhas. Ficam em tiles vazios (fora das áreas
+  animadas) e em metatiles que nenhum mapa usa. Não gastam espaço da cidade e aparecem
+  certas também a partir da Rota 121. O `build_city_tileset.py` reconstrói o primário a
+  partir da cópia original em `base_tileset/general`.
+* **Variações por paleta**: o slot 10 (liberado pelo navio) é uma cópia da paleta das
+  casas modernas com outras cores. Residência Coral (telhado coral) e Residência Lírio
+  (lilás) usam os mesmos tiles das casas cinza e bege: custo zero em tiles.
+* Espaço livre agora: ~114 tiles e ~129 metatiles na cidade; 16 tiles e 10 metatiles
+  reservados no primário.
 
 ## Próximos passos
 * Interior da Casa 4 (sala, cozinha, quarto extra) conforme o roteiro.

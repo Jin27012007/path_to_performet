@@ -15,12 +15,7 @@ import authentic_art as A
 def _hflip(im): return im.transpose(Image.FLIP_LEFT_RIGHT)
 
 _GROUPS = {
-    10: {
-        'cruise': A.stretch_tidal,
-        'boat_side': lambda: A.briney_boat(2),
-        'boat_side_l': lambda: _hflip(A.briney_boat(2)),
-        'boat_front': lambda: A.briney_boat(0),
-    },
+    # slot 10: the cruise ship and the fishing boats are sprites now (object events)
     11: {
         'tent_green': lambda: A.slateport_clean(2, 41, 5, 3),
         'tent_pots': lambda: A.tent_with(10, 43),
@@ -69,3 +64,15 @@ for _n in _P.FLOWER_COLOURS:
 
 _CANVAS['lamp_modern_l'] = [row[::-1] for row in _P.lamp_modern()]; PAL_OF['lamp_modern_l'] = _P.PAL8_SLOT
 ART['lamp_modern_l'] = lambda: _CANVAS['lamp_modern_l']
+
+FLOWER_NAMES = list(_P.FLOWER_COLOURS)
+
+# ---- palette variants (cost no tiles: same tiles, palette slot 10 instead of 12) ----
+# slot 10 = Rustboro palette 12 with the grey house's roof/walls (4,5,6) turned coral and the
+# beige house's roof/walls (9,10,11) turned lilac. Apartments keep slot 12.
+_V = list(PALETTES[12])
+_V[4], _V[5], _V[6] = (232, 144, 120), (224, 208, 192), (192, 168, 152)     # coral roof, warm walls
+_V[9], _V[10], _V[11] = (168, 136, 192), (192, 168, 216), (216, 200, 232)   # lilac
+PALETTES[10] = _V
+for _n, _src in (('house_grey_coral', 'house_grey'), ('house_beige_lilac', 'house_beige')):
+    _CANVAS[_n] = _CANVAS[_src]; PAL_OF[_n] = 10; ART[_n] = (lambda n=_n: _CANVAS[n])
