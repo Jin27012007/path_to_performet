@@ -15,7 +15,6 @@ residencial ao norte, orla com cais ao sul e praia a leste.
 | **Casa 4 (casa do pai)** | (18,10) | Residência do protagonista no roteiro |
 | Fã-clube | (25,10) | |
 | Loja de Departamentos | (44,8) | Prédio alto no canto nordeste |
-| Centro Pokémon | (4,17) | Perto da entrada da Rota 121 |
 | Casa 3 | (10,17) | |
 | **Centro de Concursos** | (27,19) | No eixo central, com jardins e postes |
 | Motel Cove Lily + piscina | (42,17) | Acima da praia |
@@ -119,6 +118,21 @@ O mapa agora tem 80×70. A cidade usa um tileset só dela, `gTileset_LilycoveCit
 gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade já usava
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
+
+## Café Litoral (bairro 1, beira do calçadão)
+Substitui o Centro Pokémon e o prédio do Porto. Montado com peças do próprio Emerald:
+* **Café**: a floricultura da Rota 104 (telhado laranja, toldo listrado), com paredes
+  creme e floreiras de madeira no lugar do verde.
+* **Terraço de madeira** (mesmo deck do porto) com **guarda-sóis da praia da Rota 109**
+  (a sombra na areia virou sombra pontilhada sobre a madeira) e **mesas da Seashore House**.
+* **Quiosque de sucos** (barraca do mercado), **cerca baixa de madeira** com entrada
+  alinhada à porta, calçada ligando a rua à praça e calçadão de tijolos com barraca de
+  flores e palmeiras.
+* Tudo na paleta 11 do mercado (o índice 6, que estava livre, virou um vermelho-coral).
+* Placas: letreiro do café, aviso na porta e cardápio do quiosque.
+* O Centro Pokémon e o Porto saíram do mapa. Os warps deles ficam na calçada, para
+  que o renascimento depois de desmaiar e o Fly continuem funcionando, até o Centro
+  ganhar um lugar novo.
 
 ## Orçamento de tiles: sprites, peças genéricas e variações por paleta
 * **Cruzeiro e barcos são sprites** (object events), como o S.S. Tidal e o barco do

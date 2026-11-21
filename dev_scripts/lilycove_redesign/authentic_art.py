@@ -133,3 +133,42 @@ def rustboro(x0, y0, w, h):
         for x in range(img.width):
             if p[x, y][3] and p[x, y][:3] in ground: p[x, y] = (0, 0, 0, 0)
     return img
+
+
+def top_layer(prim, sec, ids):
+    """Renders only the TOP layer of some metatiles side by side (furniture over a floor)."""
+    pt, pm = render.load(prim); st, sm = render.load(sec); R = render.R
+    pals = [render.pal(R + prim + '/palettes/%02d.pal' % i) for i in range(6)] + \
+           [render.pal(R + sec + '/palettes/%02d.pal' % i) for i in range(6, 13)]
+    tiles = pt + [None] * (512 - len(pt)) + st; mts = pm + [(0,) * 8] * (512 - len(pm)) + sm
+    out = Image.new('RGBA', (16 * len(ids), 16), (0, 0, 0, 0)); o = out.load()
+    for k, m in enumerate(ids):
+        e = mts[m]
+        for q in range(4):
+            v = e[4 + q]; t = tiles[v & 0x3ff]; hf = v >> 10 & 1; vf = v >> 11 & 1; pl = v >> 12
+            for y in range(8):
+                for x in range(8):
+                    c = t[7 - y if vf else y][7 - x if hf else x]
+                    if c: o[k * 16 + (q % 2) * 8 + x, (q // 2) * 8 + y] = tuple(pals[pl][c]) + (255,)
+    return out
+
+SAND_SHADOW = {(216, 152, 56), (224, 176, 88), (232, 208, 112)}
+def beach_umbrella(x0, y0, shadow=(112, 96, 72)):
+    """Route 109 beach umbrella (2x3); its shadow on the sand becomes a dithered shadow."""
+    im = from_map('Route109', 40, 'secondary/slateport', x0, y0, 2, 3, bg=0x124); p = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            if p[x, y][3] and p[x, y][:3] in SAND_SHADOW:
+                p[x, y] = shadow + (255,) if (x + y) % 2 == 0 else (0, 0, 0, 0)
+    return im
+
+def seaside_cafe():
+    """Route 104's Pretty Petal shop (orange roof, striped awning) with warm cream walls."""
+    im = from_map('Route104', 40, 'secondary/rustboro', 3, 15, 6, 4, bg=0x001); p = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = p[x, y]
+            if a and g > r + 15 and g >= b:          # green walls / boxes -> cream and wood
+                lum = (r + g + b) // 3
+                p[x, y] = ((238, 222, 196) if lum > 170 else (214, 184, 150) if lum > 125 else (156, 120, 92)) + (255,)
+    return im

@@ -221,14 +221,27 @@ garden(-5,13,14,20,31,skip={(x,y) for x in range(-5,-3) for y in range(13,20)})
 for (tx,ty) in ((0,13),(5,15),(10,13)): tree1(tx,ty)
 garden(-5,23,14,26,32)                                                       # upper level, above the step
 ledge(-5,14,26)                                                             # the step continues east of the street
-harbor(4,27)                                                                # door (7,32)
-brickfill(3,33,14,40); pc(10,33)                                            # Pokémon Center next to the port, door (11,36)
-garden(-5,27,3,40,33,skip={(x,y) for x in range(-5,-3) for y in range(27,40)}); tree1(-1,31)
-for x in (5,): lamp2(x,34,'brick')
-palm(3,37,'brick'); palm(7,37,'brick')
+# --- seaside café (replaces the Pokémon Center and the harbor building) on the lower level
+fill(-5,27,14,40,GRASS)
+deck(-3,14,27,34,posts_below=False)                                         # wooden terrace x -3..13, rows 27..33
+art('cafe',2,27,bottom='dock')                                              # Café Litoral, door (4,30)
+art('tent_pots',9,27,bottom='dock',walk_rows=2)                             # juice kiosk
+art('umbrella_red',-2,27,bottom='dock',walk_rows=1); art('cafe_table',-3,30,bottom='dock')
+art('umbrella_blue',0,30,bottom='dock',walk_rows=1)
+art('umbrella_red',10,30,bottom='dock',walk_rows=1); art('cafe_table',7,32,bottom='dock')
+for x in range(-3,14):                                                      # low wooden fence, entrance at x 3..5
+    if not 3<=x<=5: art('fence_wood',x,33,bottom='dock')
+for (fx,fy) in ((-5,28),(-4,28),(-4,32)): put(fx,fy,FLOWERS)
+palm(-5,31,'grass') if False else None
+paving(-5,34,14,36)                                                         # promenade: street -> plaza
+brickfill(-5,36,14,40)                                                      # brick by the boardwalk
+art('tent_flowers',-4,37,bottom='brick',walk_rows=2)                        # flower stall
+palm(3,37,'brick'); palm(9,37,'brick')
+lamp2(12,36,'brick',facing='left')
 # --- street lamps along the residential street (east kerb, heads towards the street) and the north street
-for y in (5,16,30,37): lamp2(-5,y,'grass',facing='left')
+for y in (5,16,30): lamp2(-5,y,'grass',facing='left')
+lamp2(-5,37,'brick',facing='left')
 for x in (-1,6,13): lamp2(x,10,'paving') if False else None
 bunting(-8,14,21)                                                           # avenue bunting (west part)
-sign(-16,13); sign(3,32); sign(-4,2)                                        # city sign, harbor sign, museum sign
+sign(-16,13); sign(-4,2)                                                    # city sign, museum sign
 for (sx,sy) in ((8,8),(1,8),(-5,8),(-10,8),(16,5)): sign(sx,sy)               # house signs over the gardens
