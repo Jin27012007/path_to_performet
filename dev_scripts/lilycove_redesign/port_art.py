@@ -175,14 +175,16 @@ for _n, _to in (('vending_water', 8), ('vending_lemonade', 4), ('vending_soda', 
     _CANVAS[_n] = [[_to if v == 10 else v for v in row] for row in _vm]; PAL_OF[_n] = 11
     ART[_n] = (lambda n=_n: _CANVAS[n])
 
-def _wood_fence_v():
-    """vertical run of the low wooden fence (a rail seen from above with a post every 8 px)"""
+def _wood_fence_v(cx):
+    """vertical run of the low wooden fence (a rail seen from above with a post every 8 px);
+    cx = rail centre, matching the posts of the horizontal fence (x 2..5 or x 10..13)"""
     _, WH, CR, YE, OR, RE, DR, BR, LB, BL, NV, LG, GR, DG, BN, DB = range(16)
     c = [[0] * 16 for _ in range(16)]
     for y in range(16):                            # rail
-        c[y][6] = DB; c[y][7] = OR; c[y][8] = BN; c[y][9] = DB
+        c[y][cx - 2] = DB; c[y][cx - 1] = OR; c[y][cx] = BN; c[y][cx + 1] = DB
     for y0 in (1, 9):                              # posts
         for y in range(y0, y0 + 5):
-            for x in range(5, 11): c[y][x] = DB if x in (5, 10) or y in (y0, y0 + 4) else (OR if x == 6 else BN)
+            for x in range(cx - 3, cx + 3): c[y][x] = DB if x in (cx - 3, cx + 2) or y in (y0, y0 + 4) else (OR if x == cx - 2 else BN)
     return c
-_CANVAS['fence_wood_v'] = _wood_fence_v(); PAL_OF['fence_wood_v'] = 6; ART['fence_wood_v'] = lambda: _CANVAS['fence_wood_v']
+for _n, _cx in (('fence_wood_vl', 4), ('fence_wood_vr', 12)):   # left / right side of an enclosure
+    _CANVAS[_n] = _wood_fence_v(_cx); PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])

@@ -233,7 +233,7 @@ art('umbrella_set_blue',10,30,bottom='terrace',walk_rows=1)
 art('table_set',-3,31,bottom='terrace'); art('table_set',6,32,bottom='terrace')   # small modern tables
 for (px_,py_) in ((1,27),(8,27),(2,31),(5,31)): art('potted_palm',px_,py_,bottom='terrace',walk_rows=1)  # flank café and entrance
 for y in range(27,33):                                                      # fence around the terrace...
-    art('fence_wood_v',-4,y,bottom='terrace'); art('fence_wood_v',13,y,bottom='terrace')
+    art('fence_wood_vl',-4,y,bottom='terrace'); art('fence_wood_vr',13,y,bottom='terrace')
 for x in range(-4,14):                                                      # ...and along the front, entrance at x 3..4
     if x not in (3,4): art('fence_wood',x,33,bottom='terrace')
 put(-5,28,FLOWERS); put(-5,32,FLOWERS)
