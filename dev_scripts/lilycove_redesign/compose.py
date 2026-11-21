@@ -104,3 +104,17 @@ def art(name,x,y,pal=None,bottom='water',walk_rows=0):
         for mx in range(w):
             walk = my<walk_rows
             put(x+mx,y+my,('ART',(name,mx,my,pal,bottom),0 if walk else 1,3 if walk else 0))
+
+def paving(x0,y0,x1,y1):
+    for y in range(y0,y1):
+        for x in range(x0,x1): put(x,y,('ART',('paving',0,0,None,'none'),0,3))
+CURB={'tl':0x3d,'t':0x3e,'tr':0x3f,'l':0x45,'c':0x46,'r':0x47,'bl':0x4d,'b':0x4e,'br':0x4f}
+def flowerbed(x0,y0,w,h):
+    """Emerald white stone kerb with red flowers inside (solid)."""
+    for j in range(h):
+        for i in range(w):
+            t = j==0; b = j==h-1; l = i==0; r = i==w-1
+            if t: k='tl' if l else ('tr' if r else 't')
+            elif b: k='bl' if l else ('br' if r else 'b')
+            else: k='l' if l else ('r' if r else None)
+            put(x0+i,y0+j,T(CURB[k],1,0) if k else T(0x004,1,0))

@@ -36,17 +36,21 @@ path(0,20,42,23)
 
 # boulevard lamps
 for x in (5,11,35,39): lamp(x,23)
-# ================= PLAZA (y23-35) =================
-brickfill(14,23,41,36)
-for gx in (15,31):
-    fill(gx,25,gx+9,34,GRASS)
-    flowers(gx,25,gx+9,26); flowers(gx,33,gx+9,34)
-    flowers(gx,26,gx+1,33); flowers(gx+8,26,gx+9,33)
-    pond(gx+3,28)
-    lamp(gx+2,27); lamp(gx+6,27); lamp(gx+2,31); lamp(gx+6,31)
-# central axis: avenue of lamps & flower pots towards pier
-for y in (25,33): lamp(25,y); lamp(29,y)
-lamp(24,29); lamp(30,29)
+# ================= PLAZA (y23-35): grey tiles, inverted brick cross, fountains =================
+PX0,PX1,PY0,PY1 = 14,41,23,36          # plaza area; axis x=27 (Contest Hall door)
+paving(PX0,PY0,PX1,PY1)                # grey tiles: contour and floor
+brickfill(25,PY0,30,PY1)               # long arm of the cross, pointing at the hall
+brickfill(16,24,39,27)                 # cross bar, right below the hall
+for qx,flip in ((14,False),(30,True)): # the two lower quadrants (11 x 9)
+    fx = qx+4                          # fountain column
+    flowerbed(qx+2,27,7,3)             # bed above the fountain
+    flowerbed(qx+2,33,7,3)             # bed below the fountain
+    art('fountain',fx,30,bottom='paving')
+    tx = qx if not flip else qx+9      # medium trees on the outer edge
+    tree1(tx,27); tree1(tx,33)
+    lx = qx+10 if not flip else qx     # lamp posts along the brick path
+    lamp(lx,28); lamp(lx,34)
+for x in (17,21,33,37): lamp(x,23)     # lamps along the top contour
 # ================= HARBOR (left) =================
 harbor(4,26)                                 # door (7,31)
 brickfill(2,32,14,36)
@@ -81,20 +85,17 @@ for yy in range(4,8): put(54,yy,SHALLOW)
 # promenade planters (avoid pier axes x=7, x=27)
 for x in (3,15,23,31): put(x,37,T(0x005,1,0))
 # central fountain on main axis
-pond(26,29)
 # sign posts for bg_events
 for sx,sy in [(10,10),(47,9),(2,19),(31,19),(40,17),(3,31),(22,10),(16,5)]: sign(sx,sy)
 
 # ================= FESTIVAL DRESSING (World Contest Season) =================
-carpet(27,20,29)                                   # red carpet hall -> fountain
 for bx,blue in ((23,False),(31,True)): banner(bx,17,'grass',blue)
-for bx,by,blue in ((14,24,True),(40,24,False),(14,34,False),(40,34,True)): banner(bx,by,'brick',blue)
+for bx,blue in ((15,True),(38,False)): banner(bx,24,'brick',blue)   # season banners at the ends of the cross bar
 bunting(2,46,21)                                   # across the avenue
-bunting(15,40,24)                                  # plaza north edge
 bunting(2,42,38)                                   # promenade
 bunting(16,38,11)                                  # north street
 # palms along the promenade
-for px_ in (10,18,35,38): palm(px_,35,'brick')
+for px_ in (2,10): palm(px_,36,'brick')   # promenade palms, outside the plaza
 # beach: umbrellas + palms
 umbrella(44,22); umbrella(46,28,True); umbrella(43,33)
 palm(43,25); palm(46,33)

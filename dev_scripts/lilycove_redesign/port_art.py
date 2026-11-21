@@ -45,3 +45,11 @@ for _slot, _makers in _GROUPS.items():
         PAL_OF[_n] = _slot
 
 ART = {n: (lambda n=n: _CANVAS[n]) for n in _CANVAS}
+
+# plaza art, drawn directly in Lilycove palette 8 (no quantisation needed)
+import plaza_art as _P
+for _n, _f in (('paving', _P.paving), ('fountain', _P.fountain)):
+    _CANVAS[_n] = _f()
+    PAL_OF[_n] = _P.PAL8_SLOT
+    ART[_n] = (lambda n=_n: _CANVAS[n])
+FLOOR = {'paving'}   # art drawn in the bottom layer (walkable floor)

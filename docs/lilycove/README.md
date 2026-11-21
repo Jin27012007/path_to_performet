@@ -71,6 +71,15 @@ python3 dev_scripts/lilycove_redesign/vivid_palettes.py
 python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.png
 ```
 
+## Praça (em frente ao Centro de Concursos)
+* Contorno e piso em **ladrilho cinza** (desenhado na paleta 8 de Lilycove).
+* **Cruz invertida de tijolos**: braço longo no eixo do Centro de Concursos e travessa
+  logo abaixo do prédio.
+* Duas **fontes** de pedra (desenho novo, contorno escuro e 3 tons como no Emerald),
+  cada uma entre **canteiros** com o meio-fio de pedra branca original do jogo e flores.
+* **Árvores médias** nas bordas e **postes de luz** ao longo do caminho de tijolos.
+* A rua (avenida) separa o prédio da praça. O tapete vermelho foi removido.
+
 ## Porto (zona sul)
 Arte no estilo do próprio Emerald, extraída dos gráficos originais por
 `authentic_art.py` (fundo removido e cores reunidas em duas paletas próprias da cidade,

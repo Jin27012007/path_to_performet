@@ -79,7 +79,13 @@ def build(M, festival_ids):
             top.append(t | (pal << 12) if t else 0)
         if not free_meta: raise SystemExit('out of metatiles for port art')
         mid = free_meta.pop(0)
-        new_metas[mid] = BOTTOM[bottom] + top
+        if bottom == 'paving' and 'paving' not in BOTTOM:
+            pv = port_art.ART['paving']()
+            BOTTOM['paving'] = [(add_tile(q) or 0) | (port_art.PAL_OF['paving'] << 12) for q in _split16(pv, 0, 0)]
+        if name in port_art.FLOOR:
+            new_metas[mid] = top + [0] * 4
+        else:
+            new_metas[mid] = BOTTOM[bottom] + top
         new_attrs[mid] = 0
         art_ids[key] = mid
     # resolve placeholders
