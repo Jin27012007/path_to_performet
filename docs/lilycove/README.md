@@ -72,23 +72,22 @@ python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.
 ```
 
 ## Bairro residencial 1 (oeste)
-O mapa ganhou 10 colunas a oeste (agora 74×62).
-* **Rua de pedra** subindo do calçadão do porto até a entrada da Rota 121, com 5 casas
-  (de baixo para cima): Residência Coral (moderna), Edifício Brisa do Mar (apartamentos
-  modernos), **degrau de terreno com escada**, Casa Ventura, Edifício Lilás (apartamentos
-  clássicos) e Casa Neves, já na entrada da rota.
-* No topo a rua vira à direita em **L** com mais 3 casas: Casa 3 (com interior),
-  Residência Lírio e Residência Aurora (modernas).
-* Casas modernas vêm de Rustboro (gráficos originais, paleta 12); as clássicas são as de
-  Lilycove. Cercas, **placas com o nome** de cada casa/edifício, trilhas de terra ligando
-  as portas à rua e grama com flores em volta das árvores.
-* O **ladrilho de pedra** foi redesenhado: pedras de tamanhos diferentes com juntas
-  desencontradas, mais natural e simples. É o mesmo da praça.
-* O **Centro Pokémon** fica agora junto ao porto, ao lado do Porto (ferry).
+O mapa ganhou 16 colunas a oeste e 8 linhas ao norte (agora 80×70).
+* **Rua de pedra** (3 tiles) subindo do calçadão do porto até o **Museu**, que foi para o
+  topo do morro, com um pátio de ladrilho na frente da escadaria.
+* Lado oeste, de baixo para cima: Residência Coral (moderna, porta para o calçadão),
+  Edifício Brisa do Mar (apartamentos modernos), **degrau de terreno com escada de 3
+  tiles** alinhada com a rua, Casa Ventura, Edifício Lilás e Casa Neves.
+* A Casa Neves e as **3 casas do L** (Casa 3, Residência Lírio e Residência Aurora) ficam
+  na mesma linha, acima da rua norte, com 3 tiles de jardim entre elas, quintais com
+  árvores e flores atrás e cercas baixas na frente.
+* Lotes separados por cercas, jardins laterais com flores; o antigo terreno do L virou um
+  jardim do bairro. As árvores que cortavam o degrau foram removidas.
+* **Trilhas de terra com borda suave** (autotile de areia do Emerald) ligando cada porta à rua.
+* **Postes modernos** ao longo da rua residencial.
 * Junção com a Rota 121: o GBA desenha o mapa vizinho com o tileset do mapa atual. Por
-  isso a faixa da cidade visível a partir da rota usa só peças compartilhadas (casas
-  clássicas, ladrilho compartilhado), e o tileset da cidade mantém as peças da borda da
-  rota. Testado nos dois sentidos.
+  isso a faixa x 0–8 / y 11–33 (vista a partir da rota) usa só peças compartilhadas (casas
+  clássicas, flor vermelha original, cercas, ladrilho compartilhado). Testado nos dois sentidos.
 
 ## Praça (em frente ao Centro de Concursos)
 * Contorno e caminhos em **ladrilho cinza** (desenhado na paleta 8 de Lilycove).
@@ -116,7 +115,7 @@ slots 10 e 11):
   flores, caixotes) ao longo do calçadão.
 * Calçadão e píeres de madeira em tom mais claro, ligados à praia.
 
-O mapa agora tem 64×62. A cidade usa um tileset só dela, `gTileset_LilycoveCity`,
+O mapa agora tem 80×70. A cidade usa um tileset só dela, `gTileset_LilycoveCity`,
 gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade já usava
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Ainda sobram ~5 tiles e ~85 metatiles no tileset da cidade (tiles iguais ou espelhados são reaproveitados).

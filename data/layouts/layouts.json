@@ -59,8 +59,8 @@
     {
       "id": "LAYOUT_LILYCOVE_CITY",
       "name": "LilycoveCity_Layout",
-      "width": 74,
-      "height": 62,
+      "width": 80,
+      "height": 70,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_LilycoveCity",
       "border_filepath": "data/layouts/LilycoveCity/border.bin",

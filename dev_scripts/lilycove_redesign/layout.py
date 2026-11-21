@@ -1,9 +1,9 @@
 from compose import *
-fill(-OX,0,W-OX,H,GRASS)
+fill(-OX,-OY,W-OX,H-OY,GRASS)
 # ================= sea =================
-fill(52,0,W,H,DEEP); fill(0,42,W,H,DEEP)
+fill(52,-OY,W,H,DEEP); fill(0,42,W,H,DEEP)
 # ================= borders =================
-trees(0,0,52,2,grass_above=False)
+trees(0,-OY,52,2,grass_above=False)
 trees(0,2,2,20,grass_above=False)
 trees(0,24,2,40)
 # ================= NORTH BAND (y2-10) =================
@@ -11,10 +11,10 @@ museum(2,2)                                  # stairs bottom at (6..9,10)
 for cx in (0,1,9,10,11,12): put(2+cx,2,GRASS)
 path(6,10,10,11)
 house(17,2); house(23,2); house(29,2)        # doors (18,5) (24,5) (30,5)
-path(15,6,37,7)
+path(17,6,37,7)
 house(17,7); fanclub(23,7)                   # doors (18,10) (25,10)
 flowers(29,7,36,8); tree1(30,7); tree1(33,7); put(29,9,FLOWERS); put(35,9,FLOWERS)
-path(15,2,16,11); path(36,2,38,11)
+path(36,2,38,11)
 dept(40,2)                                   # door (44,8)
 lamp(39,8); lamp(49,8); flowers(39,9,50,10); 
 path(43,9,47,11)
@@ -151,48 +151,86 @@ for y in (28,33,38):
     lamp2(24,y); lamp2(30,y,facing='left'); bunting2(25,30,y-1,'brick')
 lamp2(15,25); lamp2(39,25,facing='left'); bunting2(16,39,24,'brick')
 
-# ================= RESIDENTIAL DISTRICT 1 (west): uphill street from the pier to Route 121 =========
-# logical x -10..13 (the map was widened 10 columns to the west for it)
-STREET = (-2, 1)                       # street columns -2..0, stone paving, from the boardwalk up to row 11
-def sand_trail(x0,y0,x1,y1):           # light dirt trail (Emerald sand path) linking a door to the street
+# ================= RESIDENTIAL DISTRICT 1 (west): uphill street from the pier to the museum =========
+# logical x -16..14 (the map was widened 16 columns to the west and 8 rows to the north for it)
+import random as _random
+STREET = (-8, -5)                      # street columns -8..-6, stone paving, from the boardwalk up to the museum
+SAND = {(1,0,1,0):0x118,(1,0,0,0):0x119,(1,0,0,1):0x11a,(0,0,1,0):0x120,(0,0,0,0):0x121,(0,0,0,1):0x122,
+        (0,1,1,0):0x128,(0,1,0,0):0x129,(0,1,0,1):0x12a}
+def trail(x0,y0,x1,y1,open_sides='',door_cols=()):
+    """dirt trail with soft grass edges (Emerald sand autotile). open_sides: edges that touch
+    the street/another floor and get no grass fringe; door_cols: top-row columns under a door."""
     for y in range(y0,y1):
-        for x in range(x0,x1): put(x,y,T(0x121))
+        for x in range(x0,x1):
+            t = y==y0 and 't' not in open_sides and x not in door_cols
+            b = y==y1-1 and 'b' not in open_sides
+            l = x==x0 and 'l' not in open_sides
+            r = x==x1-1 and 'r' not in open_sides
+            put(x,y,T(SAND[(int(t),int(b),int(l),int(r))]))
+def stairs3(x,y0,y1):                  # 3-wide stone stairs (Emerald pieces 0af | 0cf 0cf)
+    for y in range(y0,y1): put(x,y,T(0x0af)); put(x+1,y,T(0x0cf)); put(x+2,y,T(0x0cf))
+def ledge(x0,x1,y):
+    for x in range(x0,x1): put(x,y,T(0x07c,1,0))
 def house_sign(x,y): sign(x,y)
-fill(-10,2,14,40,GRASS)                 # clear the old west part (PC, House 3, trees...)
-trees(-10,0,2,10,grass_above=False)     # forest west of the museum, above the Route 121 connection
-museum(2,2); path(6,10,10,11)           # (redrawn: the clear above wiped its lower rows)
-for cx in (0,1,9,10,11,12): put(2+cx,2,GRASS)
-paving(-10,11,14,13)                    # north street, west part, open to Route 121 (rows 10..13)
-paving(STREET[0],13,STREET[1],40)       # the uphill residential street
-paving(STREET[0],20,14,23)              # avenue to the plaza
-# --- west houses, bottom to top: H1, H2 | terrain step with stairs | H3, H4, H5 (upper level)
-# The strip x -10..-2, rows 5..24 is what Route 121 shows across the connection (drawn with the
-# shared Lilycove tileset), so it only uses original/shared pieces: classic houses there.
-fill(-10,5,-3,11,GRASS)                                              # clearing in the forest for H5
-house(-8,6);              house_sign(-4,9)                           # H5 classic, door (-7,9) onto the north street
-fanclub(-8,13);           sand_trail(-6,17,-2,18); house_sign(-8,17) # H4 "Edificio Lilas" (classic apartments), door (-6,16)
-house(-8,19);             sand_trail(-7,23,-2,24); house_sign(-8,23) # H3 classic, door (-7,22)
-for x in range(-10,-2): put(x,24,T(0x07c,1,0))                       # low cliff: the terrain step
-for y in (24,25): put(-2,y,T(0x0af)); put(-1,y,T(0x0cf)); put(0,y,T(0x07c,1,0))   # stairs on the street
-art('apartments',-9,26);  sand_trail(-6,31,-2,32); house_sign(-8,31) # H2 modern apartments, door (-6,30)
-art('house_grey',-9,32);  sand_trail(-7,37,-2,38); house_sign(-8,37) # H1 modern grey, door (-7,36)
-fence(-10,-8,38); fence(-6,-3,38)
-for (fx,fy) in ((-10,23),(-10,31),(-3,19),(-3,20),(-3,21),(-3,13),(-3,14),(-3,15),(-10,16),(-10,15),(-10,39),(-9,39),(-7,39),(-6,39),(-5,39),(-4,39),(-2,26) if False else (-3,26),(-3,27)):
-    put(fx,fy,FLOWERS)
-# --- the L: three houses along the north street (doors face the avenue)
-house(1,14); sand_trail(2,18,3,20); house_sign(0,17)                                  # L1 classic = House 3, door (2,17)
-art('house_beige',5,13); sand_trail(7,18,8,20); house_sign(4,17)                      # L2 modern beige, door (7,17)
-art('house_grey',10,13); sand_trail(12,18,13,20); house_sign(15,17)                   # L3 modern grey, door (12,17)
-for (fx0,fx1) in ((3,6),(9,11)): fence(fx0,fx1,18) if False else None
-# --- east of the street (lower level): hedge of trees hides the level change, harbor, Pokémon Center
-fill(1,23,14,26,GRASS)
-for x in range(3,14): put(x,25,T(0x07c,1,0))                 # low ledge under the avenue level
-tree1(1,23); tree1(1,26); trees(1,29,3,32)
-harbor(4,26)                                                  # door (7,31)
-brickfill(3,32,14,40); pc(10,32)                              # Pokémon Center next to the port, door (11,35)
-for x in (4,8): lamp2(x,33,'brick')
-palm(1,36,'grass') if False else None
-palm(3,36,'brick'); palm(7,36,'brick')
-bunting(-2,14,21)                                             # avenue bunting (west part)
-for x in (-3,1): lamp2(x,13) if False else None
-sign(-10,14); sign(3,31); sign(10,10)                                     # city sign at the Route 121 entrance, harbor sign
+def garden(x0,y0,x1,y1,seed,skip=(),shared=False):
+    """grass with scattered flowers; shared=True uses only the original red flower (seam strip)"""
+    rnd=_random.Random(seed)
+    for y in range(y0,y1):
+        for x in range(x0,x1):
+            if (x,y) in skip: continue
+            k=rnd.random()
+            if k<0.62: continue
+            if shared or k<0.72: put(x,y,FLOWERS)
+            else: art(FLOWER_KINDS[int(k*97)%5],x,y,bottom='grass',walk_rows=1)
+
+fill(-16,-8,15,20,GRASS); fill(15,-8,17,11,GRASS); fill(-16,20,14,40,GRASS)     # clear the area
+trees(-16,-8,-13,1,grass_above=False); trees(-1,-8,17,0,grass_above=False)   # forest around the museum
+museum(-13,-8)                                                     # museum on the hill, doors (-8,-3) (-7,-3), stairs x -9..-6 row 0
+for cx in (0,1,9,10,11,12): put(-13+cx,-8,T(0x1e4 if cx%2==0 else 0x1e5,1,0) if False else GRASS)
+paving(-10,1,-4,3)                                                 # museum forecourt
+paving(STREET[0],1,STREET[1],40)                                   # the uphill residential street
+paving(-16,11,15,13)                                               # north street (open to Route 121, rows 10..12)
+paving(STREET[0],20,14,23)                                         # avenue to the plaza
+
+# --- upper line (row of H5): H5 west of the street, the L houses east of it; back gardens above
+# x -16..-9, rows 3..25 is what Route 121 shows across the connection (drawn with the shared Lilycove
+# tileset), so that strip only uses original/shared pieces: classic houses, red flowers, fences.
+house(-14,5); trail(-14,9,-11,11,'b',(-13,)); house_sign(-10,8)            # H5 classic, door (-13,8)
+garden(-16,1,-10,5,11,shared=True); fence(-16,-14,10); fence(-11,-9,10)
+tree1(-16,6) if False else None
+house(-4,5);  trail(-4,9,-1,11,'b',(-3,)); house_sign(-5,8)               # L1 classic = House 3, door (-3,8)
+art('house_beige',2,4); trail(3,9,6,11,'b',(4,)); house_sign(1,8)         # L2 modern beige, door (4,8)
+art('house_grey',9,4);  trail(10,9,13,11,'b',(11,)); house_sign(8,8)      # L3 modern grey, door (11,8)
+garden(-4,1,15,4,12); tree1(-1,1); tree1(6,1); tree1(13,1)                 # back gardens with small trees
+garden(0,4,2,9,13); garden(7,4,9,9,14); garden(14,4,15,9,15)               # side yards with flowers
+fence(-1,1,10) if False else None
+for (fx0,fx1) in ((0,3),(6,10),(13,15)): fence(fx0,fx1,10)                  # low front fences
+fence(-5,-4,10) if False else None
+
+# --- west lot, below the north street: H4, H3 | terrain step | H2, H1
+fanclub(-15,13); trail(-14,17,-8,19,'r',(-13,)); house_sign(-10,16)        # H4 "Edificio Lilas", door (-13,16)
+garden(-16,13,-15,17,21,shared=True); garden(-10,13,-8,16,22,shared=True)
+fence(-16,-9,19)                                                            # lot boundary
+house(-14,20); trail(-14,24,-8,26,'r',(-13,)); house_sign(-10,23)          # H3 classic, door (-13,23)
+garden(-16,20,-14,24,23,shared=True); garden(-10,20,-8,23,24,shared=True)
+ledge(-16,-8,26); stairs3(STREET[0],26,28)                                  # terrain step + 3-wide stairs
+art('apartments',-16,28); trail(-14,33,-8,35,'r',(-13,)); house_sign(-9,32)  # H2 modern apartments, door (-13,32)
+garden(-16,27,-8,28,25); garden(-9,28,-8,32,26)
+art('house_grey',-15,35); house_sign(-10,38)                               # H1 modern grey, door (-13,39) onto the boardwalk
+garden(-16,35,-15,40,27); garden(-10,35,-8,38,28); fence(-10,-8,39) if False else None
+# --- east of the street: the old L lot becomes a small neighbourhood garden
+garden(-5,13,14,20,31,skip={(x,y) for x in range(-5,-3) for y in range(13,20)})
+for (tx,ty) in ((0,13),(5,15),(10,13)): tree1(tx,ty)
+garden(-5,23,14,26,32)                                                       # upper level, above the step
+ledge(-5,14,26)                                                             # the step continues east of the street
+harbor(4,27)                                                                # door (7,32)
+brickfill(3,33,14,40); pc(10,33)                                            # Pokémon Center next to the port, door (11,36)
+garden(-5,27,3,40,33,skip={(x,y) for x in range(-5,-3) for y in range(27,40)}); tree1(-1,31)
+for x in (5,): lamp2(x,34,'brick')
+palm(3,37,'brick'); palm(7,37,'brick')
+# --- street lamps along the residential street (east kerb, heads towards the street) and the north street
+for y in (5,16,30,37): lamp2(-5,y,'grass',facing='left')
+for x in (-1,6,13): lamp2(x,10,'paving') if False else None
+bunting(-8,14,21)                                                           # avenue bunting (west part)
+sign(-16,13); sign(3,32); sign(-4,2)                                        # city sign, harbor sign, museum sign
+for (sx,sy) in ((8,8),(1,8),(-5,8),(-10,8),(16,5)): sign(sx,sy)               # house signs over the gardens

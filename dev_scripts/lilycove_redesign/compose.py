@@ -4,8 +4,9 @@ REPO=os.path.abspath(os.path.join(os.path.dirname(__file__),'..','..'))+'/'
 ORIG=open(os.path.join(os.path.dirname(__file__),'lilycove_original.bin'),'rb').read()
 OW=80
 def o(x,y): return struct.unpack_from('<H',ORIG,(y*OW+x)*2)[0]
-OX=10            # the map was widened 10 columns to the west; layout coords are logical (x may be negative)
-W,H=74,62
+OX=16            # the map was widened 16 columns to the west; layout coords are logical (x may be negative)
+OY=8             # ...and 8 rows to the north (y may be negative)
+W,H=80,70
 M=[[0]*W for _ in range(H)]
 def T(i,col=0,el=3): return i|(col<<10)|(el<<12)
 GRASS=T(0x001); GRASS2=T(0x002); FLOWERS=T(0x004); 
@@ -13,7 +14,7 @@ DEEP=T(0x170,0,1); SHALLOW=T(0x19e)
 COB=T(0x233); COBT=T(0x22b); COBB=T(0x23b)
 SAND=T(0x124)
 def put(x,y,v):
-    x+=OX
+    x+=OX; y+=OY
     if 0<=x<W and 0<=y<H: M[y][x]=v
 def fill(x0,y0,x1,y1,v):
     for y in range(y0,y1):
@@ -87,7 +88,7 @@ def carpet(x,y0,y1):
     for y in range(y0,y1): put(x,y,T(F['carpet']))
 def bunting(x0,x1,y,under='cobble'):
     for x in range(x0,x1):
-        cur=M[y][x+OX]&0x3ff if isinstance(M[y][x+OX],int) else -1
+        cur=M[y+OY][x+OX]&0x3ff if isinstance(M[y+OY][x+OX],int) else -1
         if cur==F['brick']: u='brick'
         elif cur in (0x233,0x22b,0x23b): u='cobble'
         elif cur in (0x001,0x002): u='grass'
