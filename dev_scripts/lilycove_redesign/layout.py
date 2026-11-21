@@ -223,14 +223,16 @@ garden(-5,23,14,26,32)                                                       # u
 ledge(-5,14,26)                                                             # the step continues east of the street
 # --- seaside café (replaces the Pokémon Center and the harbor building) on the lower level
 fill(-5,27,14,40,GRASS)
-deck(-3,14,27,34,posts_below=False)                                         # wooden terrace x -3..13, rows 27..33
-art('cafe',2,27,bottom='dock')                                              # Café Litoral, door (4,30)
-art('tent_pots',9,27,bottom='dock',walk_rows=2)                             # juice kiosk
-art('umbrella_red',-2,27,bottom='dock',walk_rows=1); art('cafe_table',-3,30,bottom='dock')
-art('umbrella_blue',0,30,bottom='dock',walk_rows=1)
-art('umbrella_red',10,30,bottom='dock',walk_rows=1); art('cafe_table',7,32,bottom='dock')
-for x in range(-3,14):                                                      # low wooden fence, entrance at x 3..5
-    if not 3<=x<=5: art('fence_wood',x,33,bottom='dock')
+for y in range(27,34):                                                      # light wooden terrace x -3..13, rows 27..33
+    for x in range(-3,14): put(x,y,('ART',('terrace',0,0,None,'water'),0,3))
+art('cafe',2,27,bottom='terrace')                                           # Café Litoral, door (4,30)
+art('tent_pots',9,27,bottom='terrace',walk_rows=2)                          # juice kiosk
+art('umbrella_set_red',-3,27,bottom='terrace',walk_rows=1)                  # umbrella + table + two chairs
+art('umbrella_set_blue',9,30,bottom='terrace',walk_rows=1)
+art('table_set',-3,31,bottom='terrace'); art('table_set',5,32,bottom='terrace')   # small modern tables
+for (px_,py_) in ((1,28),(8,28),(2,31),(13,31)): art('potted_palm',px_,py_,bottom='terrace',walk_rows=1)
+for x in range(-3,14):                                                      # low brown fence, entrance at x 3..4
+    if x not in (3,4): art('fence_wood',x,33,bottom='terrace')
 for (fx,fy) in ((-5,28),(-4,28),(-4,32)): put(fx,fy,FLOWERS)
 palm(-5,31,'grass') if False else None
 paving(-5,34,14,36)                                                         # promenade: street -> plaza

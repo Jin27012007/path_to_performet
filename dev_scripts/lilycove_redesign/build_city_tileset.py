@@ -122,7 +122,7 @@ def build(M, festival_ids):
             for key, bits in ((hv, 0xC00), (v, 0x800), (h, 0x400), (k, 0)):
                 tile_index[key] = base | bits
         return tile_index[k]
-    keys = sorted({v[1] for row in M for v in row if isinstance(v, tuple)}, key=lambda k: (k[0] != 'paving', str(k)))
+    keys = sorted({v[1] for row in M for v in row if isinstance(v, tuple)}, key=lambda k: (k[0] not in port_art.FLOOR, str(k)))
     prim_ids = []
     for key in keys:
         name, mx, my, pal, bottom = key
@@ -134,7 +134,7 @@ def build(M, festival_ids):
             t = add_ptile(q) if prim else add_tile(q)
             top.append(t | (pal << 12) if t else 0)
         entries = top + [0] * 4 if name in port_art.FLOOR else BOTTOM[bottom] + top
-        if name == 'paving': BOTTOM['paving'] = top
+        if name in port_art.FLOOR: BOTTOM[name] = top
         if prim and (name in port_art.FLOOR or bottom in PRIMARY_BOTTOMS):
             if not pmeta_pool: raise SystemExit('primary tileset: out of free metatiles')
             mid = pmeta_pool.pop(0); pmetas[mid] = entries; pattrs[mid] = 0; prim_ids.append(mid)

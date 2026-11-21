@@ -107,3 +107,62 @@ def _wood_fence():
         for x in range(x0, x0 + 4): c[15][x] = DB
     return c
 _CANVAS['fence_wood'] = _wood_fence(); PAL_OF['fence_wood'] = 6; ART['fence_wood'] = lambda: _CANVAS['fence_wood']
+
+# ---- café furniture v2: small modern table + two red chairs, umbrella sets, potted palms ----
+def _chair(right=False):
+    """red lounge chair from the Battle Frontier lounge (back on the right = faces left)"""
+    im = A.top_layer('primary/building', 'secondary/battle_frontier', [0x3e7])
+    return im.transpose(Image.FLIP_LEFT_RIGHT) if right else im
+def _table():
+    """small round modern table: white top, slim grey pedestal (drawn in Emerald style)"""
+    OUT, WH, HI, RIM, DK = (64, 72, 104), (248, 248, 248), (232, 240, 224), (152, 144, 136), (80, 120, 176)
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0)); p = im.load()
+    def put(x, y, c): p[x, y] = c + (255,)
+    for y in range(2, 9):                       # tabletop: ellipse 13x7
+        for x in range(1, 15):
+            dx = (x - 7.5) / 6.5; dy = (y - 5) / 3.4
+            if dx * dx + dy * dy <= 1.0:
+                put(x, y, WH if y < 6 else (HI if y < 7 else RIM))
+    for y in range(2, 9):                       # outline
+        for x in range(1, 15):
+            if p[x, y][3] and any(not (0 <= x + a < 16 and 0 <= y + b < 16) or not p[x + a, y + b][3] for a, b in ((1,0),(-1,0),(0,1),(0,-1))):
+                put(x, y, OUT)
+    for y in range(9, 13):                      # pedestal
+        put(6, y, OUT); put(7, y, RIM); put(8, y, DK); put(9, y, OUT)
+    for x in range(4, 12): put(x, 13, OUT if x in (4, 11) else DK)
+    for x in range(5, 11): put(x, 14, OUT)
+    return im
+def _table_set():
+    """chair | table | chair (3x1)"""
+    im = Image.new('RGBA', (48, 16), (0, 0, 0, 0))
+    for x, part in ((0, _chair(right=True)), (16, _table()), (32, _chair())):
+        im.alpha_composite(part, (x, 0))
+    return im
+def _umbrella_set(x0, y0):
+    """3x3: beach umbrella over a small table with two chairs; the pole goes into the table"""
+    u = A.beach_umbrella(x0, y0); im = Image.new('RGBA', (48, 48), (0, 0, 0, 0))
+    up = u.load(); shadow = (112, 96, 72)
+    for y in range(48):                          # 1) shadow on the floor
+        for x in range(32):
+            if up[x, y][3] and up[x, y][:3] == shadow: im.putpixel((x + 8, y), up[x, y])
+    im.alpha_composite(_table_set(), (0, 32))    # 2) chairs and table
+    for y in range(48):                          # 3) canopy and the visible part of the pole
+        for x in range(32):
+            if up[x, y][3] and up[x, y][:3] != shadow and (y < 32 + 5 or not (8 <= x + 8 < 40)):
+                im.putpixel((x + 8, y), up[x, y])
+    return im
+def _potted_palm():
+    return A.top_layer('primary/building', 'secondary/battle_frontier', [0x3dc]).crop((0, 0, 16, 16)), \
+           A.top_layer('primary/building', 'secondary/battle_frontier', [0x3e4])
+def _palm_pot():
+    a, b = _potted_palm(); im = Image.new('RGBA', (16, 32), (0, 0, 0, 0)); im.alpha_composite(a, (0, 0)); im.alpha_composite(b, (0, 16)); return im
+for _n, _mk in (('table_set', _table_set), ('umbrella_set_red', lambda: _umbrella_set(9, 6)),
+                ('umbrella_set_blue', lambda: _umbrella_set(24, 3))):
+    _CANVAS[_n] = _fixed(_mk(), 11); PAL_OF[_n] = 11; ART[_n] = (lambda n=_n: _CANVAS[n])
+
+# lighter terrace planks: the dock planks without the saturated orange highlight (OR -> cream)
+_CANVAS['terrace'] = [[2 if v == 4 else v for v in row] for row in _F.dock()]
+PAL_OF['terrace'] = 6; ART['terrace'] = lambda: _CANVAS['terrace']; FLOOR.add('terrace')
+PALETTES[6] = list(_F.PAL6)        # festival palette (greens for the potted palms); only used for mapping,
+_CANVAS['potted_palm'] = _fixed(_palm_pot(), 6); PAL_OF['potted_palm'] = 6; ART['potted_palm'] = lambda: _CANVAS['potted_palm']
+del PALETTES[6]                    # slot 6 itself is written by festival_tiles.py (shared with Route 121)

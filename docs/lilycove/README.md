@@ -123,12 +123,17 @@ Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço li
 Substitui o Centro Pokémon e o prédio do Porto. Montado com peças do próprio Emerald:
 * **Café**: a floricultura da Rota 104 (telhado laranja, toldo listrado), com paredes
   creme e floreiras de madeira no lugar do verde.
-* **Terraço de madeira** (mesmo deck do porto) com **guarda-sóis da praia da Rota 109**
-  (a sombra na areia virou sombra pontilhada sobre a madeira) e **mesas da Seashore House**.
-* **Quiosque de sucos** (barraca do mercado), **cerca baixa de madeira** com entrada
-  alinhada à porta, calçada ligando a rua à praça e calçadão de tijolos com barraca de
-  flores e palmeiras.
-* Tudo na paleta 11 do mercado (o índice 6, que estava livre, virou um vermelho-coral).
+* **Terraço de madeira clara** (as tábuas do porto sem o realce laranja saturado).
+* **Mesinhas redondas modernas** (desenhadas no estilo do jogo) com **duas cadeiras
+  vermelhas do lounge da Battle Frontier**, e conjuntos de **guarda-sol da praia da Rota
+  109** sobre mesa e cadeiras (o mastro entra no centro da mesa; sombra pontilhada).
+* **Palmeirinhas em vaso** (também do lounge da Battle Frontier) junto ao café, ao quiosque
+  e à entrada.
+* **Quiosque de sucos** (barraca do mercado), **cerca baixa marrom** com entrada alinhada à
+  porta, calçada ligando a rua à praça e calçadão de tijolos com barraca de flores e
+  palmeiras.
+* Café, móveis e guarda-sóis na paleta 11 do mercado (o índice 6, que estava livre, virou
+  um vermelho-coral); vasos, piso e cerca na paleta 6 do festival.
 * Placas: letreiro do café, aviso na porta e cardápio do quiosque.
 * O Centro Pokémon e o Porto saíram do mapa. Os warps deles ficam na calçada, para
   que o renascimento depois de desmaiar e o Fly continuem funcionando, até o Centro
