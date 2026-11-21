@@ -171,4 +171,39 @@ def seaside_cafe():
             if a and g > r + 15 and g >= b:          # green walls / boxes -> cream and wood
                 lum = (r + g + b) // 3
                 p[x, y] = ((238, 222, 196) if lum > 170 else (214, 184, 150) if lum > 125 else (156, 120, 92)) + (255,)
+    for y in range(im.height):                     # olive door pillars -> white
+        for x in range(im.width):
+            if p[x, y][3] and p[x, y][:3] in ((189, 189, 131), (180, 180, 148), (205, 205, 164), (238, 238, 213)):
+                p[x, y] = ((232, 240, 224) if sum(p[x, y][:3]) > 520 else (205, 213, 230)) + (255,)
+    for y in range(0, 37):                         # roof slightly darker
+        for x in range(im.width):
+            if p[x, y][3] and p[x, y][:3] != (65, 74, 106):
+                r, g, b, a = p[x, y]; p[x, y] = (int(r * .88), int(g * .88), int(b * .88), 255)
+    # flower boxes under the windows -> plain wooden siding (a café, not a flower shop)
+    for (x0, x1) in ((5, 28), (55, 92)):
+        for y in range(55, 63):
+            for x in range(x0, x1):
+                if p[x, y][3] and p[x, y][:3] != (65, 74, 106):
+                    p[x, y] = ((156, 120, 92) if y % 4 == 2 else (214, 184, 150) if y % 4 == 1 else (238, 222, 196)) + (255,)
+    # lifebuoy on the wall between the right windows
+    cx, cy = 76, 48
+    for y in range(cy - 4, cy + 4):
+        for x in range(cx - 4, cx + 4):
+            d = (x + .5 - cx) ** 2 + (y + .5 - cy) ** 2
+            if 4.5 <= d <= 16.5:
+                ang = (x + .5 - cx >= 0) == (y + .5 - cy >= 0)
+                p[x, y] = ((232, 80, 72) if ang else (248, 248, 248)) + (255,)
+            elif 16.5 < d <= 21 or 2.5 <= d < 4.5:
+                p[x, y] = (65, 74, 106, 255)
     return im
+
+def vending_machine():
+    """Lilycove Dept. Store rooftop vending machine (1x2), background railing removed."""
+    mimg = render.build('primary/building', 'secondary/shop')[0]
+    out = Image.new('RGBA', (16, 32), (0, 0, 0, 0)); o = out.load()
+    for k, (m, bg) in enumerate(((0x26f, 0x281), (0x277, 0x253))):
+        t = mimg(m).load(); b = mimg(bg).load()
+        for y in range(16):
+            for x in range(16):
+                if t[x, y] != b[x, y]: o[x, k * 16 + y] = t[x, y] + (255,)
+    return out

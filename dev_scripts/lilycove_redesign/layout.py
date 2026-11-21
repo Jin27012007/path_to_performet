@@ -223,17 +223,19 @@ garden(-5,23,14,26,32)                                                       # u
 ledge(-5,14,26)                                                             # the step continues east of the street
 # --- seaside café (replaces the Pokémon Center and the harbor building) on the lower level
 fill(-5,27,14,40,GRASS)
-for y in range(27,34):                                                      # light wooden terrace x -3..13, rows 27..33
-    for x in range(-3,14): put(x,y,('ART',('terrace',0,0,None,'water'),0,3))
+for y in range(27,34):                                                      # light wooden terrace x -4..13, rows 27..33
+    for x in range(-4,14): put(x,y,('ART',('terrace',0,0,None,'water'),0,3))
 art('cafe',2,27,bottom='terrace')                                           # Café Litoral, door (4,30)
-art('tent_pots',9,27,bottom='terrace',walk_rows=2)                          # juice kiosk
-art('umbrella_set_red',-3,27,bottom='terrace',walk_rows=1)                  # umbrella + table + two chairs
+for k,n in enumerate(('vending_water','vending_lemonade','vending_soda')):  # drink machines (row 29 in front is free)
+    art(n,10+k,27,bottom='terrace')
+art('umbrella_set_red',-4,27,bottom='terrace',walk_rows=1)                  # umbrella + table + two chairs
 art('umbrella_set_blue',9,30,bottom='terrace',walk_rows=1)
-art('table_set',-3,31,bottom='terrace'); art('table_set',5,32,bottom='terrace')   # small modern tables
-for (px_,py_) in ((1,28),(8,28),(2,31),(13,31)): art('potted_palm',px_,py_,bottom='terrace',walk_rows=1)
-for x in range(-3,14):                                                      # low brown fence, entrance at x 3..4
+art('table_set',-4,31,bottom='terrace'); art('table_set',5,32,bottom='terrace')   # small modern tables
+for (px_,py_) in ((0,27),(8,28),(2,31),(13,28),(13,31)): art('potted_palm',px_,py_,bottom='terrace',walk_rows=1)
+for x in range(-4,14):                                                      # low brown fence, entrance at x 3..4
     if x not in (3,4): art('fence_wood',x,33,bottom='terrace')
-for (fx,fy) in ((-5,28),(-4,28),(-4,32)): put(fx,fy,FLOWERS)
+put(-5,28,FLOWERS); put(-5,32,FLOWERS)
+
 palm(-5,31,'grass') if False else None
 paving(-5,34,14,36)                                                         # promenade: street -> plaza
 brickfill(-5,36,14,40)                                                      # brick by the boardwalk

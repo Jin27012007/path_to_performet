@@ -1145,10 +1145,6 @@ LilycoveCity_EventScript_CafeDoor::
 	msgbox LilycoveCity_Text_CafeDoor, MSGBOX_SIGN
 	end
 
-LilycoveCity_EventScript_JuiceKiosk::
-	msgbox LilycoveCity_Text_JuiceKiosk, MSGBOX_SIGN
-	end
-
 LilycoveCity_Text_CafeSign:
 	.string "CAFÉ LITORAL\n"
 	.string "Café, sucos e doces à beira-mar.$"
@@ -1157,8 +1153,3 @@ LilycoveCity_Text_CafeDoor:
 	.string "O café está lotado de coordenadores.\p"
 	.string "Um aviso na porta diz:\n"
 	.string "“Mesas livres no terraço!”$"
-
-LilycoveCity_Text_JuiceKiosk:
-	.string "QUIOSQUE DE SUCOS\p"
-	.string "Suco de Oran · Suco de Pecha\n"
-	.string "Vitamina de Sitrus$"

@@ -161,8 +161,15 @@ for _n, _mk in (('table_set', _table_set), ('umbrella_set_red', lambda: _umbrell
     _CANVAS[_n] = _fixed(_mk(), 11); PAL_OF[_n] = 11; ART[_n] = (lambda n=_n: _CANVAS[n])
 
 # lighter terrace planks: the dock planks without the saturated orange highlight (OR -> cream)
-_CANVAS['terrace'] = [[2 if v == 4 else v for v in row] for row in _F.dock()]
-PAL_OF['terrace'] = 6; ART['terrace'] = lambda: _CANVAS['terrace']; FLOOR.add('terrace')
+# light beach-deck planks with soft joints, in the market palette 11 (beige body, brown joints)
+_CANVAS['terrace'] = [[{4: 3, 14: 3, 15: 12}.get(v, v) for v in row] for row in _F.dock()]
+PAL_OF['terrace'] = 11; ART['terrace'] = lambda: _CANVAS['terrace']; FLOOR.add('terrace')
 PALETTES[6] = list(_F.PAL6)        # festival palette (greens for the potted palms); only used for mapping,
 _CANVAS['potted_palm'] = _fixed(_palm_pot(), 6); PAL_OF['potted_palm'] = 6; ART['potted_palm'] = lambda: _CANVAS['potted_palm']
 del PALETTES[6]                    # slot 6 itself is written by festival_tiles.py (shared with Route 121)
+
+# drink vending machines (Lilycove Dept. Store rooftop): water (teal), lemonade (yellow), soda (red)
+_vm = _fixed(A.vending_machine(), 11)
+for _n, _to in (('vending_water', 8), ('vending_lemonade', 4), ('vending_soda', 6)):   # bottles = index 10
+    _CANVAS[_n] = [[_to if v == 10 else v for v in row] for row in _vm]; PAL_OF[_n] = 11
+    ART[_n] = (lambda n=_n: _CANVAS[n])
