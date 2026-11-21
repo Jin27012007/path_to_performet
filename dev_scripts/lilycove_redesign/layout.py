@@ -136,15 +136,19 @@ art('boat_side_l',49,32,bottom='shallow'); art('boat_front',49,35,bottom='shallo
 paving(14,23,41,40)                       # grey tiles: contour and walkways
 brickfill(25,23,30,40)                    # long arm of the cross, pointing at the Contest Hall
 brickfill(16,24,39,27)                    # cross bar, right below the hall
-for qx in (14,30):                        # two lawns (left / right), fountains set apart from the paths
-    lx0 = qx+1                            # lawn x lx0..lx0+8, rows 28..38
+for side,lx0 in (('L',15),('R',31)):      # two lawns (x lx0..lx0+8, rows 28..38), mirrored about x=27
     fill(lx0,28,lx0+9,39,GRASS)
-    flowers(lx0+1,29,lx0+8,30); flowers(lx0+1,35,lx0+8,36)
-    art('fountain_modern',lx0+2,31,bottom='grass')
-    tree1(lx0,31) if qx==14 else tree1(lx0+7,31)
-    tree1(lx0+7,31) if qx==14 else tree1(lx0,31)
-    flowerbed(lx0,36,9,3)                 # long flowerbed along the bottom of the lawn
-# bunting strung between lamp posts across the brick paths
+    fx = lx0+2                            # 5-wide fountain centred in the lawn (2 tiles of margin each side)
+    ring = {(x,y) for x in range(fx,fx+5) for y in range(31,34)}     # the fountain itself
+    corner_trees = [(lx0,28),(lx0+7,28)]
+    tree_tiles = {(x+dx,y+dy) for (x,y) in corner_trees for dx in (0,1) for dy in (0,1,2)}
+    flowerfield(lx0,28,lx0+9,36,seed=7 if side=='L' else 7,skip=ring|tree_tiles)
+    for (tx,ty) in corner_trees: tree1(tx,ty)
+    art('fountain_modern',fx,31,bottom='grass')
+    flowerbed(lx0,36,9,3)                 # long kerbed flowerbed along the bottom of the lawn
+    for x in range(lx0+1,lx0+8):          # ...planted with mixed flowers
+        art(FLOWER_KINDS[(x*3)%5],x,37,bottom='grass') if x%3 else put(x,37,T(0x004,1,0))
+# modern lamp posts (same spots) with bunting strung between their heads
 for y in (28,33,38):
-    lamp2(24,y); lamp2(30,y); bunting2(25,30,y,'brick')
-lamp2(15,25); lamp2(39,25); bunting2(16,39,25,'brick')
+    lamp2(24,y); lamp2(30,y,facing='left'); bunting2(25,30,y-1,'brick')
+lamp2(15,25); lamp2(39,25,facing='left'); bunting2(16,39,24,'brick')

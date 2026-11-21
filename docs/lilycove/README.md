@@ -75,11 +75,14 @@ python3 dev_scripts/lilycove_redesign/build_lilycove.py --preview /tmp/lilycove.
 * Contorno e caminhos em **ladrilho cinza** (desenhado na paleta 8 de Lilycove).
 * **Cruz invertida de tijolos**: braço longo no eixo do Centro de Concursos, indo até o
   calçadão, e travessa logo abaixo do prédio.
-* Dois **gramados** com flores, árvores médias e um canteiro longo (meio-fio branco
-  original do jogo). As **fontes modernas** (piscina retangular com três jatos) ficam
-  no meio dos gramados, fora do caminho.
-* **Bandeirinhas presas entre postes de luz** atravessando os caminhos de tijolos. Os
-  postes foram extraídos do tile original sem a grama, então ficam sobre o piso certo.
+* **Tijolos** simplificados e menos saturados (pedras grandes com junta suave).
+* Dois **gramados** simétricos, cheios de flores em cinco cores (variações recoloridas da
+  flor original do Emerald), árvores nos cantos e um canteiro longo com meio-fio branco.
+  As **fontes modernas** (piscina retangular com três jatos) ficam centralizadas nos
+  gramados e espelhadas em relação ao eixo da praça.
+* **Postes modernos** (haste fina, braço e luminária de LED), nas mesmas posições de
+  antes, com as cabeças voltadas para o caminho. As **bandeirinhas** ficam presas entre
+  as cabeças dos postes.
 * A praça vai da avenida até o calçadão do porto (o píer não mudou).
 
 ## Porto (zona sul)
@@ -97,7 +100,7 @@ slots 10 e 11):
 O mapa agora tem 64×62. A cidade usa um tileset só dela, `gTileset_LilycoveCity`,
 gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade já usava
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
-Rota 121 e ao Safari. Ainda sobram ~100 tiles e ~180 metatiles.
+Rota 121 e ao Safari. Ainda sobram ~19 tiles e ~155 metatiles no tileset da cidade.
 
 ## Próximos passos
 * Interior da Casa 4 (sala, cozinha, quarto extra) conforme o roteiro.

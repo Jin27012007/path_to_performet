@@ -77,10 +77,10 @@ def fountain():
 
 
 def fountain_modern():
-    """64x48 modern fountain: rounded rectangular pool, stone rim, three water jets."""
-    W, H = 64, 48
+    """80x48 modern fountain: rounded rectangular pool, stone rim, three water jets."""
+    W, H = 80, 48
     c = _canvas(W, H)
-    x0, x1, y0, y1, r = 2, 61, 16, 41, 6
+    x0, x1, y0, y1, r = 3, 76, 16, 41, 6
     def inside(x, y, x0, x1, y0, y1, r):
         if x < x0 or x > x1 or y < y0 or y > y1: return False
         cx = min(max(x, x0 + r), x1 - r); cy = min(max(y, y0 + r), y1 - r)
@@ -101,10 +101,10 @@ def fountain_modern():
                 else:
                     c[y][x] = LGR if y < (y0 + y1) // 2 else PALE
     # ripple lines on the water
-    for (xa, xb, y) in [(8, 16, 30), (22, 28, 34), (36, 44, 29), (48, 55, 35), (12, 18, 37), (40, 47, 37)]:
+    for (xa, xb, y) in [(9, 17, 30), (26, 32, 34), (47, 53, 34), (62, 70, 30), (14, 21, 37), (58, 65, 37), (37, 43, 37)]:
         for x in range(xa, xb): c[y][x] = WH
     # nozzles (small stone discs) for the three jets
-    jets = [(16, 14), (32, 4), (47, 14)]
+    jets = [(20, 14), (40, 4), (59, 14)]
     for jx, top in jets:
         for x in range(jx - 3, jx + 4):
             for y in range(28, 31): c[y][x] = MGR if y == 30 else LGR
@@ -144,3 +144,53 @@ def render_palette8():
     p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data/tilesets/secondary/lilycove/palettes/08.pal')
     L = open(p).read().split('\n')[3:19]
     return [tuple(int(v) for v in l.split()) for l in L]
+
+
+YEL1, YEL2 = 12, 13          # palette 8 yellows (lamp light)
+
+def lamp_modern():
+    """16x32 modern street lamp: slim dark pole, curved arm, flat LED head, base plate."""
+    c = _canvas(16, 32)
+    for y in range(8, 29):                       # pole
+        c[y][7] = OUT; c[y][8] = DGR
+    for x in range(4, 12): c[29][x] = MGR; c[30][x] = DGR
+    for x in range(5, 11): c[28][x] = LGR
+    for x in (4, 11): c[29][x] = OUT; c[30][x] = OUT
+    for x in range(4, 12): c[31][x] = OUT
+    for y in range(4, 9): c[y][7] = OUT; c[y][8] = DGR   # top of pole
+    for x in range(8, 14): c[4][x] = OUT; c[5][x] = DGR  # arm to the right
+    for x in range(9, 15):                       # LED head
+        c[5][x] = OUT; c[6][x] = MGR; c[7][x] = YEL1; c[8][x] = OUT
+    c[6][9] = OUT; c[6][14] = OUT; c[7][9] = OUT; c[7][14] = OUT
+    for x in range(10, 14): c[9][x] = YEL2 if x % 2 else 0      # soft glow
+    c[3][7] = OUT; c[3][8] = OUT
+    return c
+
+FLOWER_COLOURS = {        # petals, centre  (palette 6 indices)
+    'flower_yellow': (3, 4),    # YE / OR
+    'flower_white': (1, 3),     # WH / YE
+    'flower_blue': (8, 9),      # LB / BL
+    'flower_red': (5, 3),       # RE / YE
+    'flower_orange': (4, 5),    # OR / RE
+}
+
+def flower(name):
+    """Emerald's flower tile (3 flowers + leaves) with recoloured petals, palette 6."""
+    mimg = render.build('primary/general', 'secondary/lilycove_city')[0]
+    f = mimg(0x004).load(); g = mimg(0x001).load()
+    petal, centre = FLOWER_COLOURS[name]
+    greens = {2: (144, 224, 88), 12: (56, 168, 64), 13: (24, 96, 48)}
+    greens = {11: (144, 224, 88), 12: (56, 168, 64), 13: (24, 96, 48)}
+    c = _canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            col = f[x, y]
+            if col == g[x, y]: continue
+            if col == (248, 184, 128): c[y][x] = petal
+            elif col == (216, 32, 56): c[y][x] = centre
+            elif col in ((104, 208, 160), (160, 224, 200), (40, 184, 128)): continue
+            else:
+                c[y][x] = min(greens, key=lambda i: sum((a - b) ** 2 for a, b in zip(greens[i], col)))
+    if name in ('flower_white', 'flower_blue'):           # mirror some for variety
+        c = [row[::-1] for row in c]
+    return c

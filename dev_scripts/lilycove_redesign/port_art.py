@@ -48,7 +48,7 @@ ART = {n: (lambda n=n: _CANVAS[n]) for n in _CANVAS}
 
 # plaza art, drawn directly in Lilycove palette 8 (no quantisation needed)
 import plaza_art as _P
-for _n, _f in (('paving', _P.paving), ('fountain', _P.fountain), ('fountain_modern', _P.fountain_modern), ('lamp', _P.lamp_post)):
+for _n, _f in (('paving', _P.paving), ('fountain', _P.fountain), ('fountain_modern', _P.fountain_modern), ('lamp', _P.lamp_post), ('lamp_modern', _P.lamp_modern)):
     _CANVAS[_n] = _f()
     PAL_OF[_n] = _P.PAL8_SLOT
     ART[_n] = (lambda n=_n: _CANVAS[n])
@@ -58,3 +58,9 @@ FLOOR = {'paving'}   # art drawn in the bottom layer (walkable floor)
 import festival_tiles as _F
 _CANVAS['bunting'] = _F.bunting(); PAL_OF['bunting'] = 6; ART['bunting'] = lambda: _CANVAS['bunting']
 _CANVAS['bunting_blue'] = _F.bunting(); PAL_OF['bunting_blue'] = 12; ART['bunting_blue'] = lambda: _CANVAS['bunting_blue']
+
+for _n in _P.FLOWER_COLOURS:
+    _CANVAS[_n] = _P.flower(_n); PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
+
+_CANVAS['lamp_modern_l'] = [row[::-1] for row in _P.lamp_modern()]; PAL_OF['lamp_modern_l'] = _P.PAL8_SLOT
+ART['lamp_modern_l'] = lambda: _CANVAS['lamp_modern_l']

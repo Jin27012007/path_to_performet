@@ -119,10 +119,22 @@ def flowerbed(x0,y0,w,h):
             else: k='l' if l else ('r' if r else None)
             put(x0+i,y0+j,T(CURB[k],1,0) if k else T(0x004,1,0))
 
-def lamp2(x,y,under='paving'):  art('lamp',x,y,bottom=under)
+def lamp2(x,y,under='paving',facing='right'):   # modern lamp: head at row y-1 (walk behind it), pole at row y
+    art('lamp_modern' if facing=='right' else 'lamp_modern_l',x,y-1,bottom=under,walk_rows=1)
 def bunting2(x0,x1,y,under='paving'):
     for x in range(x0,x1):
         art('bunting_blue' if (x//4)%2 else 'bunting',x,y,bottom=under,walk_rows=1)
 def string_lights(xa,xb,y,under='paving'):
     """two lamp posts with bunting strung between them"""
     lamp2(xa,y,under); lamp2(xb,y,under); bunting2(xa+1,xb,y,under)
+
+import random as _random
+FLOWER_KINDS = ['flower_yellow','flower_white','flower_blue','flower_red','flower_orange']
+def flowerfield(x0,y0,x1,y1,seed=1,skip=()):
+    rnd=_random.Random(seed)
+    for y in range(y0,y1):
+        for x in range(x0,x1):
+            if (x,y) in skip: continue
+            k=rnd.random()
+            if k<0.18: put(x,y,FLOWERS)                       # original red/peach flowers
+            else: art(FLOWER_KINDS[int((k-0.18)/0.82*5)%5],x,y,bottom='grass',walk_rows=1)
