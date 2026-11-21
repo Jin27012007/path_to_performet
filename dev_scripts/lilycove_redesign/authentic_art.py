@@ -45,11 +45,18 @@ def from_map(layout, width, sec, x0, y0, w, h, bg):
     return out
 
 def stretch_tidal():
+    """S.S. Tidal lengthened (window section x10) and slightly taller (deck strip repeated)."""
     s = sprite('graphics/object_events/pics/misc/ss_tidal.png', 'graphics/object_events/palettes/ss_tidal.pal')
-    parts = [s.crop((0, 0, 32, 40))] + [s.crop((32, 0, 48, 40))] * 8 + [s.crop((48, 0, 96, 40))]
+    # taller: repeat an 8px strip of the upper deck
+    tall = Image.new('RGBA', (s.width, s.height + 8), (0, 0, 0, 0))
+    tall.paste(s.crop((0, 0, s.width, 18)), (0, 0))
+    tall.paste(s.crop((0, 10, s.width, 18)), (0, 18))
+    tall.paste(s.crop((0, 18, s.width, s.height)), (0, 26))
+    s = tall
+    parts = [s.crop((0, 0, 32, s.height))] + [s.crop((32, 0, 48, s.height))] * 10 + [s.crop((48, 0, 96, s.height))]
     w = sum(p.width for p in parts)
     out = Image.new('RGBA', (w, 48), (0, 0, 0, 0)); x = 0
-    for p in parts: out.paste(p, (x, 8)); x += p.width
+    for p in parts: out.paste(p, (x, 0)); x += p.width      # top-aligned: hugs the pier
     return out
 
 def slateport(x0, y0, w, h, bg=0x211):

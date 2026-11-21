@@ -126,7 +126,7 @@ for x in range(0,52):
 # main pier: long, the cruise ship is moored along its east side
 pier(MAIN_PIER,44,55)
 deck(19,32,55,57,joins_top=(MAIN_PIER,MAIN_PIER+1,MAIN_PIER+2))
-art('cruise',19,57)   # moored along the landing platform
+art('cruise',18,57)   # moored along the landing platform
 
 # fishermen's pier with two finger docks and moored boats
 pier(FISH_PIER,44,53)
