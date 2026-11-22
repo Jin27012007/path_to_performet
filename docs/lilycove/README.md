@@ -123,12 +123,13 @@ Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço li
 * Feito a partir do **conceito do usuário** (`hall_concept.jpg`): cúpula de tenda listrada com o
   troféu e as bandeirolas, quatro torres com domos azuis, palácio de pedra com colunas, drapeados
   vermelhos e azuis, estandartes do concurso e a entrada de vidro com o tapete vermelho.
-* `hall_concept.py` recorta o prédio (remove o magenta), reduz para **17×11 tiles** com média de
-  área e divide em **9 sprites** (3 faixas × 3 colunas); cada faixa tem sua paleta de objeto de
-  15 cores (`lilycove_hall0/1/2.pal`), com contorno escuro na silhueta.
+* `hall_concept.py` recorta o prédio (remove o magenta), limpa o ruído do JPG, aumenta saturação e
+  contraste, reduz para **17×11 tiles**, aplica nitidez e remove pixels soltos; divide em **9 sprites** (3 faixas × 3 colunas); cada faixa tem sua paleta de objeto de
+  14 cores + um contorno escuro comum a todas (`lilycove_hall0/1/2.pal`).
 * No eixo da praça (x 19–35), com jardins, árvores e palmeiras em vaso dos lados e calçadas
   ligando a rua norte à praça; o topo (troféu) passa sobre a rua norte (anda-se por trás).
-* Porta de vidro: três tiles de porta (sobre o tapete) levam ao saguão; o tapete continua na praça.
+* Porta de vidro: três tiles de porta (sobre o tapete) levam ao saguão; o tapete desce pela calçada
+  até os tijolos da praça. O prédio ocupa as linhas 11–21 (o topo passa sobre a rua norte).
 * As tags e entradas de paleta de objeto agora são geradas por `decor_sprites.py`.
 * Limites: 64 objetos no mapa; no pior ponto 14 visíveis + o jogador (máx. 16).
 

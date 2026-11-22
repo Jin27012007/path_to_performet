@@ -389,18 +389,19 @@ decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, wa
 # over the north street (walk behind). Formal gardens fill the rest of the block.
 fill(14, 13, 41, 23, GRASS)
 paving(14, 13, 16, 23); paving(39, 13, 41, 23)              # side walks: north street <-> plaza
-HALL_X, HALL_Y = 19, 12
+paving(14, 22, 41, 23)                                       # forecourt in front of the hall
+HALL_X, HALL_Y = 19, 11
 import port_art as _port_art2
 for (_n, _c0, _r0, _cv, _k) in _port_art2.HALL_PIECES:
     _h = len(_cv) // 16
-    decor(_n, HALL_X + _c0, HALL_Y + _r0, walk_rows=1 if _r0 == 0 else 0, anchor_up=1 if _r0 + _h == 11 else 0)
+    decor(_n, HALL_X + _c0, HALL_Y + _r0, walk_rows=2 if _r0 == 0 else 0, anchor_up=1 if _r0 + _h == 11 else 0)
 for dx_ in (7, 8, 9):                                        # the glass double door (walk in -> lobby)
     put(HALL_X + dx_, HALL_Y + 10, ('ART', ('nadoor', 0, 0, None, 'carpet'), 0, 3))
 for x in (26, 27, 28):
-    for y in (23, 24): put(x, y, T(F['carpet']))             # red carpet down the plaza axis
+    for y in (22, 23): put(x, y, T(F['carpet']))             # red carpet from the door to the plaza bricks
 # gardens on both sides of the hall
 for gx in (16, 36):
-    flowerfield(gx, 13, gx + 3, 23, seed=41 + gx, skip={(gx + dx, gy) for dx in range(3) for gy in range(13, 23) if (gx + dx, gy) in ()})
-for (tx_, ty_) in ((16, 13), (37, 13), (16, 19), (37, 19)): tree1(tx_, ty_)
+    flowerfield(gx, 13, gx + 3, 22, seed=41 + gx, skip={(gx + dx, gy) for dx in range(3) for gy in range(13, 23) if (gx + dx, gy) in ()})
+for (tx_, ty_) in ((16, 13), (37, 13), (16, 18), (37, 18)): tree1(tx_, ty_)
 for (px_, py_) in ((17, 16), (37, 16)): art('potted_palm', px_, py_, bottom='grass', walk_rows=1)
 sign(44, 10)                                                 # beach / hotel sign at the top of the sand road
