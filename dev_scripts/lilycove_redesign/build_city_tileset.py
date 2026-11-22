@@ -126,11 +126,14 @@ def build(M, festival_ids):
     prim_ids = []
     for key in keys:
         name, mx, my, pal, bottom = key
-        pal = port_art.PAL_OF[name]
-        if name not in canvases: canvases[name] = port_art.ART[name]()
-        prim = name in PRIMARY_ART
-        top = []
-        for q in _split16(canvases[name], mx, my):
+        pal = port_art.PAL_OF.get(name, 0)
+        if name.startswith('copy:'):              # an existing metatile's top layer over another floor
+            prim = False; top = list(metas[int(name[5:], 16) - 512][4:])
+        else:
+          if name not in canvases: canvases[name] = port_art.ART[name]()
+          prim = name in PRIMARY_ART
+          top = []
+          for q in _split16(canvases[name], mx, my):
             t = add_ptile(q) if prim else add_tile(q)
             top.append(t | (pal << 12) if t else 0)
         if isinstance(bottom, str) and bottom.startswith('top:'):     # another metatile's top layer as the floor

@@ -679,7 +679,7 @@
   "warp_events": [
     {
       "x": 16,
-      "y": 26,
+      "y": 27,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"
@@ -777,21 +777,21 @@
     },
     {
       "x": 17,
-      "y": 26,
+      "y": 27,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 24,
-      "y": 26,
+      "y": 27,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 25,
-      "y": 26,
+      "y": 27,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"

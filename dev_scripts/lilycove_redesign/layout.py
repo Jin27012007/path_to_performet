@@ -222,9 +222,13 @@ garden(-16,35,-15,40,27); garden(-10,35,-8,38,28); fence(-10,-8,39) if False els
 # awnings (vitrines), two double glass doors; plus the contest screen, the Poké Ball and pennants.
 def mall(x0,y0,W=18):
     O=lambda ox,oy: norm(o(ox,oy))
-    for r,oy in enumerate((18,19,19,22)):                                # flat roof (Contest Hall roof pieces),
-        put(x0,y0-1+r,O(20,oy)); put(x0+W-1,y0-1+r,O(26,oy))             # starting one row above the block
-        for x in range(x0+1,x0+W-1): put(x,y0-1+r,O(21,oy))
+    for r,oy in enumerate((18,19,19,22)):                                # flat roof (Contest Hall roof pieces)
+        put(x0,y0+r,O(20,oy)); put(x0+W-1,y0+r,O(26,oy))
+        for x in range(x0+1,x0+W-1): put(x,y0+r,O(21,oy))
+    for x in range(x0,x0+W):                                             # roof edge over street floor, not grass
+        mid = 0x2c0 if x==x0 else (0x2c2 if x==x0+W-1 else 0x2c1)
+        put(x,y0,('ART',('copy:%x'%mid,0,0,None,'paving'),1,0))
+    y0+=1
     y=y0+3                                                               # facade band under the roof
     put(x0,y,O(23,1)); put(x0+W-1,y,O(31,1))
     for x in range(x0+1,x0+W-1): put(x,y,O(24,1))
@@ -239,10 +243,9 @@ def mall(x0,y0,W=18):
         put(x0+8+dx,y0+1,('ART',('mall_pokeball',dx,0,None,'top:2c9'),1,0))
         put(x0+8+dx,y0+2,('ART',('mall_pokeball',dx,1,None,'top:2d1'),1,0))
 fill(-5,13,14,20,GRASS)
-mall(-4,13)                                                              # doors (0,18) (1,18) and (8,18) (9,18)
-paving(-4,19,14,20)                                                      # sidewalk in front of the mall
-for x in (0,8): art('carpet_mat',x,19,walk_rows=1)                       # small red mats at the two double doors
-for x in (-1,2,7,10): art('potted_palm',x,19,bottom='paving',walk_rows=1)   # potted palms flanking the doors
+mall(-4,13)                                                              # doors (0,19) (1,19) and (8,19) (9,19), onto the avenue
+for x in (0,8): art('carpet_mat',x,20,walk_rows=1)                       # small red mats at the two double doors
+for x in (-1,2,7,10): art('potted_palm',x,20,bottom='paving',walk_rows=1)   # potted palms flanking the doors
 sign(-5,18); paving(-5,19,-4,20)                                         # Dept. Store sign, street floor in front of it
 garden(-5,23,14,26,32)                                                       # upper level, above the step
 paving(-2,23,11,26)                                                          # bike parking in front of the mall
