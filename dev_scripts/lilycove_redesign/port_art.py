@@ -194,3 +194,6 @@ import mall_art as _M
 for _n, _mk in (('mall_screen', _M.screen), ('mall_pokeball', _M.pokeball),
                 ('pennants0', lambda: _M.pennants(0)), ('pennants1', lambda: _M.pennants(1)), ('pennants2', lambda: _M.pennants(2))):
     _CANVAS[_n] = _mk(); PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
+for _n, _mk in (('mall_ticker', _M.ticker), ('carpet_mat', _M.carpet_mat)):
+    _CANVAS[_n] = _mk(); PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
+FLOOR.add('carpet_mat')

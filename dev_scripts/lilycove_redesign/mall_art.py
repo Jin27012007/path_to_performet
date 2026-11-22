@@ -85,3 +85,27 @@ def pennants(k):
                 if 0 <= x < 16: c[y][x] = col
         c[2][x0] = c[2][x0 + 6] = NV
     return c
+
+def ticker():
+    """96x16 LED band over the doors: 'POKEMON CONTEST' with stage lights"""
+    w, h = 96, 16; c = canvas(w, h)
+    for y in range(h):
+        for x in range(w):
+            if x == 0 or x == w - 1 or y == 0 or y == h - 1: c[y][x] = NV
+            elif y == 1: c[y][x] = LB
+            elif y >= 13: c[y][x] = RE
+            else: c[y][x] = BL
+    for x in range(2, w - 2):
+        if x % 8 == 3: c[13][x] = YE
+    text(c, 'POKEMON', 3, 4, YE, NV)
+    text(c, 'CONTEST', 51, 4, WH, NV)
+    return c
+
+def carpet_mat():
+    """32x16 small horizontal red carpet (doormat) for a double door"""
+    w, h = 32, 16; c = canvas(w, h)
+    for y in range(h):
+        for x in range(w):
+            edge = min(x, w - 1 - x, y, h - 1 - y)
+            c[y][x] = DR if edge == 0 else (YE if edge == 1 else (RE if (x + y) % 4 else DR) if edge > 2 else RE)
+    return c

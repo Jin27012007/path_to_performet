@@ -222,28 +222,27 @@ garden(-16,35,-15,40,27); garden(-10,35,-8,38,28); fence(-10,-8,39) if False els
 # awnings (vitrines), two double glass doors; plus the contest screen, the Poké Ball and pennants.
 def mall(x0,y0,W=18):
     O=lambda ox,oy: norm(o(ox,oy))
-    wallL,wall,wallR=O(23,1),O(24,1),O(31,1)
-    for y in range(y0,y0+4):
-        put(x0,y,wallL); put(x0+W-1,y,wallR)
-        for x in range(x0+1,x0+W-1): put(x,y,wall)
-    for (y,xs) in ((y0+1,(1,3,13,15)),(y0+3,(1,3,6,8,10,13,15))):       # windows (pairs)
-        for wx in xs: put(x0+wx,y,O(24,0)); put(x0+wx+1,y,O(25,0))
+    for r,oy in enumerate((18,19,22)):                                   # flat roof (Contest Hall roof pieces)
+        put(x0,y0+r,O(20,oy)); put(x0+W-1,y0+r,O(26,oy))
+        for x in range(x0+1,x0+W-1): put(x,y0+r,O(21,oy))
+    y=y0+3                                                               # facade band under the roof
+    put(x0,y,O(23,1)); put(x0+W-1,y,O(31,1))
+    for x in range(x0+1,x0+W-1): put(x,y,O(24,1))
     COL={'2fe':23,'2fc':24,'30f':25,'303':26,'304':27,'305':28,'30e':29,'2ff':31}
-    BOT={'2fe':23,'2fc':24,'30f':25,'303':26,'304':27,'305':28,'30e':29,'2ff':31}
     seq=['2fe','2fc','30f','303','304','304','305','30e','2fc','2fc','30f','303','304','304','305','30e','2fc','2ff']
     for i,k in enumerate(seq):
-        put(x0+i,y0+4,O(COL[k],5)); put(x0+i,y0+5,O(BOT[k],6))         # awnings / vitrines and doors
-    WALL='top:301'
-    art('mall_screen',x0+6,y0+1,bottom=WALL)                             # the big contest screen (telão)
-    art('mall_pokeball',x0+8,y0-1,bottom='paving',walk_rows=1)           # Poké Ball on the roof edge...
-    for (dx,dy) in ((0,1),(1,1)): put(x0+8+dx,y0+dy-1+0,('ART',('mall_pokeball',dx,dy,None,WALL),1,0))   # ...over the wall
-    for x in range(x0+1,x0+W-1):                                         # pennants strung from the ball
-        if x not in (x0+8,x0+9): art('pennants%d'%((x-x0)%3),x,y0,bottom=WALL)
+        put(x0+i,y0+4,O(COL[k],5)); put(x0+i,y0+5,O(COL[k],6))          # awnings / vitrines and double doors
+    art('mall_ticker',x0+6,y,bottom='top:301')                           # LED band "POKEMON CONTEST"
+    for x in range(x0+1,x0+W-1):                                         # pennants under the eave
+        if not x0+6<=x<x0+12: art('pennants%d'%((x-x0)%3),x,y,bottom='top:301')
+    for dx in (0,1):                                                     # Poké Ball on the roof front
+        put(x0+8+dx,y0+1,('ART',('mall_pokeball',dx,0,None,'top:2c9'),1,0))
+        put(x0+8+dx,y0+2,('ART',('mall_pokeball',dx,1,None,'top:2d1'),1,0))
 fill(-5,13,14,20,GRASS)
 mall(-4,13)                                                              # doors (0,18) (1,18) and (8,18) (9,18)
 paving(-4,19,14,20)                                                      # sidewalk in front of the mall
-for x in (0,1,8,9):                                                      # red carpets at the two double doors
-    for y in (19,20): put(x,y,T(F['carpet']))
+for x in (0,8): art('carpet_mat',x,19,walk_rows=1)                       # small red mats at the two double doors
+for x in (-1,2,7,10): art('potted_palm',x,19,bottom='paving',walk_rows=1)   # potted palms flanking the doors
 sign(-5,18)                                                              # Dept. Store sign
 garden(-5,23,14,26,32)                                                       # upper level, above the step
 ledge(-5,14,26)                                                             # the step continues east of the street

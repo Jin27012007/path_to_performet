@@ -121,14 +121,16 @@ Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço li
 
 ## Shopping (Loja de Departamentos)
 Ocupa o quarteirão inteiro entre a rua norte e a avenida, acima do café.
-* Fachada montada com as **peças originais da Loja de Departamentos de Lilycove**, alongada
-  para 18 tiles: parede azul com janelas, **vitrines com toldo** e **duas portas duplas de
-  vidro** (cada folha é uma porta animada) com marquise e **tapete vermelho**.
-* Decoração desenhada no estilo do jogo (paleta do festival): **telão "POKEMON CONTEST"**
-  com luzes de palco, **Pokébola** no topo e **bandeirolas** coloridas presas a ela.
+* **Telhado plano** com as peças do telhado do Centro de Concursos original (repetidas na
+  horizontal, sem custo de tiles), com a **Pokébola** na frente do telhado.
+* Fachada com as **peças originais da Loja de Departamentos de Lilycove**, alongada para 18
+  tiles: faixa com **bandeirolas** e a **faixa de LED "POKEMON CONTEST"** (o telão), **vitrines
+  com toldo** e **duas portas duplas de vidro** (cada folha é uma porta animada).
+* Na calçada, **tapetes vermelhos horizontais** pequenos diante de cada porta, ladeados por
+  palmeirinhas em vaso.
 * As 4 folhas levam à loja; a saída da direita volta pela porta da direita. Placa da loja
   na calçada. O prédio antigo (bairro norte) ficou com a porta trancada até ser redesenhado.
-* Espaço: a Pokébola foi para o tileset primário; sobram ~3 tiles na cidade e 4 no primário.
+* Espaço: a Pokébola está no tileset primário; sobram 4 tiles na cidade e 4 no primário.
 
 ## Café Litoral (bairro 1, beira do calçadão)
 Substitui o Centro Pokémon e o prédio do Porto. Montado com peças do próprio Emerald:
