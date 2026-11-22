@@ -24,7 +24,7 @@ SHARED_LAYOUTS = (('Route121', 80, 66),)
 # also render across the Route 121 seam. Built from a pristine copy in base_tileset/general.
 PRIM = os.path.join(REPO, 'data/tilesets/primary/general')
 PRIM_BASE = os.path.join(HERE, 'base_tileset/general')
-PRIMARY_ART = {'paving', 'lamp_modern', 'lamp_modern_l', 'bunting'} | set(port_art.FLOWER_NAMES)
+PRIMARY_ART = {'paving', 'lamp_modern', 'lamp_modern_l', 'bunting', 'mall_pokeball'} | set(port_art.FLOWER_NAMES)
 PRIMARY_BOTTOMS = {'grass', 'paving'}
 # General metatiles no General-tileset map uses and no metatile label names (checked over all layouts)
 PRIMARY_META_POOL = [0x1ea, 0x1eb, 0x1f8, 0x1f9, 0x1fa, 0x1fb, 0x183, 0x187, 0x18b, 0x18c, 0x199, 0x1a2,
@@ -133,6 +133,8 @@ def build(M, festival_ids):
         for q in _split16(canvases[name], mx, my):
             t = add_ptile(q) if prim else add_tile(q)
             top.append(t | (pal << 12) if t else 0)
+        if isinstance(bottom, str) and bottom.startswith('top:'):     # another metatile's top layer as the floor
+            BOTTOM[bottom] = metas[int(bottom[4:], 16) - 512][4:]
         entries = top + [0] * 4 if name in port_art.FLOOR else BOTTOM[bottom] + top
         if name in port_art.FLOOR: BOTTOM[name] = top
         if prim and (name in port_art.FLOOR or bottom in PRIMARY_BOTTOMS):

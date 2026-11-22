@@ -119,6 +119,17 @@ gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade 
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
 
+## Shopping (Loja de Departamentos)
+Ocupa o quarteirão inteiro entre a rua norte e a avenida, acima do café.
+* Fachada montada com as **peças originais da Loja de Departamentos de Lilycove**, alongada
+  para 18 tiles: parede azul com janelas, **vitrines com toldo** e **duas portas duplas de
+  vidro** (cada folha é uma porta animada) com marquise e **tapete vermelho**.
+* Decoração desenhada no estilo do jogo (paleta do festival): **telão "POKEMON CONTEST"**
+  com luzes de palco, **Pokébola** no topo e **bandeirolas** coloridas presas a ela.
+* As 4 folhas levam à loja; a saída da direita volta pela porta da direita. Placa da loja
+  na calçada. O prédio antigo (bairro norte) ficou com a porta trancada até ser redesenhado.
+* Espaço: a Pokébola foi para o tileset primário; sobram ~3 tiles na cidade e 4 no primário.
+
 ## Café Litoral (bairro 1, beira do calçadão)
 Substitui o Centro Pokémon e o prédio do Porto. Montado com peças do próprio Emerald:
 * **Café**: a floricultura da Rota 104 (telhado laranja levemente escurecido, toldo

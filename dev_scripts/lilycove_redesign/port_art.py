@@ -188,3 +188,9 @@ def _wood_fence_v(cx):
     return c
 for _n, _cx in (('fence_wood_vl', 4), ('fence_wood_vr', 12)):   # left / right side of an enclosure
     _CANVAS[_n] = _wood_fence_v(_cx); PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
+
+# ---- shopping mall decorations (palette 6, top layers over the mall wall) ----
+import mall_art as _M
+for _n, _mk in (('mall_screen', _M.screen), ('mall_pokeball', _M.pokeball),
+                ('pennants0', lambda: _M.pennants(0)), ('pennants1', lambda: _M.pennants(1)), ('pennants2', lambda: _M.pennants(2))):
+    _CANVAS[_n] = _mk(); PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
