@@ -142,6 +142,14 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip0
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip1;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip2;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip3;
+// LILYCOVE_DECOR_EXTERN_BEGIN
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTableSet;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTentFlowers;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTentGreen;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTentPots;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcUmbrellaSetBlue;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcUmbrellaSetRed;
+// LILYCOVE_DECOR_EXTERN_END
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SubmarineShadow;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PichuDoll;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PikachuDoll;
@@ -551,6 +559,14 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_CRUISE_SHIP_1] =            &gObjectEventGraphicsInfo_CruiseShip1,
     [OBJ_EVENT_GFX_CRUISE_SHIP_2] =            &gObjectEventGraphicsInfo_CruiseShip2,
     [OBJ_EVENT_GFX_CRUISE_SHIP_3] =            &gObjectEventGraphicsInfo_CruiseShip3,
+    // LILYCOVE_DECOR_BEGIN
+    [OBJ_EVENT_GFX_LC_TABLE_SET] = &gObjectEventGraphicsInfo_LcTableSet,
+    [OBJ_EVENT_GFX_LC_TENT_FLOWERS] = &gObjectEventGraphicsInfo_LcTentFlowers,
+    [OBJ_EVENT_GFX_LC_TENT_GREEN] = &gObjectEventGraphicsInfo_LcTentGreen,
+    [OBJ_EVENT_GFX_LC_TENT_POTS] = &gObjectEventGraphicsInfo_LcTentPots,
+    [OBJ_EVENT_GFX_LC_UMBRELLA_SET_BLUE] = &gObjectEventGraphicsInfo_LcUmbrellaSetBlue,
+    [OBJ_EVENT_GFX_LC_UMBRELLA_SET_RED] = &gObjectEventGraphicsInfo_LcUmbrellaSetRed,
+    // LILYCOVE_DECOR_END
     [OBJ_EVENT_GFX_SUBMARINE_SHADOW] =         &gObjectEventGraphicsInfo_SubmarineShadow,
     [OBJ_EVENT_GFX_PICHU_DOLL] =               &gObjectEventGraphicsInfo_PichuDoll,
     [OBJ_EVENT_GFX_PIKACHU_DOLL] =             &gObjectEventGraphicsInfo_PikachuDoll,

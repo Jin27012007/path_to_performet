@@ -417,6 +417,14 @@ enum
     OBJ_EVENT_GFX_CRUISE_SHIP_1,
     OBJ_EVENT_GFX_CRUISE_SHIP_2,
     OBJ_EVENT_GFX_CRUISE_SHIP_3,
+    // LILYCOVE_DECOR_BEGIN
+    OBJ_EVENT_GFX_LC_TABLE_SET,
+    OBJ_EVENT_GFX_LC_TENT_FLOWERS,
+    OBJ_EVENT_GFX_LC_TENT_GREEN,
+    OBJ_EVENT_GFX_LC_TENT_POTS,
+    OBJ_EVENT_GFX_LC_UMBRELLA_SET_BLUE,
+    OBJ_EVENT_GFX_LC_UMBRELLA_SET_RED,
+    // LILYCOVE_DECOR_END
     NUM_OBJ_EVENT_GFX,
 };
 
@@ -616,6 +624,7 @@ enum
 #define OBJ_EVENT_PAL_TAG_NEON_LIGHT              0x8004
 // Not a real OW palette tag; used for the white flash applied to followers
 #define OBJ_EVENT_PAL_TAG_WHITE                   (OBJ_EVENT_PAL_TAG_NONE - 1)
+#define OBJ_EVENT_PAL_TAG_LILYCOVE_DECOR          0x1180
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 // This + localId is used as the tileTag

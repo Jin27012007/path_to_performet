@@ -11,6 +11,9 @@ sys.path.insert(0, HERE)
 from compose import M, W, H, REPO
 exec(open(os.path.join(HERE, 'layout.py')).read())
 import build_city_tileset
+import decor_sprites
+from compose import DECOR
+decor_sprites.build(DECOR)
 from compose import F
 M[:] = build_city_tileset.build(M, F)
 out = os.path.join(REPO, 'data/layouts/LilycoveCity/map.bin')

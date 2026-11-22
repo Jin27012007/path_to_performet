@@ -132,6 +132,20 @@ Ocupa o quarteirão inteiro entre a rua norte e a avenida, acima do café.
   na calçada. O prédio antigo (bairro norte) ficou com a porta trancada até ser redesenhado.
 * Espaço: a Pokébola está no tileset primário; sobram 4 tiles na cidade e 4 no primário.
 
+### Bicicletário
+No canteiro entre a avenida e o degrau, em frente ao shopping: dois grupos de bicicletas
+estacionadas (amarelas, azuis e vermelhas, da vitrine da loja de bicicletas de Mauville),
+com canteiros de flores nas pontas.
+
+## Decorações como sprites
+`decor_sprites.py` transforma decorações em object events (como o navio): guarda-sóis com
+mesa e cadeiras, mesinhas do café e todas as barracas (calçadão e barraca de flores). No
+layout, `decor(nome, x, y, walk_rows)` marca a colisão do chão e registra o sprite; o build
+gera os gráficos (`graphics/object_events/pics/misc/lc_*.png`), a paleta
+`lilycove_decor.pal`, `src/data/object_events/lilycove_decor.h` e os objetos no `map.json`.
+No máximo 10 objetos ficam ativos numa mesma tela (limite 16). Espaço livre agora: ~56
+tiles e ~148 metatiles na cidade.
+
 ## Café Litoral (bairro 1, beira do calçadão)
 Substitui o Centro Pokémon e o prédio do Porto. Montado com peças do próprio Emerald:
 * **Café**: a floricultura da Rota 104 (telhado laranja levemente escurecido, toldo

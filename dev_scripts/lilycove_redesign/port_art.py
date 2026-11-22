@@ -197,3 +197,11 @@ for _n, _mk in (('mall_screen', _M.screen), ('mall_pokeball', _M.pokeball),
 for _n, _mk in (('mall_ticker', _M.ticker), ('carpet_mat', _M.carpet_mat)):
     _CANVAS[_n] = _mk(); PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
 FLOOR.add('carpet_mat')
+
+# ---- parked bikes (Rydel's Cycles display, Mauville), mapped onto palette 11 ----
+def _bike(ids, y0):
+    im = Image.new('RGBA', (16, 16 * len(ids)), (0, 0, 0, 0))
+    for i, m in enumerate(ids): im.alpha_composite(A.top_layer('primary/building', 'secondary/bike_shop', [m]), (0, 16 * i))
+    return im.crop((0, y0, 16, y0 + 16))
+for _n, _ids, _y0 in (('bike_yellow', [0x211, 0x219], 8), ('bike_blue', [0x221, 0x206], 8), ('bike_red', [0x254, 0x246], 0)):
+    _CANVAS[_n] = _fixed(_bike(_ids, _y0), 11); PAL_OF[_n] = 11; ART[_n] = (lambda n=_n: _CANVAS[n])

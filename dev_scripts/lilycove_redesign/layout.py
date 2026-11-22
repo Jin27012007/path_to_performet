@@ -118,8 +118,8 @@ deck(FISH_PIER+3,13,47,48); deck(FISH_PIER+3,13,51,52)
 deck(1,10,53,55,joins_top=(FISH_PIER,FISH_PIER+1,FISH_PIER+2))
 # moored fishing boats: Mr. Briney's boat sprite (object events, see map.json)
 # market tents along the boardwalk (Slateport-style), with goods around them
-art('tent_green',8,40,bottom='dock',walk_rows=2); art('tent_pots',14,40,bottom='dock',walk_rows=2)
-art('tent_flowers',32,40,bottom='dock',walk_rows=2); art('tent_green',38,40,bottom='dock',walk_rows=2)
+decor('tent_green',8,40,walk_rows=2); decor('tent_pots',14,40,walk_rows=2)          # stalls are sprites
+decor('tent_flowers',32,40,walk_rows=2); decor('tent_green',38,40,walk_rows=2)
 for (n,x,y) in [('basket_orange',13,42),('crate_label',19,41),('basket_green',31,42),('basket_orange',7,42)]:
     art(n,x,y,bottom='dock')
 # crates and mooring posts (the father waits next to the crates)
@@ -243,8 +243,13 @@ mall(-4,13)                                                              # doors
 paving(-4,19,14,20)                                                      # sidewalk in front of the mall
 for x in (0,8): art('carpet_mat',x,19,walk_rows=1)                       # small red mats at the two double doors
 for x in (-1,2,7,10): art('potted_palm',x,19,bottom='paving',walk_rows=1)   # potted palms flanking the doors
-sign(-5,18)                                                              # Dept. Store sign
+sign(-5,18); paving(-5,19,-4,20)                                         # Dept. Store sign, street floor in front of it
 garden(-5,23,14,26,32)                                                       # upper level, above the step
+paving(-2,23,11,26)                                                          # bike parking in front of the mall
+BIKES=('bike_yellow','bike_blue','bike_red')
+for gx in (-1,7):                                                            # two racks, three rows of bikes each
+    for r in range(3):
+        for k in range(3): art(BIKES[(r+k+gx)%3],gx+k,23+r,bottom='paving')
 ledge(-5,14,26)                                                             # the step continues east of the street
 # --- seaside café (replaces the Pokémon Center and the harbor building) on the lower level
 fill(-5,27,14,40,GRASS)
@@ -253,9 +258,9 @@ for y in range(27,34):                                                      # wo
 art('cafe',2,27,bottom='terrace')                                           # Café Litoral, door (4,30)
 for k,n in enumerate(('vending_water','vending_lemonade','vending_soda')):  # drink machines (row 29 in front is free)
     art(n,10+k,27,bottom='terrace')
-art('umbrella_set_red',-3,27,bottom='terrace',walk_rows=1)                  # umbrella + table + two chairs
-art('umbrella_set_blue',10,30,bottom='terrace',walk_rows=1)
-art('table_set',-3,31,bottom='terrace'); art('table_set',6,32,bottom='terrace')   # small modern tables
+decor('umbrella_set_red',-3,27,walk_rows=1)                                 # umbrella + table + two chairs (sprites)
+decor('umbrella_set_blue',10,30,walk_rows=1)
+decor('table_set',-3,31); decor('table_set',6,32)                            # small modern tables (sprites)
 for (px_,py_) in ((1,27),(8,27),(2,31),(5,31)): art('potted_palm',px_,py_,bottom='terrace',walk_rows=1)  # flank café and entrance
 for y in range(27,33):                                                      # fence around the terrace...
     art('fence_wood_vl',-4,y,bottom='terrace'); art('fence_wood_vr',13,y,bottom='terrace')
@@ -264,7 +269,7 @@ for x in range(-4,14):                                                      # ..
 put(-5,28,FLOWERS); put(-5,32,FLOWERS)
 paving(-5,34,14,36)                                                         # promenade: street -> plaza
 paving(-5,36,14,40)                                                         # grey paving down to the boardwalk
-art('tent_flowers',-4,37,bottom='paving',walk_rows=2)                       # flower stall
+decor('tent_flowers',-4,37,walk_rows=2)                                      # flower stall (sprite)
 for (px_,py_) in ((3,37),(9,37)): art('potted_palm',px_,py_,bottom='paving',walk_rows=1)
 lamp2(12,36,'paving',facing='left')
 # --- street lamps along the residential street (east kerb, heads towards the street) and the north street

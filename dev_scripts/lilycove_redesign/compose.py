@@ -141,3 +141,17 @@ def flowerfield(x0,y0,x1,y1,seed=1,skip=()):
             k=rnd.random()
             if k<0.18: put(x,y,FLOWERS)                       # original red/peach flowers
             else: art(FLOWER_KINDS[int((k-0.18)/0.82*5)%5],x,y,bottom='grass',walk_rows=1)
+
+# ---------------- decorations drawn as object-event sprites (see decor_sprites.py) ----------------
+DECOR=[]
+def decor(name,x,y,walk_rows=0):
+    """Places art `name` as a sprite; the floor already drawn under it only gets its collision
+    changed (blocked, except the top walk_rows rows, where the player walks behind it)."""
+    c=_pa.ART[name](); w,h=len(c[0])//16,len(c)//16
+    for my in range(h):
+        for mx in range(w):
+            col = 0 if my<walk_rows else 1
+            X,Y=x+mx+OX,y+my+OY
+            v=M[Y][X]
+            M[Y][X]=(v[0],v[1],col,v[3]) if isinstance(v,tuple) else ((v&~0xC00)|(col<<10))
+    DECOR.append((name,x,y))
