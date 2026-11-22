@@ -119,14 +119,20 @@ gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade 
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
 
-## Hotel (início)
-* **Lote cercado** no platô (x 45–70): cerca vertical azul de Lilycove no lado oeste, com
-  portão no fim da rua norte, e cerca horizontal na divisa com a praia.
-* **Piscina grande** (16×5) desenhada no estilo das fontes da praça (borda de pedra, água
-  com reflexos que se repetem a cada 16 px, escadinha, parede frontal), com deck de ladrilho.
-* **Área arborizada**: palmeiras e árvores alternadas no topo do lote e uma fileira de
-  palmeiras entre a piscina e a praia. O prédio do hotel vem depois (topo do lote).
-* A **estrada de areia** agora desce ao lado do lote (x 41–43) por uma escada de 3 tiles; placa
+## Hotel Litoral
+* **Prédio** montado a partir do exemplo do usuário (`hotel_ref.png`): telhado de deck, duas alas
+  com janelões e base com friso, torre central de vidro curvo e entrada com porta dupla. Limpeza em
+  `hotel_art.py`: transparência binária, 15 cores, contorno escuro uniforme na silhueta, pixels
+  soltos removidos e porta centrada numa divisa de tiles.
+* 14×12 tiles, desenhado como **sprite** (paleta própria `lilycove_hotel.pal`), dividido em blocos
+  de até 5×4 tiles para não surgir na borda da tela. Colisão no mapa; as duas folhas da porta são
+  tiles de porta sem animação ligados ao interior do antigo Motel (cada folha volta pela sua).
+* O mapa ganhou 4 linhas ao norte (agora **94×74**) para o prédio caber com a floresta atrás;
+  eventos, conexão com a Rota 121, ponto de cura e warps dos scripts foram deslocados.
+* **Lote**: cerca azul de Lilycove (portão no fim da rua norte), piscina grande com deck, pátio
+  de entrada, palmeiras e árvores dos lados e fileira de palmeiras junto à praia.
+* Para caber no limite de 64 objetos por mapa, 3 barcos distantes da baía foram removidos.
+* A **estrada de areia** desce ao lado do lote por uma escada de 3 tiles; placa
   "Praia de Lilycove / Hotel Litoral (em obras)".
 
 ## Praia (leste)

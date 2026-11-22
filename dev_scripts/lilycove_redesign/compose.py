@@ -5,8 +5,8 @@ ORIG=open(os.path.join(os.path.dirname(__file__),'lilycove_original.bin'),'rb').
 OW=80
 def o(x,y): return struct.unpack_from('<H',ORIG,(y*OW+x)*2)[0]
 OX=16            # the map was widened 16 columns to the west; layout coords are logical (x may be negative)
-OY=8             # ...and 8 rows to the north (y may be negative)
-W,H=94,70
+OY=12            # ...and 12 rows to the north (y may be negative)
+W,H=94,74
 M=[[0]*W for _ in range(H)]
 def T(i,col=0,el=3): return i|(col<<10)|(el<<12)
 GRASS=T(0x001); GRASS2=T(0x002); FLOWERS=T(0x004); 
@@ -148,12 +148,11 @@ def decor(name,x,y,walk_rows=0):
     """Places art `name` as a sprite; the floor already drawn under it only gets its collision
     changed (blocked, except the top walk_rows rows, where the player walks behind it)."""
     c=_pa.ART[name](); w,h=len(c[0])//16,len(c)//16
-    if w>6:                                   # wide art: segments of <=5 tiles (no pop-in at the screen edge)
-        for k,sx in enumerate(range(0,w,5)):
+    if w>6 or h>5:                            # big art: chunks of <=5x4 tiles (no pop-in at the screen edges)
+        for k,(cx,cy,sub_c) in enumerate(_pa.chunks(name)):
             sub='%s_%d'%(name,k)
-            _pa._CANVAS[sub]=[row[sx*16:min(w,sx+5)*16] for row in c]
-            _pa.PAL_OF[sub]=_pa.PAL_OF[name]; _pa.ART[sub]=(lambda s=sub: _pa._CANVAS[s])
-            decor(sub,x+sx,y,walk_rows)
+            _pa._CANVAS[sub]=sub_c; _pa.PAL_OF[sub]=_pa.PAL_OF[name]; _pa.ART[sub]=(lambda s=sub: _pa._CANVAS[s])
+            decor(sub,x+cx,y+cy,walk_rows if cy==0 else 0)
         return
     for my in range(h):
         for mx in range(w):

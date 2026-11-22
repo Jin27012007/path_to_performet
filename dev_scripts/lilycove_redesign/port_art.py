@@ -231,5 +231,18 @@ OBJ_PALETTES = {}
 import hotel_art as _H
 _hotel_img, HOTEL_DOOR_COL = _H.building()
 _hp, (_hc,) = A.to_palette([_hotel_img])
+_hc = _H.outline(_hc, min(range(1, 16), key=lambda i: sum(_hp[i])))   # uniform dark silhouette outline
 OBJ_PALETTES['hotel'] = _hp
 _CANVAS['hotel'] = _hc; PAL_OF['hotel'] = 'hotel'; ART['hotel'] = lambda: _CANVAS['hotel']
+
+# ---- splitting big art into sprite chunks (<= 5 tiles wide, <= 4 tiles tall), row-major ----
+CHUNK_W, CHUNK_H = 5, 4
+def chunks(name):
+    c = ART[name](); w, h = len(c[0]) // 16, len(c) // 16
+    out = []
+    for cy in range(0, h, CHUNK_H):
+        for cx in range(0, w, CHUNK_W):
+            out.append((cx, cy, [row[cx * 16:min(w, cx + CHUNK_W) * 16] for row in c[cy * 16:min(h, cy + CHUNK_H) * 16]]))
+    return out
+def chunk_art(sub):
+    base, k = sub.rsplit('_', 1); return chunks(base)[int(k)]

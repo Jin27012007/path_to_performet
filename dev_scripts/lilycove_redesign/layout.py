@@ -180,6 +180,7 @@ def garden(x0,y0,x1,y1,seed,skip=(),shared=False):
             else: art(FLOWER_KINDS[int(k*97)%5],x,y,bottom='grass',walk_rows=1)
 
 fill(-16,-8,15,20,GRASS); fill(15,-8,17,11,GRASS); fill(-16,20,14,40,GRASS)     # clear the area
+trees(-16,-12,18,-8,grass_above=False)                                   # forest above the museum (rows added north)
 trees(-16,-8,-13,1,grass_above=False); trees(-1,-8,17,0,grass_above=False)   # forest around the museum
 museum(-13,-8)                                                     # museum on the hill, doors (-8,-3) (-7,-3), stairs x -9..-6 row 0
 for cx in (0,1,9,10,11,12): put(-13+cx,-8,T(0x1e4 if cx%2==0 else 0x1e5,1,0) if False else GRASS)
@@ -351,25 +352,25 @@ fill(44, 11, 71, 13, GRASS)                                  # the north street 
 trail(41, 13, 44, 18, 't')
 put(41, 18, T(0x0af)); put(42, 18, T(0x0cf)); put(43, 18, T(0x0cf))   # 3-wide stair down the cliff
 
-# --- HOTEL: fenced lot with the hotel building (sprite, see hotel_art.py), a big pool, palms and trees
-HX0, HX1 = 45, 71                                             # lot x 45..70, rows -2..17
-fill(45, -5, 71, 2, GRASS); trees(45, -8, 71, -5, grass_above=False)   # thinner forest above the hotel
-for y in range(-5, 2): put(71, y, T(0x075, 1, 0))             # cliff on the east side, up to the new top
-for y in range(-5, 18):
+# --- HOTEL: fenced lot with the hotel building (sprite chunks, see hotel_art.py), a big pool, palms and trees
+HX0, HX1 = 45, 71                                             # lot x 45..70, rows -6..17
+fill(45, -6, 71, 2, GRASS); trees(45, -12, 71, -6, grass_above=False)  # forest behind the hotel
+for y in range(-6, 2): put(71, y, T(0x075, 1, 0))             # cliff on the east side, up to the new top
+for y in range(-6, 18):
     if y not in (11, 12): put(HX0, y, T(0x25a, 1, 0))         # west fence, gate at rows 11..12
 fence(HX0, HX1, 17)                                           # south fence (above the cliff)
 paving(44, 11, 48, 13)                                        # entrance through the gate
-paving(51, 4, 63, 7); paving(48, 7, 69, 14)                   # hotel forecourt + pool deck
+paving(49, 6, 65, 7); paving(48, 7, 69, 14)                   # hotel forecourt + pool deck
 art('hotel_pool', 50, 8, bottom='paving')                     # 16x5 pool
-HOTEL_X, HOTEL_Y = 50, -5                                     # 14x9 building, bottom row 3
-decor('hotel', HOTEL_X, HOTEL_Y, walk_rows=1)
 import port_art as _port_art
-HOTEL_DOOR = (HOTEL_X + _port_art.HOTEL_DOOR_COL, 3)
-put(HOTEL_DOOR[0], HOTEL_DOOR[1], ('ART', ('nadoor', 0, 0, None, 'paving'), 0, 3))   # walk in -> warp
+HOTEL_X, HOTEL_Y = 50, -6                                     # 14x12 building, bottom row 5
+decor('hotel', HOTEL_X, HOTEL_Y, walk_rows=1)
+HOTEL_DOORS = [(HOTEL_X + _port_art.HOTEL_DOOR_COL - 1, 5), (HOTEL_X + _port_art.HOTEL_DOOR_COL, 5)]
+for (dx_, dy_) in HOTEL_DOORS: put(dx_, dy_, ('ART', ('nadoor', 0, 0, None, 'paving'), 0, 3))   # walk in -> warp
 for (px_, py_) in ((49, 14), (53, 14), (57, 14), (61, 14), (65, 14)): palm(px_, py_, 'grass')   # palm row by the beach
-for (px_, py_) in ((46, -4), (46, 0), (46, 4), (65, -4), (68, -1), (69, 3), (69, 8), (66, 4)): palm(px_, py_, 'grass')
-for (tx_, ty_) in ((48, -2), (48, 1), (65, 0), (46, 14)): tree1(tx_, ty_)
-for (fx_, fy_) in ((47, 9), (47, 10), (69, 12), (69, 13), (48, 15), (68, 15), (49, 5), (64, 5)): put(fx_, fy_, FLOWERS)
+for (px_, py_) in ((46, -5), (46, -1), (46, 3), (66, -5), (68, -1), (66, 2), (69, 8)): palm(px_, py_, 'grass')
+for (tx_, ty_) in ((48, -4), (48, 1), (64, -2), (68, 3), (46, 14)): tree1(tx_, ty_)
+for (fx_, fy_) in ((47, 9), (47, 10), (69, 12), (69, 13), (48, 15), (68, 15), (48, 5), (64, 5)): put(fx_, fy_, FLOWERS)
 
 # --- beach dressing: palms and small festival umbrellas (tileset), umbrella+chair sets (sprites)
 for (px_, py_) in ((45, 20), (50, 19), (59, 20), (46, 31), (55, 28), (65, 20), (62, 27)): palm(px_, py_, 'sand')

@@ -3,7 +3,7 @@ LilycoveCity_Harbor_MapScripts::
 	.byte 0
 
 LilycoveCity_Harbor_OnTransition:
-	setescapewarp MAP_LILYCOVE_CITY, 23, 43
+	setescapewarp MAP_LILYCOVE_CITY, 23, 47
 	end
 
 LilycoveCity_Harbor_EventScript_FerryAttendant::

@@ -90,30 +90,16 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetRedL = {
 const u32 gObjectEventPic_LcHotel0[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_0.png", ".4bpp");
 static const struct SpriteFrameImage sPicTable_LcHotel0[] = { obj_frame_tiles(gObjectEventPic_LcHotel0), };
 static const struct Subsprite sOamTable_LcHotel0_2[] = {
-    {.x = -40, .y = -72, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
-    {.x = 24, .y = -72, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
-    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
-    {.x = 24, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
-    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 80, .priority = 2},
-    {.x = 24, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 112, .priority = 2},
-    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 120, .priority = 2},
-    {.x = 24, .y = 24, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 152, .priority = 2},
-    {.x = -40, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 160, .priority = 2},
-    {.x = -8, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 168, .priority = 2},
-    {.x = 24, .y = 56, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 176, .priority = 2},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHotel0_1[] = {
-    {.x = -40, .y = -72, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
-    {.x = 24, .y = -72, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
-    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
-    {.x = 24, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
-    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 80, .priority = 1},
-    {.x = 24, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 112, .priority = 1},
-    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 120, .priority = 1},
-    {.x = 24, .y = 24, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 152, .priority = 1},
-    {.x = -40, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 160, .priority = 1},
-    {.x = -8, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 168, .priority = 1},
-    {.x = 24, .y = 56, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 176, .priority = 1},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHotel0[] = {
     {ARRAY_COUNT(sOamTable_LcHotel0_2), sOamTable_LcHotel0_2},
@@ -125,7 +111,7 @@ static const struct SubspriteTable sOamTables_LcHotel0[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel0 = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 5760, .width = 80, .height = 144, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 2560, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHotel0, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel0,
 };
@@ -133,30 +119,16 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel0 = {
 const u32 gObjectEventPic_LcHotel1[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_1.png", ".4bpp");
 static const struct SpriteFrameImage sPicTable_LcHotel1[] = { obj_frame_tiles(gObjectEventPic_LcHotel1), };
 static const struct Subsprite sOamTable_LcHotel1_2[] = {
-    {.x = -40, .y = -72, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
-    {.x = 24, .y = -72, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
-    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
-    {.x = 24, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
-    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 80, .priority = 2},
-    {.x = 24, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 112, .priority = 2},
-    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 120, .priority = 2},
-    {.x = 24, .y = 24, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 152, .priority = 2},
-    {.x = -40, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 160, .priority = 2},
-    {.x = -8, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 168, .priority = 2},
-    {.x = 24, .y = 56, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 176, .priority = 2},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHotel1_1[] = {
-    {.x = -40, .y = -72, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
-    {.x = 24, .y = -72, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
-    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
-    {.x = 24, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
-    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 80, .priority = 1},
-    {.x = 24, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 112, .priority = 1},
-    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 120, .priority = 1},
-    {.x = 24, .y = 24, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 152, .priority = 1},
-    {.x = -40, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 160, .priority = 1},
-    {.x = -8, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 168, .priority = 1},
-    {.x = 24, .y = 56, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 176, .priority = 1},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHotel1[] = {
     {ARRAY_COUNT(sOamTable_LcHotel1_2), sOamTable_LcHotel1_2},
@@ -168,7 +140,7 @@ static const struct SubspriteTable sOamTables_LcHotel1[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel1 = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 5760, .width = 80, .height = 144, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 2560, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHotel1, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel1,
 };
@@ -176,20 +148,12 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel1 = {
 const u32 gObjectEventPic_LcHotel2[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_2.png", ".4bpp");
 static const struct SpriteFrameImage sPicTable_LcHotel2[] = { obj_frame_tiles(gObjectEventPic_LcHotel2), };
 static const struct Subsprite sOamTable_LcHotel2_2[] = {
-    {.x = -40, .y = -72, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
-    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
-    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 64, .priority = 2},
-    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 96, .priority = 2},
-    {.x = -40, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 128, .priority = 2},
-    {.x = -8, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 136, .priority = 2},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHotel2_1[] = {
-    {.x = -40, .y = -72, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
-    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
-    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 64, .priority = 1},
-    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 96, .priority = 1},
-    {.x = -40, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 128, .priority = 1},
-    {.x = -8, .y = 56, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 136, .priority = 1},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHotel2[] = {
     {ARRAY_COUNT(sOamTable_LcHotel2_2), sOamTable_LcHotel2_2},
@@ -201,9 +165,175 @@ static const struct SubspriteTable sOamTables_LcHotel2[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel2 = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 4608, .width = 64, .height = 144, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 2048, .width = 64, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHotel2, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel2,
+};
+
+const u32 gObjectEventPic_LcHotel3[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_3.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHotel3[] = { obj_frame_tiles(gObjectEventPic_LcHotel3), };
+static const struct Subsprite sOamTable_LcHotel3_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHotel3_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHotel3[] = {
+    {ARRAY_COUNT(sOamTable_LcHotel3_2), sOamTable_LcHotel3_2},
+    {ARRAY_COUNT(sOamTable_LcHotel3_2), sOamTable_LcHotel3_2},
+    {ARRAY_COUNT(sOamTable_LcHotel3_1), sOamTable_LcHotel3_1},
+    {ARRAY_COUNT(sOamTable_LcHotel3_2), sOamTable_LcHotel3_2},
+    {ARRAY_COUNT(sOamTable_LcHotel3_1), sOamTable_LcHotel3_1},
+    {ARRAY_COUNT(sOamTable_LcHotel3_1), sOamTable_LcHotel3_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel3 = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 2560, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHotel3, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel3,
+};
+
+const u32 gObjectEventPic_LcHotel4[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_4.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHotel4[] = { obj_frame_tiles(gObjectEventPic_LcHotel4), };
+static const struct Subsprite sOamTable_LcHotel4_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHotel4_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHotel4[] = {
+    {ARRAY_COUNT(sOamTable_LcHotel4_2), sOamTable_LcHotel4_2},
+    {ARRAY_COUNT(sOamTable_LcHotel4_2), sOamTable_LcHotel4_2},
+    {ARRAY_COUNT(sOamTable_LcHotel4_1), sOamTable_LcHotel4_1},
+    {ARRAY_COUNT(sOamTable_LcHotel4_2), sOamTable_LcHotel4_2},
+    {ARRAY_COUNT(sOamTable_LcHotel4_1), sOamTable_LcHotel4_1},
+    {ARRAY_COUNT(sOamTable_LcHotel4_1), sOamTable_LcHotel4_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel4 = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 2560, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHotel4, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel4,
+};
+
+const u32 gObjectEventPic_LcHotel5[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_5.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHotel5[] = { obj_frame_tiles(gObjectEventPic_LcHotel5), };
+static const struct Subsprite sOamTable_LcHotel5_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHotel5_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHotel5[] = {
+    {ARRAY_COUNT(sOamTable_LcHotel5_2), sOamTable_LcHotel5_2},
+    {ARRAY_COUNT(sOamTable_LcHotel5_2), sOamTable_LcHotel5_2},
+    {ARRAY_COUNT(sOamTable_LcHotel5_1), sOamTable_LcHotel5_1},
+    {ARRAY_COUNT(sOamTable_LcHotel5_2), sOamTable_LcHotel5_2},
+    {ARRAY_COUNT(sOamTable_LcHotel5_1), sOamTable_LcHotel5_1},
+    {ARRAY_COUNT(sOamTable_LcHotel5_1), sOamTable_LcHotel5_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel5 = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 2048, .width = 64, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHotel5, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel5,
+};
+
+const u32 gObjectEventPic_LcHotel6[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_6.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHotel6[] = { obj_frame_tiles(gObjectEventPic_LcHotel6), };
+static const struct Subsprite sOamTable_LcHotel6_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHotel6_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHotel6[] = {
+    {ARRAY_COUNT(sOamTable_LcHotel6_2), sOamTable_LcHotel6_2},
+    {ARRAY_COUNT(sOamTable_LcHotel6_2), sOamTable_LcHotel6_2},
+    {ARRAY_COUNT(sOamTable_LcHotel6_1), sOamTable_LcHotel6_1},
+    {ARRAY_COUNT(sOamTable_LcHotel6_2), sOamTable_LcHotel6_2},
+    {ARRAY_COUNT(sOamTable_LcHotel6_1), sOamTable_LcHotel6_1},
+    {ARRAY_COUNT(sOamTable_LcHotel6_1), sOamTable_LcHotel6_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel6 = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 2560, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHotel6, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel6,
+};
+
+const u32 gObjectEventPic_LcHotel7[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_7.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHotel7[] = { obj_frame_tiles(gObjectEventPic_LcHotel7), };
+static const struct Subsprite sOamTable_LcHotel7_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHotel7_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHotel7[] = {
+    {ARRAY_COUNT(sOamTable_LcHotel7_2), sOamTable_LcHotel7_2},
+    {ARRAY_COUNT(sOamTable_LcHotel7_2), sOamTable_LcHotel7_2},
+    {ARRAY_COUNT(sOamTable_LcHotel7_1), sOamTable_LcHotel7_1},
+    {ARRAY_COUNT(sOamTable_LcHotel7_2), sOamTable_LcHotel7_2},
+    {ARRAY_COUNT(sOamTable_LcHotel7_1), sOamTable_LcHotel7_1},
+    {ARRAY_COUNT(sOamTable_LcHotel7_1), sOamTable_LcHotel7_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel7 = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 2560, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHotel7, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel7,
+};
+
+const u32 gObjectEventPic_LcHotel8[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_8.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHotel8[] = { obj_frame_tiles(gObjectEventPic_LcHotel8), };
+static const struct Subsprite sOamTable_LcHotel8_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHotel8_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHotel8[] = {
+    {ARRAY_COUNT(sOamTable_LcHotel8_2), sOamTable_LcHotel8_2},
+    {ARRAY_COUNT(sOamTable_LcHotel8_2), sOamTable_LcHotel8_2},
+    {ARRAY_COUNT(sOamTable_LcHotel8_1), sOamTable_LcHotel8_1},
+    {ARRAY_COUNT(sOamTable_LcHotel8_2), sOamTable_LcHotel8_2},
+    {ARRAY_COUNT(sOamTable_LcHotel8_1), sOamTable_LcHotel8_1},
+    {ARRAY_COUNT(sOamTable_LcHotel8_1), sOamTable_LcHotel8_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel8 = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 2048, .width = 64, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHotel8, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHotel8,
 };
 
 const u32 gObjectEventPic_LcTableSet[] = INCGFX_U32("graphics/object_events/pics/misc/lc_table_set.png", ".4bpp");

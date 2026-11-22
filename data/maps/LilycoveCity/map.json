@@ -16,7 +16,7 @@
   "connections": [
     {
       "map": "MAP_ROUTE121",
-      "offset": 13,
+      "offset": 17,
       "direction": "left"
     }
   ],
@@ -24,7 +24,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 22,
-      "y": 47,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_UP_AND_DOWN",
       "movement_range_x": 0,
@@ -37,7 +37,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_1",
       "x": 36,
-      "y": 30,
+      "y": 34,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -50,7 +50,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_1",
       "x": 48,
-      "y": 39,
+      "y": 43,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -63,7 +63,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_RICH_BOY",
       "x": 31,
-      "y": 20,
+      "y": 24,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -76,7 +76,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
       "x": 27,
-      "y": 20,
+      "y": 24,
       "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
       "movement_range_x": 1,
@@ -89,7 +89,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
       "x": 38,
-      "y": 39,
+      "y": 43,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -102,7 +102,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
       "x": 48,
-      "y": 47,
+      "y": 51,
       "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -115,7 +115,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
       "x": 49,
-      "y": 47,
+      "y": 51,
       "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -128,7 +128,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
       "x": 61,
-      "y": 33,
+      "y": 37,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -141,7 +141,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
       "x": 68,
-      "y": 41,
+      "y": 45,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -154,7 +154,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 63,
-      "y": 45,
+      "y": 49,
       "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -167,7 +167,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
       "x": 50,
-      "y": 19,
+      "y": 23,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
       "movement_range_x": 1,
@@ -180,7 +180,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
       "x": 52,
-      "y": 20,
+      "y": 24,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -193,7 +193,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
       "x": 51,
-      "y": 19,
+      "y": 23,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -206,7 +206,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
       "x": 53,
-      "y": 20,
+      "y": 24,
       "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -219,7 +219,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
       "x": 50,
-      "y": 14,
+      "y": 18,
       "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -232,7 +232,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
       "x": 60,
-      "y": 18,
+      "y": 22,
       "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -245,7 +245,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SCHOOL_KID_M",
       "x": 28,
-      "y": 30,
+      "y": 34,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 1,
@@ -259,7 +259,7 @@
       "local_id": "LOCALID_LILYCOVE_WOMAN_1",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
       "x": 52,
-      "y": 29,
+      "y": 33,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 1,
@@ -273,7 +273,7 @@
       "local_id": "LOCALID_LILYCOVE_MAN_1",
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
       "x": 53,
-      "y": 29,
+      "y": 33,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 1,
@@ -286,7 +286,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 22,
-      "y": 42,
+      "y": 46,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -299,7 +299,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "x": 21,
-      "y": 43,
+      "y": 47,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
@@ -313,7 +313,7 @@
       "local_id": "LOCALID_LILYCOVE_FATHER",
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
       "x": 45,
-      "y": 51,
+      "y": 55,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -327,7 +327,7 @@
       "local_id": "LOCALID_LILYCOVE_FATHER_BEACH",
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
       "x": 64,
-      "y": 40,
+      "y": 44,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -340,7 +340,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_CRUISE_SHIP_0",
       "x": 35,
-      "y": 67,
+      "y": 71,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -353,7 +353,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_CRUISE_SHIP_1",
       "x": 39,
-      "y": 67,
+      "y": 71,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -366,7 +366,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_CRUISE_SHIP_2",
       "x": 43,
-      "y": 67,
+      "y": 71,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -379,7 +379,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_CRUISE_SHIP_3",
       "x": 47,
-      "y": 67,
+      "y": 71,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -392,58 +392,6 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
       "x": 26,
-      "y": 57,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 16,
-      "y": 56,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 30,
-      "y": 59,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 17,
-      "y": 59,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 32,
       "y": 61,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
@@ -456,8 +404,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 52,
-      "y": 65,
+      "x": 16,
+      "y": 60,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -469,20 +417,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 60,
-      "y": 57,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 63,
+      "x": 30,
       "y": 63,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
@@ -495,8 +430,34 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 72,
-      "y": 54,
+      "x": 17,
+      "y": 63,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
+      "x": 32,
+      "y": 65,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
+      "x": 52,
+      "y": 69,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -508,7 +469,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 74,
+      "x": 60,
       "y": 61,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -522,7 +483,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
       "x": 71,
-      "y": 46,
+      "y": 50,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -535,7 +496,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
       "x": 78,
-      "y": 44,
+      "y": 48,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -548,7 +509,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
       "x": 65,
-      "y": 44,
+      "y": 48,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -561,7 +522,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_TENT_GREEN",
       "x": 26,
-      "y": 50,
+      "y": 54,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -574,7 +535,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_TENT_POTS",
       "x": 32,
-      "y": 50,
+      "y": 54,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -587,7 +548,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_TENT_FLOWERS",
       "x": 50,
-      "y": 50,
+      "y": 54,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -600,7 +561,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_TENT_GREEN",
       "x": 56,
-      "y": 50,
+      "y": 54,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -613,7 +574,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_UMBRELLA_SET_RED",
       "x": 14,
-      "y": 37,
+      "y": 41,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -626,7 +587,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_UMBRELLA_SET_BLUE",
       "x": 27,
-      "y": 40,
+      "y": 44,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -639,7 +600,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_TABLE_SET",
       "x": 14,
-      "y": 39,
+      "y": 43,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -652,7 +613,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_TABLE_SET",
       "x": 23,
-      "y": 40,
+      "y": 44,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -665,7 +626,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_TENT_FLOWERS",
       "x": 14,
-      "y": 47,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -678,7 +639,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_0",
       "x": 68,
-      "y": 11,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -691,7 +652,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_1",
       "x": 73,
-      "y": 11,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -704,7 +665,85 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_2",
       "x": 78,
-      "y": 11,
+      "y": 9,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_3",
+      "x": 68,
+      "y": 13,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_4",
+      "x": 73,
+      "y": 13,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_5",
+      "x": 78,
+      "y": 13,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_6",
+      "x": 68,
+      "y": 17,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_7",
+      "x": 73,
+      "y": 17,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_LC_HOTEL_8",
+      "x": 78,
+      "y": 17,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -717,7 +756,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_BEACH_SET_RED",
       "x": 65,
-      "y": 32,
+      "y": 36,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -730,7 +769,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_BEACH_SET_BLUE",
       "x": 70,
-      "y": 34,
+      "y": 38,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -743,7 +782,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_BEACH_SET_RED_L",
       "x": 74,
-      "y": 31,
+      "y": 35,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -756,7 +795,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_BEACH_SET_RED",
       "x": 68,
-      "y": 39,
+      "y": 43,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -769,7 +808,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_BEACH_SET_BLUE",
       "x": 60,
-      "y": 45,
+      "y": 49,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -782,7 +821,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LC_BEACH_SET_BLUE",
       "x": 81,
-      "y": 35,
+      "y": 39,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -796,122 +835,129 @@
   "warp_events": [
     {
       "x": 16,
-      "y": 27,
+      "y": 31,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"
     },
     {
-      "x": 74,
-      "y": 11,
+      "x": 72,
+      "y": 17,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 27,
-      "y": 43,
+      "y": 47,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_POKEMON_CENTER_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 8,
-      "y": 5,
+      "y": 9,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 43,
-      "y": 27,
+      "y": 31,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_CONTEST_LOBBY",
       "dest_warp_id": "0"
     },
     {
       "x": 41,
-      "y": 18,
+      "y": 22,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_POKEMON_TRAINER_FAN_CLUB",
       "dest_warp_id": "1"
     },
     {
       "x": 79,
-      "y": 8,
+      "y": 12,
       "elevation": 1,
       "dest_map": "MAP_AQUA_HIDEOUT_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 34,
-      "y": 13,
+      "y": 17,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_MOVE_DELETERS_HOUSE",
       "dest_warp_id": "0"
     },
     {
       "x": 40,
-      "y": 13,
+      "y": 17,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HOUSE1",
       "dest_warp_id": "0"
     },
     {
       "x": 46,
-      "y": 13,
+      "y": 17,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HOUSE2",
       "dest_warp_id": "0"
     },
     {
       "x": 13,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HOUSE3",
       "dest_warp_id": "0"
     },
     {
       "x": 34,
-      "y": 18,
+      "y": 22,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HOUSE4",
       "dest_warp_id": "0"
     },
     {
       "x": 23,
-      "y": 43,
+      "y": 47,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HARBOR",
       "dest_warp_id": "0"
     },
     {
       "x": 9,
-      "y": 5,
+      "y": 9,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F",
       "dest_warp_id": "1"
     },
     {
       "x": 17,
-      "y": 27,
+      "y": 31,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 24,
-      "y": 27,
+      "y": 31,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"
     },
     {
       "x": 25,
-      "y": 27,
+      "y": 31,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 73,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_1F",
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],
@@ -919,7 +965,7 @@
     {
       "type": "sign",
       "x": 12,
-      "y": 10,
+      "y": 14,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_MuseumSign"
@@ -927,7 +973,7 @@
     {
       "type": "sign",
       "x": 18,
-      "y": 38,
+      "y": 42,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_CafeSign"
@@ -935,7 +981,7 @@
     {
       "type": "sign",
       "x": 11,
-      "y": 26,
+      "y": 30,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_DepartmentStoreSign"
@@ -943,7 +989,7 @@
     {
       "type": "sign",
       "x": 20,
-      "y": 38,
+      "y": 42,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_CafeDoor"
@@ -951,7 +997,7 @@
     {
       "type": "sign",
       "x": 0,
-      "y": 21,
+      "y": 25,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_CitySign"
@@ -959,7 +1005,7 @@
     {
       "type": "sign",
       "x": 47,
-      "y": 27,
+      "y": 31,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_ContestHallSign"
@@ -967,7 +1013,7 @@
     {
       "type": "sign",
       "x": 26,
-      "y": 36,
+      "y": 40,
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_DepartmentStoreRooftop_EventScript_VendingMachine"
@@ -975,7 +1021,7 @@
     {
       "type": "sign",
       "x": 38,
-      "y": 18,
+      "y": 22,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_TrainerFanClubSign"
@@ -983,7 +1029,7 @@
     {
       "type": "sign",
       "x": 32,
-      "y": 13,
+      "y": 17,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_MoveDeletersHouseSign"
@@ -991,7 +1037,7 @@
     {
       "type": "hidden_item",
       "x": 60,
-      "y": 38,
+      "y": 42,
       "elevation": 3,
       "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_LILYCOVE_CITY_HEART_SCALE"
@@ -999,7 +1045,7 @@
     {
       "type": "hidden_item",
       "x": 63,
-      "y": 30,
+      "y": 34,
       "elevation": 0,
       "item": "ITEM_PP_UP",
       "flag": "FLAG_HIDDEN_ITEM_LILYCOVE_CITY_PP_UP"
@@ -1007,7 +1053,7 @@
     {
       "type": "hidden_item",
       "x": 21,
-      "y": 46,
+      "y": 50,
       "elevation": 0,
       "item": "ITEM_POKE_BALL",
       "flag": "FLAG_HIDDEN_ITEM_LILYCOVE_CITY_POKE_BALL"
@@ -1015,7 +1061,7 @@
     {
       "type": "sign",
       "x": 6,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignH5"
@@ -1023,7 +1069,7 @@
     {
       "type": "sign",
       "x": 6,
-      "y": 24,
+      "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignH4"
@@ -1031,7 +1077,7 @@
     {
       "type": "sign",
       "x": 6,
-      "y": 31,
+      "y": 35,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignH3"
@@ -1039,7 +1085,7 @@
     {
       "type": "sign",
       "x": 7,
-      "y": 40,
+      "y": 44,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignH2"
@@ -1047,7 +1093,7 @@
     {
       "type": "sign",
       "x": 6,
-      "y": 46,
+      "y": 50,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignH1"
@@ -1055,7 +1101,7 @@
     {
       "type": "sign",
       "x": 11,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignL1"
@@ -1063,7 +1109,7 @@
     {
       "type": "sign",
       "x": 17,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignL2"
@@ -1071,7 +1117,7 @@
     {
       "type": "sign",
       "x": 24,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_SignL3"
@@ -1079,7 +1125,7 @@
     {
       "type": "sign",
       "x": 3,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_LockedDoor"
@@ -1087,7 +1133,7 @@
     {
       "type": "sign",
       "x": 3,
-      "y": 24,
+      "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_LockedDoor"
@@ -1095,7 +1141,7 @@
     {
       "type": "sign",
       "x": 3,
-      "y": 31,
+      "y": 35,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_LockedDoor"
@@ -1103,7 +1149,7 @@
     {
       "type": "sign",
       "x": 3,
-      "y": 40,
+      "y": 44,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_LockedDoor"
@@ -1111,7 +1157,7 @@
     {
       "type": "sign",
       "x": 3,
-      "y": 47,
+      "y": 51,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_LockedDoor"
@@ -1119,7 +1165,7 @@
     {
       "type": "sign",
       "x": 20,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_LockedDoor"
@@ -1127,7 +1173,7 @@
     {
       "type": "sign",
       "x": 27,
-      "y": 16,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "LilycoveCity_EventScript_LockedDoor"
@@ -1135,7 +1181,7 @@
     {
       "type": "sign",
       "x": 27,
-      "y": 36,
+      "y": 40,
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_DepartmentStoreRooftop_EventScript_VendingMachine"
@@ -1143,7 +1189,7 @@
     {
       "type": "sign",
       "x": 28,
-      "y": 36,
+      "y": 40,
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_DepartmentStoreRooftop_EventScript_VendingMachine"
@@ -1151,7 +1197,7 @@
     {
       "type": "sign",
       "x": 56,
-      "y": 25,
+      "y": 29,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_EventScript_BeachSign"

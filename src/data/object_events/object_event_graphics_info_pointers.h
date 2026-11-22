@@ -149,6 +149,12 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetR
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel0;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel1;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel2;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel3;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel4;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel5;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel6;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel7;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel8;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTableSet;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTentFlowers;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTentGreen;
@@ -572,6 +578,12 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_LC_HOTEL_0] = &gObjectEventGraphicsInfo_LcHotel0,
     [OBJ_EVENT_GFX_LC_HOTEL_1] = &gObjectEventGraphicsInfo_LcHotel1,
     [OBJ_EVENT_GFX_LC_HOTEL_2] = &gObjectEventGraphicsInfo_LcHotel2,
+    [OBJ_EVENT_GFX_LC_HOTEL_3] = &gObjectEventGraphicsInfo_LcHotel3,
+    [OBJ_EVENT_GFX_LC_HOTEL_4] = &gObjectEventGraphicsInfo_LcHotel4,
+    [OBJ_EVENT_GFX_LC_HOTEL_5] = &gObjectEventGraphicsInfo_LcHotel5,
+    [OBJ_EVENT_GFX_LC_HOTEL_6] = &gObjectEventGraphicsInfo_LcHotel6,
+    [OBJ_EVENT_GFX_LC_HOTEL_7] = &gObjectEventGraphicsInfo_LcHotel7,
+    [OBJ_EVENT_GFX_LC_HOTEL_8] = &gObjectEventGraphicsInfo_LcHotel8,
     [OBJ_EVENT_GFX_LC_TABLE_SET] = &gObjectEventGraphicsInfo_LcTableSet,
     [OBJ_EVENT_GFX_LC_TENT_FLOWERS] = &gObjectEventGraphicsInfo_LcTentFlowers,
     [OBJ_EVENT_GFX_LC_TENT_GREEN] = &gObjectEventGraphicsInfo_LcTentGreen,
