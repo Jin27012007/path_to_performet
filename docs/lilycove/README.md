@@ -121,7 +121,7 @@ Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço li
 
 ## Shopping (Loja de Departamentos)
 Ocupa o quarteirão inteiro entre a rua norte e a avenida, acima do café.
-* **Telhado plano** com as peças do telhado do Centro de Concursos original (repetidas na
+* **Telhado plano** (4 linhas) com as peças do telhado do Centro de Concursos original (repetidas na
   horizontal, sem custo de tiles), com a **Pokébola** na frente do telhado.
 * Fachada com as **peças originais da Loja de Departamentos de Lilycove**, alongada para 18
   tiles: faixa com **bandeirolas** e a **faixa de LED "POKEMON CONTEST"** (o telão), **vitrines

@@ -222,9 +222,9 @@ garden(-16,35,-15,40,27); garden(-10,35,-8,38,28); fence(-10,-8,39) if False els
 # awnings (vitrines), two double glass doors; plus the contest screen, the Poké Ball and pennants.
 def mall(x0,y0,W=18):
     O=lambda ox,oy: norm(o(ox,oy))
-    for r,oy in enumerate((18,19,22)):                                   # flat roof (Contest Hall roof pieces)
-        put(x0,y0+r,O(20,oy)); put(x0+W-1,y0+r,O(26,oy))
-        for x in range(x0+1,x0+W-1): put(x,y0+r,O(21,oy))
+    for r,oy in enumerate((18,19,19,22)):                                # flat roof (Contest Hall roof pieces),
+        put(x0,y0-1+r,O(20,oy)); put(x0+W-1,y0-1+r,O(26,oy))             # starting one row above the block
+        for x in range(x0+1,x0+W-1): put(x,y0-1+r,O(21,oy))
     y=y0+3                                                               # facade band under the roof
     put(x0,y,O(23,1)); put(x0+W-1,y,O(31,1))
     for x in range(x0+1,x0+W-1): put(x,y,O(24,1))
@@ -247,9 +247,9 @@ sign(-5,18); paving(-5,19,-4,20)                                         # Dept.
 garden(-5,23,14,26,32)                                                       # upper level, above the step
 paving(-2,23,11,26)                                                          # bike parking in front of the mall
 BIKES=('bike_yellow','bike_blue','bike_red')
-for gx in (-1,7):                                                            # two racks, three rows of bikes each
+for gx in (-2,5):                                                            # two groups, three rows of three bikes
     for r in range(3):
-        for k in range(3): art(BIKES[(r+k+gx)%3],gx+k,23+r,bottom='paving')
+        for k in range(3): art(BIKES[(r+k+gx)%3],gx+2*k,23+r,bottom='paving')
 ledge(-5,14,26)                                                             # the step continues east of the street
 # --- seaside café (replaces the Pokémon Center and the harbor building) on the lower level
 fill(-5,27,14,40,GRASS)
