@@ -1,146 +1,138 @@
-"""The new Lilycove Contest Hall ("big top") for the background, designed to be cheap in tiles:
-straight 1:2 tent slopes, stripes on a 16 px period centred on the door, repeating bays, and a
-symmetric layout (right half = mirrored left half). Colours from palettes 6 (festival), 7, 8, 9;
-multipal.py converts it per 8x8 tile. Canvas 368 x 176 = 23 x 11 metatiles: the top two rows (the
-centre peak and the crown) hang over the north street; the door is column 11 of the last row."""
+"""The Lilycove Contest Hall as a refined palace, drawn in Emerald's 3/4 top-down view (roofs seen
+from above take most of the height, short fronts below, like the Lilycove Museum):
+  - wings: white marble terrace roofs with skylights and a gold parapet, one-storey front with
+    pilasters and arched windows;
+  - centre block (taller): royal-blue slate roof with a gold border and a golden ribbed dome on a
+    drum, pediment and marble colonnade below (the ornate portal is a sprite);
+  - castle towers at the ends: conical roof seen from above, round body with slit windows
+    (the pennant sprites stand on the tips);
+  - marble steps with the red carpet in front.
+Canvas 368 x 176 = 23 x 11 metatiles, symmetric about the door column. Colours from palettes
+6/7/8/9, converted per 8x8 tile by multipal.py."""
 from PIL import Image
+import math
 
-WH, CR, YE, OR, RE, DR = (248, 248, 248), (248, 232, 184), (248, 208, 48), (248, 144, 40), (232, 56, 56), (160, 32, 40)
-BR, LB, BL, NV = (184, 112, 96), (104, 192, 248), (48, 112, 224), (32, 48, 120)
-GL1, GL2, GL3, O8 = (208, 216, 248), (160, 184, 248), (96, 136, 224), (56, 72, 112)
-S1, S2, S3, S4, S5, O9 = (240, 240, 208), (232, 232, 176), (200, 200, 152), (168, 160, 128), (136, 136, 88), (56, 72, 112)
+S0, S1, S2, S3, S4, S5, O9 = (240, 240, 208), (232, 232, 176), (216, 216, 160), (200, 200, 152), (168, 160, 128), (136, 136, 88), (56, 72, 112)
+G1, G2, G3, G4, O7 = (248, 248, 64), (216, 216, 56), (168, 168, 48), (128, 128, 32), (8, 32, 88)
+RB, RB2, RB3 = (48, 64, 200), (152, 152, 200), (176, 176, 248)
+GL0, GL1, GL3, GL4, O8, WH8 = (208, 216, 248), (160, 200, 248), (96, 136, 224), (72, 104, 200), (56, 72, 112), (248, 248, 248)
+RE, DR, YE = (232, 56, 56), (160, 32, 40), (248, 208, 48)
 
 W, H = 368, 176
 CX = 184
-BODY_BOTTOM = 104            # valance bottom
-FACADE_TOP = 104
+TCX, TR = 40, 20            # tower centre x / radius (left tower; mirrored)
 
 def build():
     im = Image.new('RGBA', (W, H), (0, 0, 0, 0)); p = im.load()
     def put(x, y, c):
         if 0 <= x < W and 0 <= y < H: p[x, y] = c + (255,)
-    def get(x, y): return p[x, y][:3] if 0 <= x < W and 0 <= y < H and p[x, y][3] else None
+    def rect(x0, y0, x1, y1, c):
+        for y in range(max(0, y0), min(H, y1)):
+            for x in range(max(0, x0), min(W, x1)): put(x, y, c)
 
-    def stripe_on(x, cx):                    # symmetric 8 px stripes around cx
-        return (((x - cx) // 8) % 2 == 0) if x >= cx else (((cx - 1 - x) // 8) % 2 == 0)
+    # ---------------- wings (x 56..136): terrace roof seen from above + short front ----------------
+    WX0, WX1 = 56, 136
+    rect(WX0, 56, WX1, 112, S0)                                   # marble terrace
+    rect(WX0, 56, WX1, 60, S2); rect(WX0, 60, WX1, 61, S3)        # back edge (in shade)
+    for x in range(WX0 + 8, WX1 - 8, 16):                         # skylights
+        rect(x, 72, x + 8, 96, O8); rect(x + 1, 73, x + 7, 95, GL3); rect(x + 1, 73, x + 7, 79, GL1)
+        rect(x + 1, 88, x + 7, 89, GL4)
+    for y in range(64, 108, 8): rect(WX0 + 2, y, WX1 - 2, y + 1, S1)  # marble slabs
+    rect(WX0, 106, WX1, 110, G2); rect(WX0, 110, WX1, 112, G4)    # gold parapet (front edge of the roof)
+    rect(WX0, 112, WX1, 168, S1)                                  # front wall (one storey)
+    for x in range(WX0, WX1, 16):
+        rect(x, 112, x + 3, 168, S3)                              # pilasters
+        rect(x, 112, x + 1, 168, S4)
+    for x in range(WX0 + 5, WX1 - 4, 16):                         # arched windows
+        for y in range(120, 158):
+            for xx in range(x, x + 9):
+                d = (xx + 0.5 - x - 4.5) ** 2 + (y - 125) ** 2
+                if y < 125 and d > 20.25: continue
+                edge = xx in (x, x + 8) or y == 157 or (y < 125 and d > 12)
+                put(xx, y, O8 if edge else (GL1 if y < 132 else GL3))
+        rect(x - 1, 158, x + 10, 160, S4)
+    rect(WX0, 164, WX1, 168, S3)
 
-    def tent(x0, x1, peak, colours, light_rows):
-        a, b, sa, sb = colours; cx = (x0 + x1) // 2
-        for x in range(x0, x1):
-            top = peak + abs(x + 0.5 - cx) // 2 * 1     # slope 1:2
-            top = int(peak + (abs(x - cx + 0.5) - 0.5) // 2)
-            for y in range(top, BODY_BOTTOM):
-                on = stripe_on(x, cx)
-                c = a if on else b
-                if y >= BODY_BOTTOM - 24: c = sa if on else sb                # shade band
-                if y < top + light_rows: c = CR if on else (LB if b == BL else OR)   # sunlit rim
-                put(x, y, c)
-            put(x, top, NV)
-    # side tents first (behind), then the big centre tent
-    tent(16, 144, 56, (WH, BL, CR, NV), 2)
-    tent(224, 352, 56, (WH, BL, CR, NV), 2)
-    tent(96, 272, 16, (YE, RE, OR, DR), 2)
-    # sides of the canopy
-    for y in range(88, BODY_BOTTOM):
-        put(15, y, NV); put(352, y, NV)
-    # golden ropes with blue drapes from the crown down to the shoulders of the centre tent
-    for side in (-1, 1):
-        for k in range(0, 80):
-            x = CX + side * k; y = 16 + k // 2 + 6
-            put(x, y, YE); put(x, y + 1, OR)
-            if k % 16 < 12:                                           # drapes hanging from the rope
-                depth = [0, 2, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3][k % 16]
-                for d in range(2, 2 + depth): put(x, y + d, BL if d > 2 + depth - 2 else LB)
-    # valance: gold band + red scallops, 16 px period, across the whole canopy
-    for x in range(16, 352):
-        put(x, BODY_BOTTOM - 10, NV)
-        for y in range(BODY_BOTTOM - 9, BODY_BOTTOM - 6): put(x, y, YE if y == BODY_BOTTOM - 8 else OR)
-        u = (x - CX) % 16
-        depth = int(5 - abs(u - 7.5) * 0.6)
-        for y in range(BODY_BOTTOM - 6, BODY_BOTTOM - 6 + depth + 1): put(x, y, RE if y < BODY_BOTTOM - 6 + depth else DR)
-    # crown on the top of the centre peak (rows 0..16)
-    crown = [
-        "..........y..........",
-        ".........yRy.........",
-        "...y......y......y...",
-        "..yBy....yyy....yBy..",
-        "...y....yyyyy....y...",
-        "...yy..yyyyyyy..yy...",
-        "...yyyyyyyyyyyyyyy...",
-        "...yyyyyyyyyyyyyyy...",
-        "...yRyyyByyyByyyRy...",
-        "...yyyyyyyyyyyyyyy...",
-        "...ooooooooooooooo...",
-        "....ooooooooooooo....",
-    ]
-    for j, row in enumerate(crown):
-        for i, ch in enumerate(row):
-            c = {'y': YE, 'o': OR, 'R': RE, 'B': BL}.get(ch)
-            if c: put(CX - 10 + i, 2 + j, c)
-    snap = [[get(x, y) for x in range(W)] for y in range(16)]
-    for y in range(16):                                       # outline the crown
-        for x in range(CX - 14, CX + 14):
-            if snap[y][x] is None and any(0 <= y + b < 16 and snap[y + b][x + a] for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))):
-                put(x, y, NV)
-    # flags on the side peaks
-    for fx in (80, 288):
-        for y in range(40, 56): put(fx, y, NV)
-        for y in range(40, 47):
-            for x in range(fx + 1, fx + 1 + (7 - abs(y - 43)) ): put(x, y, RE)
-
-    # ---------- facade (symmetric) ----------
-    for x in range(16, 352):
-        for y in range(FACADE_TOP, H): put(x, y, S2)
-    for x in range(16, 352):
-        for y in range(FACADE_TOP, FACADE_TOP + 4): put(x, y, YE if y == FACADE_TOP + 1 else OR)   # gold cornice
-        put(x, FACADE_TOP + 4, NV)
-        for y in range(H - 8, H): put(x, y, S3 if y > H - 8 else O9)                               # plinth
-    for bx in list(range(16, CX - 40, 32)) + [2 * CX - 8 - b for b in range(16, CX - 40, 32)]:
-        for y in range(FACADE_TOP + 5, H - 8):                                                    # column
-            for dx in range(8):
-                put(bx + dx, y, O9 if dx in (0, 7) else (S1 if dx in (1, 2) else (S3 if dx in (5, 6) else S2)))
-        for dx in range(-1, 9): put(bx + dx, FACADE_TOP + 6, YE); put(bx + dx, FACADE_TOP + 7, OR)    # gold capital
-    for wx in list(range(24, CX - 40, 32)) + [2 * CX - 24 - w for w in range(24, CX - 40, 32)]:
-        if wx + 24 > CX - 40 and wx < CX: continue
-        if wx < CX + 40 and wx + 24 > CX: continue
-        for y in range(FACADE_TOP + 12, H - 14):                                                  # tall window
-            for x in range(wx, wx + 24):
-                edge = x in (wx, wx + 23) or y in (FACADE_TOP + 12, H - 15)
-                put(x, y, O8 if edge else (GL1 if (y - FACADE_TOP) % 16 < 3 else (GL2 if (y - FACADE_TOP) % 16 < 9 else GL3)))
-        for y in range(FACADE_TOP + 10, FACADE_TOP + 44):                                         # contest banner
-            for x in range(wx + 8, wx + 16):
-                put(x, y, YE if y == FACADE_TOP + 10 else (DR if x in (wx + 8, wx + 15) else RE))
-        for (sx, sy) in ((3, 8), (4, 8), (1, 9), (2, 9), (3, 9), (4, 9), (5, 9), (6, 9), (2, 10), (3, 10), (4, 10), (5, 10), (2, 11), (5, 11)):
-            put(wx + 8 + sx, FACADE_TOP + 10 + sy, YE)
-    # ---------- grand entrance ----------
-    ex0, ex1 = CX - 40, CX + 40
-    for y in range(FACADE_TOP - 2, H - 8):                     # gold portal
-        for x in range(ex0, ex1):
-            put(x, y, YE if (x - ex0) % 8 in (1, 2) else OR)
-        put(ex0, y, NV); put(ex1 - 1, y, NV)
-    for x in range(ex0 - 4, ex1 + 4):                          # red canopy over the door
-        for y in range(FACADE_TOP + 14, FACADE_TOP + 22):
-            put(x, y, RE if (x - CX) % 16 < 8 else DR)
-        put(x, FACADE_TOP + 13, NV); put(x, FACADE_TOP + 22, NV)
-    for x in range(ex0 - 4, ex1 + 4, 8):
-        for y in range(FACADE_TOP + 22, FACADE_TOP + 26): put(x + 3, y, RE); put(x + 4, y, RE)
-    # star crest on the portal
-    for y in range(FACADE_TOP - 2, FACADE_TOP + 12):
-        for x in range(CX - 8, CX + 8):
-            d = ((x + 0.5 - CX) ** 2 + (y + 0.5 - FACADE_TOP - 5) ** 2) ** 0.5
-            if d < 7: put(x, y, NV if d > 6 else (RE if d > 4.5 else WH))
-    for (sx, sy) in ((0, -2), (-1, -1), (0, -1), (-2, 0), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1)):
-        put(CX + sx, FACADE_TOP + 5 + sy, YE); put(CX - 1 - sx, FACADE_TOP + 5 + sy, YE)
-    # red double doors with gold handles
-    dy0 = FACADE_TOP + 28
-    for y in range(dy0, H - 8):
-        for x in range(CX - 24, CX + 24):
-            c = RE if (x - CX + 24) % 16 not in (0, 15) else DR
-            if y == dy0: c = NV
+    # ---------------- castle towers (body x 24..56): cone roof seen from above + round body ----------------
+    cy = 48
+    shades = (S0, S1, S3, S4)
+    for y in range(cy, 168):
+        for x in range(24, 56): put(x, y, shades[(x - 24) // 8])
+    for y in range(64, 168, 16): rect(24, y, 56, y + 1, S2)                    # stone courses
+    for y in (80, 112, 144):                                                    # slit windows
+        rect(36, y, 44, y + 16, O8); rect(37, y + 1, 43, y + 15, GL3); rect(37, y + 1, 43, y + 5, GL1)
+    for y in range(cy - 12, cy + 12):                                           # conical roof (ellipse)
+        for x in range(TCX - TR - 2, TCX + TR + 2):
+            dx = x + 0.5 - TCX; dy = (y + 0.5 - cy) / 0.55
+            r = math.hypot(dx, dy)
+            if r > TR + 2: continue
+            c = RB3 if r < TR * 0.35 else (RB2 if r < TR * 0.7 else RB)       # cone: light near the tip
+            if abs(abs(dx) - r * 0.5) < 1.0 and r > 4: c = O7                  # two seams
+            if r > TR: c = G2
             put(x, y, c)
-        put(CX - 1, y, DR); put(CX, y, DR)
-    for x in (CX - 4, CX + 3, CX - 20, CX + 19):
-        for y in range(dy0 + 18, dy0 + 22): put(x, y, YE)
-    for y in range(H - 8, H):                                  # steps with the red carpet
-        for x in range(CX - 24, CX + 24): put(x, y, RE if y % 3 else DR)
+    rect(TCX - 1, cy - 2, TCX + 1, cy + 1, G1)                                  # gold tip
+    # ---------------- centre block (x 136..232): taller; slate roof + dome, pediment, colonnade ----------------
+    BX0, BX1 = 120, 248
+    for y in range(32, 72):                                       # flat top: slate courses
+        for x in range(BX0, BX1): put(x, y, RB2 if ((y - 16) // 4) % 2 == 0 else RB3)
+    for y in range(72, 88):                                       # front slope (darker)
+        for x in range(BX0, BX1): put(x, y, RB if ((y - 72) // 4) % 2 == 0 else O7)
+    for x in range(BX0 + 8, BX1 - 8, 16):                         # dormers on the slope
+        if abs(x + 4 - CX) < 40: continue
+        rect(x, 73, x + 8, 87, S0); rect(x + 2, 76, x + 6, 86, GL3); rect(x + 2, 76, x + 6, 79, GL1)
+    rect(BX0, 70, BX1, 72, G2)                                    # gold ridge between flat top and slope
+    # dome: ellipse seen from above with ribs, on a drum whose front shows
+    DR_Y = 66; RX, RY = 40, 34
+    for y in range(DR_Y - 2, DR_Y + 22):                           # drum front band
+        for x in range(CX - RX, CX + RX):
+            dx = x + 0.5 - CX
+            if y > DR_Y + math.sqrt(max(0, 1 - (dx / RX) ** 2)) * 12 + 8: continue
+            put(x, y, S0 if dx < -10 else (S1 if dx < 18 else S3))
+    for x in range(CX - RX + 6, CX + RX - 6, 10):                  # drum windows
+        rect(x, DR_Y + 6, x + 4, DR_Y + 16, O8); rect(x + 1, DR_Y + 7, x + 3, DR_Y + 15, GL3)
+    for y in range(DR_Y - RY, DR_Y + 2):                          # golden dome with curved meridian ribs
+        for x in range(CX - RX, CX + RX):
+            dx = x + 0.5 - CX; dy = y + 0.5 - DR_Y
+            if dy > 0 or (dx / RX) ** 2 + (dy / RY) ** 2 > 1: continue
+            half_w = RX * math.sqrt(max(1e-6, 1 - (dy / RY) ** 2))
+            u = abs(dx) / half_w                                   # 0 centre .. 1 edge of this slice
+            c = G1 if u < 0.35 else (G2 if u < 0.75 else G3)
+            if dy < -RY * 0.75: c = G1
+            if any(abs(u - k) < 0.05 + 0.02 * (1 - u) for k in (0.42, 0.8)): c = G4 if c != G1 else G3
+            put(x, y, c)
+    for y in range(DR_Y - RY, DR_Y - RY + 3):                     # small base for the crown finial (sprite)
+        for x in range(CX - 6, CX + 6): put(x, y, G2 if y < DR_Y - RY else G3)
+    # pediment and colonnade (front of the centre block)
+    rect(BX0, 88, BX1, 92, G2); rect(BX0, 92, BX1, 94, G4)
+    rect(BX0, 94, BX1, 112, S1)                                   # wall behind the pediment
+    for y in range(94, 116):
+        span = (y - 94) * 64 / 22
+        for x in range(int(CX - span), int(CX + span)):
+            put(x, y, S0 if abs(x + 0.5 - CX) > span - 2 else S1)
+    for x in range(CX - 36, CX + 36):
+        y = 106 + int(2 * math.sin(abs(x + 0.5 - CX) / 5.0)); put(x, y, G2); put(x, y + 1, G3)
+    rect(BX0, 112, BX1, 116, G2); rect(BX0, 116, BX1, 118, G4)
+    rect(BX0, 118, BX1, 168, S1)
+    for x in range(BX0, BX1, 16):
+        rect(x + 3, 120, x + 13, 166, S0); rect(x + 10, 120, x + 13, 166, S3)
+        rect(x + 1, 118, x + 15, 122, S2); rect(x + 1, 162, x + 15, 168, S3); rect(x + 6, 124, x + 7, 160, S2)
+    rect(CX - 24, 128, CX + 24, 168, RE); rect(CX - 1, 128, CX + 1, 168, DR)   # red door (portal sprite over it)
+    # steps and carpet
+    rect(16, 168, 352, 176, S2)
+    for y in (168, 171, 174): rect(16, y, 352, y + 1, S4)
+    rect(CX - 24, 166, CX + 24, 176, RE)
+    for y in (168, 171, 174): rect(CX - 24, y, CX + 24, y + 1, DR)
+
+    # mirror the left tower and wing onto the right side
+    for y in range(H):
+        for x in range(CX):
+            p[2 * CX - 1 - x, y] = p[x, y]
+    # outline the silhouette
+    snap = [[p[x, y][3] for x in range(W)] for y in range(H)]
+    for y in range(H):
+        for x in range(W):
+            if not snap[y][x] and any(0 <= x + a < W and 0 <= y + b < H and snap[y + b][x + a] for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                put(x, y, O7)
+    for y in range(0, 32):                                       # keep the two top rows empty (north street)
+        for x in range(W): p[x, y] = (0, 0, 0, 0)
     return im

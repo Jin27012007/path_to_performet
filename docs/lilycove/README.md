@@ -119,20 +119,21 @@ gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade 
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
 
-## Centro de Concursos (a "grande tenda")
-* Prédio principal da cidade, 23×11 tiles, no eixo da praça. Desenhado em `hall_art.py`:
-  tenda central listrada em vermelho e amarelo com **coroa dourada** no topo, cordas douradas com
-  drapeados azuis, duas tendas laterais azul e branco com bandeirinhas, **sanefa dourada com
-  babados vermelhos**, festões azuis, **colunata** de pedra com capitéis dourados, vitrais com
-  **estandartes do concurso** e um **pórtico dourado** com marquise vermelha, brasão de estrela e
-  porta dupla vermelha. A ponta da tenda e a coroa avançam sobre a rua norte (passa-se por trás).
-* Cenário (não sprite), sem paleta nova: `multipal.py` escolhe para cada bloco 8×8 a melhor entre
-  as paletas 6 (festival), 7 (dourado), 8 (vidro) e 9 (pedra). Desenho pensado para repetir na
-  grade (listras de 16 px, inclinações 1:2, colunata e lado direito espelhado): ~97 tiles.
-* Metatiles idênticos agora são compartilhados pelo gerador (o Centro reaproveita boa parte).
-* Substitui o prédio antigo, os jardins do quarteirão e o trecho da avenida em frente; calçadas
-  laterais ligam a rua norte ao pátio, e o tapete vermelho desce até o braço de tijolos da praça.
-* Porta: três tiles de porta no pórtico levam ao saguão; o comercial da abertura mostra a nova fachada.
+## Centro de Concursos (palácio)
+* Prédio principal da cidade, 23×11 tiles no eixo da praça, na mesma **vista 3/4** dos outros
+  prédios (telhados vistos de cima, fachadas curtas embaixo, como o Museu). Desenhado em
+  `hall_art.py`: alas com terraço de mármore, claraboias e mureta dourada; bloco central mais alto
+  com telhado de ardósia azul-real e **cúpula dourada** com meridianos; **torres de castelo** nas
+  pontas (telhado cônico visto de cima); frontão, colunata de mármore e escadaria.
+* Cenário sem paleta nova: `multipal.py` escolhe por bloco 8×8 entre as paletas 6/7/8/9; desenho
+  simétrico e alinhado à grade (~104 tiles). Metatiles do tipo "coberto", para os ornamentos (sprites)
+  aparecerem por cima.
+* **Ornamentos em sprite** (`hall_sprites.py`, paleta própria): coroa no alto da cúpula, pórtico
+  dourado com colunas, arco, cortinas e frontão, dois troféus em pedestais e duas bandeiras nas torres.
+* Objetos de cenário podem ter a "âncora" acima/abaixo da última linha (`anchor_up`), para não
+  bloquear portas (pórtico do Centro, porta do hotel) nem a rua (coroa).
+* O prédio do **Café Litoral** virou sprite para abrir espaço no tileset; o mapa tem 64 objetos
+  (limite do jogo) e no máximo 14 ativos numa tela.
 
 ## Hotel Cove Lily
 * **Prédio** montado a partir do exemplo do usuário (`hotel_ref.png`): telhado de deck, duas alas

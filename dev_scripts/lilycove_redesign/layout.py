@@ -254,7 +254,7 @@ ledge(-5,14,26)                                                             # th
 fill(-5,27,14,40,GRASS)
 for y in range(27,34):                                                      # wooden terrace x -4..13, rows 27..33
     for x in range(-4,14): put(x,y,('ART',('terrace',0,0,None,'water'),0,3))
-art('cafe',2,27,bottom='terrace')                                           # Café Litoral, door (4,30)
+decor('cafe',2,27)                                                          # Café Litoral (sprite), door (4,30)
 for k,n in enumerate(('vending_water','vending_lemonade','vending_soda')):  # drink machines (row 29 in front is free)
     art(n,10+k,27,bottom='terrace')
 decor('umbrella_set_red',-3,27,walk_rows=1)                                 # umbrella + table + two chairs (sprites)
@@ -363,7 +363,7 @@ paving(49, 6, 65, 7); paving(48, 7, 69, 14)                   # hotel forecourt 
 art('hotel_pool', 50, 8, bottom='paving')                     # 16x5 pool
 import port_art as _port_art
 HOTEL_X, HOTEL_Y = 50, -6                                     # 14x12 building, bottom row 5
-decor('hotel', HOTEL_X, HOTEL_Y, walk_rows=1)
+decor('hotel', HOTEL_X, HOTEL_Y, walk_rows=1, anchor_up=1)
 HOTEL_DOORS = [(HOTEL_X + _port_art.HOTEL_DOOR_COL - 1, 5), (HOTEL_X + _port_art.HOTEL_DOOR_COL, 5)]
 for (dx_, dy_) in HOTEL_DOORS: put(dx_, dy_, ('ART', ('nadoor', 0, 0, None, 'paving'), 0, 3))   # walk in -> warp
 # vegetation: palm rows, shade trees, kerbed flowerbeds and potted palms on the pool deck
@@ -390,7 +390,12 @@ decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, wa
 fill(14, 13, 41, 22, GRASS)
 paving(14, 13, 16, 22); paving(39, 13, 41, 22)               # side walks: north street <-> forecourt
 paving(14, 22, 41, 23)                                       # forecourt along the facade
-art('contest_hall', 16, 11, bottom='grass', walk_rows=2, skip_empty=True, row_bottoms={0: 'cobble', 1: 'cobble'})
+art('contest_hall', 16, 11, bottom='grass', skip_empty=True)   # rows 11-12 of the canvas are empty (street stays free)
+# ornaments as sprites (hall_sprites.py): crown crest, golden portal, trophies, big pennants
+decor('hall_crown_small', 26, 11, walk_rows=2, anchor_up=-1)  # crown finial on the dome (object on the roof below)
+decor('hall_portal', 25, 18, anchor_up=1)                    # ornate portal (object stands on the wall, not on the door)
+decor('hall_trophy', 22, 19); decor('hall_trophy', 31, 19)   # golden trophies flanking the entrance
+decor('hall_pennant', 18, 11, walk_rows=2); decor('hall_pennant', 36, 11, walk_rows=2)   # flags on the tower tips
 for dx_ in (10, 11, 12):                                     # the three door cells of the golden portal
     _port_art.DOOR_KEYS.add(("contest_hall", dx_, 10, None, "grass"))
     put(16 + dx_, 21, ('ART', ('contest_hall', dx_, 10, None, 'grass'), 0, 3))

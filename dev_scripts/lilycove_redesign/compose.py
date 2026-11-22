@@ -147,7 +147,7 @@ def flowerfield(x0,y0,x1,y1,seed=1,skip=()):
 
 # ---------------- decorations drawn as object-event sprites (see decor_sprites.py) ----------------
 DECOR=[]
-def decor(name,x,y,walk_rows=0):
+def decor(name,x,y,walk_rows=0,anchor_up=0):
     """Places art `name` as a sprite; the floor already drawn under it only gets its collision
     changed (blocked, except the top walk_rows rows, where the player walks behind it)."""
     c=_pa.ART[name](); w,h=len(c[0])//16,len(c)//16
@@ -155,7 +155,7 @@ def decor(name,x,y,walk_rows=0):
         for k,(cx,cy,sub_c) in enumerate(_pa.chunks(name)):
             sub='%s_%d'%(name,k)
             _pa._CANVAS[sub]=sub_c; _pa.PAL_OF[sub]=_pa.PAL_OF[name]; _pa.ART[sub]=(lambda s=sub: _pa._CANVAS[s])
-            decor(sub,x+cx,y+cy,walk_rows if cy==0 else 0)
+            decor(sub,x+cx,y+cy,walk_rows if cy==0 else 0,anchor_up)
         return
     for my in range(h):
         for mx in range(w):
@@ -163,4 +163,4 @@ def decor(name,x,y,walk_rows=0):
             X,Y=x+mx+OX,y+my+OY
             v=M[Y][X]
             M[Y][X]=(v[0],v[1],col,v[3]) if isinstance(v,tuple) else ((v&~0xC00)|(col<<10))
-    DECOR.append((name,x,y))
+    DECOR.append((name,x,y,anchor_up))   # anchor_up: the object stands this many rows above the bottom row

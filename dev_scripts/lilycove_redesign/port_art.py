@@ -258,3 +258,11 @@ _hc, _hg = _MP.convert(_HA.build(), slots=(6, 7, 8, 9))
 _CANVAS['contest_hall'] = _hc; TILEPAL['contest_hall'] = _hg; PAL_OF['contest_hall'] = 6
 ART['contest_hall'] = lambda: _CANVAS['contest_hall']
 DOOR_KEYS = set()          # art cells that behave as non-animated doors (filled by layout)
+
+# ---- Contest Hall ornaments (sprites, object palette 'hall') ----
+import hall_sprites as _HS
+OBJ_PALETTES['hall'] = _HS.PAL
+for _n, _f in (('hall_crown', _HS.crown), ('hall_crown_small', _HS.crown_small), ('hall_portal', _HS.portal), ('hall_trophy', _HS.trophy), ('hall_pennant', _HS.pennant)):
+    _CANVAS[_n] = _f(); PAL_OF[_n] = 'hall'; ART[_n] = (lambda n=_n: _CANVAS[n])
+
+COVERED_ART = {'contest_hall'}   # metatile layer type COVERED: both layers under the sprites (ornaments)

@@ -152,7 +152,7 @@ def build(M, festival_ids):
             if not pmeta_pool: raise SystemExit('primary tileset: out of free metatiles')
             mid = pmeta_pool.pop(0); pmetas[mid] = entries; pattrs[mid] = 0; prim_ids.append(mid)
         else:
-            attr = 0x0060 if key in port_art.DOOR_KEYS else 0
+            attr = (0x0060 if key in port_art.DOOR_KEYS else 0) | (0x1000 if name in port_art.COVERED_ART else 0)
             sig = (tuple(entries), attr)
             if sig in meta_by_sig:                  # identical metatile already made: share it
                 mid = meta_by_sig[sig]
