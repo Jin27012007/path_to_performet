@@ -119,6 +119,19 @@ gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade 
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
 
+## Praia (leste)
+O mapa ganhou 8 colunas a leste (agora 88×70).
+* **Orla natural e horizontal**: a areia desce até o calçadão no oeste e a linha d'água corre
+  na horizontal para o leste, com ondulações suaves e ponta leste arredondada. O terreno é
+  decidido por cantos (areia / água rasa / mar) e cada tile usa a peça de borda do Emerald que
+  combina com os 4 cantos, as mesmas da praia original de Lilycove; faixa larga de água rasa.
+* **Platô do hotel ao norte** (reservado para a arte do hotel): o terreno do Motel se estende
+  para o leste, com falésia na divisa com a praia e floresta atrás.
+* **Estrada de areia**: continua a rua norte pelo platô e desce por uma escada na falésia até a praia.
+* **Adereços**: palmeiras e guarda-sóis do festival; **conjuntos de guarda-sol da Rota 109 com
+  espreguiçadeiras** (sprites, sombra pontilhada na areia).
+* `overview.py` gera o mapa completo com os sprites (`docs/lilycove/mapa_geral*.png`).
+
 ## Shopping (Loja de Departamentos)
 Ocupa o quarteirão inteiro entre a rua norte e a avenida, acima do café.
 * **Telhado plano** (4 linhas) com as peças do telhado do Centro de Concursos original (repetidas na

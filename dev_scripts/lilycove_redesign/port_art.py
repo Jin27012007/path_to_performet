@@ -209,3 +209,16 @@ for _n, _cols, _y0 in (('bike_yellow', [[0x211, 0x219], [0x212, 0x21a]], 8),
                        ('bike_blue', [[0x221, 0x206], [0x222, 0x207]], 8),
                        ('bike_red', [[0x253, 0x245], [0x254, 0x246]], 0)):
     _CANVAS[_n] = _fixed(_bike(_cols, _y0), 11); PAL_OF[_n] = 11; ART[_n] = (lambda n=_n: _CANVAS[n])
+
+# ---- beach sets (sprites): Route 109 umbrella with Route 109 lounge chairs beside it ----
+def _beach_set(ux, uy, chairs):
+    u = A.beach_umbrella(ux, uy); ch = A.from_map('Route109', 40, 'secondary/slateport', 17, 8, 1, 3, bg=0x124)
+    w = 32 + 16 * len(chairs); im = Image.new('RGBA', (w, 48), (0, 0, 0, 0))
+    x = 0
+    if 'L' in chairs: im.alpha_composite(ch, (0, 0)); x = 16
+    im.alpha_composite(u, (x, 0))
+    if 'R' in chairs: im.alpha_composite(ch, (x + 32, 0))
+    return im
+for _n, _mk in (('beach_set_red', lambda: _beach_set(9, 6, 'LR')), ('beach_set_blue', lambda: _beach_set(24, 3, 'R')),
+                ('beach_set_red_l', lambda: _beach_set(9, 6, 'L'))):
+    _CANVAS[_n] = _fixed(_mk(), 11); PAL_OF[_n] = 11; ART[_n] = (lambda n=_n: _CANVAS[n])

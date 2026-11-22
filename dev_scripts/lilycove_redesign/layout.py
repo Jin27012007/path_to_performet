@@ -80,8 +80,7 @@ bunting(16,38,11)                                  # north street
 # palms along the promenade
 for px_ in (2,10): palm(px_,36,'brick')   # promenade palms, outside the plaza
 # beach: umbrellas + palms
-umbrella(44,22); umbrella(46,28,True); umbrella(43,33)
-palm(43,25); palm(46,33)
+# (the beach is drawn at the end, see BEACH)
 
 # ================= PORT: BOARDWALK, PIERS, STALLS, BOATS AND THE CRUISE SHIP =================
 fill(-OX,40,52,H,DEEP)
@@ -282,3 +281,70 @@ for x in (-1,6,13): lamp2(x,10,'paving') if False else None
 bunting(-8,14,21)                                                           # avenue bunting (west part)
 sign(-16,13); sign(-4,2)                                                    # city sign, museum sign
 for (sx,sy) in ((8,8),(1,8),(-5,8),(-10,8),(16,5)): sign(sx,sy)               # house signs over the gardens
+
+# ================= BEACH (east): a natural, horizontal beach under the hotel plateau ==================
+# The map was widened 8 columns to the east (logical x up to 71). Terrain is decided per CORNER
+# (vertex): S = sand, W = shallow water, D = deep sea; each cell takes the Emerald shore piece that
+# matches its 4 corners (the same pieces as the original Lilycove beach).
+import math
+SHORE = {'SSSS':0x124,'WWWW':0x19e,'DDDD':0x170,
+         'WSSS':0x185,'SWSS':0x186,'SSWS':0x18d,'SSSW':0x18e,'WWWS':0x195,'WWSS':0x196,'WWSW':0x197,
+         'WSWS':0x19d,'SWSW':0x19f,'WSWW':0x1a5,'SSWW':0x1a6,'SWWW':0x1a7,
+         'DWWW':0x19b,'WDWW':0x19c,'WWWD':0x1a4,'DDDW':0x1ad,'DDWW':0x1ae,'DDWD':0x1af,'WDWD':0x1b7,
+         'DWDD':0x1bd,'WWDD':0x1be,'WDDD':0x1bf}
+SHORE_VAL = {}
+for _y in range(0,40):                       # collision/elevation exactly as in the original map
+    for _x in range(40,80):
+        _v=o(_x,_y)
+        SHORE_VAL.setdefault(_v&0x3ff,_v)
+BX0, BX1, BY0, BY1 = 41, 72, 19, 40          # beach box (vertices); the boardwalk starts at row 40
+def south(vx):                               # sand reaches this vertex row: a gentle, mostly horizontal shore
+    if vx <= 44: return 40
+    if vx <= 51: return 34 + 6 * (1 + math.cos(math.pi * (vx - 44) / 7)) / 2
+    return 34 + 0.9 * math.sin(vx * 0.45) + 0.4 * math.sin(vx * 1.3)
+def east(vy):                                # sand reaches this vertex column: rounded east end
+    e = 62 + 0.8 * math.sin(vy * 0.5)
+    if vy > 27: e -= ((vy - 27) / 7.0) ** 2 * 5
+    return e
+def is_sand(vx, vy):
+    return vx <= east(vy) and vy <= south(vx)
+sand_v = {(vx, vy): is_sand(vx, vy) for vx in range(BX0, BX1 + 1) for vy in range(BY0, BY1 + 1)}
+def dist_to_sand(vx, vy):
+    best = 9
+    for dx in range(-3, 4):
+        for dy in range(-3, 4):
+            if sand_v.get((vx + dx, vy + dy)): best = min(best, math.hypot(dx, dy))
+    return best
+def terrain(vx, vy):
+    if sand_v.get((vx, vy)): return 'S'
+    return 'W' if dist_to_sand(vx, vy) <= 3.1 else 'D'
+missing = set()
+for y in range(BY0, BY1):
+    for x in range(BX0 + 1, BX1):
+        k = terrain(x, y) + terrain(x + 1, y) + terrain(x, y + 1) + terrain(x + 1, y + 1)
+        if k not in SHORE:
+            missing.add(k); k = 'WWWW' if 'S' not in k else ('SSSS' if k.count('S') >= 2 else 'WWWW')
+        mt = SHORE[k]; put(x, y, SHORE_VAL.get(mt, T(mt)))
+if missing: print('beach: combos without a piece:', sorted(missing))
+for y in range(BY0, BY1):                     # soft grass edge on the west side of the sand
+    if (M[y + OY][42 + OX] & 0x3ff) == 0x124: put(42, y, T(0x120))
+for x in range(42, 46): put(x, BY0, T(0x119))
+put(42, BY0, T(0x118))
+
+# --- hotel plateau to the north (future hotel): grass, cliff edge to the beach, forest behind
+fill(51, 2, 65, 18, GRASS); trees(52, -8, 66, 2, grass_above=False)
+for y in range(2, 19): put(65, y, T(0x075, 1, 0))
+for x in range(46, 65): put(x, 18, T(0x079, 1, 0))
+fill(66, -8, 72, 19, DEEP)
+# --- sand road: from the end of the north street across the plateau and down to the beach
+trail(51, 11, 58, 13, 'l')                    # along the north street line
+trail(56, 13, 58, 18, 't')                    # turning south (soft edges on both sides)
+stairs3(55, 18, 19) if False else None
+put(56, 18, T(0x0af)); put(57, 18, T(0x0cf))  # stairs down the cliff to the sand
+
+# --- beach dressing: palms and small festival umbrellas (tileset), umbrella+chair sets (sprites)
+for (px_, py_) in ((44, 20), (50, 19), (59, 20), (46, 31), (55, 28)): palm(px_, py_, 'sand')
+for (ux, uy) in ((43, 26), (61, 25)): umbrella(ux, uy)
+decor('beach_set_red', 47, 22, walk_rows=1); decor('beach_set_blue', 53, 24, walk_rows=1)
+decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, walk_rows=1)
+decor('beach_set_blue', 43, 35, walk_rows=1)
