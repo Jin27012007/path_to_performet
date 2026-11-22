@@ -346,16 +346,27 @@ trees(52, -8, 72, 2, grass_above=False)
 for y in range(2, 19): put(71, y, T(0x075, 1, 0))
 for x in range(41, 71): put(x, 18, T(0x079, 1, 0))
 fill(72, -8, 78, 19, DEEP)
-# --- sand road: from the end of the north street across the plateau and down to the beach
-fill(51, 11, 71, 13, GRASS)
-trail(51, 11, 58, 13, 'l')                    # along the north street line
-trail(56, 13, 58, 18, 't')                    # turning south (soft edges on both sides)
-stairs3(55, 18, 19) if False else None
-put(56, 18, T(0x0af)); put(57, 18, T(0x0cf))  # stairs down the cliff to the sand
+# --- sand road: from the end of the north street down a stair in the cliff to the beach (west of the hotel)
+fill(44, 11, 71, 13, GRASS)                                  # the north street now ends at x 43
+trail(41, 13, 44, 18, 't')
+put(41, 18, T(0x0af)); put(42, 18, T(0x0cf)); put(43, 18, T(0x0cf))   # 3-wide stair down the cliff
+
+# --- HOTEL grounds (start): fenced lot with a big pool, palms and trees; the building comes later
+HX0, HX1 = 45, 71                                             # lot x 45..70, rows 2..17
+for y in range(3, 18):
+    if y not in (11, 12): put(HX0, y, T(0x25a, 1, 0))         # west fence, gate at rows 11..12
+fence(HX0, HX1, 17)                                           # south fence (above the cliff)
+put(HX0, 17, T(0x252, 1, 0)) if False else None
+paving(44, 11, 48, 13)                                        # entrance through the gate
+paving(48, 7, 69, 14)                                         # pool deck
+art('hotel_pool', 50, 8, bottom='paving')                     # 16x5 pool
+for (px_, py_) in ((49, 14), (53, 14), (57, 14), (61, 14), (65, 14)): palm(px_, py_, 'grass')   # palm row by the beach
+for (px_, py_) in ((46, 2), (46, 6), (56, 2), (62, 2), (69, 2), (69, 8)): palm(px_, py_, 'grass')   # palms
+for (tx_, ty_) in ((49, 2), (52, 3), (59, 3), (66, 3), (46, 14)): tree1(tx_, ty_)                    # shade trees
+for (fx_, fy_) in ((47, 9), (47, 10), (69, 12), (69, 13), (48, 15), (68, 15)): put(fx_, fy_, FLOWERS)
 
 # --- beach dressing: palms and small festival umbrellas (tileset), umbrella+chair sets (sprites)
-for (px_, py_) in ((44, 20), (50, 19), (59, 20), (46, 31), (55, 28), (65, 20), (62, 27)): palm(px_, py_, 'sand')
-for (ux, uy) in ((42, 26), (61, 24), (67, 23)): umbrella(ux, uy)
+for (px_, py_) in ((45, 20), (50, 19), (59, 20), (46, 31), (55, 28), (65, 20), (62, 27)): palm(px_, py_, 'sand')
 decor('beach_set_red', 47, 22, walk_rows=1); decor('beach_set_blue', 53, 24, walk_rows=1)
 decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, walk_rows=1)
 decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, walk_rows=1)

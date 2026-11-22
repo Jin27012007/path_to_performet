@@ -203,3 +203,46 @@ def flower(name):
     if name in ('flower_white', 'flower_blue'):           # mirror some for variety
         c = [row[::-1] for row in c]
     return c
+
+def pool(wt, ht):
+    """Large rectangular hotel pool (wt x ht metatiles), same style/palette as fountain_modern:
+    stone rim, dark outline, light-blue water with a shade under the far rim, ripples that repeat
+    every 16 px (cheap in tiles), a ladder and a front wall that gives depth."""
+    W, H = wt * 16, ht * 16
+    c = _canvas(W, H)
+    x0, x1, y0, y1, r = 1, W - 2, 1, H - 6, 4
+    def inside(x, y, a0, a1, b0, b1, rr):
+        if x < a0 or x > a1 or y < b0 or y > b1: return False
+        cx = min(max(x, a0 + rr), a1 - rr); cy = min(max(y, b0 + rr), b1 - rr)
+        return (x - cx) ** 2 + (y - cy) ** 2 <= rr * rr
+    for y in range(y0, H - 1):                       # front wall
+        for x in range(W):
+            if inside(x, y - 4, x0, x1, y0, y1, r) and not inside(x, y, x0, x1, y0, y1, r):
+                c[y][x] = MGR if y < H - 3 else DGR
+    for y in range(H):
+        for x in range(W):
+            if inside(x, y, x0, x1, y0, y1, r):
+                if inside(x, y, x0 + 3, x1 - 3, y0 + 3, y1 - 3, max(1, r - 3)):
+                    c[y][x] = LB1
+                    if y < y0 + 6: c[y][x] = B1
+                    elif y < y0 + 8: c[y][x] = LB2
+                    elif y > y0 + 9 and y < y1 - 4:  # ripples, 16 px period
+                        u, v = x % 16, y % 16
+                        if v in (4,) and 2 <= u <= 7: c[y][x] = WH
+                        if v in (11,) and 9 <= u <= 14: c[y][x] = WH
+                        if v in (5,) and 3 <= u <= 6: c[y][x] = LB2
+                        if v in (12,) and 10 <= u <= 13: c[y][x] = LB2
+                else:
+                    c[y][x] = LGR if y < (y0 + y1) // 2 else PALE
+    lx = x0 + 10                                     # pool ladder on the far rim
+    for y in range(y0 + 1, y0 + 12):
+        c[y][lx] = WH; c[y][lx + 5] = WH
+        if (y - y0) % 3 == 0:
+            for x in range(lx + 1, lx + 5): c[y][x] = LGR
+    out = [row[:] for row in c]
+    for y in range(H):
+        for x in range(W):
+            if c[y][x] == 0 and any(0 <= y + dy < H and 0 <= x + dx < W and c[y + dy][x + dx]
+                                    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                out[y][x] = OUT
+    return out

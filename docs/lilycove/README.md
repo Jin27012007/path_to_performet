@@ -119,6 +119,16 @@ gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade 
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
 
+## Hotel (início)
+* **Lote cercado** no platô (x 45–70): cerca vertical azul de Lilycove no lado oeste, com
+  portão no fim da rua norte, e cerca horizontal na divisa com a praia.
+* **Piscina grande** (16×5) desenhada no estilo das fontes da praça (borda de pedra, água
+  com reflexos que se repetem a cada 16 px, escadinha, parede frontal), com deck de ladrilho.
+* **Área arborizada**: palmeiras e árvores alternadas no topo do lote e uma fileira de
+  palmeiras entre a piscina e a praia. O prédio do hotel vem depois (topo do lote).
+* A **estrada de areia** agora desce ao lado do lote (x 41–43) por uma escada de 3 tiles; placa
+  "Praia de Lilycove / Hotel Litoral (em obras)".
+
 ## Praia (leste)
 O mapa ganhou 14 colunas a leste (agora 94×70).
 * **Orla natural e horizontal**: a areia desce até o calçadão no oeste e a linha d'água corre
@@ -129,8 +139,7 @@ O mapa ganhou 14 colunas a leste (agora 94×70).
   removidos; o platô vai da rua norte até a ponta leste, com falésia na divisa com a praia e
   floresta atrás. O warp do Motel ficou estacionado no platô para o futuro hotel.
 * **Praça → praia sem faixa de grama**: o ladrilho da praça encosta direto na areia.
-* **Estrada de areia**: continua a rua norte pelo platô e desce por uma escada na falésia até a praia.
-* **Adereços**: palmeiras e guarda-sóis do festival; **conjuntos de guarda-sol da Rota 109 com
+* **Adereços**: palmeiras e **conjuntos de guarda-sol da Rota 109 com
   espreguiçadeiras** (sprites, sombra pontilhada na areia).
 * `overview.py` gera o mapa completo com os sprites (`docs/lilycove/mapa_geral*.png`).
 

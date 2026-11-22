@@ -222,3 +222,6 @@ def _beach_set(ux, uy, chairs):
 for _n, _mk in (('beach_set_red', lambda: _beach_set(9, 6, 'LR')), ('beach_set_blue', lambda: _beach_set(24, 3, 'R')),
                 ('beach_set_red_l', lambda: _beach_set(9, 6, 'L'))):
     _CANVAS[_n] = _fixed(_mk(), 11); PAL_OF[_n] = 11; ART[_n] = (lambda n=_n: _CANVAS[n])
+
+# ---- hotel pool (palette 8, like the plaza fountains) ----
+_CANVAS['hotel_pool'] = _P.pool(16, 5); PAL_OF['hotel_pool'] = _P.PAL8_SLOT; ART['hotel_pool'] = lambda: _CANVAS['hotel_pool']

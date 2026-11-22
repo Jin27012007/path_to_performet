@@ -1153,3 +1153,12 @@ LilycoveCity_Text_CafeDoor:
 	.string "O café está lotado de coordenadores.\p"
 	.string "Um aviso na porta diz:\n"
 	.string "“Mesas livres no terraço!”$"
+
+@ --- Praia / hotel ---
+LilycoveCity_EventScript_BeachSign::
+	msgbox LilycoveCity_Text_BeachSign, MSGBOX_SIGN
+	end
+
+LilycoveCity_Text_BeachSign:
+	.string "{DOWN_ARROW} PRAIA DE LILYCOVE\n"
+	.string "{RIGHT_ARROW} HOTEL LITORAL (em obras)$"
