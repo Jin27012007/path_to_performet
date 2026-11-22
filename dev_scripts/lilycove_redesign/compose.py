@@ -148,6 +148,13 @@ def decor(name,x,y,walk_rows=0):
     """Places art `name` as a sprite; the floor already drawn under it only gets its collision
     changed (blocked, except the top walk_rows rows, where the player walks behind it)."""
     c=_pa.ART[name](); w,h=len(c[0])//16,len(c)//16
+    if w>6:                                   # wide art: segments of <=5 tiles (no pop-in at the screen edge)
+        for k,sx in enumerate(range(0,w,5)):
+            sub='%s_%d'%(name,k)
+            _pa._CANVAS[sub]=[row[sx*16:min(w,sx+5)*16] for row in c]
+            _pa.PAL_OF[sub]=_pa.PAL_OF[name]; _pa.ART[sub]=(lambda s=sub: _pa._CANVAS[s])
+            decor(sub,x+sx,y,walk_rows)
+        return
     for my in range(h):
         for mx in range(w):
             col = 0 if my<walk_rows else 1

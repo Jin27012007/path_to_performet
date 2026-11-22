@@ -146,6 +146,9 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip3
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetBlue;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetRed;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetRedL;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel0;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel1;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel2;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTableSet;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTentFlowers;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcTentGreen;
@@ -566,6 +569,9 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_LC_BEACH_SET_BLUE] = &gObjectEventGraphicsInfo_LcBeachSetBlue,
     [OBJ_EVENT_GFX_LC_BEACH_SET_RED] = &gObjectEventGraphicsInfo_LcBeachSetRed,
     [OBJ_EVENT_GFX_LC_BEACH_SET_RED_L] = &gObjectEventGraphicsInfo_LcBeachSetRedL,
+    [OBJ_EVENT_GFX_LC_HOTEL_0] = &gObjectEventGraphicsInfo_LcHotel0,
+    [OBJ_EVENT_GFX_LC_HOTEL_1] = &gObjectEventGraphicsInfo_LcHotel1,
+    [OBJ_EVENT_GFX_LC_HOTEL_2] = &gObjectEventGraphicsInfo_LcHotel2,
     [OBJ_EVENT_GFX_LC_TABLE_SET] = &gObjectEventGraphicsInfo_LcTableSet,
     [OBJ_EVENT_GFX_LC_TENT_FLOWERS] = &gObjectEventGraphicsInfo_LcTentFlowers,
     [OBJ_EVENT_GFX_LC_TENT_GREEN] = &gObjectEventGraphicsInfo_LcTentGreen,

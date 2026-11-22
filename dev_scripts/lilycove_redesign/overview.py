@@ -12,7 +12,8 @@ def build(out, labels=False):
     im = Image.open(tmp).convert('RGBA'); os.remove(tmp)
     m = json.load(open(os.path.join(REPO, 'data/maps/LilycoveCity/map.json'))); cache = {}
     def idx(c, slot):
-        pal = P.PALETTES[slot]; o = Image.new('RGBA', (len(c[0]), len(c)), (0, 0, 0, 0))
+        pal = P.PALETTES[slot] if isinstance(slot, int) else P.OBJ_PALETTES[slot]
+        o = Image.new('RGBA', (len(c[0]), len(c)), (0, 0, 0, 0))
         for y, r in enumerate(c):
             for x, v in enumerate(r):
                 if v: o.putpixel((x, y), tuple(pal[v]) + (255,))
@@ -21,7 +22,12 @@ def build(out, labels=False):
         g = e['graphics_id']; tx, ty = e['x'], e['y']
         if g.startswith('OBJ_EVENT_GFX_LC_'):
             n = g[len('OBJ_EVENT_GFX_LC_'):].lower()
-            if n not in cache: cache[n] = idx(P.ART[n](), 11)
+            if n not in cache:
+                if n in P.ART: c, slot = P.ART[n](), P.PAL_OF[n]
+                else:                                   # segment of a wide sprite (name_k)
+                    base, k = n.rsplit('_', 1); full = P.ART[base](); k = int(k)
+                    c = [row[k * 80:(k + 1) * 80] for row in full]; slot = P.PAL_OF[base]
+                cache[n] = idx(c, slot)
             s = cache[n]; im.alpha_composite(s, ((tx - (s.width // 16) // 2) * 16, (ty + 1) * 16 - s.height))
         elif g.startswith('OBJ_EVENT_GFX_CRUISE_SHIP_'):
             s = A.sprite('graphics/object_events/pics/misc/cruise_ship_%s.png' % g[-1], 'graphics/object_events/palettes/ss_tidal.pal')

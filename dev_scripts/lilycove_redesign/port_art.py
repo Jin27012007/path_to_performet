@@ -225,3 +225,11 @@ for _n, _mk in (('beach_set_red', lambda: _beach_set(9, 6, 'LR')), ('beach_set_b
 
 # ---- hotel pool (palette 8, like the plaza fountains) ----
 _CANVAS['hotel_pool'] = _P.pool(16, 5); PAL_OF['hotel_pool'] = _P.PAL8_SLOT; ART['hotel_pool'] = lambda: _CANVAS['hotel_pool']
+
+# ---- object (sprite) palettes, separate from the BG palette slots ----
+OBJ_PALETTES = {}
+import hotel_art as _H
+_hotel_img, HOTEL_DOOR_COL = _H.building()
+_hp, (_hc,) = A.to_palette([_hotel_img])
+OBJ_PALETTES['hotel'] = _hp
+_CANVAS['hotel'] = _hc; PAL_OF['hotel'] = 'hotel'; ART['hotel'] = lambda: _CANVAS['hotel']

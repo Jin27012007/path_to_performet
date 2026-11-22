@@ -421,6 +421,9 @@ enum
     OBJ_EVENT_GFX_LC_BEACH_SET_BLUE,
     OBJ_EVENT_GFX_LC_BEACH_SET_RED,
     OBJ_EVENT_GFX_LC_BEACH_SET_RED_L,
+    OBJ_EVENT_GFX_LC_HOTEL_0,
+    OBJ_EVENT_GFX_LC_HOTEL_1,
+    OBJ_EVENT_GFX_LC_HOTEL_2,
     OBJ_EVENT_GFX_LC_TABLE_SET,
     OBJ_EVENT_GFX_LC_TENT_FLOWERS,
     OBJ_EVENT_GFX_LC_TENT_GREEN,
@@ -628,6 +631,7 @@ enum
 // Not a real OW palette tag; used for the white flash applied to followers
 #define OBJ_EVENT_PAL_TAG_WHITE                   (OBJ_EVENT_PAL_TAG_NONE - 1)
 #define OBJ_EVENT_PAL_TAG_LILYCOVE_DECOR          0x1180
+#define OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL          0x1181
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 // This + localId is used as the tileTag
