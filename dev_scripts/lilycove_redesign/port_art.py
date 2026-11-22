@@ -250,3 +250,11 @@ def chunk_art(sub):
 # ---- coconut palm in Emerald's tree palette (primary slot 2) ----
 import veg_art as _V
 _CANVAS['palm_e'] = _V.palm(); PAL_OF['palm_e'] = _V.PAL_SLOT; ART['palm_e'] = lambda: _CANVAS['palm_e']
+
+# ---- multi-palette background art (palette chosen per 8x8 tile, see multipal.py) ----
+TILEPAL = {}
+import multipal as _MP, hall_art as _HA
+_hc, _hg = _MP.convert(_HA.build(), slots=(6, 7, 8, 9))
+_CANVAS['contest_hall'] = _hc; TILEPAL['contest_hall'] = _hg; PAL_OF['contest_hall'] = 6
+ART['contest_hall'] = lambda: _CANVAS['contest_hall']
+DOOR_KEYS = set()          # art cells that behave as non-animated doors (filled by layout)

@@ -23,10 +23,7 @@ path(2,11,51,13)
 # ================= MIDDLE BAND (y13-19) =================
 pc(3,14); house(9,14)                        # doors (4,17) (10,17)
 flowers(7,14,9,18); path(3,18,14,20)
-contest(24,13)                               # door (27,19)
-flowers(16,14,23,15); flowers(32,14,39,15)
-tree1(17,15); tree1(20,15); tree1(33,15); tree1(36,15)
-lamp(22,18); lamp(32,18); lamp(23,15); lamp(31,15)
+# (the Contest Hall is drawn at the end, see CONTEST HALL)
 
 motel(41,13)                                 # door (42,17)
 pond(47,14); fence(46,51,16); flowers(46,17,51,18)
@@ -70,10 +67,9 @@ trees(0,24,2,40);
 for x in (3,): put(x,37,T(0x005,1,0))
 # central fountain on main axis
 # sign posts for bg_events
-for sx,sy in [(10,10),(47,9),(2,19),(31,19),(40,17),(3,31),(22,10),(16,5)]: sign(sx,sy)
+for sx,sy in [(10,10),(47,9),(2,19),(40,17),(3,31),(22,10),(16,5)]: sign(sx,sy)
 
 # ================= FESTIVAL DRESSING (World Contest Season) =================
-for bx,blue in ((23,False),(31,True)): banner(bx,17,'grass',blue)
 bunting(2,46,21)                                   # across the avenue
 bunting(2,14,38)                                   # promenade (west part)
 bunting(16,38,11)                                  # north street
@@ -387,3 +383,16 @@ for (px_, py_) in ((45, 20), (50, 19), (59, 20), (46, 31), (55, 28), (65, 20), (
 decor('beach_set_red', 47, 22, walk_rows=1); decor('beach_set_blue', 53, 24, walk_rows=1)
 decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, walk_rows=1)
 decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, walk_rows=1)
+
+# ================= CONTEST HALL: the city's grand "big top" (hall_art.py, multi-palette background) ======
+# 23 x 11 metatiles at x 16..38, rows 11..21; the centre peak and the crown (rows 11..12) hang over the
+# north street (walk behind them). It replaces the old hall, its lawns and the avenue in front of it.
+fill(14, 13, 41, 22, GRASS)
+paving(14, 13, 16, 22); paving(39, 13, 41, 22)               # side walks: north street <-> forecourt
+paving(14, 22, 41, 23)                                       # forecourt along the facade
+art('contest_hall', 16, 11, bottom='grass', walk_rows=2, skip_empty=True, row_bottoms={0: 'cobble', 1: 'cobble'})
+for dx_ in (10, 11, 12):                                     # the three door cells of the golden portal
+    _port_art.DOOR_KEYS.add(("contest_hall", dx_, 10, None, "grass"))
+    put(16 + dx_, 21, ('ART', ('contest_hall', dx_, 10, None, 'grass'), 0, 3))
+for x in (26, 27, 28): put(x, 22, T(F['carpet']))            # red carpet down to the plaza's brick axis
+sign(44, 10)                                                 # beach / hotel sign at the top of the sand road

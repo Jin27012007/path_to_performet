@@ -71,6 +71,7 @@ def build(M, festival_ids):
         'dock': metas[festival_ids['dock'] - 512][:4],
         'brick': metas[festival_ids['brick'] - 512][:4],
         'grass': pmeta(0x001)[:4],
+        'cobble': metas[0x233 - 512][:4],
         'sand': pmeta(0x124)[:4],
     }
     used = {v & 0x3ff for row in M for v in row if isinstance(v, int) and (v & 0x3ff) >= 512} | set(DOORS)
@@ -125,6 +126,7 @@ def build(M, festival_ids):
         return tile_index[k]
     keys = sorted({v[1] for row in M for v in row if isinstance(v, tuple)}, key=lambda k: (k[0] not in port_art.FLOOR, str(k)))
     prim_ids = []
+    meta_by_sig = {}
     for key in keys:
         name, mx, my, pal, bottom = key
         pal = port_art.PAL_OF.get(name, 0)
@@ -137,9 +139,11 @@ def build(M, festival_ids):
           if name not in canvases: canvases[name] = port_art.ART[name]()
           prim = name in PRIMARY_ART
           top = []
-          for q in _split16(canvases[name], mx, my):
+          tp = port_art.TILEPAL.get(name)
+          for qi, q in enumerate(_split16(canvases[name], mx, my)):
             t = add_ptile(q) if prim else add_tile(q)
-            top.append(t | (pal << 12) if t else 0)
+            pq = tp[my * 2 + qi // 2][mx * 2 + qi % 2] if tp else pal
+            top.append(t | (pq << 12) if t else 0)
         if isinstance(bottom, str) and bottom.startswith('top:'):     # another metatile's top layer as the floor
             BOTTOM[bottom] = metas[int(bottom[4:], 16) - 512][4:]
         entries = top + [0] * 4 if name in port_art.FLOOR else BOTTOM[bottom] + top
@@ -148,9 +152,14 @@ def build(M, festival_ids):
             if not pmeta_pool: raise SystemExit('primary tileset: out of free metatiles')
             mid = pmeta_pool.pop(0); pmetas[mid] = entries; pattrs[mid] = 0; prim_ids.append(mid)
         else:
-            if not free_meta: raise SystemExit('out of metatiles for port art')
-            mid = free_meta.pop(0)
-            new_metas[mid] = entries; new_attrs[mid] = 0
+            attr = 0x0060 if key in port_art.DOOR_KEYS else 0
+            sig = (tuple(entries), attr)
+            if sig in meta_by_sig:                  # identical metatile already made: share it
+                mid = meta_by_sig[sig]
+            else:
+                if not free_meta: raise SystemExit('out of metatiles for port art')
+                mid = free_meta.pop(0); meta_by_sig[sig] = mid
+                new_metas[mid] = entries; new_attrs[mid] = attr
         art_ids[key] = mid
     # resolve placeholders
     out = [[(art_ids[v[1]] | (v[2] << 10) | (v[3] << 12)) if isinstance(v, tuple) else v for v in row] for row in M]

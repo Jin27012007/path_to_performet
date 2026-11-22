@@ -99,14 +99,17 @@ def bunting(x0,x1,y,under='cobble'):
 # ---------------- port art (resolved by build_city_tileset.py) ----------------
 import port_art as _pa
 _ART_SIZE={}
-def art(name,x,y,pal=None,bottom='water',walk_rows=0):
+def art(name,x,y,pal=None,bottom='water',walk_rows=0,skip_empty=False,row_bottoms=None):
     if name not in _ART_SIZE:
         c=_pa.ART[name](); _ART_SIZE[name]=(len(c[0])//16,len(c)//16)
     w,h=_ART_SIZE[name]
+    cv=_pa.ART[name]() if skip_empty else None
     for my in range(h):
         for mx in range(w):
+            if skip_empty and not any(cv[my*16+yy][mx*16+xx] for yy in range(16) for xx in range(16)): continue
             walk = my<walk_rows
-            put(x+mx,y+my,('ART',(name,mx,my,pal,bottom),0 if walk else 1,3 if walk else 0))
+            bt = row_bottoms.get(my,bottom) if row_bottoms else bottom
+            put(x+mx,y+my,('ART',(name,mx,my,pal,bt),0 if walk else 1,3 if walk else 0))
 
 def paving(x0,y0,x1,y1):
     for y in range(y0,y1):
