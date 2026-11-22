@@ -519,9 +519,13 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_MovingBox,             OBJ_EVENT_PAL_TAG_MOVING_BOX},
     {gObjectEventPal_CableCar,              OBJ_EVENT_PAL_TAG_CABLE_CAR},
     {gObjectEventPal_SSTidal,               OBJ_EVENT_PAL_TAG_SSTIDAL},
-    {gObjectEventPal_LilycoveDecor,         OBJ_EVENT_PAL_TAG_LILYCOVE_DECOR},
-    {gObjectEventPal_LilycoveHotel,         OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL},
-    {gObjectEventPal_LilycoveHall,          OBJ_EVENT_PAL_TAG_LILYCOVE_HALL},
+    // LILYCOVE_PALS_BEGIN
+    {gObjectEventPal_LilycoveDecor, OBJ_EVENT_PAL_TAG_LILYCOVE_DECOR},
+    {gObjectEventPal_LilycoveHotel, OBJ_EVENT_PAL_TAG_LILYCOVE_HOTEL},
+    {gObjectEventPal_LilycoveHall0, OBJ_EVENT_PAL_TAG_LILYCOVE_HALL0},
+    {gObjectEventPal_LilycoveHall1, OBJ_EVENT_PAL_TAG_LILYCOVE_HALL1},
+    {gObjectEventPal_LilycoveHall2, OBJ_EVENT_PAL_TAG_LILYCOVE_HALL2},
+    // LILYCOVE_PALS_END
     {gObjectEventPal_Kyogre,                OBJ_EVENT_PAL_TAG_KYOGRE},
     {gObjectEventPal_KyogreReflection,      OBJ_EVENT_PAL_TAG_KYOGRE_REFLECTION},
     {gObjectEventPal_Groudon,               OBJ_EVENT_PAL_TAG_GROUDON},

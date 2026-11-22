@@ -254,7 +254,7 @@ ledge(-5,14,26)                                                             # th
 fill(-5,27,14,40,GRASS)
 for y in range(27,34):                                                      # wooden terrace x -4..13, rows 27..33
     for x in range(-4,14): put(x,y,('ART',('terrace',0,0,None,'water'),0,3))
-decor('cafe',2,27)                                                          # Café Litoral (sprite), door (4,30)
+art('cafe',2,27,bottom='terrace')                                           # Café Litoral, door (4,30)
 for k,n in enumerate(('vending_water','vending_lemonade','vending_soda')):  # drink machines (row 29 in front is free)
     art(n,10+k,27,bottom='terrace')
 decor('umbrella_set_red',-3,27,walk_rows=1)                                 # umbrella + table + two chairs (sprites)
@@ -384,20 +384,23 @@ decor('beach_set_red', 47, 22, walk_rows=1); decor('beach_set_blue', 53, 24, wal
 decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, walk_rows=1)
 decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, walk_rows=1)
 
-# ================= CONTEST HALL: the city's grand "big top" (hall_art.py, multi-palette background) ======
-# 23 x 11 metatiles at x 16..38, rows 11..21; the centre peak and the crown (rows 11..12) hang over the
-# north street (walk behind them). It replaces the old hall, its lawns and the avenue in front of it.
-fill(14, 13, 41, 22, GRASS)
-paving(14, 13, 16, 22); paving(39, 13, 41, 22)               # side walks: north street <-> forecourt
-paving(14, 22, 41, 23)                                       # forecourt along the facade
-art('contest_hall', 16, 11, bottom='grass', skip_empty=True)   # rows 11-12 of the canvas are empty (street stays free)
-# ornaments as sprites (hall_sprites.py): crown crest, golden portal, trophies, big pennants
-decor('hall_crown_small', 26, 11, walk_rows=2, anchor_up=-1)  # crown finial on the dome (object on the roof below)
-decor('hall_portal', 25, 18, anchor_up=1)                    # ornate portal (object stands on the wall, not on the door)
-decor('hall_trophy', 22, 19); decor('hall_trophy', 31, 19)   # golden trophies flanking the entrance
-decor('hall_pennant', 18, 11, walk_rows=2); decor('hall_pennant', 36, 11, walk_rows=2)   # flags on the tower tips
-for dx_ in (10, 11, 12):                                     # the three door cells of the golden portal
-    _port_art.DOOR_KEYS.add(("contest_hall", dx_, 10, None, "grass"))
-    put(16 + dx_, 21, ('ART', ('contest_hall', dx_, 10, None, 'grass'), 0, 3))
-for x in (26, 27, 28): put(x, 22, T(F['carpet']))            # red carpet down to the plaza's brick axis
+# ================= CONTEST HALL (from the user's concept, hall_concept.py) ===========================
+# 17 x 11 metatiles at x 19..35, rows 12..22, drawn as 9 sprite chunks (3 palettes); the top row hangs
+# over the north street (walk behind). Formal gardens fill the rest of the block.
+fill(14, 13, 41, 23, GRASS)
+paving(14, 13, 16, 23); paving(39, 13, 41, 23)              # side walks: north street <-> plaza
+HALL_X, HALL_Y = 19, 12
+import port_art as _port_art2
+for (_n, _c0, _r0, _cv, _k) in _port_art2.HALL_PIECES:
+    _h = len(_cv) // 16
+    decor(_n, HALL_X + _c0, HALL_Y + _r0, walk_rows=1 if _r0 == 0 else 0, anchor_up=1 if _r0 + _h == 11 else 0)
+for dx_ in (7, 8, 9):                                        # the glass double door (walk in -> lobby)
+    put(HALL_X + dx_, HALL_Y + 10, ('ART', ('nadoor', 0, 0, None, 'carpet'), 0, 3))
+for x in (26, 27, 28):
+    for y in (23, 24): put(x, y, T(F['carpet']))             # red carpet down the plaza axis
+# gardens on both sides of the hall
+for gx in (16, 36):
+    flowerfield(gx, 13, gx + 3, 23, seed=41 + gx, skip={(gx + dx, gy) for dx in range(3) for gy in range(13, 23) if (gx + dx, gy) in ()})
+for (tx_, ty_) in ((16, 13), (37, 13), (16, 19), (37, 19)): tree1(tx_, ty_)
+for (px_, py_) in ((17, 16), (37, 16)): art('potted_palm', px_, py_, bottom='grass', walk_rows=1)
 sign(44, 10)                                                 # beach / hotel sign at the top of the sand road

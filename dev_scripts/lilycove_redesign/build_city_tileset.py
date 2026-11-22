@@ -131,7 +131,7 @@ def build(M, festival_ids):
         name, mx, my, pal, bottom = key
         pal = port_art.PAL_OF.get(name, 0)
         if name == 'nadoor':                       # street floor that behaves as a (non-animated) door
-            mid = free_meta.pop(0); new_metas[mid] = BOTTOM['paving'] + [0] * 4; new_attrs[mid] = 0x0060
+            mid = free_meta.pop(0); new_metas[mid] = (metas[festival_ids['carpet'] - 512][:4] if bottom == 'carpet' else BOTTOM['paving']) + [0] * 4; new_attrs[mid] = 0x0060
             art_ids[key] = mid; continue
         if name.startswith('copy:'):              # an existing metatile's top layer over another floor
             prim = False; top = list(metas[int(name[5:], 16) - 512][4:])

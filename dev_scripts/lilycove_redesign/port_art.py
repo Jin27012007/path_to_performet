@@ -266,3 +266,10 @@ for _n, _f in (('hall_crown', _HS.crown), ('hall_crown_small', _HS.crown_small),
     _CANVAS[_n] = _f(); PAL_OF[_n] = 'hall'; ART[_n] = (lambda n=_n: _CANVAS[n])
 
 COVERED_ART = {'contest_hall'}   # metatile layer type COVERED: both layers under the sprites (ornaments)
+
+# ---- the Contest Hall from the user's concept (hall_concept.py): 9 sprite chunks, 3 palettes ----
+import hall_concept as _HC
+_hcp, HALL_PIECES = _HC.build()
+for _k, _p in _hcp.items(): OBJ_PALETTES[_k] = _p
+for (_n, _c0, _r0, _cv, _k) in HALL_PIECES:
+    _CANVAS[_n] = _cv; PAL_OF[_n] = _k; ART[_n] = (lambda n=_n: _CANVAS[n])

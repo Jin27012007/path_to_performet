@@ -51,7 +51,7 @@ LilycoveCity_ContestHall_EventScript_Commercial::
 	closemessage
 	fadescreen FADE_TO_BLACK
 	@ segunda tomada: vista de Lilycove decorada (o jogador continua invisível)
-	warpsilent MAP_LILYCOVE_CITY, 43, 34
+	warpsilent MAP_LILYCOVE_CITY, 43, 36
 	waitstate
 	releaseall
 	end

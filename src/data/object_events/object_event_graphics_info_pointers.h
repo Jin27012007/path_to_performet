@@ -146,11 +146,15 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CruiseShip3
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetBlue;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetRed;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetRedL;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcCafe;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallCrownSmall;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallPennant;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallPortal;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTrophy;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc00;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc01;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc02;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc10;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc11;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc12;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc20;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc21;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallc22;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel0;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel1;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel2;
@@ -580,11 +584,15 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_LC_BEACH_SET_BLUE] = &gObjectEventGraphicsInfo_LcBeachSetBlue,
     [OBJ_EVENT_GFX_LC_BEACH_SET_RED] = &gObjectEventGraphicsInfo_LcBeachSetRed,
     [OBJ_EVENT_GFX_LC_BEACH_SET_RED_L] = &gObjectEventGraphicsInfo_LcBeachSetRedL,
-    [OBJ_EVENT_GFX_LC_CAFE] = &gObjectEventGraphicsInfo_LcCafe,
-    [OBJ_EVENT_GFX_LC_HALL_CROWN_SMALL] = &gObjectEventGraphicsInfo_LcHallCrownSmall,
-    [OBJ_EVENT_GFX_LC_HALL_PENNANT] = &gObjectEventGraphicsInfo_LcHallPennant,
-    [OBJ_EVENT_GFX_LC_HALL_PORTAL] = &gObjectEventGraphicsInfo_LcHallPortal,
-    [OBJ_EVENT_GFX_LC_HALL_TROPHY] = &gObjectEventGraphicsInfo_LcHallTrophy,
+    [OBJ_EVENT_GFX_LC_HALLC_0_0] = &gObjectEventGraphicsInfo_LcHallc00,
+    [OBJ_EVENT_GFX_LC_HALLC_0_1] = &gObjectEventGraphicsInfo_LcHallc01,
+    [OBJ_EVENT_GFX_LC_HALLC_0_2] = &gObjectEventGraphicsInfo_LcHallc02,
+    [OBJ_EVENT_GFX_LC_HALLC_1_0] = &gObjectEventGraphicsInfo_LcHallc10,
+    [OBJ_EVENT_GFX_LC_HALLC_1_1] = &gObjectEventGraphicsInfo_LcHallc11,
+    [OBJ_EVENT_GFX_LC_HALLC_1_2] = &gObjectEventGraphicsInfo_LcHallc12,
+    [OBJ_EVENT_GFX_LC_HALLC_2_0] = &gObjectEventGraphicsInfo_LcHallc20,
+    [OBJ_EVENT_GFX_LC_HALLC_2_1] = &gObjectEventGraphicsInfo_LcHallc21,
+    [OBJ_EVENT_GFX_LC_HALLC_2_2] = &gObjectEventGraphicsInfo_LcHallc22,
     [OBJ_EVENT_GFX_LC_HOTEL_0] = &gObjectEventGraphicsInfo_LcHotel0,
     [OBJ_EVENT_GFX_LC_HOTEL_1] = &gObjectEventGraphicsInfo_LcHotel1,
     [OBJ_EVENT_GFX_LC_HOTEL_2] = &gObjectEventGraphicsInfo_LcHotel2,

@@ -119,21 +119,18 @@ gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade 
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
 
-## Centro de Concursos (palácio)
-* Prédio principal da cidade, 23×11 tiles no eixo da praça, na mesma **vista 3/4** dos outros
-  prédios (telhados vistos de cima, fachadas curtas embaixo, como o Museu). Desenhado em
-  `hall_art.py`: alas com terraço de mármore, claraboias e mureta dourada; bloco central mais alto
-  com telhado de ardósia azul-real e **cúpula dourada** com meridianos; **torres de castelo** nas
-  pontas (telhado cônico visto de cima); frontão, colunata de mármore e escadaria.
-* Cenário sem paleta nova: `multipal.py` escolhe por bloco 8×8 entre as paletas 6/7/8/9; desenho
-  simétrico e alinhado à grade (~104 tiles). Metatiles do tipo "coberto", para os ornamentos (sprites)
-  aparecerem por cima.
-* **Ornamentos em sprite** (`hall_sprites.py`, paleta própria): coroa no alto da cúpula, pórtico
-  dourado com colunas, arco, cortinas e frontão, dois troféus em pedestais e duas bandeiras nas torres.
-* Objetos de cenário podem ter a "âncora" acima/abaixo da última linha (`anchor_up`), para não
-  bloquear portas (pórtico do Centro, porta do hotel) nem a rua (coroa).
-* O prédio do **Café Litoral** virou sprite para abrir espaço no tileset; o mapa tem 64 objetos
-  (limite do jogo) e no máximo 14 ativos numa tela.
+## Centro de Concursos
+* Feito a partir do **conceito do usuário** (`hall_concept.jpg`): cúpula de tenda listrada com o
+  troféu e as bandeirolas, quatro torres com domos azuis, palácio de pedra com colunas, drapeados
+  vermelhos e azuis, estandartes do concurso e a entrada de vidro com o tapete vermelho.
+* `hall_concept.py` recorta o prédio (remove o magenta), reduz para **17×11 tiles** com média de
+  área e divide em **9 sprites** (3 faixas × 3 colunas); cada faixa tem sua paleta de objeto de
+  15 cores (`lilycove_hall0/1/2.pal`), com contorno escuro na silhueta.
+* No eixo da praça (x 19–35), com jardins, árvores e palmeiras em vaso dos lados e calçadas
+  ligando a rua norte à praça; o topo (troféu) passa sobre a rua norte (anda-se por trás).
+* Porta de vidro: três tiles de porta (sobre o tapete) levam ao saguão; o tapete continua na praça.
+* As tags e entradas de paleta de objeto agora são geradas por `decor_sprites.py`.
+* Limites: 64 objetos no mapa; no pior ponto 14 visíveis + o jogador (máx. 16).
 
 ## Hotel Cove Lily
 * **Prédio** montado a partir do exemplo do usuário (`hotel_ref.png`): telhado de deck, duas alas
