@@ -246,3 +246,7 @@ def chunks(name):
     return out
 def chunk_art(sub):
     base, k = sub.rsplit('_', 1); return chunks(base)[int(k)]
+
+# ---- coconut palm in Emerald's tree palette (primary slot 2) ----
+import veg_art as _V
+_CANVAS['palm_e'] = _V.palm(); PAL_OF['palm_e'] = _V.PAL_SLOT; ART['palm_e'] = lambda: _CANVAS['palm_e']

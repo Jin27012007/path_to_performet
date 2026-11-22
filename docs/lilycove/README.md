@@ -119,7 +119,7 @@ gerado por `build_city_tileset.py`. Ele mantém os ids de metatile que a cidade 
 (as animações de porta continuam funcionando) e reaproveita o espaço que só servia à
 Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço livre: ver abaixo).
 
-## Hotel Litoral
+## Hotel Cove Lily
 * **Prédio** montado a partir do exemplo do usuário (`hotel_ref.png`): telhado de deck, duas alas
   com janelões e base com friso, torre central de vidro curvo e entrada com porta dupla. Limpeza em
   `hotel_art.py`: transparência binária, 15 cores, contorno escuro uniforme na silhueta, pixels
@@ -129,11 +129,16 @@ Rota 121 e ao Safari. Tiles iguais ou espelhados são reaproveitados (espaço li
   tiles de porta sem animação ligados ao interior do antigo Motel (cada folha volta pela sua).
 * O mapa ganhou 4 linhas ao norte (agora **94×74**) para o prédio caber com a floresta atrás;
   eventos, conexão com a Rota 121, ponto de cura e warps dos scripts foram deslocados.
-* **Lote**: cerca azul de Lilycove (portão no fim da rua norte), piscina grande com deck, pátio
-  de entrada, palmeiras e árvores dos lados e fileira de palmeiras junto à praia.
+* **Lote**: cerca de metal de Lilycove contornando tudo, com os cantos alinhados (a vertical da
+  esquerda usa a peça com o poste à esquerda, a da direita a peça com o poste à direita, sobre as
+  pontas das cercas horizontais); portão no fim da rua norte. Piscina grande com deck, pátio de
+  entrada, palmeirinhas em vaso nos cantos do deck, árvores de sombra, canteiros de flores.
+* **Coqueiros** redesenhados (`veg_art.py`) na paleta das árvores do Emerald (contorno escuro,
+  três verdes, tronco anelado): substituem os antigos em todo o mapa (hotel e praia).
+* **Placa** "HOTEL COVE LILY" (o nome do antigo motel) junto ao pátio.
 * Para caber no limite de 64 objetos por mapa, 3 barcos distantes da baía foram removidos.
 * A **estrada de areia** desce ao lado do lote por uma escada de 3 tiles; placa
-  "Praia de Lilycove / Hotel Litoral (em obras)".
+  "Praia de Lilycove / Hotel Cove Lily".
 
 ## Praia (leste)
 O mapa ganhou 14 colunas a leste (agora 94×70).

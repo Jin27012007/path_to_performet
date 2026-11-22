@@ -352,13 +352,16 @@ fill(44, 11, 71, 13, GRASS)                                  # the north street 
 trail(41, 13, 44, 18, 't')
 put(41, 18, T(0x0af)); put(42, 18, T(0x0cf)); put(43, 18, T(0x0cf))   # 3-wide stair down the cliff
 
-# --- HOTEL: fenced lot with the hotel building (sprite chunks, see hotel_art.py), a big pool, palms and trees
-HX0, HX1 = 45, 71                                             # lot x 45..70, rows -6..17
-fill(45, -6, 71, 2, GRASS); trees(45, -12, 71, -6, grass_above=False)  # forest behind the hotel
-for y in range(-6, 2): put(71, y, T(0x075, 1, 0))             # cliff on the east side, up to the new top
-for y in range(-6, 18):
-    if y not in (11, 12): put(HX0, y, T(0x25a, 1, 0))         # west fence, gate at rows 11..12
-fence(HX0, HX1, 17)                                           # south fence (above the cliff)
+# --- HOTEL COVE LILY: fenced lot with the hotel building (sprite chunks, see hotel_art.py), a big pool,
+# palms, trees, planters and flowers
+HX0, HX1 = 45, 71                                             # lot x 45..70, rows -7..17 (fence included)
+fill(45, -7, 71, 2, GRASS); trees(45, -12, 71, -7, grass_above=False)  # forest behind the hotel
+for y in range(-7, 2): put(71, y, T(0x075, 1, 0))             # cliff on the east side, up to the new top
+# metal fence all around the lot; the vertical runs sit exactly on the end posts of the horizontal ones
+fence(HX0, HX1, -7); fence(HX0, HX1, 17)                      # top and bottom (end posts at x 45 and x 70)
+for y in range(-6, 17):
+    if y not in (11, 12): put(HX0, y, T(0x258, 1, 0))         # west side (post on the left), gate at rows 11..12
+    put(HX1 - 1, y, T(0x25a, 1, 0))                           # east side (post on the right)
 paving(44, 11, 48, 13)                                        # entrance through the gate
 paving(49, 6, 65, 7); paving(48, 7, 69, 14)                   # hotel forecourt + pool deck
 art('hotel_pool', 50, 8, bottom='paving')                     # 16x5 pool
@@ -367,10 +370,17 @@ HOTEL_X, HOTEL_Y = 50, -6                                     # 14x12 building, 
 decor('hotel', HOTEL_X, HOTEL_Y, walk_rows=1)
 HOTEL_DOORS = [(HOTEL_X + _port_art.HOTEL_DOOR_COL - 1, 5), (HOTEL_X + _port_art.HOTEL_DOOR_COL, 5)]
 for (dx_, dy_) in HOTEL_DOORS: put(dx_, dy_, ('ART', ('nadoor', 0, 0, None, 'paving'), 0, 3))   # walk in -> warp
+# vegetation: palm rows, shade trees, kerbed flowerbeds and potted palms on the pool deck
 for (px_, py_) in ((49, 14), (53, 14), (57, 14), (61, 14), (65, 14)): palm(px_, py_, 'grass')   # palm row by the beach
-for (px_, py_) in ((46, -5), (46, -1), (46, 3), (66, -5), (68, -1), (66, 2), (69, 8)): palm(px_, py_, 'grass')
-for (tx_, ty_) in ((48, -4), (48, 1), (64, -2), (68, 3), (46, 14)): tree1(tx_, ty_)
-for (fx_, fy_) in ((47, 9), (47, 10), (69, 12), (69, 13), (48, 15), (68, 15), (48, 5), (64, 5)): put(fx_, fy_, FLOWERS)
+for (px_, py_) in ((46, -6), (46, -2), (46, 2), (67, -6), (67, -2), (67, 2)): palm(px_, py_, 'grass')   # palms flanking the hotel
+for (tx_, ty_) in ((48, -5), (48, -1), (64, -5), (64, -1), (46, 7)): tree1(tx_, ty_)
+fill(71, -12, 72, -7, DEEP)                                   # sea next to the forest (NE corner)
+for (fx0, fy0) in ((46, 14), (68, 14)): flowerbed(fx0, fy0, 2, 3) if False else None
+for (px_, py_) in ((48, 7), (68, 7), (48, 12), (68, 12)): art('potted_palm', px_, py_, bottom='paving', walk_rows=1)
+flowerfield(46, 10, 48, 11, seed=21); flowerfield(68, 10, 70, 11, seed=22)
+flowerfield(46, 13, 49, 14, seed=23); flowerfield(66, 13, 70, 14, seed=24) if False else None
+for (fx_, fy_) in ((48, 5), (64, 5), (49, 4), (63, 4), (46, 16), (69, 16), (51, 16), (55, 16), (59, 16), (63, 16)): put(fx_, fy_, FLOWERS)
+sign(48, 6)                                                   # HOTEL COVE LILY sign by the forecourt
 
 # --- beach dressing: palms and small festival umbrellas (tileset), umbrella+chair sets (sprites)
 for (px_, py_) in ((45, 20), (50, 19), (59, 20), (46, 31), (55, 28), (65, 20), (62, 27)): palm(px_, py_, 'sand')

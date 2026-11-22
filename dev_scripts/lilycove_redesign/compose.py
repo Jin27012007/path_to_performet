@@ -81,7 +81,7 @@ def fobj(name,x,y,w,h,walk_rows=1):
             m=F['%s_%d_%d'%(name,i,j)]
             put(x+i,y+j,T(m,0,3) if j<walk_rows else T(m,1,0))
 def umbrella(x,y,blue=False): fobj('umbrella_sand',x,y,2,2)
-def palm(x,y,under='sand'): fobj('palm_'+under,x,y,2,3)
+def palm(x,y,under='sand'): art('palm_e',x,y,bottom=under,walk_rows=1)   # Emerald-palette coconut palm (veg_art.py)
 def banner(x,y,under='brick',blue=False): fobj('banner_%s'%under,x,y,1,2)
 def brickfill(x0,y0,x1,y1): fill(x0,y0,x1,y1,T(F['brick']))
 def carpet(x,y0,y1):

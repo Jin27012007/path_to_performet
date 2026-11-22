@@ -707,9 +707,9 @@ LilycoveCity_Text_ContestHallSign:
 	.string "“The gathering place for TRAINERS!”$"
 
 LilycoveCity_Text_MotelSign:
-	.string "COVE LILY MOTEL\p"
-	.string "“Remember us as COVE LILY of\n"
-	.string "LILYCOVE.”$"
+	.string "HOTEL COVE LILY\p"
+	.string "“Lembre-se de nós: COVE LILY,\n"
+	.string "de LILYCOVE.”$"
 
 LilycoveCity_Text_MuseumSign:
 	.string "LILYCOVE MUSEUM\p"
@@ -1161,4 +1161,4 @@ LilycoveCity_EventScript_BeachSign::
 
 LilycoveCity_Text_BeachSign:
 	.string "{DOWN_ARROW} PRAIA DE LILYCOVE\n"
-	.string "{RIGHT_ARROW} HOTEL LITORAL (em obras)$"
+	.string "{RIGHT_ARROW} HOTEL COVE LILY$"
