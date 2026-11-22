@@ -6,7 +6,7 @@ OW=80
 def o(x,y): return struct.unpack_from('<H',ORIG,(y*OW+x)*2)[0]
 OX=16            # the map was widened 16 columns to the west; layout coords are logical (x may be negative)
 OY=8             # ...and 8 rows to the north (y may be negative)
-W,H=88,70
+W,H=94,70
 M=[[0]*W for _ in range(H)]
 def T(i,col=0,el=3): return i|(col<<10)|(el<<12)
 GRASS=T(0x001); GRASS2=T(0x002); FLOWERS=T(0x004); 

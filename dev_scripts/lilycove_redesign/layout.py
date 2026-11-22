@@ -297,13 +297,15 @@ for _y in range(0,40):                       # collision/elevation exactly as in
     for _x in range(40,80):
         _v=o(_x,_y)
         SHORE_VAL.setdefault(_v&0x3ff,_v)
-BX0, BX1, BY0, BY1 = 41, 72, 19, 40          # beach box (vertices); the boardwalk starts at row 40
+# clear the old Dept. Store and the motel: the plateau north of the beach is free for the hotel
+fill(39, 2, 78, 11, GRASS); fill(41, 13, 78, 19, GRASS)
+BX0, BX1, BY0, BY1 = 40, 78, 19, 40          # beach box (vertices); the boardwalk starts at row 40
 def south(vx):                               # sand reaches this vertex row: a gentle, mostly horizontal shore
     if vx <= 44: return 40
     if vx <= 51: return 34 + 6 * (1 + math.cos(math.pi * (vx - 44) / 7)) / 2
     return 34 + 0.9 * math.sin(vx * 0.45) + 0.4 * math.sin(vx * 1.3)
 def east(vy):                                # sand reaches this vertex column: rounded east end
-    e = 62 + 0.8 * math.sin(vy * 0.5)
+    e = 68 + 0.8 * math.sin(vy * 0.5)
     if vy > 27: e -= ((vy - 27) / 7.0) ** 2 * 5
     return e
 def is_sand(vx, vy):
@@ -318,33 +320,42 @@ def dist_to_sand(vx, vy):
 def terrain(vx, vy):
     if sand_v.get((vx, vy)): return 'S'
     return 'W' if dist_to_sand(vx, vy) <= 3.1 else 'D'
+TER = {(vx, vy): terrain(vx, vy) for vx in range(BX0, BX1 + 1) for vy in range(BY0, BY1 + 1)}
+for _ in range(40):                          # no Emerald piece for some corner mixes: widen the shallow band there
+    changed = False
+    for y in range(BY0, BY1):
+        for x in range(BX0 + 1, BX1):
+            cs = [(x, y), (x + 1, y), (x, y + 1), (x + 1, y + 1)]
+            if ''.join(TER[c] for c in cs) not in SHORE:
+                for c in cs:
+                    if TER[c] == 'D': TER[c] = 'W'; changed = True
+    if not changed: break
+terrain = lambda vx, vy: TER[(vx, vy)]
 missing = set()
 for y in range(BY0, BY1):
     for x in range(BX0 + 1, BX1):
         k = terrain(x, y) + terrain(x + 1, y) + terrain(x, y + 1) + terrain(x + 1, y + 1)
         if k not in SHORE:
-            missing.add(k); k = 'WWWW' if 'S' not in k else ('SSSS' if k.count('S') >= 2 else 'WWWW')
+            missing.add((k, x, y)); k = 'WWWW' if 'S' not in k else ('SSSS' if k.count('S') >= 2 else 'WWWW')
         mt = SHORE[k]; put(x, y, SHORE_VAL.get(mt, T(mt)))
 if missing: print('beach: combos without a piece:', sorted(missing))
-for y in range(BY0, BY1):                     # soft grass edge on the west side of the sand
-    if (M[y + OY][42 + OX] & 0x3ff) == 0x124: put(42, y, T(0x120))
-for x in range(42, 46): put(x, BY0, T(0x119))
-put(42, BY0, T(0x118))
+# (sand runs straight into the plaza paving: no grass strip in between)
 
 # --- hotel plateau to the north (future hotel): grass, cliff edge to the beach, forest behind
-fill(51, 2, 65, 18, GRASS); trees(52, -8, 66, 2, grass_above=False)
-for y in range(2, 19): put(65, y, T(0x075, 1, 0))
-for x in range(46, 65): put(x, 18, T(0x079, 1, 0))
-fill(66, -8, 72, 19, DEEP)
+trees(52, -8, 72, 2, grass_above=False)
+for y in range(2, 19): put(71, y, T(0x075, 1, 0))
+for x in range(41, 71): put(x, 18, T(0x079, 1, 0))
+fill(72, -8, 78, 19, DEEP)
 # --- sand road: from the end of the north street across the plateau and down to the beach
+fill(51, 11, 71, 13, GRASS)
 trail(51, 11, 58, 13, 'l')                    # along the north street line
 trail(56, 13, 58, 18, 't')                    # turning south (soft edges on both sides)
 stairs3(55, 18, 19) if False else None
 put(56, 18, T(0x0af)); put(57, 18, T(0x0cf))  # stairs down the cliff to the sand
 
 # --- beach dressing: palms and small festival umbrellas (tileset), umbrella+chair sets (sprites)
-for (px_, py_) in ((44, 20), (50, 19), (59, 20), (46, 31), (55, 28)): palm(px_, py_, 'sand')
-for (ux, uy) in ((43, 26), (61, 25)): umbrella(ux, uy)
+for (px_, py_) in ((44, 20), (50, 19), (59, 20), (46, 31), (55, 28), (65, 20), (62, 27)): palm(px_, py_, 'sand')
+for (ux, uy) in ((42, 26), (61, 24), (67, 23)): umbrella(ux, uy)
 decor('beach_set_red', 47, 22, walk_rows=1); decor('beach_set_blue', 53, 24, walk_rows=1)
 decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, walk_rows=1)
-decor('beach_set_blue', 43, 35, walk_rows=1)
+decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, walk_rows=1)

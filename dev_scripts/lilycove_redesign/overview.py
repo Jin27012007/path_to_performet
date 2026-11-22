@@ -44,7 +44,7 @@ def build(out, labels=False):
 LABELS = [(-12, -1, 'Museu'), (-14, 3, 'Casa Neves'), (-1, 1, 'Casas do L'), (-16, 10, 'Rota 121 ←'), (-15, 12, 'Ed. Lilás'),
           (-15, 19, 'Casa Ventura'), (-15, 27, 'Brisa do Mar'), (-15, 34, 'Res. Coral'), (1, 13, 'SHOPPING'), (-1, 23, 'Bicicletário'),
           (0, 28, 'Café Litoral'), (24, 12, 'Centro de Concursos'), (22, 29, 'Praça das Fontes'), (41, 12, 'Motel'),
-          (17, 1, 'Bairro 2'), (40, 0, 'Loja antiga'), (55, 6, 'Hotel (futuro)'), (50, 33, 'PRAIA'), (20, 42, 'Calçadão / Mercado'),
+          (17, 1, 'Bairro 2'), (55, 6, 'Hotel (futuro)'), (50, 33, 'PRAIA'), (20, 42, 'Calçadão / Mercado'),
           (20, 60, 'Cruzeiro'), (3, 55, 'Píer dos pescadores')]
 
 if __name__ == '__main__':
