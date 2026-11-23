@@ -395,6 +395,13 @@ import hall3_art as _H3
 for (_n, (_x0, _x1, _y0, _y1), _up, _sp) in _H3.GROUPS:
     _top = 11 + _y0 // 16
     decor(_n, 14 + _x0 // 16, _top, walk_rows=max(0, 13 - _top), anchor_up=_up)
+import port_art as _pa3                                      # row 21: walkable where only the wall's foot line shows
+_hb_c = _pa3._CANVAS['hall_body']
+for x in range(14, 41):
+    if 25 <= x <= 29: continue                                # portico
+    cells = [_hb_c[yy][(x - 14) * 16 + xx] for yy in range(130, 144) for xx in range(16)]
+    if not any(cells):
+        v = M[21 + OY][x + OX]; M[21 + OY][x + OX] = (v[0], v[1], 0, 3) if isinstance(v, tuple) else v
 for x in (26, 27, 28):                                       # the glass double door (walk in -> lobby)
     put(x, 21, ('ART', ('nadoor', 0, 0, None, 'carpet'), 0, 3))
     for y in (22, 23): put(x, y, T(F['carpet']))             # red carpet from the door to the plaza bricks

@@ -64,7 +64,6 @@ def model():
     for (tx, ty, r, h, dr, dz) in ((40, 300, 32, 96, 30, 36), (120, 196, 20, 100, 18, 20)):
         P += [Cyl('tower', tx, ty, r, 0, h), Cyl('tcor', tx, ty, r + 3, h - 8, h + 2), Ell('tdome', tx, ty, h + 2, dr, dz)]
     # front step / plinth
-    P += [box('plinth', 0, CX, 300, 346, 0, 4)]
     P += [Ell('bigdome', CX, 268, 100, 52, 36)]
     out = []
     for p in P:           # mirror to the right half
