@@ -354,31 +354,39 @@ _CANVAS['sign_paving'], TILEPAL['sign_paving'] = _sign_paving(); PAL_OF['sign_pa
 ART['sign_paving'] = lambda: _CANVAS['sign_paving']
 
 
-# ---- fruit stall for district 2 (palette 6 indices): striped awning, wooden counter, fruit ----
+# ---- fruit stall for district 2 (palette 6 indices), Emerald 3/4 view: striped awning seen from above
+# with its front valance, posts, a counter whose top shows baskets of fruit, the counter's front ----
 def _stall():
     W_, H_ = 48, 32
     c = [[0] * W_ for _ in range(H_)]
-    NAVY, WHITE, CREAM, YEL, ORA, RED, DRED, SKY, GRN, DGRN, TAN, BRN = 10, 1, 2, 3, 4, 5, 6, 8, 12, 13, 14, 15
-    for y in range(2, 12):                                    # awning: red / white stripes, scalloped
-        for x in range(1, 47):
-            c[y][x] = RED if ((x - 1) // 4) % 2 == 0 else WHITE
-            if y == 2: c[y][x] = DRED if c[y][x] == RED else CREAM
-    for x in range(1, 47):
+    NAVY, WHITE, CREAM, YEL, ORA, RED, DRED, GRN, DGRN, TAN, BRN = 10, 1, 2, 3, 4, 5, 6, 12, 13, 14, 15
+    for y in range(1, 10):                                    # awning top, receding: narrower at the back
+        inset = (9 - y) // 3
+        for x in range(2 + inset, 46 - inset):
+            u = (x - 24) * 22 / (22 - inset)                  # stripes converge slightly towards the back
+            red = (int((u + 24) // 4)) % 2 == 0
+            c[y][x] = (RED if red else WHITE) if y > 2 else (DRED if red else CREAM)
+    for x in range(1, 47):                                    # front valance (scalloped), in shade
+        red = ((x - 1) // 4) % 2 == 0
         u = (x - 1) % 8
-        for y in range(12, 12 + (2 if 1 <= u <= 6 else 1)): c[y][x] = RED if ((x - 1) // 4) % 2 == 0 else WHITE
-    for x in (4, 5, 42, 43):                                  # posts
-        for y in range(12, 31): c[y][x] = BRN if x in (5, 43) else TAN
-    for y in range(20, 31):                                   # counter
-        for x in range(2, 46):
-            c[y][x] = TAN if (y - 20) % 4 else BRN
-    for x in range(2, 46): c[19][x] = CREAM; c[20][x] = BRN
-    fruit = [(9, ORA), (13, ORA), (17, YEL), (21, YEL), (27, RED), (31, RED), (35, GRN), (39, GRN)]
-    for (fx, col) in fruit:                                   # piles of fruit on the counter
-        for (dx, dy) in ((0, 0), (1, 0), (2, 0), (0, -1), (1, -1), (2, -1), (1, -2)):
-            c[17 + dy][fx + dx] = col
-        c[16][fx + 1] = WHITE if col != YEL else CREAM
-    for x in range(8, 41, 8):                                 # little price tags
-        c[22][x] = WHITE; c[22][x + 1] = WHITE
+        for y in range(10, 13 + (1 if 1 <= u <= 6 else 0)):
+            c[y][x] = (DRED if red else CREAM) if y == 10 else (RED if red else WHITE)
+    for x in (4, 5, 42, 43):                                  # front posts
+        for y in range(13, 23): c[y][x] = BRN if x in (5, 43) else TAN
+    for y in range(16, 23):                                   # counter top, seen from above
+        for x in range(2, 46): c[y][x] = CREAM if y < 18 else TAN
+    for x in range(2, 46): c[22][x] = BRN
+    baskets = [(8, ORA), (16, YEL), (24, RED), (32, GRN), (40, ORA)]
+    for (bx, col) in baskets:                                 # round baskets of fruit on the counter
+        for y in range(16, 22):
+            for x in range(bx - 3, bx + 3):
+                d = (x + 0.5 - bx) ** 2 + ((y - 18.5) * 1.4) ** 2
+                if d <= 9: c[y][x] = col
+                elif d <= 13: c[y][x] = BRN
+        c[17][bx - 1] = WHITE if col not in (YEL,) else CREAM
+    for y in range(23, 31):                                   # counter front: planks
+        for x in range(2, 46): c[y][x] = TAN if (y - 23) % 3 else BRN
+    for x in range(8, 41, 8): c[25][x] = WHITE; c[25][x + 1] = WHITE   # price tags
     snap = [r[:] for r in c]                                  # navy outline
     for y in range(H_):
         for x in range(W_):
@@ -386,3 +394,13 @@ def _stall():
                 c[y][x] = NAVY
     return c
 _CANVAS['stall'] = _stall(); PAL_OF['stall'] = 6; ART['stall'] = lambda: _CANVAS['stall']
+
+# ---- palette 7: its free indices become the dark-brown roof of district 2's houses (palette swap of the
+# Hoenn house roof); only 0, 3 and 7 are used by other art in this slot ----
+def _read_pal(path):
+    lines = open(path).read().split()
+    return [tuple(int(v) for v in lines[3 + 3 * i:6 + 3 * i]) for i in range(16)]
+_p7 = _read_pal(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data/tilesets/secondary/lilycove/palettes/07.pal'))
+_p7[11], _p7[12], _p7[13], _p7[14] = (176, 120, 80), (152, 96, 64), (128, 80, 56), (104, 64, 48)   # roof browns
+_p7[6], _p7[5] = (80, 48, 40), (144, 120, 104)          # scale lines (a shade darker), ridge edge
+PALETTES[7] = _p7

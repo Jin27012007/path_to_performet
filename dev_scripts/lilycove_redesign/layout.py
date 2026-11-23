@@ -399,7 +399,7 @@ def hoenn_house(x, y, slot):
     for j, row in enumerate(HOUSE_MT):
         for i, m in enumerate(row):
             door = (i, j) == (2, 3)
-            if slot != 1 and j < 3 and (i, j) != (2, 2):
+            if slot != 1 and j < 3:
                 put(x + i, y + j, ('ART', ('remap:%03x:%d' % (m, slot), 0, 0, None, 'water'), 1, 0))
             else:
                 put(x + i, y + j, T(m, 0, 3) if door else T(m, 1, 0))
@@ -413,13 +413,13 @@ b2_sand(30, -4, 32, 11)                                       # vertical street,
 b2_sand(26, -4, 36, -2)                                       # the square in front of the stall
 b2_sand(20, 3, 37, 4); b2_sand(20, 1, 21, 3)                  # upper path (and a spur to the north-west house)
 b2_sand(19, 9, 37, 10); b2_sand(19, 8, 20, 9)                 # lower path (and a spur to the west house)
-DISTRICT2 = [  # (x, y, roof palette, interior) -- door at (x+2, y+3)
-    (23, 5, 0, 'HOUSE4'),                                     # the protagonist's house (blue roof), by the gate
-    (17, 4, 1, 'HOUSE1'),
-    (24, -1, 8, 'HOUSE2'),
-    (18, -3, 10, None),
-    (33, 5, 9, 'MOVE_DELETERS_HOUSE'),
-    (34, -1, 5, 'POKEMON_TRAINER_FAN_CLUB'),
+DISTRICT2 = [  # (x, y, roof palette, interior) -- door at (x+2, y+3); palette 7 = dark-brown roofs
+    (23, 5, 7, 'HOUSE4'),                                     # the protagonist's house, by the gate
+    (17, 4, 7, 'HOUSE1'),
+    (24, -1, 7, 'HOUSE2'),
+    (18, -3, 7, None),
+    (33, 5, 7, 'MOVE_DELETERS_HOUSE'),
+    (34, -1, 7, 'POKEMON_TRAINER_FAN_CLUB'),
 ]
 for (_x, _y, _s, _w) in DISTRICT2:
     hoenn_house(_x, _y, _s)
