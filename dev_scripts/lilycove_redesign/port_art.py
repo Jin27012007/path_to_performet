@@ -266,7 +266,7 @@ DOOR_KEYS = set()          # art cells that behave as non-animated doors (filled
 # sprites draw on top); sprites: the striped dome on its drum, the entrance portico, the tower domes.
 _hb, HALL_SPRITES = _H3.sprites()
 _dm = HALL_SPRITES['hall_dome'].load()
-for _k, _c in ((_H3.M4, _H3.OUT), (_H3.G1, _H3.CR), (_H3.M1, _H3.M0)):     # dome palette: 15 colours
+for _k, _c in ((_H3.M4, _H3.OUT), (_H3.G1, _H3.CR), (_H3.M1, _H3.M0), (_H3.M3, _H3.M2)):     # dome palette: 15 colours
     for _y in range(HALL_SPRITES['hall_dome'].height):
         for _x in range(HALL_SPRITES['hall_dome'].width):
             if _dm[_x, _y][3] and _dm[_x, _y][:3] == _k: _dm[_x, _y] = _c + (255,)
@@ -280,7 +280,7 @@ _CANVAS['hall_top'], TILEPAL['hall_top'] = _hc[:32], _hg[:4]
 _CANVAS['hall_body'], TILEPAL['hall_body'] = _hc[32:], _hg[4:]
 for _n in ('hall_top', 'hall_body'): PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
 COVERED_ART = {'hall_body'}
-_TD = ('hall_tdi_l', 'hall_tdi_r', 'hall_tdo_l', 'hall_tdo_r')
+_TD = ('hall_tdb_l', 'hall_tdb_r', 'hall_tdo_l', 'hall_tdo_r')
 for _pk, _names in (('hall_dome', ('hall_dome',)), ('hall_porch', ('hall_porch',)), ('hall_tdome', _TD)):
     _p, _cvs = A.to_palette([HALL_SPRITES[n] for n in _names])
     OBJ_PALETTES[_pk] = _p

@@ -46,22 +46,24 @@ def gable(name, x0, x1, y0, y1, z0, slope):
 
 def model():
     P = []
-    # main wings: marble block, cornice, hipped slate roof (eaves overhang the walls)
-    P += [box('wall', 64, CX, 216, 320, 0, 48),
-          box('cornice', 60, CX, 212, 324, 44, 52),
-          hip('roof', 56, 2 * CX - 56, 208, 328, 52, 60, 0.5)]
-    # rotunda: drum standing on the building (the striped dome sits on it, see big_top)
-    P += [Cyl('drum', CX, 262, 58, 0, 84), Cyl('dcor', CX, 262, 61, 80, 86)]
-    # entrance portico: block, cornice, gable roof with a pediment
-    P += [box('porch', 180, CX, 312, 336, 0, 66),
-          box('porch_cor', 177, CX, 310, 340, 62, 70),
-          gable('porch_roof', 177, 2 * CX - 177, 310, 340, 70, 0.5)]
-    # towers: outer (corner, tall) and inner (flanking the portico)
-    for (tx, ty, r, h, dr, dz) in ((40, 300, 32, 96, 30, 36), (152, 318, 20, 76, 18, 24)):
+    # main wings: marble block, cornice, hipped slate roof (deep, so the roof climbs up the screen)
+    P += [box('wall', 64, CX, 176, 320, 0, 48),
+          box('cornice', 60, CX, 172, 324, 44, 52),
+          hip('roof', 56, 2 * CX - 56, 168, 328, 52, 60, 0.5)]
+    # rotunda: a drum rising from the roof (the striped dome sits on it)
+    P += [Cyl('drum', CX, 268, 52, 50, 98), Cyl('dcor', CX, 268, 55, 94, 100)]
+    # entrance portico (open): door wall recessed behind two columns, entablature, gable + pediment, floor
+    P += [box('porch_back', 176, CX, 316, 322, 0, 58),
+          Cyl('porch_col', 185, 334, 4.5, 4, 58),
+          box('porch_cor', 177, CX, 314, 340, 58, 66),
+          gable('porch_roof', 177, 2 * CX - 177, 314, 340, 66, 0.5),
+          box('porch_floor', 174, CX, 320, 344, 0, 4)]
+    # towers: two at the front corners (tall), two at the back rising out of the roof
+    for (tx, ty, r, h, dr, dz) in ((40, 300, 32, 96, 30, 36), (120, 196, 20, 100, 18, 20)):
         P += [Cyl('tower', tx, ty, r, 0, h), Cyl('tcor', tx, ty, r + 3, h - 6, h + 2), Ell('tdome', tx, ty, h + 2, dr, dz)]
     # front step / plinth
     P += [box('plinth', 0, CX, 300, 346, 0, 4)]
-    P += [Ell('bigdome', CX, 262, 86, 58, 42)]
+    P += [Ell('bigdome', CX, 268, 100, 52, 36)]
     out = []
     for p in P:           # mirror to the right half
         out.append(p)
@@ -151,7 +153,7 @@ def finish(prims, R, only=None, skip=()):
     def setc(mask, c): img[mask] = c + (255,)
     front = N[..., 1] > 0.95; top = N[..., 2] > 0.95
     # marble walls (ashlar on the front faces, courses every 8 px of height)
-    for nm in ('wall', 'porch', 'plinth'):
+    for nm in ('wall', 'porch_back', 'porch_floor', 'plinth'):
         m = names == nm
         setc(m, M1)
         setc(m & top, M0)
@@ -179,7 +181,7 @@ def finish(prims, R, only=None, skip=()):
         setc(m & frontish & ((sy % 4) == 0), R1)
         setc(m & top, R1)
     # cylinders: tower bodies and the drum, shaded by the normal in vertical bands
-    for nm in ('tower', 'drum'):
+    for nm in ('tower', 'drum', 'porch_col'):
         m = names == nm
         tone = np.select([lum > 0.4, lum > 0.3, lum > 0.15], [1, 2, 3], 4)
         ramp = np.array([M0, M0, M1, M2, M3])
@@ -242,7 +244,7 @@ def details(img, prims, R, names):
         setc(m, OUT); setc(inner, GL2); setc(inner & (Z > z0 + (z1 - z0) * 0.55), GL1); setc(inner & (Z < z0 + (z1 - z0) * 0.25), GL3)
         setc(face & (np.abs(X - xc) <= hw + 2) & (np.abs(Z - (z0 - 1)) < 1), M0)    # sill
     wing = (names == 'wall') & (R['N'][..., 1] > 0.95)
-    for xc in (2 * CX - 80, 2 * CX - 120, 80, 120): window(wing, xc, 10, 36, 6)
+    for xc in (96, 128, 160): window(wing, xc, 10, 36, 6); window(wing, 2 * CX - xc, 10, 36, 6)
     for xc in (CX - 46, CX + 46): window(names == 'drum', xc, 0, 0, 0) if False else None
     # tower windows (front of the cylinders)
     for p in prims:
@@ -260,30 +262,34 @@ def details(img, prims, R, names):
         win = m & (np.abs(ph - math.pi / 10 + 0.0) < 0.07) & (Z > 66) & (Z < 77)
         win |= m & (np.abs(ph + math.pi / 10) < 0.07) & (Z > 66) & (Z < 77)
         setc(win, OUT)
-    # portico: columns, doors, drapes, pediment emblem
-    porch = (names == 'porch') & (R['N'][..., 1] > 0.95)
-    for xc in (185, 2 * CX - 185):
-        col = porch & (np.abs(X - xc + 0.5) <= 4)
-        setc(col, M0); setc(col & (np.abs(X - xc + 0.5) > 2.5), M2); setc(col & (Z > 56), M0)
-    door = porch & (np.abs(X - CX) <= 22) & (Z <= 40)
-    setc(door, OUT); dg = door & (np.abs(X - CX) <= 20) & (Z <= 38)
-    setc(dg, GL3); setc(dg & (Z > 26), GL1); setc(dg & (np.abs(X - CX) < 1), OUT); setc(dg & (np.abs(Z - 24) < 1), M0)
-    setc(porch & (np.abs(X - CX) <= 24) & (Z > 40) & (Z <= 43), G2)
-    for sgn in (-1, 1):                                                         # red drapes and blue swag
+    # portico: recessed door wall in the shade of the entablature, glass doors, drapes, carpet, pediment
+    back = (names == 'porch_back') & (R['N'][..., 1] > 0.95)
+    setc(back & (Z > 50), M2)
+    door = back & (np.abs(X - CX) <= 18) & (Z <= 40)
+    setc(door, OUT); dg = door & (np.abs(X - CX) <= 16) & (Z <= 38)
+    setc(dg, GL3); setc(dg & (Z > 26), GL1); setc(dg & (np.abs(X - CX) < 1), OUT); setc(dg & (np.abs(Z - 22) < 1), M0)
+    setc(back & (np.abs(X - CX) <= 20) & (Z > 40) & (Z <= 43), G2)
+    for sgn in (-1, 1):                                                         # red drapes, tied back
         dx = sgn * (X - CX)
-        dr = porch & (dx >= 20) & (dx <= 26) & (Z <= 54) & (Z >= 8 + (dx - 20) * 3)
-        setc(dr, RE); setc(dr & (((Xi := np.floor(X).astype(int)) % 3) == 0), DR)
-    sw = porch & (np.abs(X - CX) <= 26) & (Z >= 47 + 5 * np.cos((X - CX) / 27 * math.pi / 1.0) * 0) & (np.abs(Z - (50 - 5 * np.sin(np.abs(X - CX) / 27 * math.pi))) < 1.6)
-    setc(sw, BL)
+        dr = back & (dx >= 19) & (dx <= 26) & (Z <= 50) & (Z >= 6 + np.maximum(0, 26 - dx) * 2.5)
+        setc(dr, RE); setc(dr & ((np.floor(X).astype(int) % 3) == 0), DR)
+        setc(back & (dx >= 19) & (dx <= 26) & (np.abs(Z - 50) < 1.5), DR)
+    flo = (names == 'porch_floor') & (R['N'][..., 2] > 0.95)
+    setc(flo & (np.abs(X - CX) <= 12), RE); setc(flo & (np.abs(np.abs(X - CX) - 10) < 1), YE)
+    setc((names == 'porch_floor') & (R['N'][..., 1] > 0.95) & (np.abs(X - CX) <= 12), DR)
     ped = (names == 'porch_roof') & (R['N'][..., 1] > 0.95)
-    setc(ped, M0); setc(ped & (Z < 72), M2)
-    em = ped & ((X - CX) ** 2 + (Z - 80) ** 2 <= 49)
-    setc(em, RE); setc(em & (Z < 80), M0); setc(em & (np.abs(Z - 80) < 1), OUT)
-    setc(em & ((X - CX) ** 2 + (Z - 80) ** 2 <= 4), M0); setc(em & (np.abs((X - CX) ** 2 + (Z - 80) ** 2 - 6) < 2.5), OUT)
+    setc(ped, M0); setc(ped & (Z < 68), M2)
+    setc(ped & ((X - CX) ** 2 + (Z - 75) ** 2 <= 42), OUT)
+    em = ped & ((X - CX) ** 2 + (Z - 75) ** 2 <= 30)
+    setc(em, RE); setc(em & (Z < 75), M0); setc(em & (np.abs(Z - 75) < 0.8), OUT)
+    setc(em & ((X - CX) ** 2 + (Z - 75) ** 2 <= 3), M0)
+    proof = (names == 'porch_roof') & (R['N'][..., 1] <= 0.95)                  # plain slate, no shingles
+    setc(proof, R2); setc(proof & (R['N'][..., 0] > 0), R3)
     # banners on the wings, next to the inner towers
-    for (xc, c) in ((100, RE), (2 * CX - 100, BL)):
-        b = wing & (np.abs(X - xc + 0.5) <= 3.5) & (Z >= 14) & (Z <= 44)
-        setc(b, c); setc(b & (Z > 41), YE); setc(b & (np.abs(X - xc + 0.5) < 1.5) & (np.abs(Z - 34) < 2), YE)
+    for (x0, c) in ((104, RE), (136, RE), (2 * CX - 112, BL), (2 * CX - 144, BL)):   # one 8 px tile wide
+        b = wing & (X >= x0) & (X < x0 + 8) & (Z > 16) & (Z <= 40)
+        setc(b, c); setc(b & (Z > 37), YE); setc(b & (X >= x0 + 3) & (X < x0 + 5) & (np.abs(Z - 30) < 2), YE)
+        setc(b & (Z <= 18) & ((np.floor(X).astype(int) % 2) == 1), YE)
     return img
 
 def proj(x, y, z): return int(round(x)), int(round(K * y - z))
@@ -300,6 +306,7 @@ def ornaments(img, prims, h0):
         for y in range(ay - 5, ay + 1): put(ax - 1, y, G2); put(ax, y, G2)
         for y in range(ay - 8, ay - 5):
             for x in range(ax - 2, ax + 2): put(x, y, G1)
+        if q.cy < 250: continue                       # back towers: finial only (no room above for a flag)
         for y in range(ay - 18, ay - 8): put(ax, y, M4)
         flip = 1 if q.cx < CX else -1
         for y in range(ay - 18, ay - 12):
@@ -325,7 +332,7 @@ def big_top_details(img, prims, h0):
     for y in range(ay - 5, ay + 3):                     # gold cap
         hw = 7 + (y - ay + 5)
         for x in range(cx - hw, cx + hw): put(x, y, G1 if y < ay - 2 else (G2 if y < ay + 1 else G3))
-    top = ay - 27
+    top = ay - 25
     for y in range(top, top + 16):                      # cup
         half = 8 if y < top + 5 else 8 - (y - top - 5) * 0.45
         for x in range(int(cx - half), int(cx + half)): put(x, y, G1 if x < cx - 2 else G2)
@@ -360,7 +367,7 @@ def big_top_details(img, prims, h0):
     return img
 
 # ---------------- final split: background art + sprites ----------------
-SPRITE_PARTS = {'bigdome', 'drum', 'dcor', 'tdome', 'porch', 'porch_cor', 'porch_roof'}
+SPRITE_PARTS = {'bigdome', 'drum', 'dcor', 'tdome', 'porch_back', 'porch_col', 'porch_cor', 'porch_roof', 'porch_floor'}
 def build():
     """returns (bg RGBA 432x176, full RGBA (rows h0..H), sprite RGBA same size, h0)"""
     P = model(); R = render(P)
@@ -386,10 +393,11 @@ def build():
             blk = b[ty * 8:ty * 8 + 8, tx * 8:tx * 8 + 8]
             ok = ((C == blk[None]).all(-1) | cv[None]).all((1, 2))
             if ok.any(): b[ty * 8:ty * 8 + 8, tx * 8:tx * 8 + 8] = C[np.nonzero(ok)[0][-1]]
+            else: blk[cv] = 0                    # hidden: transparent, so it cannot sway the tile's palette
     return Image.fromarray(b).copy(), full, Image.fromarray(spr).copy(), h0
 
 GROUPS = [  # name, canvas box (x0, x1, y0, y1) on the 16 px grid, anchor_up, column/row split
-    ('hall_tdi_l', (128, 176, 32, 96), 0, None), ('hall_tdi_r', (256, 304, 32, 96), 0, None),
+    ('hall_tdb_l', (96, 144, -32, 48), 0, None), ('hall_tdb_r', (288, 336, -32, 48), 0, None),
     ('hall_tdo_l', (0, 80, -16, 80), 1, None), ('hall_tdo_r', (352, 432, -16, 80), 1, None),
     ('hall_porch', (176, 256, 64, 176), 2, None),
     ('hall_dome', (144, 288, -32, 112), 0, ((5, 4), (5, 4))),
@@ -405,10 +413,10 @@ def sprites():
     def gidx(n): return [g[0] for g in GROUPS].index(n)
     m = a[..., 3] > 0
     gi[m & np.isin(names, ['bigdome', 'drum', 'dcor'])] = gidx('hall_dome')
-    gi[m & np.isin(names, ['porch', 'porch_cor', 'porch_roof'])] = gidx('hall_porch')
+    gi[m & np.isin(names, ['porch_back', 'porch_col', 'porch_cor', 'porch_roof', 'porch_floor'])] = gidx('hall_porch')
     td = m & (names == 'tdome')
-    gi[td & (X < 96)] = gidx('hall_tdo_l'); gi[td & (X >= 96) & (X < CX)] = gidx('hall_tdi_l')
-    gi[td & (X > 2 * CX - 96)] = gidx('hall_tdo_r'); gi[td & (X >= CX) & (X <= 2 * CX - 96)] = gidx('hall_tdi_r')
+    gi[td & (X < 96)] = gidx('hall_tdo_l'); gi[td & (X >= 96) & (X < CX)] = gidx('hall_tdb_l')
+    gi[td & (X > 2 * CX - 96)] = gidx('hall_tdo_r'); gi[td & (X >= CX) & (X <= 2 * CX - 96)] = gidx('hall_tdb_r')
     for _ in range(3):                       # outlines next to a part join it
         un = m & (gi < 0)
         for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):

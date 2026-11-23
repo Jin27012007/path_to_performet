@@ -151,8 +151,8 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome1
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome2;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome3;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallPorch;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdiL;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdiR;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdbL;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdbR;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdoL;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdoR;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHotel0;
@@ -589,8 +589,8 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_LC_HALL_DOME_2] = &gObjectEventGraphicsInfo_LcHallDome2,
     [OBJ_EVENT_GFX_LC_HALL_DOME_3] = &gObjectEventGraphicsInfo_LcHallDome3,
     [OBJ_EVENT_GFX_LC_HALL_PORCH] = &gObjectEventGraphicsInfo_LcHallPorch,
-    [OBJ_EVENT_GFX_LC_HALL_TDI_L] = &gObjectEventGraphicsInfo_LcHallTdiL,
-    [OBJ_EVENT_GFX_LC_HALL_TDI_R] = &gObjectEventGraphicsInfo_LcHallTdiR,
+    [OBJ_EVENT_GFX_LC_HALL_TDB_L] = &gObjectEventGraphicsInfo_LcHallTdbL,
+    [OBJ_EVENT_GFX_LC_HALL_TDB_R] = &gObjectEventGraphicsInfo_LcHallTdbR,
     [OBJ_EVENT_GFX_LC_HALL_TDO_L] = &gObjectEventGraphicsInfo_LcHallTdoL,
     [OBJ_EVENT_GFX_LC_HALL_TDO_R] = &gObjectEventGraphicsInfo_LcHallTdoR,
     [OBJ_EVENT_GFX_LC_HOTEL_0] = &gObjectEventGraphicsInfo_LcHotel0,

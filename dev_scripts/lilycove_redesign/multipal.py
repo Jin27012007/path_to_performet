@@ -15,13 +15,14 @@ def convert(img, slots=(6, 7, 8, 9)):
             cols = [px[tx * 8 + x, ty * 8 + y] for y in range(8) for x in range(8)]
             if not any(c[3] for c in cols): continue
             best = None
-            for s in slots:
-                P = pal(s); err = 0; idx = []
+            for s in slots:                 # most exactly-matched pixels first, then least error
+                P = pal(s); err = 0; exact = 0; idx = []
                 for c in cols:
                     if not c[3]: idx.append(0); continue
                     i = min(range(1, 16), key=lambda k: sum((a - b) ** 2 for a, b in zip(P[k], c[:3])))
-                    err += sum((a - b) ** 2 for a, b in zip(P[i], c[:3])); idx.append(i)
-                if best is None or err < best[0]: best = (err, s, idx)
+                    e = sum((a - b) ** 2 for a, b in zip(P[i], c[:3])); err += e; exact += e == 0; idx.append(i)
+                key = (-exact, err)
+                if best is None or key < best[0]: best = (key, s, idx)
             grid[ty][tx] = best[1]
             for k, i in enumerate(best[2]): canvas[ty * 8 + k // 8][tx * 8 + k % 8] = i
     return canvas, grid
