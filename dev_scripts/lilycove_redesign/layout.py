@@ -380,6 +380,18 @@ flowerfield(46, 10, 48, 11, seed=21); flowerfield(68, 10, 70, 11, seed=22)
 flowerfield(46, 13, 49, 14, seed=23); flowerfield(66, 13, 70, 14, seed=24) if False else None
 for (fx_, fy_) in ((48, 5), (64, 5), (49, 4), (63, 4), (46, 16), (69, 16), (51, 16), (55, 16), (59, 16), (63, 16)): put(fx_, fy_, FLOWERS)
 sign(48, 6)                                                   # HOTEL COVE LILY sign by the forecourt
+# a more natural plateau edge: the south cliff bulges out over the beach in the middle (its rounded
+# neighbours tuck under it), and the empty south lawn gets benches facing the pool and flowers
+CLIFF_S = [(44, 51, 18), (51, 64, 19), (64, 71, 18)]          # (x0, x1, face row): one gentle bulge
+for k, (cx0, cx1, fr) in enumerate(CLIFF_S):
+    for x in range(cx0, cx1):
+        if fr == 19: put(x, 18, GRASS)
+        put(x, fr, T(0x079, 1, 0))
+    if fr == 18 and k + 1 < len(CLIFF_S) and CLIFF_S[k + 1][2] == 19: put(cx1 - 1, 18, T(0x07a, 1, 0))   # step down: rounded end
+    if fr == 18 and k > 0 and CLIFF_S[k - 1][2] == 19: put(cx0, 18, T(0x078, 1, 0))                     # step up: rounded start
+for (fx_, fy_) in ((52, 18), (54, 18), (55, 18), (58, 18), (60, 18), (61, 18), (63, 18)): put(fx_, fy_, FLOWERS)
+for bx_ in (51, 55, 59, 63): art('bench', bx_, 15, bottom='grass')   # benches between the palms, facing the pool
+for (fx_, fy_) in ((47, 15), (47, 16), (68, 15), (68, 16), (53, 16), (61, 16)): put(fx_, fy_, FLOWERS)
 
 # --- beach dressing: palms and small festival umbrellas (tileset), umbrella+chair sets (sprites)
 for (px_, py_) in ((45, 20), (50, 19), (59, 20), (46, 31), (55, 28), (65, 20), (62, 27)): palm(px_, py_, 'sand')
