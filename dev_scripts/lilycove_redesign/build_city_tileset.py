@@ -139,7 +139,9 @@ def build(M, festival_ids):
             parts = name.split(':'); src_m = int(parts[1], 16); roof = int(parts[2])
             wall = int(parts[3]) if len(parts) > 3 else 5           # optional wall palette (palette 5 -> wall)
             rmap = {1: roof, 5: wall}
-            ents = [((v & 0x0fff) | (rmap.get(v >> 12, v >> 12) << 12)) if v else v for v in struct.unpack_from('<8H', _pm, src_m * 16)]
+            WIN = (0x0a6, 0x0b6)                                    # window tiles keep palette 5 (same blue everywhere)
+            ents = [((v & 0x0fff) | (rmap.get(v >> 12, v >> 12) << 12)) if v and not ((v >> 12) == 5 and (v & 0x3ff) in WIN) else v
+                    for v in struct.unpack_from('<8H', _pm, src_m * 16)]
             attr = struct.unpack_from('<H', _pa_, src_m * 2)[0]
             sig = (tuple(ents), attr)
             if sig in meta_by_sig: mid = meta_by_sig[sig]

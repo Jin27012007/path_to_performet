@@ -417,8 +417,8 @@ DISTRICT2 = [  # (x, y, roof palette, wall palette, interior) -- door at (x+2, y
     (23, 5, 7, 5, 'HOUSE4'),                                  # the protagonist's house (orange wood), by the gate
     (17, 4, 7, 3, 'HOUSE1'),                                  # dusty rose
     (24, -1, 7, 8, 'HOUSE2'),                                 # pale yellow
-    (18, -3, 7, 10, None),                                    # weathered beige
-    (33, 5, 7, 9, 'MOVE_DELETERS_HOUSE'),                     # faded green
+    (18, -3, 7, 7, None),                                     # weathered brown wood
+    (33, 5, 7, 1, 'MOVE_DELETERS_HOUSE'),                     # barn red
     (34, -1, 7, 0, 'POKEMON_TRAINER_FAN_CLUB'),               # faded blue
 ]
 for (_x, _y, _s, _wl, _w) in DISTRICT2:
@@ -433,12 +433,16 @@ def _free(x, y):
 for (fx_, fy_) in ((23, -2), (23, -3), (29, 0), (29, 1), (22, 4), (17, 8), (18, 8), (22, 8), (28, 8), (33, 1), (32, 2),
                    (39, 3), (36, 4), (33, 4), (39, 8), (27, -5), (28, -5), (33, -5), (36, -5), (17, -2), (21, -4)):
     if _free(fx_, fy_): put(fx_, fy_, FLOWERS)
+# forests around the quarter, redrawn with their 2-column tree pairs aligned (no half trees)
+trees(0, -12, 16, 0, grass_above=False)                       # west of the quarter, above district 1
+trees(16, -12, 42, -9, grass_above=False)                     # north of the fence
+fill(42, -9, 45, 11, GRASS); trees(42, -12, 44, 2, grass_above=False)   # strip between the fence and the hotel
 # wooden fence around the quarter, gate at x 30..31 on the main street
-for x in range(16, 41):
+for x in range(16, 42):
     art('fence_wood', x, -8, bottom='grass')
     if x not in (30, 31): art('fence_wood', x, 10, bottom='grass')
 for y in range(-7, 10):
-    art('fence_wood_vl', 16, y, bottom='grass'); art('fence_wood_vr', 40, y, bottom='grass')
+    art('fence_wood_vl', 16, y, bottom='grass'); art('fence_wood_vr', 41, y, bottom='grass')
 # sand autotile: a grass edge on each side that touches grass
 for (x, y) in B2:
     def _g(xx, yy):
