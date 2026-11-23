@@ -1,3 +1,4 @@
+import os
 """Port art for Lilycove City, built from Pokémon Emerald's own graphics so it matches
 the game's style:
 
@@ -305,7 +306,7 @@ def _bench():
 _CANVAS['bench'] = _bench(); PAL_OF['bench'] = 3; ART['bench'] = lambda: _CANVAS['bench']
 
 # ---- soft grass fringe over the paving where it meets the grass (top layer, palette 9 greens) ----
-FRINGE_PAT = [2, 4, 5, 6, 6, 5, 4, 2]          # rounded tufts, two per metatile edge; palindromic so flips match
+FRINGE_PAT = [1, 2, 3, 3, 3, 3, 2, 1]          # small rounded tufts, two per metatile edge; palindromic so flips match
 def fringe_canvas(bits):
     """bits: string of the sides with grass among N S W E and the diagonal-only corners a b c d (NW NE SW SE)"""
     c = [[0] * 16 for _ in range(16)]
@@ -315,7 +316,7 @@ def fringe_canvas(bits):
         L = FRINGE_PAT[i % 8]
         Lp = FRINGE_PAT[(i - 1) % 8]; Ln = FRINGE_PAT[(i + 1) % 8]
         for k in range(L):
-            e = k == L - 1 or k >= min(Lp, Ln)          # outline the tuft's bottom and its sides
+            e = k == L - 1                              # dark tip only
             if 'N' in bits: g(i, k, e)
             if 'S' in bits: g(i, 15 - k, e)
             if 'W' in bits: g(k, i, e)
@@ -325,10 +326,29 @@ def fringe_canvas(bits):
             for y in range(16):
                 for x in range(16):
                     d = (x - cx) ** 2 + (y - cy) ** 2
-                    if d < 9: g(x, y, False)
-                    elif d < 16: g(x, y, True)
+                    if d < 4: g(x, y, False)
+                    elif d < 8: g(x, y, True)
     return c
 def fringe_art(name, bits):
     if name not in ART:
         _CANVAS[name] = fringe_canvas(bits); PAL_OF[name] = 9; ART[name] = (lambda n=name: _CANVAS[n])
     return name
+
+# ---- the Emerald sign post standing on the paving (metatile 0x003 without its grass) ----
+def _sign_paving():
+    import struct
+    base = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'base_tileset/general')
+    im = Image.open(os.path.join(base, 'tiles.png')); px = im.load(); tw = im.width // 8
+    m = struct.unpack_from('<8H', open(os.path.join(base, 'metatiles.bin'), 'rb').read(), 0x003 * 16)
+    c = [[0] * 16 for _ in range(16)]; grid = [[0, 0], [0, 0]]
+    for q in range(4):
+        e = m[q]; t = e & 0x3ff; hf = e & 0x400; vf = e & 0x800
+        grid[q // 2][q % 2] = e >> 12
+        for y in range(8):
+            for x in range(8):
+                sx_ = 7 - x if hf else x; sy_ = 7 - y if vf else y
+                v = px[(t % tw) * 8 + sx_, (t // tw) * 8 + sy_] & 15
+                c[(q // 2) * 8 + y][(q % 2) * 8 + x] = 0 if v == 15 else v      # 15 = grass green
+    return c, grid
+_CANVAS['sign_paving'], TILEPAL['sign_paving'] = _sign_paving(); PAL_OF['sign_paving'] = 0
+ART['sign_paving'] = lambda: _CANVAS['sign_paving']

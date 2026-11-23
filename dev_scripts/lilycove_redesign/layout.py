@@ -242,7 +242,9 @@ fill(-5,13,14,20,GRASS)
 mall(-4,13)                                                              # doors (0,19) (1,19) and (8,19) (9,19), onto the avenue
 for x in (0,8): art('carpet_mat',x,20,walk_rows=1)                       # small red mats at the two double doors
 for x in (-1,2,7,10): art('potted_palm',x,20,bottom='paving',walk_rows=1)   # potted palms flanking the doors
-sign(-5,18); paving(-5,19,-4,20)                                         # Dept. Store sign, street floor in front of it
+paving(-5,13,-4,20)                                                      # strip beside the mall: street floor
+lamp2(-5,16,'paving',facing='left'); art('sign_paving',-5,18,bottom='paving')   # lamp and Dept. Store sign on it
+for (px_, py_) in ((-9,10),(-9,13),(-9,16),(-9,19),(-9,23)): paving(px_,py_,px_+1,py_+1)   # corners by the street
 garden(-5,23,14,26,32)                                                       # upper level, above the step
 paving(-2,23,11,26)                                                          # bike parking in front of the mall
 BIKES=('bike_yellow','bike_blue','bike_red')
@@ -272,7 +274,7 @@ decor('tent_flowers',-4,37,walk_rows=2)                                      # f
 for (px_,py_) in ((3,37),(9,37)): art('potted_palm',px_,py_,bottom='paving',walk_rows=1)
 lamp2(12,36,'paving',facing='left')
 # --- street lamps along the residential street (east kerb, heads towards the street) and the north street
-for y in (5,16,30): lamp2(-5,y,'grass',facing='left')
+for y in (5,30): lamp2(-5,y,'grass',facing='left')
 lamp2(-5,37,'paving',facing='left')
 for x in (-1,6,13): lamp2(x,10,'paving') if False else None
 bunting(-8,14,21)                                                           # avenue bunting (west part)
@@ -419,12 +421,13 @@ _new = {}
 for Y in range(1, H - 1):
     for X in range(1, W - 1):
         v = M[Y][X]
-        if not (isinstance(v, tuple) and v[1] == _PAVE and v[2] == 0): continue
+        if not (isinstance(v, tuple) and v[1] == _PAVE): continue
+        if 14 <= X - OX <= 40 and 23 <= Y - OY <= 39: continue                  # the plaza keeps clean kerbs
         n, s, w, e = (_grassy(M[Y - 1][X]), _grassy(M[Y + 1][X]), _grassy(M[Y][X - 1]), _grassy(M[Y][X + 1]))
         bits = ''.join(ch for ch, f in (('N', n), ('S', s), ('W', w), ('E', e)) if f)
         for ch, (dx, dy), (o1, o2) in (('a', (-1, -1), (n, w)), ('b', (1, -1), (n, e)), ('c', (-1, 1), (s, w)), ('d', (1, 1), (s, e))):
             if not o1 and not o2 and _grassy(M[Y + dy][X + dx]): bits += ch
         if bits:
             name = ('fringeP_' if X - OX <= -9 else 'fringe_') + bits     # west strip (seen from Route 121): primary
-            _new[(X, Y)] = ('ART', (_pa3.fringe_art(name, bits), 0, 0, None, 'paving'), 0, 3)
+            _new[(X, Y)] = ('ART', (_pa3.fringe_art(name, bits), 0, 0, None, 'paving'), v[2], v[3])
 for (X, Y), v in _new.items(): M[Y][X] = v
