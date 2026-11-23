@@ -361,8 +361,8 @@ fence(HX0, HX1, -7); fence(HX0, HX1, 17)                      # top and bottom (
 for y in range(-6, 17):
     if y not in (11, 12): put(HX0, y, T(0x258, 1, 0))         # west side (post on the left), gate at rows 11..12
     put(HX1 - 1, y, T(0x25a, 1, 0))                           # east side (post on the right)
-paving(44, 11, 48, 13)                                        # entrance through the gate
-paving(49, 6, 65, 7); paving(48, 7, 69, 14)                   # hotel forecourt + pool deck
+paving(44, 11, 49, 13)                                        # entrance through the gate, up to the deck
+paving(49, 6, 65, 7); paving(49, 7, 68, 14)                   # hotel forecourt + pool deck (a clean rectangle)
 art('hotel_pool', 50, 8, bottom='paving')                     # 16x5 pool
 import port_art as _port_art
 HOTEL_X, HOTEL_Y = 50, -6                                     # 14x12 building, bottom row 5
@@ -375,7 +375,7 @@ for (px_, py_) in ((46, -6), (46, -2), (46, 2), (67, -6), (67, -2), (67, 2)): pa
 for (tx_, ty_) in ((48, -5), (48, -1), (64, -5), (64, -1), (46, 7)): tree1(tx_, ty_)
 fill(71, -12, 72, -7, DEEP)                                   # sea next to the forest (NE corner)
 for (fx0, fy0) in ((46, 14), (68, 14)): flowerbed(fx0, fy0, 2, 3) if False else None
-for (px_, py_) in ((48, 7), (68, 7), (48, 12), (68, 12)): art('potted_palm', px_, py_, bottom='paving', walk_rows=1)
+for (px_, py_) in ((48, 7), (68, 7), (48, 13), (68, 13)): art('potted_palm', px_, py_, bottom='grass', walk_rows=1)   # on the lawn by the deck
 flowerfield(46, 10, 48, 11, seed=21); flowerfield(68, 10, 70, 11, seed=22)
 flowerfield(46, 13, 49, 14, seed=23); flowerfield(66, 13, 70, 14, seed=24) if False else None
 for (fx_, fy_) in ((48, 5), (64, 5), (49, 4), (63, 4), (46, 16), (69, 16), (51, 16), (55, 16), (59, 16), (63, 16)): put(fx_, fy_, FLOWERS)
@@ -451,13 +451,7 @@ for (fx_, fy_) in ((23, -4), (23, -5), (29, -2), (29, -1), (22, 2), (17, 6), (18
 trees(0, -12, 16, 0, grass_above=False)                       # west of the quarter, above district 1
 trees(16, -12, 42, -11, grass_above=False)                    # north of the fence
 fill(42, -9, 45, 11, GRASS); trees(42, -12, 44, 2, grass_above=False)   # strip between the fence and the hotel
-# wooden fence around the quarter, gate at x 30..31 on the main street
-for x in range(16, 42):
-    art('fence_wood', x, -10, bottom='grass')
-    if x not in (30, 31): art('fence_wood', x, 10, bottom='grass')
-for y in range(-9, 10):
-    art('fence_wood_vl', 16, y, bottom='grass'); art('fence_wood_vr', 41, y, bottom='grass')
-art('fence_c_bl', 16, 10, bottom='grass'); art('fence_c_br', 41, 10, bottom='grass')   # bottom corners: posts meet
+# (no fence: the quarter opens onto the forest and the main street)
 # sand autotile: a grass edge on each side that touches grass
 for (x, y) in B2:
     def _g(xx, yy):
