@@ -10,6 +10,7 @@ LilycoveCity_House4_MapScripts::
 
 @ VAR_TEMP_1 = 1 bloqueia a saída enquanto o jogador ainda tem algo a fazer em casa.
 LilycoveCity_House4_OnTransition:
+	setrespawn HEAL_LOCATION_LILYCOVE_CITY       @ the house works as the player's Pokemon Center
 	setvar VAR_TEMP_1, 0
 	call_if_eq VAR_OPENING_STATE, OPENING_STATE_UNPACK, LilycoveCity_House4_EventScript_LockExit
 	call_if_eq VAR_OPENING_STATE, OPENING_STATE_ROOM, LilycoveCity_House4_EventScript_LockExit
@@ -382,3 +383,17 @@ LilycoveCity_House4_Text_Calendar:
 LilycoveCity_House4_Text_Kitchen:
 	.string "Uma cozinha compacta. Panelas\n"
 	.string "lavadas e uma garrafa de café.$"
+
+@ Depois de perder: o jogador volta para casa, descansa e o time se recupera.
+LilycoveCity_House4_EventScript_WhiteoutRest::
+	lockall
+	msgbox LilycoveCity_House4_Text_RestedAtHome, MSGBOX_DEFAULT
+	call Common_EventScript_OutOfCenterPartyHeal
+	fadedefaultbgm
+	releaseall
+	end
+
+LilycoveCity_House4_Text_RestedAtHome:
+	.string "Você voltou para casa e descansou\n"
+	.string "um pouco.\p"
+	.string "Seus POKéMON estão recuperados!$"

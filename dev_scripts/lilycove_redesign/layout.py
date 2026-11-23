@@ -388,36 +388,45 @@ decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, wa
 decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, walk_rows=1)
 
 # ================= DISTRICT 2 (north of the Contest Hall): the low-income quarter ======================
-# Six simple cottages (front-gable roofs, three palette variants), the Pokemon Center by the main
-# street, sand streets (Emerald sand autotile) and small yards; the forest now starts at row -3.
+# Six Hoenn houses (Petalburg's, from the General tileset: no tiles; roof colours are palette swaps,
+# as Slateport does), sand streets, a wooden fence around the quarter with a gate onto the main street.
 fill(16, -3, 41, 11, GRASS)
-trees(16, -12, 42, -3, grass_above=False)                    # the forest now ends at row -4
-B2 = {}                                                       # sand cells of the district
+trees(16, -12, 42, -3, grass_above=False)                    # the forest ends at row -4
+HOUSE_MT = [[0x008, 0x009, 0x009, 0x009, 0x00a], [0x010, 0x011, 0x011, 0x011, 0x012],
+            [0x018, 0x00b, 0x019, 0x00b, 0x01a], [0x020, 0x013, 0x021, 0x013, 0x022]]
+def hoenn_house(x, y, slot):
+    """5 x 4 Hoenn house, door at (x+2, y+3); slot = roof palette (1 = Petalburg red)"""
+    for j, row in enumerate(HOUSE_MT):
+        for i, m in enumerate(row):
+            door = (i, j) == (2, 3)
+            if slot != 1 and j < 3 and (i, j) != (2, 2):
+                put(x + i, y + j, ('ART', ('remap:%03x:%d' % (m, slot), 0, 0, None, 'water'), 1, 0))
+            else:
+                put(x + i, y + j, T(m, 0, 3) if door else T(m, 1, 0))
+B2 = {}
 def b2_sand(x0, y0, x1, y1):
     for y in range(y0, y1):
         for x in range(x0, x1): B2[(x, y)] = True
-b2_sand(16, 3, 41, 5)                                         # inner street
-b2_sand(27, 5, 29, 9)                                         # cross street down to the main street
-b2_sand(16, 9, 41, 11)                                        # front strip along the main street (2 rows)
-COTTAGES = [  # (variant, x, y, warp) -- door at (x+1, y+3)
-    ('cottage_brown', 17, 5, 'HOUSE4'),          # the protagonist's house
-    ('cottage_slate', 22, 5, 'MOVE_DELETERS_HOUSE'),
-    ('cottage_lilac', 35, 5, 'POKEMON_TRAINER_FAN_CLUB'),
-    ('cottage_lilac', 17, -1, 'HOUSE1'),
-    ('cottage_brown', 22, -1, 'HOUSE2'),
-    ('cottage_slate', 30, -1, None),
+b2_sand(17, 3, 40, 5)                                         # inner street
+b2_sand(17, 9, 40, 10)                                        # street in front of the lower houses
+b2_sand(27, 3, 29, 11)                                        # vertical street, through the gate to the main street
+DISTRICT2 = [  # (x, y, roof palette, interior)
+    (17, 5, 1, 'HOUSE1'), (22, 5, 0, 'HOUSE4'),               # HOUSE4: the protagonist's house (blue roof)
+    (29, 5, 9, 'MOVE_DELETERS_HOUSE'), (34, 5, 5, 'POKEMON_TRAINER_FAN_CLUB'),
+    (17, -1, 8, 'HOUSE2'), (22, -1, 3, None),
 ]
-for (_v, _x, _y, _w) in COTTAGES:
-    art(_v, _x, _y, bottom='grass')
-    _pa3_door = (_v, 1, 3, None, 'grass'); _port_art.DOOR_KEYS.add(_pa3_door)
-    put(_x + 1, _y + 3, ('ART', _pa3_door, 0, 3) if _w else ('ART', _pa3_door, 1, 0))   # walk-in door (the 6th house has no interior)
-    B2[(_x + 1, _y + 4)] = True                                   # doorstep
-pc(30, 5)                                                     # Pokemon Center, door (31, 8)
-# yards: fences, a tree, flowers; a little garden where the 7th lot would be
-tree1(36, -1); tree1(38, -1)
-for (fx_, fy_) in ((36, 2), (37, 2), (38, 2), (39, 1), (35, 1)): put(fx_, fy_, FLOWERS)
-for (tx_, ty_) in ((39, 5), (25, 5) if False else (26, 5)): tree1(tx_, ty_)
-sign(21, 8); sign(34, 8)                                      # Move Deleter's / Fan Club signs
+for (_x, _y, _s, _w) in DISTRICT2:
+    hoenn_house(_x, _y, _s)
+    if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # the sixth house has no interior
+# garden in the north-east lot
+for (tx_, ty_) in ((29, -1), (32, -1), (35, -1), (38, -1)): tree1(tx_, ty_)
+for (fx_, fy_) in ((31, 2), (34, 2), (37, 2), (39, 1), (29, 2), (30, 2), (36, 2)): put(fx_, fy_, FLOWERS)
+# wooden fence around the quarter, gate at x 27..28 on the main street
+for x in range(16, 41):
+    art('fence_wood', x, -2, bottom='grass')
+    if x not in (27, 28): art('fence_wood', x, 10, bottom='grass')
+for y in range(-1, 10):
+    art('fence_wood_vl', 16, y, bottom='grass'); art('fence_wood_vr', 40, y, bottom='grass')
 # sand autotile: a grass edge on each side that touches grass
 for (x, y) in B2:
     def _g(xx, yy):

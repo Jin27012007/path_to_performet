@@ -1423,6 +1423,8 @@ static const u8 *GenerateRecoveryMessage(u8 taskId)
         return sText_PlayerScurriedToCenter;
 }
 
+extern const u8 LilycoveCity_House4_EventScript_WhiteoutRest[];
+
 static void Task_RushInjuredPokemonToCenter(u8 taskId)
 {
     u32 windowId;
@@ -1469,7 +1471,10 @@ static void Task_RushInjuredPokemonToCenter(u8 taskId)
                     StringCopy(gStringVar1, COMPOUND_STRING("PROF. OAK"));
                 else
                     StringCopy(gStringVar1, COMPOUND_STRING("PROF. BIRCH"));
-                ScriptContext_SetupScript(EventScript_AfterWhiteOutMomHeal);
+                if (IsLastHealLocationLilycoveHome())
+                    ScriptContext_SetupScript(LilycoveCity_House4_EventScript_WhiteoutRest);
+                else
+                    ScriptContext_SetupScript(EventScript_AfterWhiteOutMomHeal);
             }
             else if (IS_FRLG)
             {

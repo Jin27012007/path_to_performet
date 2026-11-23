@@ -63,10 +63,12 @@
     {
       "id": "HEAL_LOCATION_LILYCOVE_CITY",
       "map": "MAP_LILYCOVE_CITY",
-      "x": 47,
+      "x": 40,
       "y": 21,
-      "respawn_map": "MAP_LILYCOVE_CITY_POKEMON_CENTER_1F",
-      "respawn_npc": "LOCALID_LILYCOVE_NURSE"
+      "respawn_map": "MAP_LILYCOVE_CITY_HOUSE4",
+      "respawn_npc": "LOCALID_HOUSE4_FATHER",
+      "respawn_x": 3,
+      "respawn_y": 7
     },
     {
       "id": "HEAL_LOCATION_MOSSDEEP_CITY",

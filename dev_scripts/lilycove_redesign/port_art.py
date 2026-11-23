@@ -353,7 +353,3 @@ def _sign_paving():
 _CANVAS['sign_paving'], TILEPAL['sign_paving'] = _sign_paving(); PAL_OF['sign_paving'] = 0
 ART['sign_paving'] = lambda: _CANVAS['sign_paving']
 
-# ---- district 2 cottages (cottage_art.py): one design, palette variants (no extra tiles) ----
-import cottage_art as _CT
-for _n, _slot in _CT.VARIANTS.items():
-    _CANVAS[_n], TILEPAL[_n] = _CT.canvas(_slot); PAL_OF[_n] = _slot; ART[_n] = (lambda n=_n: _CANVAS[n])

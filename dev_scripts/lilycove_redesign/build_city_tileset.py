@@ -133,6 +133,18 @@ def build(M, festival_ids):
         if name == 'nadoor':                       # street floor that behaves as a (non-animated) door
             mid = free_meta.pop(0); new_metas[mid] = (metas[festival_ids['carpet'] - 512][:4] if bottom == 'carpet' else BOTTOM['paving']) + [0] * 4; new_attrs[mid] = 0x0060
             art_ids[key] = mid; continue
+        if name.startswith('remap:'):             # a primary metatile with palette 1 swapped (roof colour variants)
+            _pm = open(os.path.join(PRIM_BASE, 'metatiles.bin'), 'rb').read()
+            _pa_ = open(os.path.join(PRIM_BASE, 'metatile_attributes.bin'), 'rb').read()
+            _, mh, sl = name.split(':'); src_m = int(mh, 16); sl = int(sl)
+            ents = [((v & 0x0fff) | (sl << 12)) if v and (v >> 12) == 1 else v for v in struct.unpack_from('<8H', _pm, src_m * 16)]
+            attr = struct.unpack_from('<H', _pa_, src_m * 2)[0]
+            sig = (tuple(ents), attr)
+            if sig in meta_by_sig: mid = meta_by_sig[sig]
+            else:
+                if not free_meta: raise SystemExit('out of metatiles for port art')
+                mid = free_meta.pop(0); meta_by_sig[sig] = mid; new_metas[mid] = ents; new_attrs[mid] = attr
+            art_ids[key] = mid; continue
         if name.startswith('copy:'):              # an existing metatile's top layer over another floor
             prim = False; top = list(metas[int(name[5:], 16) - 512][4:])
         elif name.startswith('pcopy:'):           # same, for a primary (General) metatile
