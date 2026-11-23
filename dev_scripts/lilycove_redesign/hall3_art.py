@@ -49,9 +49,9 @@ def gable(name, x0, x1, y0, y1, z0, slope):
 def model():
     P = []
     # main wings: marble block, cornice, hipped slate roof (deep, so the roof climbs up the screen)
-    P += [box('wall', 64, CX, 176, 320, 0, 48),
-          box('cornice', 60, CX, 172, 324, 44, 52),
-          hip('roof', 56, 2 * CX - 56, 168, 328, 52, 60, 0.5)]
+    P += [box('wall', 72, CX, 176, 320, 0, 48),                 # the wings start where the corner towers end
+          box('cornice', 72, CX, 172, 324, 44, 52),
+          hip('roof', 72, 2 * CX - 72, 168, 328, 52, 60, 0.5)]
     # rotunda: a drum rising from the roof (the striped dome sits on it)
     P += [Cyl('drum', CX, 268, 52, 50, 92), Cyl('dcor', CX, 268, 56, 90, 100)]
     # entrance portico (open): door wall recessed behind two columns, entablature, gable + pediment, floor

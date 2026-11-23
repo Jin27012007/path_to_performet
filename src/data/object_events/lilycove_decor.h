@@ -252,12 +252,14 @@ static const struct Subsprite sOamTable_LcHallTdbL_2[] = {
     {.x = 8, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 2},
     {.x = -24, .y = -8, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 2},
     {.x = 8, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 2},
+    {.x = -24, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 48, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHallTdbL_1[] = {
     {.x = -24, .y = -40, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 0, .priority = 1},
     {.x = 8, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 1},
     {.x = -24, .y = -8, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 1},
     {.x = 8, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 1},
+    {.x = -24, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 48, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHallTdbL[] = {
     {ARRAY_COUNT(sOamTable_LcHallTdbL_2), sOamTable_LcHallTdbL_2},
@@ -269,7 +271,7 @@ static const struct SubspriteTable sOamTables_LcHallTdbL[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdbL = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_TDOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 1536, .width = 48, .height = 80, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 1792, .width = 48, .height = 80, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHallTdbL, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallTdbL,
 };
@@ -281,12 +283,16 @@ static const struct Subsprite sOamTable_LcHallTdbR_2[] = {
     {.x = 8, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 2},
     {.x = -24, .y = -8, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 2},
     {.x = 8, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 2},
+    {.x = -24, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 48, .priority = 2},
+    {.x = 8, .y = 24, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 56, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHallTdbR_1[] = {
     {.x = -24, .y = -40, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 0, .priority = 1},
     {.x = 8, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 1},
     {.x = -24, .y = -8, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 1},
     {.x = 8, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 1},
+    {.x = -24, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 48, .priority = 1},
+    {.x = 8, .y = 24, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 56, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHallTdbR[] = {
     {ARRAY_COUNT(sOamTable_LcHallTdbR_2), sOamTable_LcHallTdbR_2},
@@ -298,7 +304,7 @@ static const struct SubspriteTable sOamTables_LcHallTdbR[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdbR = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_TDOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 1536, .width = 48, .height = 80, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 1920, .width = 48, .height = 80, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHallTdbR, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallTdbR,
 };
