@@ -237,12 +237,17 @@ _CANVAS['hotel'] = _hc; PAL_OF['hotel'] = 'hotel'; ART['hotel'] = lambda: _CANVA
 
 # ---- splitting big art into sprite chunks (<= 5 tiles wide, <= 4 tiles tall), row-major ----
 CHUNK_W, CHUNK_H = 5, 4
+CHUNK_SPLIT = {'hall_dome': ((6, 5), (4, 4))}      # custom column / row sizes
 def chunks(name):
     c = ART[name](); w, h = len(c[0]) // 16, len(c) // 16
-    out = []
-    for cy in range(0, h, CHUNK_H):
-        for cx in range(0, w, CHUNK_W):
-            out.append((cx, cy, [row[cx * 16:min(w, cx + CHUNK_W) * 16] for row in c[cy * 16:min(h, cy + CHUNK_H) * 16]]))
+    cws, chs = CHUNK_SPLIT.get(name, ([CHUNK_W] * ((w + CHUNK_W - 1) // CHUNK_W), [CHUNK_H] * ((h + CHUNK_H - 1) // CHUNK_H)))
+    out = []; cy = 0
+    for ch in chs:
+        cx = 0
+        for cw in cws:
+            out.append((cx, cy, [row[cx * 16:min(w, cx + cw) * 16] for row in c[cy * 16:min(h, cy + ch) * 16]]))
+            cx += cw
+        cy += ch
     return out
 def chunk_art(sub):
     base, k = sub.rsplit('_', 1); return chunks(base)[int(k)]
@@ -253,23 +258,21 @@ _CANVAS['palm_e'] = _V.palm(); PAL_OF['palm_e'] = _V.PAL_SLOT; ART['palm_e'] = l
 
 # ---- multi-palette background art (palette chosen per 8x8 tile, see multipal.py) ----
 TILEPAL = {}
-import multipal as _MP, hall_art as _HA
-_hc, _hg = _MP.convert(_HA.build(), slots=(6, 7, 8, 9))
-_CANVAS['contest_hall'] = _hc; TILEPAL['contest_hall'] = _hg; PAL_OF['contest_hall'] = 6
-ART['contest_hall'] = lambda: _CANVAS['contest_hall']
+import multipal as _MP, hall2_art as _H2
 DOOR_KEYS = set()          # art cells that behave as non-animated doors (filled by layout)
 
-# ---- Contest Hall ornaments (sprites, object palette 'hall') ----
-import hall_sprites as _HS
-OBJ_PALETTES['hall'] = _HS.PAL
-for _n, _f in (('hall_crown', _HS.crown), ('hall_crown_small', _HS.crown_small), ('hall_portal', _HS.portal), ('hall_trophy', _HS.trophy), ('hall_pennant', _HS.pennant)):
-    _CANVAS[_n] = _f(); PAL_OF[_n] = 'hall'; ART[_n] = (lambda n=_n: _CANVAS[n])
-
-COVERED_ART = {'contest_hall'}   # metatile layer type COVERED: both layers under the sprites (ornaments)
-
-# ---- the Contest Hall from the user's concept (hall_concept.py): 9 sprite chunks, 3 palettes ----
-import hall_concept as _HC
-_hcp, HALL_PIECES = _HC.build()
-for _k, _p in _hcp.items(): OBJ_PALETTES[_k] = _p
-for (_n, _c0, _r0, _cv, _k) in HALL_PIECES:
-    _CANVAS[_n] = _cv; PAL_OF[_n] = _k; ART[_n] = (lambda n=_n: _CANVAS[n])
+# ---- the Contest Hall (hall2_art.py), Emerald 3/4 view: palace + towers as background art (top two
+# rows walk-behind over the north street, the rest COVERED so the dome/portico sprites draw on top),
+# the striped big-top dome and the entrance portico as sprites
+_hb = _H2.body(); _dm = _H2.big_top()
+for _y in range(32):            # the walk-behind rows draw above sprites: leave them empty under the dome
+    for _x in range(_H2.DOME_W):
+        if _dm.getpixel((_x, _y - _H2.DOME_Y))[3]: _hb.putpixel((128 + _x, _y), (0, 0, 0, 0))
+_hc, _hg = _MP.convert(_hb, slots=(6, 7, 8, 9, 12))
+_CANVAS['hall_top'], TILEPAL['hall_top'] = _hc[:32], _hg[:4]
+_CANVAS['hall_body'], TILEPAL['hall_body'] = _hc[32:], _hg[4:]
+for _n in ('hall_top', 'hall_body'): PAL_OF[_n] = 6; ART[_n] = (lambda n=_n: _CANVAS[n])
+COVERED_ART = {'hall_body'}
+for _n, _f in (('hall_dome', _H2.big_top), ('hall_entr', _H2.entrance)):
+    _p, (_cv,) = A.to_palette([_f()])
+    OBJ_PALETTES[_n] = _p; _CANVAS[_n] = _cv; PAL_OF[_n] = _n; ART[_n] = (lambda n=_n: _CANVAS[n])

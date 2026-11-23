@@ -384,24 +384,16 @@ decor('beach_set_red', 47, 22, walk_rows=1); decor('beach_set_blue', 53, 24, wal
 decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, walk_rows=1)
 decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, walk_rows=1)
 
-# ================= CONTEST HALL (from the user's concept, hall_concept.py) ===========================
-# 17 x 11 metatiles at x 19..35, rows 12..22, drawn as 9 sprite chunks (3 palettes); the top row hangs
-# over the north street (walk behind). Formal gardens fill the rest of the block.
-fill(14, 13, 41, 23, GRASS)
-paving(14, 13, 16, 23); paving(39, 13, 41, 23)              # side walks: north street <-> plaza
+# ================= CONTEST HALL (hall2_art.py, Emerald 3/4 view) ======================================
+# 27 x 11 metatiles over the whole block (x 14..40, rows 11..21): background palace + towers (rows 11..12
+# hang over the north street, walk behind), the big-top dome (sprite, rows 10..17) on the roof and the
+# entrance portico (sprite, rows 17..21) with the glass doors at x 26..28, row 21.
+art('hall_top', 14, 11, bottom='paving', walk_rows=2)
+art('hall_body', 14, 13, bottom='paving')
 paving(14, 22, 41, 23)                                       # forecourt in front of the hall
-HALL_X, HALL_Y = 19, 11
-import port_art as _port_art2
-for (_n, _c0, _r0, _cv, _k) in _port_art2.HALL_PIECES:
-    _h = len(_cv) // 16
-    decor(_n, HALL_X + _c0, HALL_Y + _r0, walk_rows=2 if _r0 == 0 else 0, anchor_up=1 if _r0 + _h == 11 else 0)
-for dx_ in (7, 8, 9):                                        # the glass double door (walk in -> lobby)
-    put(HALL_X + dx_, HALL_Y + 10, ('ART', ('nadoor', 0, 0, None, 'carpet'), 0, 3))
-for x in (26, 27, 28):
+decor('hall_dome', 22, 10, walk_rows=3)
+decor('hall_entr', 25, 17, anchor_up=1)
+for x in (26, 27, 28):                                       # the glass double door (walk in -> lobby)
+    put(x, 21, ('ART', ('nadoor', 0, 0, None, 'carpet'), 0, 3))
     for y in (22, 23): put(x, y, T(F['carpet']))             # red carpet from the door to the plaza bricks
-# gardens on both sides of the hall
-for gx in (16, 36):
-    flowerfield(gx, 13, gx + 3, 22, seed=41 + gx, skip={(gx + dx, gy) for dx in range(3) for gy in range(13, 23) if (gx + dx, gy) in ()})
-for (tx_, ty_) in ((16, 13), (37, 13), (16, 18), (37, 18)): tree1(tx_, ty_)
-for (px_, py_) in ((17, 16), (37, 16)): art('potted_palm', px_, py_, bottom='grass', walk_rows=1)
 sign(44, 10)                                                 # beach / hotel sign at the top of the sand road
