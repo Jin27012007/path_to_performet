@@ -24,7 +24,7 @@ SHARED_LAYOUTS = (('Route121', 80, 66),)
 # also render across the Route 121 seam. Built from a pristine copy in base_tileset/general.
 PRIM = os.path.join(REPO, 'data/tilesets/primary/general')
 PRIM_BASE = os.path.join(HERE, 'base_tileset/general')
-PRIMARY_ART = {'paving', 'lamp_modern', 'lamp_modern_l', 'bunting', 'mall_pokeball', 'bench'} | set(port_art.FLOWER_NAMES)
+PRIMARY_ART = {'paving', 'lamp_modern', 'lamp_modern_l', 'bunting', 'mall_pokeball'} | set(port_art.FLOWER_NAMES)
 PRIMARY_BOTTOMS = {'grass', 'paving'}
 # General metatiles no General-tileset map uses and no metatile label names (checked over all layouts)
 PRIMARY_META_POOL = [0x1ea, 0x1eb, 0x1f8, 0x1f9, 0x1fa, 0x1fb, 0x183, 0x187, 0x18b, 0x18c, 0x199, 0x1a2,
@@ -137,7 +137,7 @@ def build(M, festival_ids):
             prim = False; top = list(metas[int(name[5:], 16) - 512][4:])
         else:
           if name not in canvases: canvases[name] = port_art.ART[name]()
-          prim = name in PRIMARY_ART
+          prim = name in PRIMARY_ART or name.startswith('fringe')   # grass fringe: primary tiles (4)
           top = []
           tp = port_art.TILEPAL.get(name)
           for qi, q in enumerate(_split16(canvases[name], mx, my)):
@@ -148,11 +148,11 @@ def build(M, festival_ids):
             BOTTOM[bottom] = metas[int(bottom[4:], 16) - 512][4:]
         entries = top + [0] * 4 if name in port_art.FLOOR else BOTTOM[bottom] + top
         if name in port_art.FLOOR: BOTTOM[name] = top
-        if prim and (name in port_art.FLOOR or bottom in PRIMARY_BOTTOMS):
+        if prim and (name in port_art.FLOOR or bottom in PRIMARY_BOTTOMS) and not name.startswith('fringe_'):
             if not pmeta_pool: raise SystemExit('primary tileset: out of free metatiles')
-            mid = pmeta_pool.pop(0); pmetas[mid] = entries; pattrs[mid] = 0; prim_ids.append(mid)
+            mid = pmeta_pool.pop(0); pmetas[mid] = entries; pattrs[mid] = 0x1000 if name.startswith('fringe') else 0; prim_ids.append(mid)
         else:
-            attr = (0x0060 if key in port_art.DOOR_KEYS else 0) | (0x1000 if name in port_art.COVERED_ART else 0)
+            attr = (0x0060 if key in port_art.DOOR_KEYS else 0) | (0x1000 if name in port_art.COVERED_ART or name.startswith('fringe') else 0)
             sig = (tuple(entries), attr)
             if sig in meta_by_sig:                  # identical metatile already made: share it
                 mid = meta_by_sig[sig]

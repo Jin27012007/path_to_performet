@@ -303,3 +303,32 @@ def _bench():
     for x in (2, 5, 26, 29): c[14][x] = D_
     return c
 _CANVAS['bench'] = _bench(); PAL_OF['bench'] = 3; ART['bench'] = lambda: _CANVAS['bench']
+
+# ---- soft grass fringe over the paving where it meets the grass (top layer, palette 9 greens) ----
+FRINGE_PAT = [2, 4, 5, 6, 6, 5, 4, 2]          # rounded tufts, two per metatile edge; palindromic so flips match
+def fringe_canvas(bits):
+    """bits: string of the sides with grass among N S W E and the diagonal-only corners a b c d (NW NE SW SE)"""
+    c = [[0] * 16 for _ in range(16)]
+    def g(x, y, edge):
+        if c[y][x] != 13: c[y][x] = 14 if edge else 13
+    for i in range(16):
+        L = FRINGE_PAT[i % 8]
+        Lp = FRINGE_PAT[(i - 1) % 8]; Ln = FRINGE_PAT[(i + 1) % 8]
+        for k in range(L):
+            e = k == L - 1 or k >= min(Lp, Ln)          # outline the tuft's bottom and its sides
+            if 'N' in bits: g(i, k, e)
+            if 'S' in bits: g(i, 15 - k, e)
+            if 'W' in bits: g(k, i, e)
+            if 'E' in bits: g(15 - k, i, e)
+    for ch, (cx, cy) in (('a', (0, 0)), ('b', (15, 0)), ('c', (0, 15)), ('d', (15, 15))):
+        if ch in bits:
+            for y in range(16):
+                for x in range(16):
+                    d = (x - cx) ** 2 + (y - cy) ** 2
+                    if d < 9: g(x, y, False)
+                    elif d < 16: g(x, y, True)
+    return c
+def fringe_art(name, bits):
+    if name not in ART:
+        _CANVAS[name] = fringe_canvas(bits); PAL_OF[name] = 9; ART[name] = (lambda n=name: _CANVAS[n])
+    return name

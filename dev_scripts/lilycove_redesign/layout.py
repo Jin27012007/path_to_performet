@@ -189,12 +189,12 @@ paving(STREET[0],20,14,23)                                         # avenue to t
 # x -16..-9, rows 3..25 is what Route 121 shows across the connection (drawn with the shared Lilycove
 # tileset), so that strip only uses original/shared pieces: classic houses, fences and the generic
 # pieces of the primary tileset (flowers, lamps, paving).
-house(-14,5); trail(-14,9,-11,11,'b',(-13,)); house_sign(-10,8)            # H5 classic, door (-13,8)
+house(-14,5); paving(-14,9,-11,11); house_sign(-10,8)            # H5 classic, door (-13,8)
 garden(-16,1,-10,5,11,shared=False); fence(-16,-14,10); fence(-11,-9,10)
 tree1(-16,6) if False else None
-house(-4,5);  trail(-4,9,-1,11,'b',(-3,)); house_sign(-5,8)               # L1 classic = House 3, door (-3,8)
-art('house_beige_lilac',2,4); trail(3,9,6,11,'b',(4,)); house_sign(1,8)         # L2 modern beige, door (4,8)
-art('house_grey',9,4);  trail(10,9,13,11,'b',(11,)); house_sign(8,8)      # L3 modern grey, door (11,8)
+house(-4,5);  paving(-4,9,-1,11); house_sign(-5,8)               # L1 classic = House 3, door (-3,8)
+art('house_beige_lilac',2,4); paving(3,9,6,11); house_sign(1,8)         # L2 modern beige, door (4,8)
+art('house_grey',9,4);  paving(10,9,13,11); house_sign(8,8)      # L3 modern grey, door (11,8)
 garden(-4,1,15,4,12); tree1(-1,1); tree1(6,1); tree1(13,1)                 # back gardens with small trees
 garden(0,4,2,9,13); garden(7,4,9,9,14); garden(14,4,15,9,15)               # side yards with flowers
 fence(-1,1,10) if False else None
@@ -202,13 +202,13 @@ for (fx0,fx1) in ((0,3),(6,10),(13,15)): fence(fx0,fx1,10)                  # lo
 fence(-5,-4,10) if False else None
 
 # --- west lot, below the north street: H4, H3 | terrain step | H2, H1
-fanclub(-15,13); trail(-14,17,-8,19,'r',(-13,)); house_sign(-10,16)        # H4 "Edificio Lilas", door (-13,16)
+fanclub(-15,13); paving(-14,17,-8,19); house_sign(-10,16)        # H4 "Edificio Lilas", door (-13,16)
 garden(-16,13,-15,17,21,shared=False); garden(-10,13,-8,16,22,shared=False)
 fence(-16,-9,19)                                                            # lot boundary
-house(-14,20); trail(-14,24,-8,26,'r',(-13,)); house_sign(-10,23)          # H3 classic, door (-13,23)
+house(-14,20); paving(-14,24,-8,26); house_sign(-10,23)          # H3 classic, door (-13,23)
 garden(-16,20,-14,24,23,shared=False); garden(-10,20,-8,23,24,shared=False)
 ledge(-16,-8,26); stairs3(STREET[0],26,28)                                  # terrain step + 3-wide stairs
-art('apartments',-16,28); trail(-14,33,-8,35,'r',(-13,)); house_sign(-9,32)  # H2 modern apartments, door (-13,32)
+art('apartments',-16,28); paving(-14,33,-8,35); house_sign(-9,32)  # H2 modern apartments, door (-13,32)
 garden(-16,27,-8,28,25); garden(-9,28,-8,32,26)
 art('house_grey_coral',-15,35); house_sign(-10,38)                               # H1 modern grey, door (-13,39) onto the boardwalk
 garden(-16,35,-15,40,27); garden(-10,35,-8,38,28); fence(-10,-8,39) if False else None
@@ -409,3 +409,22 @@ for x in (26, 27, 28):                                       # the glass double 
 for px_ in (16, 24, 30, 38): art('potted_palm', px_, 22, bottom='paving', walk_rows=1)
 for bx_ in (18, 21, 32, 35): art('bench', bx_, 23, bottom='paving')
 sign(44, 10)                                                 # beach / hotel sign at the top of the sand road
+
+# ================= soft grass fringe wherever plain paving meets grass ==================================
+def _grassy(v):
+    if isinstance(v, int): return (v & 0x3ff) in (0x001, 0x002, 0x004)
+    return isinstance(v, tuple) and v[0] == 'ART' and v[1][4] == 'grass'
+_PAVE = ('paving', 0, 0, None, 'water')
+_new = {}
+for Y in range(1, H - 1):
+    for X in range(1, W - 1):
+        v = M[Y][X]
+        if not (isinstance(v, tuple) and v[1] == _PAVE and v[2] == 0): continue
+        n, s, w, e = (_grassy(M[Y - 1][X]), _grassy(M[Y + 1][X]), _grassy(M[Y][X - 1]), _grassy(M[Y][X + 1]))
+        bits = ''.join(ch for ch, f in (('N', n), ('S', s), ('W', w), ('E', e)) if f)
+        for ch, (dx, dy), (o1, o2) in (('a', (-1, -1), (n, w)), ('b', (1, -1), (n, e)), ('c', (-1, 1), (s, w)), ('d', (1, 1), (s, e))):
+            if not o1 and not o2 and _grassy(M[Y + dy][X + dx]): bits += ch
+        if bits:
+            name = ('fringeP_' if X - OX <= -9 else 'fringe_') + bits     # west strip (seen from Route 121): primary
+            _new[(X, Y)] = ('ART', (_pa3.fringe_art(name, bits), 0, 0, None, 'paving'), 0, 3)
+for (X, Y), v in _new.items(): M[Y][X] = v
