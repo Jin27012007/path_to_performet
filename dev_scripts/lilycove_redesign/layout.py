@@ -389,6 +389,7 @@ for k, (cx0, cx1, fr) in enumerate(CLIFF_S):
         put(x, fr, T(0x079, 1, 0))
     if fr == 18 and k + 1 < len(CLIFF_S) and CLIFF_S[k + 1][2] == 19: put(cx1 - 1, 18, T(0x07a, 1, 0))   # step down: rounded end
     if fr == 18 and k > 0 and CLIFF_S[k - 1][2] == 19: put(cx0, 18, T(0x078, 1, 0))                     # step up: rounded start
+    if fr == 19: put(cx0, 19, T(0x078, 1, 0)); put(cx1 - 1, 19, T(0x07a, 1, 0))                      # the bulge: rounded ends too
 for (fx_, fy_) in ((52, 18), (54, 18), (55, 18), (58, 18), (60, 18), (61, 18), (63, 18)): put(fx_, fy_, FLOWERS)
 for bx_ in (51, 55, 59, 63): art('bench', bx_, 15, bottom='grass')   # benches between the palms, facing the pool
 for (fx_, fy_) in ((47, 15), (47, 16), (68, 15), (68, 16), (53, 16), (61, 16)): put(fx_, fy_, FLOWERS)
