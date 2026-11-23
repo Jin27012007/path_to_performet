@@ -55,11 +55,11 @@ def model():
     # rotunda: a drum rising from the roof (the striped dome sits on it)
     P += [Cyl('drum', CX, 268, 52, 50, 92), Cyl('dcor', CX, 268, 56, 90, 100)]
     # entrance portico (open): door wall recessed behind two columns, entablature, gable + pediment, floor
-    P += [box('porch_back', 176, CX, 316, 322, 0, 58),
-          Cyl('porch_col', 183, 336, 3, 4, 58),
-          box('porch_cor', 177, CX, 314, 340, 58, 66),
-          gable('porch_roof', 177, 2 * CX - 177, 314, 340, 66, 0.5),
-          box('porch_floor', 174, CX, 320, 344, 0, 4)]
+    P += [box('porch_back', 178, CX, 316, 322, 0, 58),
+          Cyl('porch_col', 184, 336, 3, 4, 58),
+          box('porch_cor', 178, CX, 314, 340, 58, 66),
+          gable('porch_roof', 178, 2 * CX - 178, 314, 340, 66, 0.5),
+          box('porch_floor', 178, CX, 320, 344, 0, 4)]
     # towers: two at the front corners (tall), two at the back rising out of the roof
     for (tx, ty, r, h, dr, dz) in ((40, 300, 32, 96, 30, 36), (120, 196, 20, 100, 18, 20)):
         P += [Cyl('tower', tx, ty, r, 0, h), Cyl('tcor', tx, ty, r + 3, h - 8, h + 2), Ell('tdome', tx, ty, h + 2, dr, dz)]
@@ -160,7 +160,7 @@ def finish(prims, R, only=None, skip=()):
     # glass curtain walls (palette 12): mullions every 16 px, transom, light streaks, concrete base
     for nm in ('wall', 'porch_back'):
         m = names == nm
-        setc(m, GL2); setc(m & (Zi > 30), GL1); setc(m & (Zi <= 10), GL3)
+        setc(m, GL2); setc(m & (Zi > 32), GL1)
         streak = (((Xi + Zi) % 16) < 2) & (Zi > 8) & (Zi < 40)
         setc(m & front & (Zi == 24), M2)
         post = (Xi % 16)
@@ -189,15 +189,12 @@ def finish(prims, R, only=None, skip=()):
         frontish = N[..., 1] > 0.3
         setc(m & frontish, RG1); setc(m & ~frontish, RG2)
         cu, cv_ = sx % 32, sy % 16                                            # a glint in every pane
-        setc(m & ((sy % 16) == 15), RF2); setc(m & ((sx % 32) == 0) & frontish, RF2)
+        setc(m & ((sy % 16) == 15), RF2)
         edge = np.zeros(m.shape, bool)
         for dy, dx in ((1, 0), (0, 1), (0, -1)):
             nbn = np.roll(np.roll(N, dy, 0), dx, 1); nbm = np.roll(np.roll(names, dy, 0), dx, 1)
             edge |= m & (nbm == nm) & ((N * nbn).sum(-1) < 0.98)
-        setc(m & frontish & ((sx % 32) <= 1), RF2); setc(m & frontish & ((sx % 32) == 2), RG2)   # rafters
-        near = np.zeros(m.shape, bool)                                         # plain glass along the hips
-        for k in range(-12, 13): near |= np.roll(edge, k, 1)
-        setc(m & near & frontish, RG1); setc(m & near & ~frontish, RG2)
+        setc(m & frontish & ((sx % 16) == 8), RF2); setc(m & frontish & ((sx % 16) == 9), RG2)   # rafters, in line with the posts
         upper = np.roll(names, 1, 0) != nm                                    # ridge / top beam
         for k, c in ((0, M0), (1, M0), (2, M1), (3, M2), (4, OUT)):
             setc(m & np.roll(upper, k, 0), c)
@@ -262,7 +259,9 @@ def finish(prims, R, only=None, skip=()):
         nb_sol = np.roll(np.roll(sol, dy, 0), dx, 1)
         nb_Z = np.roll(np.roll(Z, dy, 0), dx, 1); nb_idx = np.roll(np.roll(idx, dy, 0), dx, 1)
         out |= ~sol & nb_sol
-        far = sol & nb_sol & (nb_idx != idx) & (Z + 2.5 < nb_Z)
+        nb_nm = np.roll(np.roll(names, dy, 0), dx, 1)
+        far = sol & nb_sol & (nb_nm != names) & (nb_idx >= 0) & (idx >= 0) & \
+              ((Z < nb_Z - 0.01) | ((np.abs(Z - nb_Z) <= 0.01) & (idx < nb_idx)))   # every seam between parts
         out |= far
     img[out] = OUT + (255,)
     keep = np.ones(sol.shape, bool)
@@ -410,6 +409,7 @@ def build():
     P2 = [p for p in P if not _is_sprite(p)]; R2 = render(P2)
     bg = ornaments(finish(P2, R2), P2, R2['h0'])
     a = np.array(full); b = np.array(bg)
+    names = np.array([p.name for p in P] + ['bg'])[R['idx']]
     spr = a.copy(); spr[~((a != b).any(-1) & (a[..., 3] > 0))] = 0
     # background pixels hidden under opaque sprite pixels: make them cheap (tile-wise)
     h0 = R['h0']; b = b[-h0:-h0 + H].copy(); cover = spr[-h0:-h0 + H, :, 3] > 0
