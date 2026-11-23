@@ -496,6 +496,19 @@ def _grassy(v):
     if isinstance(v, int): return (v & 0x3ff) in (0x001, 0x002, 0x004)
     return isinstance(v, tuple) and v[0] == 'ART' and v[1][4] == 'grass'
 _PAVE = ('paving', 0, 0, None, 'water')
+# potted palms on the paving that touch grass stand on grass instead (the paving around them then
+# gets the fringe like any other paving cell at the lawn's edge)
+for Y in range(1, H - 1):
+    for X in range(1, W - 1):
+        v = M[Y][X]
+        if isinstance(v, tuple) and v[0] == 'ART' and v[1][0] == 'potted_palm' and v[1][4] == 'paving':
+            col = X  # the pot (bottom row) and its head share the decision
+            cells = [(X, Y), (X, Y + 1) if isinstance(M[Y + 1][X], tuple) and M[Y + 1][X][1][0] == 'potted_palm' else (X, Y - 1)]
+            if any(_grassy(M[cy + dy][cx + dx]) for (cx, cy) in cells for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                for (cx, cy) in cells:
+                    w = M[cy][cx]
+                    if isinstance(w, tuple) and w[1][0] == 'potted_palm':
+                        M[cy][cx] = (w[0], w[1][:4] + ('grass',), w[2], w[3])
 _new = {}
 for Y in range(1, H - 1):
     for X in range(1, W - 1):
