@@ -246,7 +246,7 @@ paving(-5,13,-4,20)                                                      # strip
 lamp2(-5,16,'paving',facing='left'); art('sign_paving',-5,18,bottom='paving')   # lamp and Dept. Store sign on it
 for (px_, py_) in ((-9,10),(-9,13),(-9,16),(-9,19),(-9,23)): paving(px_,py_,px_+1,py_+1)   # corners by the street
 garden(-5,23,14,26,32)                                                       # upper level, above the step
-paving(-2,23,11,26)                                                          # bike parking in front of the mall
+paving(-3,23,12,26)                                                          # bike parking in front of the mall (a free paving column by each lawn)
 BIKES=('bike_yellow','bike_blue','bike_red')
 for gx in (-2,5):                                                            # two groups, three rows of three bikes
     for r in range(3):
@@ -267,14 +267,14 @@ for y in range(27,33):                                                      # fe
     art('fence_wood_vl',-4,y,bottom='terrace'); art('fence_wood_vr',13,y,bottom='terrace')
 for x in range(-4,14):                                                      # ...and along the front, entrance at x 3..4
     if x not in (3,4): art('fence_wood',x,33,bottom='terrace')
-put(-5,28,FLOWERS); put(-5,32,FLOWERS)
+paving(-5,27,-4,34)                                                         # the strip west of the café: street floor
 paving(-5,34,14,36)                                                         # promenade: street -> plaza
 paving(-5,36,14,40)                                                         # grey paving down to the boardwalk
 decor('tent_flowers',-4,37,walk_rows=2)                                      # flower stall (sprite)
 for (px_,py_) in ((3,37),(9,37)): art('potted_palm',px_,py_,bottom='paving',walk_rows=1)
 lamp2(12,36,'paving',facing='left')
 # --- street lamps along the residential street (east kerb, heads towards the street) and the north street
-for y in (5,30): lamp2(-5,y,'grass',facing='left')
+lamp2(-5,5,'grass',facing='left'); lamp2(-5,30,'paving',facing='left')
 lamp2(-5,37,'paving',facing='left')
 for x in (-1,6,13): lamp2(x,10,'paving') if False else None
 bunting(-8,14,21)                                                           # avenue bunting (west part)
