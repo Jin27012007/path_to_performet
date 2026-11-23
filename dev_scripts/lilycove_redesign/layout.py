@@ -394,15 +394,15 @@ fill(16, -9, 41, 11, GRASS)
 trees(16, -12, 42, -9, grass_above=False)                    # the forest ends at row -10
 HOUSE_MT = [[0x008, 0x009, 0x009, 0x009, 0x00a], [0x010, 0x011, 0x011, 0x011, 0x012],
             [0x018, 0x00b, 0x019, 0x00b, 0x01a], [0x020, 0x013, 0x021, 0x013, 0x022]]
-def hoenn_house(x, y, slot):
-    """5 x 4 Hoenn house, door at (x+2, y+3); slot = roof palette (1 = Petalburg red)"""
+def hoenn_house(x, y, slot, wall=5):
+    """5 x 4 Hoenn house, door at (x+2, y+3); slot = roof palette (1 = Petalburg red),
+    wall = wall palette (5 = the original orange wood)"""
     for j, row in enumerate(HOUSE_MT):
         for i, m in enumerate(row):
-            door = (i, j) == (2, 3)
-            if slot != 1 and j < 3:
-                put(x + i, y + j, ('ART', ('remap:%03x:%d' % (m, slot), 0, 0, None, 'water'), 1, 0))
-            else:
-                put(x + i, y + j, T(m, 0, 3) if door else T(m, 1, 0))
+            if m == 0x021: put(x + i, y + j, T(m, 0, 3)); continue                   # the door
+            roof = slot if j < 3 else 1
+            if roof == 1 and wall == 5: put(x + i, y + j, T(m, 1, 0)); continue
+            put(x + i, y + j, ('ART', ('remap:%03x:%d:%d' % (m, roof, wall), 0, 0, None, 'water'), 1, 0))
 B2 = {}
 def b2_sand(x0, y0, x1, y1):
     for y in range(y0, y1):
@@ -413,16 +413,16 @@ b2_sand(30, -4, 32, 11)                                       # vertical street,
 b2_sand(26, -4, 36, -2)                                       # the square in front of the stall
 b2_sand(20, 3, 37, 4); b2_sand(20, 1, 21, 3)                  # upper path (and a spur to the north-west house)
 b2_sand(19, 9, 37, 10); b2_sand(19, 8, 20, 9)                 # lower path (and a spur to the west house)
-DISTRICT2 = [  # (x, y, roof palette, interior) -- door at (x+2, y+3); palette 7 = dark-brown roofs
-    (23, 5, 7, 'HOUSE4'),                                     # the protagonist's house, by the gate
-    (17, 4, 7, 'HOUSE1'),
-    (24, -1, 7, 'HOUSE2'),
-    (18, -3, 7, None),
-    (33, 5, 7, 'MOVE_DELETERS_HOUSE'),
-    (34, -1, 7, 'POKEMON_TRAINER_FAN_CLUB'),
+DISTRICT2 = [  # (x, y, roof palette, wall palette, interior) -- door at (x+2, y+3); palette 7 = dark-brown roofs
+    (23, 5, 7, 5, 'HOUSE4'),                                  # the protagonist's house (orange wood), by the gate
+    (17, 4, 7, 3, 'HOUSE1'),                                  # dusty rose
+    (24, -1, 7, 8, 'HOUSE2'),                                 # pale yellow
+    (18, -3, 7, 10, None),                                    # weathered beige
+    (33, 5, 7, 9, 'MOVE_DELETERS_HOUSE'),                     # faded green
+    (34, -1, 7, 0, 'POKEMON_TRAINER_FAN_CLUB'),               # faded blue
 ]
-for (_x, _y, _s, _w) in DISTRICT2:
-    hoenn_house(_x, _y, _s)
+for (_x, _y, _s, _wl, _w) in DISTRICT2:
+    hoenn_house(_x, _y, _s, _wl)
     if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # this house has no interior
 art('stall', 29, -6, bottom='grass')                          # fruit stall (2 x 3), facing the square
 for (tx_, ty_) in ((18, -7), (25, -7), (34, -7), (38, -7), (38, 4), (17, 0), (28, 5)):

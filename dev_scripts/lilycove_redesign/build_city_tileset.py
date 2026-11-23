@@ -136,8 +136,10 @@ def build(M, festival_ids):
         if name.startswith('remap:'):             # a primary metatile with palette 1 swapped (roof colour variants)
             _pm = open(os.path.join(PRIM_BASE, 'metatiles.bin'), 'rb').read()
             _pa_ = open(os.path.join(PRIM_BASE, 'metatile_attributes.bin'), 'rb').read()
-            _, mh, sl = name.split(':'); src_m = int(mh, 16); sl = int(sl)
-            ents = [((v & 0x0fff) | (sl << 12)) if v and (v >> 12) == 1 else v for v in struct.unpack_from('<8H', _pm, src_m * 16)]
+            parts = name.split(':'); src_m = int(parts[1], 16); roof = int(parts[2])
+            wall = int(parts[3]) if len(parts) > 3 else 5           # optional wall palette (palette 5 -> wall)
+            rmap = {1: roof, 5: wall}
+            ents = [((v & 0x0fff) | (rmap.get(v >> 12, v >> 12) << 12)) if v else v for v in struct.unpack_from('<8H', _pm, src_m * 16)]
             attr = struct.unpack_from('<H', _pa_, src_m * 2)[0]
             sig = (tuple(ents), attr)
             if sig in meta_by_sig: mid = meta_by_sig[sig]
