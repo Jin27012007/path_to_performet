@@ -135,6 +135,9 @@ def build(M, festival_ids):
             art_ids[key] = mid; continue
         if name.startswith('copy:'):              # an existing metatile's top layer over another floor
             prim = False; top = list(metas[int(name[5:], 16) - 512][4:])
+        elif name.startswith('pcopy:'):           # same, for a primary (General) metatile
+            _pm = open(os.path.join(REPO, 'data/tilesets/primary/general/metatiles.bin'), 'rb').read()
+            prim = False; top = list(struct.unpack_from('<8H', _pm, int(name[6:], 16) * 16)[4:])
         else:
           if name not in canvases: canvases[name] = port_art.ART[name]()
           prim = name in PRIMARY_ART or name.startswith('fringe')   # grass fringe: primary tiles (4)

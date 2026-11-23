@@ -355,6 +355,7 @@ put(41, 18, T(0x0af)); put(42, 18, T(0x0cf)); put(43, 18, T(0x0cf))   # 3-wide s
 HX0, HX1 = 45, 71                                             # lot x 45..70, rows -7..17 (fence included)
 fill(45, -7, 71, 2, GRASS); trees(45, -12, 71, -7, grass_above=False)  # forest behind the hotel
 for y in range(-7, 2): put(71, y, T(0x075, 1, 0))             # cliff on the east side, up to the new top
+put(71, 18, ('ART', ('pcopy:07a', 0, 0, None, 'water'), 1, 0))   # corner where the east cliff meets the bottom one, over the sea
 # metal fence all around the lot; the vertical runs sit exactly on the end posts of the horizontal ones
 fence(HX0, HX1, -7); fence(HX0, HX1, 17)                      # top and bottom (end posts at x 45 and x 70)
 for y in range(-6, 17):
