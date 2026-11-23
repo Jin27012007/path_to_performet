@@ -909,21 +909,21 @@
       "dest_warp_id": "0"
     },
     {
-      "x": 52,
+      "x": 51,
       "y": 20,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_MOVE_DELETERS_HOUSE",
       "dest_warp_id": "0"
     },
     {
-      "x": 36,
-      "y": 20,
+      "x": 35,
+      "y": 19,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HOUSE1",
       "dest_warp_id": "0"
     },
     {
-      "x": 36,
+      "x": 42,
       "y": 14,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HOUSE2",
@@ -937,7 +937,7 @@
       "dest_warp_id": "0"
     },
     {
-      "x": 42,
+      "x": 41,
       "y": 20,
       "elevation": 0,
       "dest_map": "MAP_LILYCOVE_CITY_HOUSE4",
@@ -1068,7 +1068,7 @@
     },
     {
       "type": "sign",
-      "x": 51,
+      "x": 50,
       "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",

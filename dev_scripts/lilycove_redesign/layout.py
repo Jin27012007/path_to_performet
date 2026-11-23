@@ -407,25 +407,32 @@ B2 = {}
 def b2_sand(x0, y0, x1, y1):
     for y in range(y0, y1):
         for x in range(x0, x1): B2[(x, y)] = True
-# four houses west of the vertical street (two columns), two east of it; a fruit stall on a little
-# sand square at the top of the street
-b2_sand(18, 3, 39, 5); b2_sand(18, 9, 39, 10)                 # streets in front of each row
+# a natural layout: houses at staggered heights and offsets, short sand paths from each door to the
+# vertical street, trees and flowers in the gaps; a fruit stall on a little square at the top
 b2_sand(30, -4, 32, 11)                                       # vertical street, through the gate to the main street
 b2_sand(26, -4, 36, -2)                                       # the square in front of the stall
-DISTRICT2 = [  # (x, y, roof palette, interior)
-    (24, 5, 0, 'HOUSE4'), (18, 5, 1, 'HOUSE1'),               # HOUSE4: the protagonist's house (blue roof)
-    (18, -1, 8, 'HOUSE2'), (24, -1, 10, None),
-    (34, 5, 9, 'MOVE_DELETERS_HOUSE'), (34, -1, 5, 'POKEMON_TRAINER_FAN_CLUB'),
+b2_sand(20, 3, 37, 4); b2_sand(20, 1, 21, 3)                  # upper path (and a spur to the north-west house)
+b2_sand(19, 9, 37, 10); b2_sand(19, 8, 20, 9)                 # lower path (and a spur to the west house)
+DISTRICT2 = [  # (x, y, roof palette, interior) -- door at (x+2, y+3)
+    (23, 5, 0, 'HOUSE4'),                                     # the protagonist's house (blue roof), by the gate
+    (17, 4, 1, 'HOUSE1'),
+    (24, -1, 8, 'HOUSE2'),
+    (18, -3, 10, None),
+    (33, 5, 9, 'MOVE_DELETERS_HOUSE'),
+    (34, -1, 5, 'POKEMON_TRAINER_FAN_CLUB'),
 ]
 for (_x, _y, _s, _w) in DISTRICT2:
     hoenn_house(_x, _y, _s)
     if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # this house has no interior
 art('stall', 29, -6, bottom='grass')                          # fruit stall (2 x 3), facing the square
-# gardens: trees around the square and on the lawns, flowers by the houses
-for (tx_, ty_) in ((18, -7), (22, -7), (25, -7), (34, -7), (38, -7)): tree1(tx_, ty_)
-for (fx_, fy_) in ((17, 1), (17, 2), (23, 1), (23, 2), (29, 1), (29, 2), (33, 1), (39, 2), (17, 7), (17, 8), (23, 7),
-                   (23, 8), (29, 7), (29, 8), (33, 7), (39, 8), (27, -5), (28, -5), (33, -5), (36, -5)):
-    put(fx_, fy_, FLOWERS)
+for (tx_, ty_) in ((18, -7), (25, -7), (34, -7), (38, -7), (38, 4), (17, 0), (28, 5)):
+    tree1(tx_, ty_)
+def _free(x, y):
+    v = M[y + OY][x + OX]
+    return (x, y) not in B2 and isinstance(v, int) and (v & 0x3ff) in (0x001, 0x002)
+for (fx_, fy_) in ((23, -2), (23, -3), (29, 0), (29, 1), (22, 4), (17, 8), (18, 8), (22, 8), (28, 8), (33, 1), (32, 2),
+                   (39, 3), (36, 4), (33, 4), (39, 8), (27, -5), (28, -5), (33, -5), (36, -5), (17, -2), (21, -4)):
+    if _free(fx_, fy_): put(fx_, fy_, FLOWERS)
 # wooden fence around the quarter, gate at x 30..31 on the main street
 for x in range(16, 41):
     art('fence_wood', x, -8, bottom='grass')
