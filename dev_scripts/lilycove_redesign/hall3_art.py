@@ -162,8 +162,10 @@ def finish(prims, R, only=None, skip=()):
         m = names == nm
         setc(m, GL2); setc(m & (Zi > 30), GL1); setc(m & (Zi <= 10), GL3)
         streak = (((Xi + Zi) % 16) < 2) & (Zi > 8) & (Zi < 40)
-        setc(m & front & streak, GL1)
-        setc(m & front & ((Xi % 16) == 0), M2); setc(m & front & (Zi == 24), M2)
+        setc(m & front & (Zi == 24), M2)
+        post = (Xi % 16)
+        setc(m & front & ((post == 7) | (post == 8)), M0); setc(m & front & (post == 9), M1); setc(m & front & (post == 10), M3)
+        setc(m & front & (Zi >= 3) & (Zi <= 5), M1); setc(m & front & (Zi == 3), M3)
         setc(m & (Zi <= 2), M3); setc(m & top, M1); setc(m & ~front & ~top, M2)
     for nm in ('porch_floor', 'plinth'):
         m = names == nm
@@ -177,20 +179,30 @@ def finish(prims, R, only=None, skip=()):
         if p.name in ('tcor', 'dcor', 'cornice', 'porch_cor'):
             m = (names == p.name) & front & (Z < (p.z0 if hasattr(p, 'z0') else 0) + 1.5) if p.name in ('tcor', 'dcor') else None
             if m is not None: setc(m, M2)
-    setc((names == 'cornice') & front & (Zi <= 45), M2); setc((names == 'porch_cor') & front & (Zi <= 59), M2)
+    for nm_, z0_ in (('cornice', 44), ('porch_cor', 58)):
+        mm = (names == nm_) & front
+        setc(mm, M1); setc(mm & (Zi >= z0_ + 6), M0); setc(mm & (Zi <= z0_ + 1), M2); setc(mm & (Zi == z0_), M3)
+        setc(mm & ((Xi % 32) == 0), M2)
     # glass roofs (palette 8): steel grid, light reflections, white hip frames
     for nm in ('roof', 'porch_roof'):
         m = names == nm
         frontish = N[..., 1] > 0.3
         setc(m & frontish, RG1); setc(m & ~frontish, RG2)
         cu, cv_ = sx % 32, sy % 16                                            # a glint in every pane
-        setc(m & frontish & (cv_ >= 3) & (cv_ <= 9) & ((cu - (12 - cv_)) % 32 < 2), RG0)
         setc(m & ((sy % 16) == 15), RF2); setc(m & ((sx % 32) == 0) & frontish, RF2)
         edge = np.zeros(m.shape, bool)
         for dy, dx in ((1, 0), (0, 1), (0, -1)):
             nbn = np.roll(np.roll(N, dy, 0), dx, 1); nbm = np.roll(np.roll(names, dy, 0), dx, 1)
             edge |= m & (nbm == nm) & ((N * nbn).sum(-1) < 0.98)
-        setc(edge, M0)
+        setc(m & frontish & ((sx % 32) <= 1), RF2); setc(m & frontish & ((sx % 32) == 2), RG2)   # rafters
+        near = np.zeros(m.shape, bool)                                         # plain glass along the hips
+        for k in range(-12, 13): near |= np.roll(edge, k, 1)
+        setc(m & near & frontish, RG1); setc(m & near & ~frontish, RG2)
+        upper = np.roll(names, 1, 0) != nm                                    # ridge / top beam
+        for k, c in ((0, M0), (1, M0), (2, M1), (3, M2), (4, OUT)):
+            setc(m & np.roll(upper, k, 0), c)
+        for k, c in ((-3, OUT), (-2, M0), (-1, M0), (0, M1), (1, M1), (2, M2), (3, OUT)):   # steel hip beams
+            setc(m & np.roll(edge, k, 1) & ~np.roll(upper, 0, 0), c)
     # towers: concrete pillar on the front, glass to the sides (front towers); all glass (back towers)
     for p in prims:
         if p.name != 'tower': continue
@@ -306,6 +318,11 @@ def details(img, prims, R, names):
     setc(car & (np.abs(np.abs(X - CX) - 21) < 1), YE)
     ped = (names == 'porch_roof') & (R['N'][..., 1] > 0.95)              # glass pediment with a frame
     setc(ped, GL1); setc(ped & ((np.floor(X).astype(int) % 12) == 0), M2); setc(ped & (Z < 68), M0)
+    pe = np.zeros(ped.shape, bool)
+    for dy, dx in ((-1, 0), (-2, 0), (-1, 1), (-1, -1)):
+        pe |= ped & ~np.roll(np.roll(ped, dy, 0), dx, 1)
+    setc(pe, M0); setc(ped & np.roll(pe, -1, 0) & ~pe, M2)
+    setc(ped & (np.abs(X - CX) < 1.5), M0)
     return img
 
 def _outline(im, col):
