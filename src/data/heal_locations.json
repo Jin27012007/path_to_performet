@@ -63,7 +63,7 @@
     {
       "id": "HEAL_LOCATION_LILYCOVE_CITY",
       "map": "MAP_LILYCOVE_CITY",
-      "x": 39,
+      "x": 42,
       "y": 21,
       "respawn_map": "MAP_LILYCOVE_CITY_HOUSE4",
       "respawn_npc": "LOCALID_HOUSE4_FATHER",

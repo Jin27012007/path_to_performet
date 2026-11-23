@@ -407,26 +407,29 @@ B2 = {}
 def b2_sand(x0, y0, x1, y1):
     for y in range(y0, y1):
         for x in range(x0, x1): B2[(x, y)] = True
-# three rows of two houses on either side of the vertical street, with lawns between them
-for sy_ in (-3, 3, 9): b2_sand(20, sy_, 36, sy_ + (1 if sy_ == 9 else 2))   # streets in front of each row
-b2_sand(27, -3, 29, 11)                                       # vertical street, through the gate to the main street
+# four houses west of the vertical street (two columns), two east of it; a fruit stall on a little
+# sand square at the top of the street
+b2_sand(18, 3, 39, 5); b2_sand(18, 9, 39, 10)                 # streets in front of each row
+b2_sand(30, -4, 32, 11)                                       # vertical street, through the gate to the main street
+b2_sand(26, -4, 36, -2)                                       # the square in front of the stall
 DISTRICT2 = [  # (x, y, roof palette, interior)
-    (21, 5, 0, 'HOUSE4'), (30, 5, 9, 'MOVE_DELETERS_HOUSE'),   # HOUSE4: the protagonist's house (blue roof)
-    (21, -1, 1, 'HOUSE1'), (30, -1, 5, 'POKEMON_TRAINER_FAN_CLUB'),
-    (21, -7, 8, 'HOUSE2'), (30, -7, 10, None),
+    (24, 5, 0, 'HOUSE4'), (18, 5, 1, 'HOUSE1'),               # HOUSE4: the protagonist's house (blue roof)
+    (18, -1, 8, 'HOUSE2'), (24, -1, 10, None),
+    (34, 5, 9, 'MOVE_DELETERS_HOUSE'), (34, -1, 5, 'POKEMON_TRAINER_FAN_CLUB'),
 ]
 for (_x, _y, _s, _w) in DISTRICT2:
     hoenn_house(_x, _y, _s)
-    if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # the sixth house has no interior
-# gardens: trees on the outer lawns, flowers by the houses (as in district 1)
-for (tx_, ty_) in ((17, -7), (38, -7), (17, -1), (38, -1), (17, 5), (38, 5)): tree1(tx_, ty_)
-for (fx_, fy_) in ((19, -5), (19, -4), (26, -5), (26, -4), (35, -5), (29, -4), (19, 1), (19, 2), (26, 1), (35, 1),
-                   (35, 2), (29, 2), (19, 7), (19, 8), (26, 7), (35, 7), (35, 8), (29, 8), (17, 3), (39, 3), (18, 3), (38, 9)):
+    if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # this house has no interior
+art('stall', 29, -6, bottom='grass')                          # fruit stall (2 x 3), facing the square
+# gardens: trees around the square and on the lawns, flowers by the houses
+for (tx_, ty_) in ((18, -7), (22, -7), (25, -7), (34, -7), (38, -7)): tree1(tx_, ty_)
+for (fx_, fy_) in ((17, 1), (17, 2), (23, 1), (23, 2), (29, 1), (29, 2), (33, 1), (39, 2), (17, 7), (17, 8), (23, 7),
+                   (23, 8), (29, 7), (29, 8), (33, 7), (39, 8), (27, -5), (28, -5), (33, -5), (36, -5)):
     put(fx_, fy_, FLOWERS)
-# wooden fence around the quarter, gate at x 27..28 on the main street
+# wooden fence around the quarter, gate at x 30..31 on the main street
 for x in range(16, 41):
     art('fence_wood', x, -8, bottom='grass')
-    if x not in (27, 28): art('fence_wood', x, 10, bottom='grass')
+    if x not in (30, 31): art('fence_wood', x, 10, bottom='grass')
 for y in range(-7, 10):
     art('fence_wood_vl', 16, y, bottom='grass'); art('fence_wood_vr', 40, y, bottom='grass')
 # sand autotile: a grass edge on each side that touches grass

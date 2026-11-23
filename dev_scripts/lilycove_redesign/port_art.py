@@ -353,3 +353,36 @@ def _sign_paving():
 _CANVAS['sign_paving'], TILEPAL['sign_paving'] = _sign_paving(); PAL_OF['sign_paving'] = 0
 ART['sign_paving'] = lambda: _CANVAS['sign_paving']
 
+
+# ---- fruit stall for district 2 (palette 6 indices): striped awning, wooden counter, fruit ----
+def _stall():
+    W_, H_ = 48, 32
+    c = [[0] * W_ for _ in range(H_)]
+    NAVY, WHITE, CREAM, YEL, ORA, RED, DRED, SKY, GRN, DGRN, TAN, BRN = 10, 1, 2, 3, 4, 5, 6, 8, 12, 13, 14, 15
+    for y in range(2, 12):                                    # awning: red / white stripes, scalloped
+        for x in range(1, 47):
+            c[y][x] = RED if ((x - 1) // 4) % 2 == 0 else WHITE
+            if y == 2: c[y][x] = DRED if c[y][x] == RED else CREAM
+    for x in range(1, 47):
+        u = (x - 1) % 8
+        for y in range(12, 12 + (2 if 1 <= u <= 6 else 1)): c[y][x] = RED if ((x - 1) // 4) % 2 == 0 else WHITE
+    for x in (4, 5, 42, 43):                                  # posts
+        for y in range(12, 31): c[y][x] = BRN if x in (5, 43) else TAN
+    for y in range(20, 31):                                   # counter
+        for x in range(2, 46):
+            c[y][x] = TAN if (y - 20) % 4 else BRN
+    for x in range(2, 46): c[19][x] = CREAM; c[20][x] = BRN
+    fruit = [(9, ORA), (13, ORA), (17, YEL), (21, YEL), (27, RED), (31, RED), (35, GRN), (39, GRN)]
+    for (fx, col) in fruit:                                   # piles of fruit on the counter
+        for (dx, dy) in ((0, 0), (1, 0), (2, 0), (0, -1), (1, -1), (2, -1), (1, -2)):
+            c[17 + dy][fx + dx] = col
+        c[16][fx + 1] = WHITE if col != YEL else CREAM
+    for x in range(8, 41, 8):                                 # little price tags
+        c[22][x] = WHITE; c[22][x + 1] = WHITE
+    snap = [r[:] for r in c]                                  # navy outline
+    for y in range(H_):
+        for x in range(W_):
+            if not snap[y][x] and any(0 <= x + a < W_ and 0 <= y + b < H_ and snap[y + b][x + a] for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                c[y][x] = NAVY
+    return c
+_CANVAS['stall'] = _stall(); PAL_OF['stall'] = 6; ART['stall'] = lambda: _CANVAS['stall']
