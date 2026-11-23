@@ -2,7 +2,8 @@
 const u16 gObjectEventPal_LilycoveDecor[] = INCGFX_U16("graphics/object_events/palettes/lilycove_decor.pal", ".gbapal");
 const u16 gObjectEventPal_LilycoveHotel[] = INCGFX_U16("graphics/object_events/palettes/lilycove_hotel.pal", ".gbapal");
 const u16 gObjectEventPal_LilycoveHallDome[] = INCGFX_U16("graphics/object_events/palettes/lilycove_hall_dome.pal", ".gbapal");
-const u16 gObjectEventPal_LilycoveHallEntr[] = INCGFX_U16("graphics/object_events/palettes/lilycove_hall_entr.pal", ".gbapal");
+const u16 gObjectEventPal_LilycoveHallPorch[] = INCGFX_U16("graphics/object_events/palettes/lilycove_hall_porch.pal", ".gbapal");
+const u16 gObjectEventPal_LilycoveHallTdome[] = INCGFX_U16("graphics/object_events/palettes/lilycove_hall_tdome.pal", ".gbapal");
 
 const u32 gObjectEventPic_LcBeachSetBlue[] = INCGFX_U32("graphics/object_events/pics/misc/lc_beach_set_blue.png", ".4bpp");
 static const struct SpriteFrameImage sPicTable_LcBeachSetBlue[] = { obj_frame_tiles(gObjectEventPic_LcBeachSetBlue), };
@@ -92,16 +93,22 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcBeachSetRedL = {
 const u32 gObjectEventPic_LcHallDome0[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_dome_0.png", ".4bpp");
 static const struct SpriteFrameImage sPicTable_LcHallDome0[] = { obj_frame_tiles(gObjectEventPic_LcHallDome0), };
 static const struct Subsprite sOamTable_LcHallDome0_2[] = {
-    {.x = -56, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
-    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 32, .priority = 2},
-    {.x = -56, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 48, .priority = 2},
-    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 80, .priority = 2},
+    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
+    {.x = 24, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
+    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 80, .priority = 2},
+    {.x = -8, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 88, .priority = 2},
+    {.x = 24, .y = 24, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 96, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHallDome0_1[] = {
-    {.x = -56, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
-    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 32, .priority = 1},
-    {.x = -56, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 48, .priority = 1},
-    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 80, .priority = 1},
+    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
+    {.x = 24, .y = -8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
+    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 80, .priority = 1},
+    {.x = -8, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 88, .priority = 1},
+    {.x = 24, .y = 24, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 96, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHallDome0[] = {
     {ARRAY_COUNT(sOamTable_LcHallDome0_2), sOamTable_LcHallDome0_2},
@@ -113,7 +120,7 @@ static const struct SubspriteTable sOamTables_LcHallDome0[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome0 = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_DOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 3072, .width = 96, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 3200, .width = 80, .height = 80, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHallDome0, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallDome0,
 };
@@ -121,12 +128,16 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome0 = {
 const u32 gObjectEventPic_LcHallDome1[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_dome_1.png", ".4bpp");
 static const struct SpriteFrameImage sPicTable_LcHallDome1[] = { obj_frame_tiles(gObjectEventPic_LcHallDome1), };
 static const struct Subsprite sOamTable_LcHallDome1_2[] = {
-    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
-    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 64, .priority = 2},
+    {.x = -8, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 72, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHallDome1_1[] = {
-    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
-    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = -40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = -40, .y = -8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 64, .priority = 1},
+    {.x = -8, .y = 24, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 72, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHallDome1[] = {
     {ARRAY_COUNT(sOamTable_LcHallDome1_2), sOamTable_LcHallDome1_2},
@@ -138,7 +149,7 @@ static const struct SubspriteTable sOamTables_LcHallDome1[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome1 = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_DOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 2048, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 2560, .width = 64, .height = 80, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHallDome1, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallDome1,
 };
@@ -146,16 +157,14 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome1 = {
 const u32 gObjectEventPic_LcHallDome2[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_dome_2.png", ".4bpp");
 static const struct SpriteFrameImage sPicTable_LcHallDome2[] = { obj_frame_tiles(gObjectEventPic_LcHallDome2), };
 static const struct Subsprite sOamTable_LcHallDome2_2[] = {
-    {.x = -56, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
-    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 32, .priority = 2},
-    {.x = -56, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 48, .priority = 2},
-    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 80, .priority = 2},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHallDome2_1[] = {
-    {.x = -56, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
-    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 32, .priority = 1},
-    {.x = -56, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 48, .priority = 1},
-    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 80, .priority = 1},
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHallDome2[] = {
     {ARRAY_COUNT(sOamTable_LcHallDome2_2), sOamTable_LcHallDome2_2},
@@ -167,7 +176,7 @@ static const struct SubspriteTable sOamTables_LcHallDome2[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome2 = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_DOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 3072, .width = 96, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 2304, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHallDome2, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallDome2,
 };
@@ -176,15 +185,11 @@ const u32 gObjectEventPic_LcHallDome3[] = INCGFX_U32("graphics/object_events/pic
 static const struct SpriteFrameImage sPicTable_LcHallDome3[] = { obj_frame_tiles(gObjectEventPic_LcHallDome3), };
 static const struct Subsprite sOamTable_LcHallDome3_2[] = {
     {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
-    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
-    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
-    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
 };
 static const struct Subsprite sOamTable_LcHallDome3_1[] = {
     {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
-    {.x = 24, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
-    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
-    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
 };
 static const struct SubspriteTable sOamTables_LcHallDome3[] = {
     {ARRAY_COUNT(sOamTable_LcHallDome3_2), sOamTable_LcHallDome3_2},
@@ -196,44 +201,168 @@ static const struct SubspriteTable sOamTables_LcHallDome3[] = {
 };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallDome3 = {
     .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_DOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 2560, .width = 80, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .size = 2048, .width = 64, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
     .subspriteTables = sOamTables_LcHallDome3, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallDome3,
 };
 
-const u32 gObjectEventPic_LcHallEntr[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_entr.png", ".4bpp");
-static const struct SpriteFrameImage sPicTable_LcHallEntr[] = { obj_frame_tiles(gObjectEventPic_LcHallEntr), };
-static const struct Subsprite sOamTable_LcHallEntr_2[] = {
+const u32 gObjectEventPic_LcHallPorch[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_porch.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHallPorch[] = { obj_frame_tiles(gObjectEventPic_LcHallPorch), };
+static const struct Subsprite sOamTable_LcHallPorch_2[] = {
     {.x = -40, .y = -24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
     {.x = 24, .y = -24, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 2},
     {.x = -40, .y = 8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 2},
     {.x = 24, .y = 8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 2},
-    {.x = -40, .y = 40, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 80, .priority = 2},
-    {.x = -8, .y = 40, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 88, .priority = 2},
-    {.x = 24, .y = 40, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 96, .priority = 2},
+    {.x = -40, .y = 40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 80, .priority = 2},
+    {.x = 24, .y = 40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 112, .priority = 2},
+    {.x = -40, .y = 72, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 120, .priority = 2},
+    {.x = -8, .y = 72, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 128, .priority = 2},
+    {.x = 24, .y = 72, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 136, .priority = 2},
 };
-static const struct Subsprite sOamTable_LcHallEntr_1[] = {
+static const struct Subsprite sOamTable_LcHallPorch_1[] = {
     {.x = -40, .y = -24, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
     {.x = 24, .y = -24, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 32, .priority = 1},
     {.x = -40, .y = 8, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 40, .priority = 1},
     {.x = 24, .y = 8, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 72, .priority = 1},
-    {.x = -40, .y = 40, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 80, .priority = 1},
-    {.x = -8, .y = 40, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 88, .priority = 1},
-    {.x = 24, .y = 40, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 96, .priority = 1},
+    {.x = -40, .y = 40, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 80, .priority = 1},
+    {.x = 24, .y = 40, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 112, .priority = 1},
+    {.x = -40, .y = 72, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 120, .priority = 1},
+    {.x = -8, .y = 72, .shape = SPRITE_SHAPE(32x16), .size = SPRITE_SIZE(32x16), .tileOffset = 128, .priority = 1},
+    {.x = 24, .y = 72, .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .tileOffset = 136, .priority = 1},
 };
-static const struct SubspriteTable sOamTables_LcHallEntr[] = {
-    {ARRAY_COUNT(sOamTable_LcHallEntr_2), sOamTable_LcHallEntr_2},
-    {ARRAY_COUNT(sOamTable_LcHallEntr_2), sOamTable_LcHallEntr_2},
-    {ARRAY_COUNT(sOamTable_LcHallEntr_1), sOamTable_LcHallEntr_1},
-    {ARRAY_COUNT(sOamTable_LcHallEntr_2), sOamTable_LcHallEntr_2},
-    {ARRAY_COUNT(sOamTable_LcHallEntr_1), sOamTable_LcHallEntr_1},
-    {ARRAY_COUNT(sOamTable_LcHallEntr_1), sOamTable_LcHallEntr_1},
+static const struct SubspriteTable sOamTables_LcHallPorch[] = {
+    {ARRAY_COUNT(sOamTable_LcHallPorch_2), sOamTable_LcHallPorch_2},
+    {ARRAY_COUNT(sOamTable_LcHallPorch_2), sOamTable_LcHallPorch_2},
+    {ARRAY_COUNT(sOamTable_LcHallPorch_1), sOamTable_LcHallPorch_1},
+    {ARRAY_COUNT(sOamTable_LcHallPorch_2), sOamTable_LcHallPorch_2},
+    {ARRAY_COUNT(sOamTable_LcHallPorch_1), sOamTable_LcHallPorch_1},
+    {ARRAY_COUNT(sOamTable_LcHallPorch_1), sOamTable_LcHallPorch_1},
 };
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallEntr = {
-    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_ENTR, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 3200, .width = 80, .height = 80, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallPorch = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_PORCH, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 4480, .width = 80, .height = 112, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
     .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
-    .subspriteTables = sOamTables_LcHallEntr, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallEntr,
+    .subspriteTables = sOamTables_LcHallPorch, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallPorch,
+};
+
+const u32 gObjectEventPic_LcHallTdiL[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_tdi_l.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHallTdiL[] = { obj_frame_tiles(gObjectEventPic_LcHallTdiL), };
+static const struct Subsprite sOamTable_LcHallTdiL_2[] = {
+    {.x = -24, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 0, .priority = 2},
+    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 2},
+    {.x = -24, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 2},
+    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHallTdiL_1[] = {
+    {.x = -24, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 0, .priority = 1},
+    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 1},
+    {.x = -24, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 1},
+    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHallTdiL[] = {
+    {ARRAY_COUNT(sOamTable_LcHallTdiL_2), sOamTable_LcHallTdiL_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdiL_2), sOamTable_LcHallTdiL_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdiL_1), sOamTable_LcHallTdiL_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdiL_2), sOamTable_LcHallTdiL_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdiL_1), sOamTable_LcHallTdiL_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdiL_1), sOamTable_LcHallTdiL_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdiL = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_TDOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 1536, .width = 48, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHallTdiL, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallTdiL,
+};
+
+const u32 gObjectEventPic_LcHallTdiR[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_tdi_r.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHallTdiR[] = { obj_frame_tiles(gObjectEventPic_LcHallTdiR), };
+static const struct Subsprite sOamTable_LcHallTdiR_2[] = {
+    {.x = -24, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 0, .priority = 2},
+    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 2},
+    {.x = -24, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 2},
+    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHallTdiR_1[] = {
+    {.x = -24, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 0, .priority = 1},
+    {.x = 8, .y = -32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 16, .priority = 1},
+    {.x = -24, .y = 0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 24, .priority = 1},
+    {.x = 8, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 40, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHallTdiR[] = {
+    {ARRAY_COUNT(sOamTable_LcHallTdiR_2), sOamTable_LcHallTdiR_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdiR_2), sOamTable_LcHallTdiR_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdiR_1), sOamTable_LcHallTdiR_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdiR_2), sOamTable_LcHallTdiR_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdiR_1), sOamTable_LcHallTdiR_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdiR_1), sOamTable_LcHallTdiR_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdiR = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_TDOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 1536, .width = 48, .height = 64, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHallTdiR, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallTdiR,
+};
+
+const u32 gObjectEventPic_LcHallTdoL[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_tdo_l.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHallTdoL[] = { obj_frame_tiles(gObjectEventPic_LcHallTdoL), };
+static const struct Subsprite sOamTable_LcHallTdoL_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 64, .priority = 2},
+    {.x = -40, .y = 32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 72, .priority = 2},
+    {.x = 24, .y = 32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 104, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHallTdoL_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 64, .priority = 1},
+    {.x = -40, .y = 32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 72, .priority = 1},
+    {.x = 24, .y = 32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 104, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHallTdoL[] = {
+    {ARRAY_COUNT(sOamTable_LcHallTdoL_2), sOamTable_LcHallTdoL_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdoL_2), sOamTable_LcHallTdoL_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdoL_1), sOamTable_LcHallTdoL_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdoL_2), sOamTable_LcHallTdoL_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdoL_1), sOamTable_LcHallTdoL_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdoL_1), sOamTable_LcHallTdoL_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdoL = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_TDOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 3584, .width = 80, .height = 96, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHallTdoL, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallTdoL,
+};
+
+const u32 gObjectEventPic_LcHallTdoR[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hall_tdo_r.png", ".4bpp");
+static const struct SpriteFrameImage sPicTable_LcHallTdoR[] = { obj_frame_tiles(gObjectEventPic_LcHallTdoR), };
+static const struct Subsprite sOamTable_LcHallTdoR_2[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 64, .priority = 2},
+    {.x = -40, .y = 32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 72, .priority = 2},
+    {.x = 24, .y = 32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 104, .priority = 2},
+};
+static const struct Subsprite sOamTable_LcHallTdoR_1[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 1},
+    {.x = -40, .y = 0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 1},
+    {.x = 24, .y = 0, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 64, .priority = 1},
+    {.x = -40, .y = 32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 72, .priority = 1},
+    {.x = 24, .y = 32, .shape = SPRITE_SHAPE(16x32), .size = SPRITE_SIZE(16x32), .tileOffset = 104, .priority = 1},
+};
+static const struct SubspriteTable sOamTables_LcHallTdoR[] = {
+    {ARRAY_COUNT(sOamTable_LcHallTdoR_2), sOamTable_LcHallTdoR_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdoR_2), sOamTable_LcHallTdoR_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdoR_1), sOamTable_LcHallTdoR_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdoR_2), sOamTable_LcHallTdoR_2},
+    {ARRAY_COUNT(sOamTable_LcHallTdoR_1), sOamTable_LcHallTdoR_1},
+    {ARRAY_COUNT(sOamTable_LcHallTdoR_1), sOamTable_LcHallTdoR_1},
+};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LcHallTdoR = {
+    .tileTag = TAG_NONE, .paletteTag = OBJ_EVENT_PAL_TAG_LILYCOVE_HALL_TDOME, .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 3584, .width = 80, .height = 96, .paletteSlot = PALSLOT_NPC_SPECIAL, .shadowSize = SHADOW_SIZE_M,
+    .inanimate = TRUE, .compressed = FALSE, .tracks = TRACKS_NONE, .oam = &gObjectEventBaseOam_8x8,
+    .subspriteTables = sOamTables_LcHallTdoR, .anims = sAnimTable_Inanimate, .images = sPicTable_LcHallTdoR,
 };
 
 const u32 gObjectEventPic_LcHotel0[] = INCGFX_U32("graphics/object_events/pics/misc/lc_hotel_0.png", ".4bpp");

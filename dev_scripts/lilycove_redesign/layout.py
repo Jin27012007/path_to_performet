@@ -384,15 +384,17 @@ decor('beach_set_red', 47, 22, walk_rows=1); decor('beach_set_blue', 53, 24, wal
 decor('beach_set_red_l', 57, 21, walk_rows=1); decor('beach_set_red', 50, 29, walk_rows=1)
 decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, walk_rows=1)
 
-# ================= CONTEST HALL (hall2_art.py, Emerald 3/4 view) ======================================
-# 27 x 11 metatiles over the whole block (x 14..40, rows 11..21): background palace + towers (rows 11..12
-# hang over the north street, walk behind), the big-top dome (sprite, rows 10..17) on the roof and the
-# entrance portico (sprite, rows 17..21) with the glass doors at x 26..28, row 21.
+# ================= CONTEST HALL (hall3_art.py: 3D model in Emerald's 3/4 projection) ===================
+# 27 x 11 metatiles over the whole block (x 14..40, rows 11..21): background palace, roofs and towers
+# (rows 11..12 hang over the north street, walk behind) + 9 sprites: the striped dome on its drum
+# (4 chunks), the entrance portico (glass doors at x 26..28, row 21) and the four tower domes.
 art('hall_top', 14, 11, bottom='paving', walk_rows=2)
 art('hall_body', 14, 13, bottom='paving')
 paving(14, 22, 41, 23)                                       # forecourt in front of the hall
-decor('hall_dome', 22, 10, walk_rows=3)
-decor('hall_entr', 25, 17, anchor_up=1)
+import hall3_art as _H3
+for (_n, (_x0, _x1, _y0, _y1), _up, _sp) in _H3.GROUPS:
+    _top = 11 + _y0 // 16
+    decor(_n, 14 + _x0 // 16, _top, walk_rows=max(0, 13 - _top), anchor_up=_up)
 for x in (26, 27, 28):                                       # the glass double door (walk in -> lobby)
     put(x, 21, ('ART', ('nadoor', 0, 0, None, 'carpet'), 0, 3))
     for y in (22, 23): put(x, y, T(F['carpet']))             # red carpet from the door to the plaza bricks

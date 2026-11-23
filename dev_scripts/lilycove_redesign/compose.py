@@ -151,7 +151,8 @@ def decor(name,x,y,walk_rows=0,anchor_up=0):
     """Places art `name` as a sprite; the floor already drawn under it only gets its collision
     changed (blocked, except the top walk_rows rows, where the player walks behind it)."""
     c=_pa.ART[name](); w,h=len(c[0])//16,len(c)//16
-    if w>6 or h>5:                            # big art: chunks of <=5x4 tiles (no pop-in at the screen edges)
+    split=_pa.CHUNK_SPLIT.get(name)
+    if split!='whole' and (w>6 or h>5 or split):   # big art: chunks of <=5x4 tiles (no pop-in at the screen edges)
         for k,(cx,cy,sub_c) in enumerate(_pa.chunks(name)):
             sub='%s_%d'%(name,k)
             _pa._CANVAS[sub]=sub_c; _pa.PAL_OF[sub]=_pa.PAL_OF[name]; _pa.ART[sub]=(lambda s=sub: _pa._CANVAS[s])
@@ -159,7 +160,8 @@ def decor(name,x,y,walk_rows=0,anchor_up=0):
         return
     for my in range(h):
         for mx in range(w):
-            col = 0 if my<walk_rows else 1
+            if my<walk_rows: continue           # walk behind: the floor keeps its collision
+            col = 1
             X,Y=x+mx+OX,y+my+OY
             v=M[Y][X]
             M[Y][X]=(v[0],v[1],col,v[3]) if isinstance(v,tuple) else ((v&~0xC00)|(col<<10))

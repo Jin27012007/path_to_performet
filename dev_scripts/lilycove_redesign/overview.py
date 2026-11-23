@@ -11,6 +11,9 @@ def build(out, labels=False):
     render.render(os.path.join(REPO, 'data/layouts/LilycoveCity/map.bin'), W, tmp, sec='secondary/lilycove_city')
     im = Image.open(tmp).convert('RGBA'); os.remove(tmp)
     m = json.load(open(os.path.join(REPO, 'data/maps/LilycoveCity/map.json'))); cache = {}
+    import compose; exec(open(os.path.join(HERE, 'layout.py')).read(), {'__name__': 'layout', **vars(compose)})
+    UP = {}
+    for (n_, x_, y_, up_) in compose.DECOR: UP[n_] = up_
     def idx(c, slot):
         pal = P.PALETTES[slot] if isinstance(slot, int) else P.OBJ_PALETTES[slot]
         o = Image.new('RGBA', (len(c[0]), len(c)), (0, 0, 0, 0))
@@ -27,7 +30,7 @@ def build(out, labels=False):
                 else:                                   # chunk of a big sprite (name_k)
                     c = P.chunk_art(n)[2]; slot = P.PAL_OF[n.rsplit('_', 1)[0]]
                 cache[n] = idx(c, slot)
-            s = cache[n]; im.alpha_composite(s, ((tx - (s.width // 16) // 2) * 16, (ty + 1) * 16 - s.height))
+            s = cache[n]; im.alpha_composite(s, ((tx - (s.width // 16) // 2) * 16, (ty + 1 + UP.get(n, 0)) * 16 - s.height))
         elif g.startswith('OBJ_EVENT_GFX_CRUISE_SHIP_'):
             s = A.sprite('graphics/object_events/pics/misc/cruise_ship_%s.png' % g[-1], 'graphics/object_events/palettes/ss_tidal.pal')
             im.alpha_composite(s, (tx * 16 + 8 - 32, (ty + 1) * 16 - 48))
