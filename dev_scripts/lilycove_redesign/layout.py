@@ -425,7 +425,7 @@ for (_x, _y, _s, _wl, _w) in DISTRICT2:
     hoenn_house(_x, _y, _s, _wl)
     if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # this house has no interior
 art('stall', 29, -6, bottom='grass')                          # fruit stall (2 x 3), facing the square
-for (tx_, ty_) in ((18, -7), (25, -7), (34, -7), (38, -7), (38, 4), (17, 0), (28, 5)):
+for (tx_, ty_) in ((18, -7), (25, -7), (34, -7), (38, -7), (38, 4), (17, 1), (28, 5)):
     tree1(tx_, ty_)
 def _free(x, y):
     v = M[y + OY][x + OX]
