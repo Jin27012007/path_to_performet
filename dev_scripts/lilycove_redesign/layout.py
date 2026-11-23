@@ -416,7 +416,7 @@ b2_sand(20, 1, 37, 2); b2_sand(20, -1, 21, 1)                 # upper path (and 
 b2_sand(19, 7, 37, 8); b2_sand(19, 6, 20, 7)                  # lower path (and a spur to the west house)
 DISTRICT2 = [  # (x, y, roof palette, wall palette, interior) -- door at (x+2, y+3); palette 7 = dark-brown roofs
     (23, 3, 7, 5, 'HOUSE4'),                                  # the protagonist's house (orange wood), by the gate
-    (17, 2, 7, 3, 'HOUSE1'),                                  # dusty rose
+    (17, 2, 7, 70, 'HOUSE1'),                                 # pink (palette 7 copy of the wall tiles, wine outline)
     (24, -3, 7, 8, 'HOUSE2'),                                 # pale yellow
     (18, -5, 7, 7, None),                                     # weathered brown wood
     (33, 3, 7, 1, 'MOVE_DELETERS_HOUSE'),                     # barn red
@@ -445,6 +445,7 @@ for x in range(16, 42):
     if x not in (30, 31): art('fence_wood', x, 10, bottom='grass')
 for y in range(-9, 10):
     art('fence_wood_vl', 16, y, bottom='grass'); art('fence_wood_vr', 41, y, bottom='grass')
+art('fence_c_bl', 16, 10, bottom='grass'); art('fence_c_br', 41, 10, bottom='grass')   # bottom corners: posts meet
 # sand autotile: a grass edge on each side that touches grass
 for (x, y) in B2:
     def _g(xx, yy):

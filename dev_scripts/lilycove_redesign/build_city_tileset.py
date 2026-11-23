@@ -140,8 +140,21 @@ def build(M, festival_ids):
             wall = int(parts[3]) if len(parts) > 3 else 5           # optional wall palette (palette 5 -> wall)
             rmap = {1: roof, 5: wall}
             WIN = (0x0a6, 0x0b6)                                    # window tiles keep palette 5 (same blue everywhere)
-            ents = [((v & 0x0fff) | (rmap.get(v >> 12, v >> 12) << 12)) if v and not ((v >> 12) == 5 and (v & 0x3ff) in WIN) else v
-                    for v in struct.unpack_from('<8H', _pm, src_m * 16)]
+            if wall == 70:                                          # 'pink': wall tiles re-indexed into palette 7's free slots
+                IDX = {5: 9, 6: 10, 7: 15, 11: 1, 12: 2, 13: 4, 14: 8}
+                ents = []
+                for v in struct.unpack_from('<8H', _pm, src_m * 16):
+                    t = v & 0x3ff
+                    if v and (v >> 12) == 5 and t not in WIN:
+                        q = [[IDX.get(ptiles[t][yy][xx], ptiles[t][yy][xx]) for xx in range(8)] for yy in range(8)]
+                        nt = add_tile(q)
+                        v = ((nt & 0x3ff) | ((nt ^ v) & 0xC00)) | (7 << 12)
+                    elif v and (v >> 12) == 1:
+                        v = (v & 0x0fff) | (roof << 12)
+                    ents.append(v)
+            else:
+                ents = [((v & 0x0fff) | (rmap.get(v >> 12, v >> 12) << 12)) if v and not ((v >> 12) == 5 and (v & 0x3ff) in WIN) else v
+                        for v in struct.unpack_from('<8H', _pm, src_m * 16)]
             attr = struct.unpack_from('<H', _pa_, src_m * 2)[0]
             sig = (tuple(ents), attr)
             if sig in meta_by_sig: mid = meta_by_sig[sig]

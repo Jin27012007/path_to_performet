@@ -357,36 +357,34 @@ ART['sign_paving'] = lambda: _CANVAS['sign_paving']
 # ---- fruit stall for district 2 (palette 6 indices), Emerald 3/4 view: striped awning seen from above
 # with its front valance, posts, a counter whose top shows baskets of fruit, the counter's front ----
 def _stall():
+    """drawn on the 8 px grid (straight stripes, valance and planks repeat as tiles)"""
     W_, H_ = 48, 32
     c = [[0] * W_ for _ in range(H_)]
-    NAVY, WHITE, CREAM, YEL, ORA, RED, DRED, GRN, DGRN, TAN, BRN = 10, 1, 2, 3, 4, 5, 6, 12, 13, 14, 15
-    for y in range(1, 10):                                    # awning top, receding: narrower at the back
-        inset = (9 - y) // 3
-        for x in range(2 + inset, 46 - inset):
-            u = (x - 24) * 22 / (22 - inset)                  # stripes converge slightly towards the back
-            red = (int((u + 24) // 4)) % 2 == 0
+    NAVY, WHITE, CREAM, YEL, ORA, RED, DRED, GRN, TAN, BRN = 10, 1, 2, 3, 4, 5, 6, 12, 14, 15
+    for y in range(1, 10):                                    # awning top seen from above, stripes every 4 px
+        inset = 0
+        for x in range(1 + inset, 47 - inset):
+            red = (x // 4) % 2 == 0
             c[y][x] = (RED if red else WHITE) if y > 2 else (DRED if red else CREAM)
-    for x in range(1, 47):                                    # front valance (scalloped), in shade
-        red = ((x - 1) // 4) % 2 == 0
-        u = (x - 1) % 8
+    for x in range(1, 47):                                    # front valance, scalloped every 8 px
+        red = (x // 4) % 2 == 0
+        u = x % 8
         for y in range(10, 13 + (1 if 1 <= u <= 6 else 0)):
             c[y][x] = (DRED if red else CREAM) if y == 10 else (RED if red else WHITE)
     for x in (4, 5, 42, 43):                                  # front posts
-        for y in range(13, 23): c[y][x] = BRN if x in (5, 43) else TAN
-    for y in range(16, 23):                                   # counter top, seen from above
-        for x in range(2, 46): c[y][x] = CREAM if y < 18 else TAN
-    for x in range(2, 46): c[22][x] = BRN
-    baskets = [(8, ORA), (16, YEL), (24, RED), (32, GRN), (40, ORA)]
-    for (bx, col) in baskets:                                 # round baskets of fruit on the counter
-        for y in range(16, 22):
-            for x in range(bx - 3, bx + 3):
-                d = (x + 0.5 - bx) ** 2 + ((y - 18.5) * 1.4) ** 2
-                if d <= 9: c[y][x] = col
+        for y in range(14, 16): c[y][x] = BRN if x in (5, 43) else TAN
+    for y in range(16, 24):                                   # counter top, seen from above
+        for x in range(2, 46): c[y][x] = CREAM if y < 19 else TAN
+    for x in range(2, 46): c[23][x] = BRN
+    for (bx, col) in ((12, ORA), (36, ORA)):                  # baskets of oranges, each centred in an 8 px tile
+        for y in range(16, 23):
+            for x in range(bx - 4, bx + 4):
+                d = (x + 0.5 - bx) ** 2 + ((y - 19) * 1.3) ** 2
+                if d <= 8: c[y][x] = col
                 elif d <= 13: c[y][x] = BRN
-        c[17][bx - 1] = WHITE if col not in (YEL,) else CREAM
-    for y in range(23, 31):                                   # counter front: planks
-        for x in range(2, 46): c[y][x] = TAN if (y - 23) % 3 else BRN
-    for x in range(8, 41, 8): c[25][x] = WHITE; c[25][x + 1] = WHITE   # price tags
+        c[17][bx - 2] = WHITE
+    for y in range(24, 31):                                   # counter front: planks
+        for x in range(2, 46): c[y][x] = TAN if (y - 24) % 3 else BRN
     snap = [r[:] for r in c]                                  # navy outline
     for y in range(H_):
         for x in range(W_):
@@ -403,4 +401,23 @@ def _read_pal(path):
 _p7 = _read_pal(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data/tilesets/secondary/lilycove/palettes/07.pal'))
 _p7[11], _p7[12], _p7[13], _p7[14] = (176, 120, 80), (152, 96, 64), (128, 80, 56), (104, 64, 48)   # roof browns
 _p7[6], _p7[5] = (80, 48, 40), (144, 120, 104)          # scale lines (a shade darker), ridge edge
+_p7[1], _p7[2], _p7[4], _p7[8] = (248, 200, 208), (232, 168, 184), (208, 136, 160), (176, 104, 136)   # pink walls
+_p7[9], _p7[10], _p7[15] = (216, 184, 192), (160, 112, 136), (104, 56, 80)                           # their shading, wine outline
 PALETTES[7] = _p7
+
+# ---- fence corners: the vertical post meets the horizontal fence (bottom corners carry the post up) ----
+def _fence_corner(side, bottom):
+    c = [row[:] for row in _CANVAS['fence_wood']]
+    v = _CANVAS['fence_wood_vl' if side == 'l' else 'fence_wood_vr']
+    cols = range(0, 2) if side == 'l' else range(14, 16)      # no rail beyond the corner post
+    for y in range(16):
+        for x in cols: c[y][x] = 0
+    if bottom:
+        px0 = 2 if side == 'l' else 10
+        for y in range(0, 2):
+            for x in range(px0, px0 + 4): c[y][x] = v[0][x]
+    return c
+_CANVAS['fence_c_bl'] = _fence_corner('l', True)
+_CANVAS['fence_c_br'] = [row[::-1] for row in _CANVAS['fence_c_bl']]      # mirror: shares the tiles
+for _n in ('fence_c_bl', 'fence_c_br'):
+    PAL_OF[_n] = PAL_OF['fence_wood']; ART[_n] = (lambda n=_n: _CANVAS[n])
