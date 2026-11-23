@@ -287,3 +287,19 @@ for _pk, _names in (('hall_dome', ('hall_dome',)), ('hall_porch', ('hall_porch',
     for n, cv in zip(_names, _cvs):
         _CANVAS[n] = cv; PAL_OF[n] = _pk; ART[n] = (lambda n=n: _CANVAS[n])
 for _n, _b, _up, _sp in _H3.GROUPS: CHUNK_SPLIT[_n] = _sp if _sp else 'whole'
+
+# ---- modern bench (primary tileset, palette 3 greys): 2 x 1 metatiles, symmetric -> 4 tiles ----
+def _bench():
+    W_, G2_, G1_, G0_, D_ = 1, 2, 3, 4, 8          # palette 3: white, 216, 192, 160, dark outline
+    c = [[0] * 32 for _ in range(16)]
+    def hl(y, x0, x1, v):
+        for x in range(x0, x1): c[y][x] = v
+    hl(1, 1, 31, D_); hl(2, 1, 31, W_); hl(3, 1, 31, G2_); hl(4, 1, 31, D_)          # backrest
+    hl(5, 1, 31, W_); hl(6, 1, 31, G2_); hl(7, 1, 31, G0_); hl(8, 1, 31, G2_); hl(9, 1, 31, G1_); hl(10, 1, 31, D_)
+    for y in range(1, 11): c[y][0] = D_; c[y][31] = D_
+    for y in range(2, 4): c[y][1] = c[y][30] = G1_
+    for y in range(11, 15):
+        for x in (3, 4, 27, 28): c[y][x] = G0_ if x in (4, 27) else D_
+    for x in (2, 5, 26, 29): c[14][x] = D_
+    return c
+_CANVAS['bench'] = _bench(); PAL_OF['bench'] = 3; ART['bench'] = lambda: _CANVAS['bench']

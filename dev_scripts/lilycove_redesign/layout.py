@@ -398,4 +398,7 @@ for (_n, (_x0, _x1, _y0, _y1), _up, _sp) in _H3.GROUPS:
 for x in (26, 27, 28):                                       # the glass double door (walk in -> lobby)
     put(x, 21, ('ART', ('nadoor', 0, 0, None, 'carpet'), 0, 3))
     for y in (22, 23): put(x, y, T(F['carpet']))             # red carpet from the door to the plaza bricks
+# forecourt: potted palms by the building, modern benches facing the plaza
+for px_ in (16, 24, 30, 38): art('potted_palm', px_, 22, bottom='paving', walk_rows=1)
+for bx_ in (18, 21, 32, 35): art('bench', bx_, 23, bottom='paving')
 sign(44, 10)                                                 # beach / hotel sign at the top of the sand road
