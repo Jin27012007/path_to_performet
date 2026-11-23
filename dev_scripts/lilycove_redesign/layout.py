@@ -390,8 +390,8 @@ decor('beach_set_blue', 43, 35, walk_rows=1); decor('beach_set_blue', 64, 25, wa
 # ================= DISTRICT 2 (north of the Contest Hall): the low-income quarter ======================
 # Six Hoenn houses (Petalburg's, from the General tileset: no tiles; roof colours are palette swaps,
 # as Slateport does), sand streets, a wooden fence around the quarter with a gate onto the main street.
-fill(16, -9, 41, 11, GRASS)
-trees(16, -12, 42, -9, grass_above=False)                    # the forest ends at row -10
+fill(16, -11, 41, 11, GRASS)
+trees(16, -12, 42, -11, grass_above=False)                   # the forest ends at row -12
 HOUSE_MT = [[0x008, 0x009, 0x009, 0x009, 0x00a], [0x010, 0x011, 0x011, 0x011, 0x012],
             [0x018, 0x00b, 0x019, 0x00b, 0x01a], [0x020, 0x013, 0x021, 0x013, 0x022]]
 def hoenn_house(x, y, slot, wall=5):
@@ -409,39 +409,41 @@ def b2_sand(x0, y0, x1, y1):
         for x in range(x0, x1): B2[(x, y)] = True
 # a natural layout: houses at staggered heights and offsets, short sand paths from each door to the
 # vertical street, trees and flowers in the gaps; a fruit stall on a little square at the top
-b2_sand(30, -4, 32, 11)                                       # vertical street, through the gate to the main street
-b2_sand(26, -4, 36, -2)                                       # the square in front of the stall
-b2_sand(20, 3, 37, 4); b2_sand(20, 1, 21, 3)                  # upper path (and a spur to the north-west house)
-b2_sand(19, 9, 37, 10); b2_sand(19, 8, 20, 9)                 # lower path (and a spur to the west house)
+# (the whole quarter sits 2 rows higher than the gate row, clear of the Contest Hall's towers)
+b2_sand(30, -6, 32, 11)                                       # vertical street, through the gate to the main street
+b2_sand(26, -6, 36, -4)                                       # the square in front of the stall
+b2_sand(20, 1, 37, 2); b2_sand(20, -1, 21, 1)                 # upper path (and a spur to the north-west house)
+b2_sand(19, 7, 37, 8); b2_sand(19, 6, 20, 7)                  # lower path (and a spur to the west house)
 DISTRICT2 = [  # (x, y, roof palette, wall palette, interior) -- door at (x+2, y+3); palette 7 = dark-brown roofs
-    (23, 5, 7, 5, 'HOUSE4'),                                  # the protagonist's house (orange wood), by the gate
-    (17, 4, 7, 3, 'HOUSE1'),                                  # dusty rose
-    (24, -1, 7, 8, 'HOUSE2'),                                 # pale yellow
-    (18, -3, 7, 7, None),                                     # weathered brown wood
-    (33, 5, 7, 1, 'MOVE_DELETERS_HOUSE'),                     # barn red
-    (34, -1, 7, 0, 'POKEMON_TRAINER_FAN_CLUB'),               # faded blue
+    (23, 3, 7, 5, 'HOUSE4'),                                  # the protagonist's house (orange wood), by the gate
+    (17, 2, 7, 3, 'HOUSE1'),                                  # dusty rose
+    (24, -3, 7, 8, 'HOUSE2'),                                 # pale yellow
+    (18, -5, 7, 7, None),                                     # weathered brown wood
+    (33, 3, 7, 1, 'MOVE_DELETERS_HOUSE'),                     # barn red
+    (34, -3, 7, 0, 'POKEMON_TRAINER_FAN_CLUB'),               # faded blue
 ]
 for (_x, _y, _s, _wl, _w) in DISTRICT2:
     hoenn_house(_x, _y, _s, _wl)
     if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # this house has no interior
-art('stall', 29, -6, bottom='grass')                          # fruit stall (2 x 3), facing the square
-for (tx_, ty_) in ((18, -7), (25, -7), (34, -7), (38, -7), (38, 4), (17, 1), (28, 5)):
+art('stall', 29, -8, bottom='grass')                          # fruit stall (2 x 3), facing the square
+for (tx_, ty_) in ((18, -9), (25, -9), (34, -9), (38, -9), (38, 2), (17, -1), (28, 3), (38, 7)):
     tree1(tx_, ty_)
 def _free(x, y):
     v = M[y + OY][x + OX]
     return (x, y) not in B2 and isinstance(v, int) and (v & 0x3ff) in (0x001, 0x002)
-for (fx_, fy_) in ((23, -2), (23, -3), (29, 0), (29, 1), (22, 4), (17, 8), (18, 8), (22, 8), (28, 8), (33, 1), (32, 2),
-                   (39, 3), (36, 4), (33, 4), (39, 8), (27, -5), (28, -5), (33, -5), (36, -5), (17, -2), (21, -4)):
+for (fx_, fy_) in ((23, -4), (23, -5), (29, -2), (29, -1), (22, 2), (17, 6), (18, 6), (22, 6), (28, 6), (33, -1), (32, 0),
+                   (39, 1), (36, 2), (33, 2), (39, 6), (27, -7), (28, -7), (33, -7), (36, -7), (17, -4), (21, -6),
+                   (18, 9), (23, 9), (26, 8), (27, 9), (33, 9), (35, 8), (39, 9)):
     if _free(fx_, fy_): put(fx_, fy_, FLOWERS)
 # forests around the quarter, redrawn with their 2-column tree pairs aligned (no half trees)
 trees(0, -12, 16, 0, grass_above=False)                       # west of the quarter, above district 1
-trees(16, -12, 42, -9, grass_above=False)                     # north of the fence
+trees(16, -12, 42, -11, grass_above=False)                    # north of the fence
 fill(42, -9, 45, 11, GRASS); trees(42, -12, 44, 2, grass_above=False)   # strip between the fence and the hotel
 # wooden fence around the quarter, gate at x 30..31 on the main street
 for x in range(16, 42):
-    art('fence_wood', x, -8, bottom='grass')
+    art('fence_wood', x, -10, bottom='grass')
     if x not in (30, 31): art('fence_wood', x, 10, bottom='grass')
-for y in range(-7, 10):
+for y in range(-9, 10):
     art('fence_wood_vl', 16, y, bottom='grass'); art('fence_wood_vr', 41, y, bottom='grass')
 # sand autotile: a grass edge on each side that touches grass
 for (x, y) in B2:
