@@ -39,8 +39,12 @@ def building():
             if y % 8 == 7: c = TD                                # seams
             if x in (79, 80): c = GL1                            # ridge
             put(x, y, c)
-    rect(CL, RT - 8, CL + 1, RB, OUT); rect(CR - 1, RT - 8, CR, RB, OUT)
-    rect(CL, RT - 8, CR, RT - 4, TD); rect(CL + 1, RT - 8, CR - 1, RT - 7, GL1)      # ridge cap of the central roof      # the gable's side edges
+    rect(CL, RT - 8, CL + 1, RB, OUT); rect(CR - 1, RT - 8, CR, RB, OUT)      # the gable's side edges
+    # back of the central roof: a gable like the front (same 1:2 slope), apex at y 8
+    for x in range(CL, CR):
+        t = RT - 8 + (abs(2 * x - 159) - 1) // 4
+        for y in range(0, t): p[x, y] = (0, 0, 0, 0)
+        put(x, t, GL1)
     # pediment (front of the cross gable), white with a grey frame
     for x in range(CL, CR):
         t = ped_top(x)
