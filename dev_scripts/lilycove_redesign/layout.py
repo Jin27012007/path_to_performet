@@ -182,19 +182,21 @@ trees(-16,-8,-13,1,grass_above=False); trees(-1,-8,17,0,grass_above=False)   # f
 # street, lawns with two steel sculptures on pedestals, hedges and flowers; doors (-8,-3) (-7,-3)
 import port_art as _pmu
 fill(-14, -8, 0, 3, GRASS)
-art('museum_new', -12, -8, bottom='grass')                          # 10 x 6, rows -8..-3, centred in the clearing
+art('museum_new', -11, -8, bottom='grass')                          # 10 x 6, rows -8..-3: centred on the street (-8..-5)
 for dx_ in (4, 5):                                                  # the glass doors (walk in -> museum)
-    _k = ('museum_new', dx_, 5, None, 'grass'); _pmu.DOOR_KEYS.add(_k); put(-12 + dx_, -3, ('ART', _k, 0, 3))
+    _k = ('museum_new', dx_, 5, None, 'grass'); _pmu.DOOR_KEYS.add(_k); put(-11 + dx_, -3, ('ART', _k, 0, 3))
 # everything below mirrors around the street's axis (x -> -13 - x)
-paving(-12, -2, -3, -1)                                             # terrace in front of the museum (under its steps)
-paving(-8, -1, -5, 1)                                               # path: the street running up to the doors
-paving(-10, 1, -3, 3)                                               # forecourt by the street
+paving(-11, -2, -1, -1)                                             # terrace in front of the museum
+paving(-14, -8, -11, -1); paving(-1, -8, 0, -1)                     # paved all around the museum (east and west)
+paving(-8, -1, -4, 1)                                               # path: the street running up to the doors (4 wide)
+paving(-10, 1, -2, 3)                                               # forecourt by the street
 art('museum_sculpture', -10, -1, bottom='grass', walk_rows=1)       # two steel sculptures on the lawns
 art('museum_sculpture_r', -3, -1, bottom='grass', walk_rows=1)
 tree1(-12, -1); tree1(-2, -1)                                       # hedges at the corners
 for (fx_, fy_) in ((-9, -1), (-4, -1), (-12, 2), (-11, 2), (-2, 2), (-1, 2)):
     put(fx_, fy_, FLOWERS)
 paving(STREET[0],1,STREET[1],40)                                   # the uphill residential street
+paving(STREET[1],1,STREET[1]+1,11)                                 # one column wider below the museum (4 wide, on its axis)
 paving(-16,11,15,13)                                               # north street (open to Route 121, rows 10..12)
 paving(STREET[0],20,14,23)                                         # avenue to the plaza
 
@@ -209,7 +211,7 @@ house(-4,5);  paving(-4,9,-1,11); house_sign(-5,8)               # L1 classic = 
 art('house_beige_lilac',2,4); paving(3,9,6,11); house_sign(1,8)         # L2 modern beige, door (4,8)
 art('house_grey',9,4);  paving(10,9,13,11); house_sign(8,8)      # L3 modern grey, door (11,8)
 garden(-4,1,15,4,12); tree1(6,1); tree1(13,1)                 # back gardens with small trees
-fill(-4, 1, -1, 3, GRASS); paving(-4, 1, -3, 3); tree1(-2, -1)                 # keep the museum lawn's east half (mirror of the west)
+fill(-4, 1, -1, 3, GRASS); paving(-4, 1, -2, 3); tree1(-2, -1)                 # keep the museum lawn's east half (mirror of the west)
 put(-2, 2, FLOWERS); put(-1, 2, FLOWERS)
 garden(0,4,2,9,13); garden(7,4,9,9,14); garden(14,4,15,9,15)               # side yards with flowers
 fence(-1,1,10) if False else None
@@ -289,7 +291,7 @@ decor('tent_flowers',-4,37,walk_rows=2)                                      # f
 for (px_,py_) in ((3,37),(9,37)): art('potted_palm',px_,py_,bottom='paving',walk_rows=1)
 lamp2(12,36,'paving',facing='left')
 # --- street lamps along the residential street (east kerb, heads towards the street) and the north street
-lamp2(-5,5,'grass',facing='left'); lamp2(-5,30,'paving',facing='left')
+lamp2(-9,5,'grass'); lamp2(-5,30,'paving',facing='left')
 lamp2(-5,37,'paving',facing='left')
 for x in (-1,6,13): lamp2(x,10,'paving') if False else None
 bunting(-8,14,21)                                                           # avenue bunting (west part)
@@ -458,6 +460,7 @@ for (fx_, fy_) in ((23, -4), (23, -5), (29, -2), (29, -1), (22, 2), (17, 6), (18
 # trunk row is on an odd row, so neighbouring blocks line up (no half trees, no mismatched rows).
 fill(-14, -8, -13, 2, GRASS)                                  # a grass column between the west forest and the museum
 trees(-16, -12, -14, 2, grass_above=False)                    # west edge, down to row 1
+paving(-14, -8, -13, -1)                                      # ...paved beside the museum
 trees(-14, -12, 0, -8, grass_above=False)                     # above the museum (trunks on row -9)
 trees(0, -12, 16, 0, grass_above=False)                       # west of district 2, above district 1 (trunks on row -1)
 trees(16, -12, 42, -8, grass_above=False)                     # north of district 2 (trunks on row -9)
