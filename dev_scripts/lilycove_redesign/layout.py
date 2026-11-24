@@ -182,9 +182,9 @@ trees(-16,-8,-13,1,grass_above=False); trees(-1,-8,17,0,grass_above=False)   # f
 # street, lawns with two steel sculptures on pedestals, hedges and flowers; doors (-8,-3) (-7,-3)
 import port_art as _pmu
 fill(-14, -8, 0, 3, GRASS)
-art('museum_new', -11, -8, bottom='grass')                          # 10 x 6, rows -8..-3: centred on the street (-8..-5)
+art('museum_new', -11, -8, bottom='paving')                        # 10 x 6, rows -8..-3: centred on the street (-8..-5)
 for dx_ in (4, 5):                                                  # the glass doors (walk in -> museum)
-    _k = ('museum_new', dx_, 5, None, 'grass'); _pmu.DOOR_KEYS.add(_k); put(-11 + dx_, -3, ('ART', _k, 0, 3))
+    _k = ('museum_new', dx_, 5, None, 'paving'); _pmu.DOOR_KEYS.add(_k); put(-11 + dx_, -3, ('ART', _k, 0, 3))
 # everything below mirrors around the street's axis (x -> -13 - x)
 paving(-11, -2, -1, -1)                                             # terrace in front of the museum
 paving(-14, -8, -11, -1); paving(-1, -8, 0, -1)                     # paved all around the museum (east and west)
