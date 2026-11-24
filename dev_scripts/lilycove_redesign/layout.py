@@ -446,7 +446,7 @@ trees(-16, -12, -14, 2, grass_above=False)                    # west edge, down 
 trees(-14, -12, 0, -8, grass_above=False)                     # above the museum (trunks on row -9)
 trees(0, -12, 16, 0, grass_above=False)                       # west of district 2, above district 1 (trunks on row -1)
 trees(16, -12, 42, -8, grass_above=False)                     # north of district 2 (trunks on row -9)
-fill(42, -9, 45, 11, GRASS); trees(42, -12, 44, 2, grass_above=False)   # strip between district 2 and the hotel
+fill(41, -8, 45, 11, GRASS); trees(42, -12, 44, 2, grass_above=False)   # strip between district 2 and the hotel (whole trees only)
 fill(44, -8, 71, -7, GRASS); fill(70, -12, 71, -8, GRASS)      # (the hotel's forest ends on row -9; grass by the sea)
 trees(44, -12, 70, -8, grass_above=False)                     # behind the hotel (trunks on row -9)
 # (no fence: the quarter opens onto the forest and the main street)
