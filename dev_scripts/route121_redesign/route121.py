@@ -95,6 +95,15 @@ MOVES = {(55, 8): (66, 11), (55, 10): (76, 8), (59, 8): (68, 9), (59, 13): (64, 
          (38, 13): (40, 14), (11, 6): (16, 6), (11, 11): (17, 11)}
 for o in objs:
     if (o['x'], o['y']) in MOVES and o['graphics_id'] != 'OBJ_EVENT_GFX_BERRY_TREE': o['x'], o['y'] = MOVES[(o['x'], o['y'])]
+# no trainers and no item balls on the route any more
+objs[:] = [o for o in objs if o['trainer_type'] == 'TRAINER_TYPE_NONE' and o['graphics_id'] != 'OBJ_EVENT_GFX_ITEM_BALL']
+# a row of police officers at the Lilycove end keeps residents out of the wild part; the path stays open
+for y in range(2, 15):                                  # land rows only (water below)
+    if (M[y][74] >> 10) & 3 or (74, y) in P: continue
+    objs.append({'graphics_id': 'OBJ_EVENT_GFX_POLICEMAN', 'x': 74, 'y': y, 'elevation': 3,
+                 'movement_type': 'MOVEMENT_TYPE_FACE_RIGHT', 'movement_range_x': 0, 'movement_range_y': 0,
+                 'trainer_type': 'TRAINER_TYPE_NONE', 'trainer_sight_or_berry_tree_id': '0',
+                 'script': 'Route121_EventScript_Policeman', 'flag': '0'})
 json.dump(d, open(os.path.join(REPO, 'data/maps/Route121/map.json'), 'w'), indent=2)
 open(os.path.join(REPO, 'data/maps/Route121/map.json'), 'a').write('\n')
 # sanity: every object stands on a walkable cell that is not a tree/fence

@@ -1481,9 +1481,7 @@ static const struct SpriteFrameImage sPicTable_GreenVSSeekerBike[] = {
     overworld_ascending_frames(gObjectEventPic_GreenVSSeekerBike, 4, 4),
 };
 
-static const struct SpriteFrameImage sPicTable_Policeman[] = {
-    overworld_ascending_frames(gObjectEventPic_Policeman, 2, 4),
-};
+
 
 static const struct SpriteFrameImage sPicTable_LittleBoyFrlg[] = {
     overworld_ascending_frames(gObjectEventPic_LittleBoyFrlg, 2, 2),
@@ -2510,3 +2508,9 @@ static const struct SpriteFrameImage sPicTable_MomFrlg[] = {
 };
 
 #endif // IS_FRLG
+
+// Lilycove hack: the policeman is also used in Emerald (Route 121)
+static const struct SpriteFrameImage sPicTable_Policeman[] = {
+    overworld_ascending_frames(gObjectEventPic_Policeman, 2, 4),
+};
+

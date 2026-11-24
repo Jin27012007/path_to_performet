@@ -1,6 +1,10 @@
 Route121_MapScripts::
 	.byte 0
 
+Route121_EventScript_Policeman::
+	msgbox Route121_Text_Policeman, MSGBOX_NPC
+	end
+
 Route121_EventScript_Woman::
 	msgbox Route121_Text_AheadLoomsMtPyre, MSGBOX_NPC
 	end
@@ -186,3 +190,9 @@ Route121_Text_SafariZoneSign:
 	.string "“Filled with rare POKéMON!”\n"
 	.string "SAFARI ZONE$"
 
+
+Route121_Text_Policeman:
+	.string "Daqui em diante é área selvagem.\n"
+	.string "Moradores sem POKéMON não podem passar.\p"
+	.string "Você é treinador? Pode seguir, mas\n"
+	.string "tome cuidado!$"
