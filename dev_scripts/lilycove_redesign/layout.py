@@ -249,7 +249,7 @@ def mall(x0,y0,W=18):
     seq=['2fe','2fc','30f','303','304','304','305','30e','2fc','2fc','30f','303','304','304','305','30e','2fc','2ff']
     for i,k in enumerate(seq):
         put(x0+i,y0+4,O(COL[k],5)); put(x0+i,y0+5,O(COL[k],6))          # awnings / vitrines and double doors
-    art('mall_ticker',x0+6,y,bottom='top:301')                           # LED band "POKEMON CONTEST"
+    art('mall_ticker',x0+6,y,bottom='top:301')                           # LED band "DEPT STORE"
     for x in range(x0+1,x0+W-1):                                         # pennants under the eave
         if not x0+6<=x<x0+12: art('pennants%d'%((x-x0)%3),x,y,bottom='top:301')
     for dx in (0,1):                                                     # Poké Ball on the roof front

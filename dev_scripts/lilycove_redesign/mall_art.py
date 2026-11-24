@@ -15,6 +15,8 @@ FONT = {   # 5x7
     'C': [".111.", "1...1", "1....", "1....", "1....", "1...1", ".111."],
     'T': ["11111", "..1..", "..1..", "..1..", "..1..", "..1..", "..1.."],
     'S': [".1111", "1....", "1....", ".111.", "....1", "....1", "1111."],
+    'D': ["1111.", "1...1", "1...1", "1...1", "1...1", "1...1", "1111."],
+    'R': ["1111.", "1...1", "1...1", "1111.", "1.1..", "1..1.", "1...1"],
 }
 def text(c, s, x0, y0, col, shadow=None):
     x = x0
@@ -87,7 +89,7 @@ def pennants(k):
     return c
 
 def ticker():
-    """96x16 LED band over the doors: 'POKEMON CONTEST' with stage lights"""
+    """96x16 LED band over the doors: 'DEPT STORE' with stage lights"""
     w, h = 96, 16; c = canvas(w, h)
     for y in range(h):
         for x in range(w):
@@ -97,8 +99,8 @@ def ticker():
             else: c[y][x] = BL
     for x in range(2, w - 2):
         if x % 8 == 3: c[13][x] = YE
-    text(c, 'POKEMON', 3, 4, YE, NV)
-    text(c, 'CONTEST', 51, 4, WH, NV)
+    text(c, 'DEPT', 18, 4, YE, NV)
+    text(c, 'STORE', 48, 4, WH, NV)
     return c
 
 def carpet_mat():
