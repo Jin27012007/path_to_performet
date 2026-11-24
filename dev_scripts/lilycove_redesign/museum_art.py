@@ -10,53 +10,63 @@ WH, LG, MG, GG, GY = (248, 248, 248), (216, 216, 216), (168, 176, 184), (136, 14
 GL1, GL2, GL3 = (200, 208, 224), (152, 176, 208), (136, 176, 208)
 
 def building():
+    """3/4 view: a tall hipped metal roof (standing seams) seen from above, crossed in the middle by the
+    portico's own gable roof (its two slopes visible: lit left, shaded right) that runs from the main
+    ridge forward to a pediment; low white walls with tall windows below."""
     im = Image.new('RGBA', (W, H), (0, 0, 0, 0)); p = im.load()
     def put(x, y, c):
         if 0 <= x < W and 0 <= y < H: p[x, y] = c + (255,)
     def rect(x0, y0, x1, y1, c):
         for y in range(max(0, y0), min(H, y1)):
             for x in range(max(0, x0), min(W, x1)): put(x, y, c)
-    # roof: front slope seen from above, hipped ends at 45 degrees, standing seams every 8 px
-    RT, RB = 8, 40                                         # ridge row, eave row
+    RT, RB = 16, 56                                        # main ridge row, eave row
+    # main hipped roof: front slope, 45-degree hips through tile corners, seams every 8 px
     for y in range(RT, RB):
-        inset = RB - y                                     # 45-degree hips: (0,40) -> (32,8)
+        inset = RB - y
         for x in range(inset, W - inset):
             c = GG
-            if x % 8 == 0: c = MG                          # seam (lit)
-            elif x % 8 == 1: c = GY                        # seam shadow
-            if x < inset + 2 or x >= W - inset - 2: c = MG # hip edge trim
+            if x % 8 in (3, 4): c = MG if x % 8 == 3 else GY
+            if x < inset + 2 or x >= W - inset - 2: c = MG
             put(x, y, c)
-    rect(32, RT - 4, W - 32, RT, MG); rect(32, RT - 4, W - 32, RT - 3, WH)   # ridge cap
+    rect(40, RT - 4, W - 40, RT, MG); rect(40, RT - 4, W - 40, RT - 3, WH)      # ridge cap
+    # the portico's cross gable: ridge at x 80 from the main ridge to the pediment apex (y 24);
+    # left slope lit, right slope in shade, seams across the slopes every 8 px
+    CL, CR, AP = 48, 112, 24
+    for y in range(RT, RB):
+        for x in range(CL, CR):
+            top_edge = AP + abs(x + 0.5 - 80) - 0.5           # the pediment's sloped top edge
+            if y >= top_edge + 0: continue
+            left = x < 80
+            c = MG if left else GY
+            if y % 8 == 7: c = GG if left else DK               # seams
+            if x in (79, 80): c = WH if left else MG            # ridge
+            put(x, y, c)
+    rect(CL, RT, CL + 1, RB, OUT); rect(CR - 1, RT, CR, RB, OUT)      # the gable's side edges
+    # pediment (front of the cross gable), white with a grey frame
+    for y in range(AP, RB):
+        half = y - AP
+        for x in range(80 - half, 80 + half):
+            put(x, y, WH)
+        put(80 - half - 1, y, MG); put(80 + half, y, MG)
+    for x in range(CL, CR): put(x, RB - 1, MG)
     # eave / cornice
-    rect(0, RB, W, RB + 4, WH); rect(0, RB + 3, W, RB + 4, MG)
-    # walls with tall windows every 16 px (glass bays), pilasters between them
+    rect(0, RB, W, RB + 3, WH); rect(0, RB + 3, W, RB + 4, MG)
+    # low walls with tall windows (bands on the 8 px grid)
     WT, WB = RB + 4, 88
     rect(0, WT, W, WB, LG)
-    for bx in range(8, W - 8, 16):
-        if 56 <= bx < 104: continue                        # the portico covers the centre
-        rect(bx, 48, bx + 8, 88, OUT)                       # window bands on the 8 px grid (tiles repeat)
-        rect(bx + 1, 49, bx + 7, 87, GL2)
-        rect(bx + 1, 49, bx + 7, 56, GL1)
-        rect(bx + 1, 80, bx + 7, 87, GL3)
-    for x in range(0, W, 16): rect(x, WT, x + 1, WB, MG)  # pilaster joints
-    rect(0, WB, W, H - 2, MG); rect(0, H - 2, W, H, GY)   # plinth
-    # portico: pediment (45-degree), entablature, four columns, glass doors, steps
-    PL, PR = 56, 104                                       # 48 px wide, centred on x = 80
-    for y in range(24, RB):                                # pediment triangle (apex at y 24)
-        half = y - 24
-        for x in range(80 - half, 80 + half):
-            if PL <= x < PR: put(x, y, WH if y > 26 + abs(x - 80) - (y - 24) + 2 else MG)
-    for y in range(24, RB):
-        half = y - 24
-        put(80 - half, y, OUT); put(80 + half - 1, y, OUT)
-    rect(PL - 4, RB, PR + 4, RB + 6, WH); rect(PL - 4, RB + 5, PR + 4, RB + 6, MG)   # entablature
-    rect(PL, RB + 6, PR, WB, DK)                           # shaded porch behind the columns
-    rect(64, 64, 96, WB, OUT); rect(65, 65, 95, WB, GL2); rect(65, 65, 95, 72, GL1)   # glass doors
-    rect(79, 65, 81, WB, OUT)
-    for cx in (58, 70, 86, 98):                            # columns (4 px wide)
-        rect(cx, RB + 6, cx + 4, WB, WH); rect(cx + 3, RB + 6, cx + 4, WB, MG)
-    rect(PL - 4, WB, PR + 4, H - 2, WH); rect(PL - 4, WB + 3, PR + 4, WB + 4, MG)   # steps
-    # silhouette outline
+    for bx in (16, 32, 120, 136):
+        rect(bx, 64, bx + 8, 85, OUT)
+        rect(bx + 1, 65, bx + 7, 84, GL2)
+        rect(bx + 1, 65, bx + 7, 72, GL1)
+        rect(bx + 1, 78, bx + 7, 84, GL3)
+    for x in (8, 151): rect(x, WT, x + 1, WB, MG)
+    rect(0, WB, W, H - 1, MG); rect(0, H - 1, W, H, GY)
+    # portico under the pediment: shaded porch, four columns, glass doors, steps
+    rect(CL, WT, CR, WB, DK)
+    rect(64, 68, 96, WB, OUT); rect(65, 69, 95, WB, GL2); rect(65, 69, 95, 75, GL1); rect(79, 69, 81, WB, OUT)
+    for cx in (52, 60, 96, 104):
+        rect(cx, WT, cx + 4, WB, WH)
+    rect(CL - 8, WB, CR + 8, H, WH); rect(CL - 8, WB + 2, CR + 8, WB + 3, MG)
     snap = [[p[x, y][3] for x in range(W)] for y in range(H)]
     for y in range(H):
         for x in range(W):
