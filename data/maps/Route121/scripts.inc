@@ -192,7 +192,7 @@ Route121_Text_SafariZoneSign:
 
 
 Route121_Text_Policeman:
-	.string "Daqui em diante é área selvagem.\n"
-	.string "Moradores sem POKéMON não podem passar.\p"
-	.string "Você é treinador? Pode seguir, mas\n"
-	.string "tome cuidado!$"
+	.string "A passagem para a ROTA 120 está\n"
+	.string "fechada por ordem da polícia.\p"
+	.string "Ninguém passa daqui, nem mesmo\n"
+	.string "treinadores. Volte, por favor.$"

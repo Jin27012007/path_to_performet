@@ -99,10 +99,10 @@ for o in objs:
     if (o['x'], o['y']) in MOVES and o['graphics_id'] != 'OBJ_EVENT_GFX_BERRY_TREE': o['x'], o['y'] = MOVES[(o['x'], o['y'])]
 # no trainers and no item balls on the route any more
 objs[:] = [o for o in objs if o['trainer_type'] == 'TRAINER_TYPE_NONE' and o['graphics_id'] != 'OBJ_EVENT_GFX_ITEM_BALL']
-# a row of police officers at the start of the route (Route 120 side) keeps residents out; the path stays open
+# a row of police officers closes the start of the route (Route 120 side), path included: nobody gets through
 PX = 0
 for y in range(2, 15):                                  # land rows only (water below)
-    if (M[y][PX] >> 10) & 3 or (PX, y) in P: continue
+    if (M[y][PX] >> 10) & 3: continue
     objs.append({'graphics_id': 'OBJ_EVENT_GFX_POLICEMAN', 'x': PX, 'y': y, 'elevation': 3,
                  'movement_type': 'MOVEMENT_TYPE_FACE_LEFT', 'movement_range_x': 0, 'movement_range_y': 0,
                  'trainer_type': 'TRAINER_TYPE_NONE', 'trainer_sight_or_berry_tree_id': '0',
