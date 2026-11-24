@@ -178,9 +178,21 @@ def garden(x0,y0,x1,y1,seed,skip=(),shared=False):
 fill(-16,-8,15,20,GRASS); fill(15,-8,17,11,GRASS); fill(-16,20,14,40,GRASS)     # clear the area
 trees(-16,-12,18,-8,grass_above=False)                                   # forest above the museum (rows added north)
 trees(-16,-8,-13,1,grass_above=False); trees(-1,-8,17,0,grass_above=False)   # forest around the museum
-museum(-13,-8)                                                     # museum on the hill, doors (-8,-3) (-7,-3), stairs x -9..-6 row 0
-for cx in (0,1,9,10,11,12): put(-13+cx,-8,T(0x1e4 if cx%2==0 else 0x1e5,1,0) if False else GRASS)
-paving(-10,1,-4,3)                                                 # museum forecourt
+# --- the Lilycove Museum, contemporary (museum_art.py): on flat ground, a stone terrace and a path to the
+# street, lawns with two steel sculptures on pedestals, hedges and flowers; doors (-8,-3) (-7,-3)
+import port_art as _pmu
+fill(-14, -8, 0, 3, GRASS)
+art('museum_new', -12, -8, bottom='grass')                          # 10 x 6, rows -8..-3
+for dx_ in (4, 5):                                                  # the glass doors (walk in -> museum)
+    _k = ('museum_new', dx_, 5, None, 'grass'); _pmu.DOOR_KEYS.add(_k); put(-12 + dx_, -3, ('ART', _k, 0, 3))
+paving(-12, -2, -2, -1)                                             # terrace in front of the museum
+paving(-8, -1, -5, 1)                                               # path down to the street
+paving(-10, 1, -4, 3)                                               # forecourt by the street
+art('museum_sculpture', -11, -1, bottom='grass', walk_rows=1)       # two steel sculptures on the lawns
+art('museum_sculpture_r', -4, -1, bottom='grass', walk_rows=1)
+tree1(-13, -1); tree1(-3, -1)                                       # hedges at the corners
+for (fx_, fy_) in ((-10, 0), (-9, -1), (-5, -1), (-5, 0), (-2, 2), (-13, 2), (-11, 2), (-10, -1)):
+    put(fx_, fy_, FLOWERS)
 paving(STREET[0],1,STREET[1],40)                                   # the uphill residential street
 paving(-16,11,15,13)                                               # north street (open to Route 121, rows 10..12)
 paving(STREET[0],20,14,23)                                         # avenue to the plaza
@@ -512,6 +524,6 @@ for Y in range(1, H - 1):
         for ch, (dx, dy), (o1, o2) in (('a', (-1, -1), (n, w)), ('b', (1, -1), (n, e)), ('c', (-1, 1), (s, w)), ('d', (1, 1), (s, e))):
             if not o1 and not o2 and _grassy(M[Y + dy][X + dx]): bits += ch
         if bits:
-            name = ('fringeP_' if X - OX <= -9 else 'fringe_') + bits     # west strip (seen from Route 121): primary
+            name = ('fringeP_' if X - OX <= -9 and 3 <= Y - OY <= 25 else 'fringe_') + bits   # strip seen from Route 121 (x <= -9, rows 3..25): primary
             _new[(X, Y)] = ('ART', (_pa3.fringe_art(name, bits), 0, 0, None, 'paving'), v[2], v[3])
 for (X, Y), v in _new.items(): M[Y][X] = v

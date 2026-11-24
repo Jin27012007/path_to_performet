@@ -421,3 +421,12 @@ _CANVAS['fence_c_bl'] = _fence_corner('l', True)
 _CANVAS['fence_c_br'] = [row[::-1] for row in _CANVAS['fence_c_bl']]      # mirror: shares the tiles
 for _n in ('fence_c_bl', 'fence_c_br'):
     PAL_OF[_n] = PAL_OF['fence_wood']; ART[_n] = (lambda n=_n: _CANVAS[n])
+
+# ---- the contemporary Lilycove Museum (museum_art.py), palette 12 ----
+import museum_art as _MU
+for _n, _f in (('museum_new', _MU.building), ('museum_sculpture', _MU.sculpture)):
+    _cv, _gr = _MP.convert(_f(), slots=(12,))
+    _CANVAS[_n] = _cv; TILEPAL[_n] = _gr; PAL_OF[_n] = 12; ART[_n] = (lambda n=_n: _CANVAS[n])
+_CANVAS['museum_sculpture_r'] = [row[::-1] for row in _CANVAS['museum_sculpture']]
+TILEPAL['museum_sculpture_r'] = TILEPAL['museum_sculpture']; PAL_OF['museum_sculpture_r'] = 12
+ART['museum_sculpture_r'] = lambda: _CANVAS['museum_sculpture_r']
