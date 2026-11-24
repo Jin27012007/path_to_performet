@@ -424,6 +424,8 @@ for _n in ('fence_c_bl', 'fence_c_br'):
 
 # ---- the contemporary Lilycove Museum (museum_art.py), palette 12 ----
 import museum_art as _MU
+PALETTES[12] = list(PALETTES[12]); PALETTES[12][14], PALETTES[12][15] = _MU.TL, _MU.TD   # museum's teal roof
+_MP._PALS[12] = PALETTES[12]
 for _n, _f in (('museum_new', _MU.building), ('museum_sculpture', _MU.sculpture)):
     _cv, _gr = _MP.convert(_f(), slots=(12,))
     _CANVAS[_n] = _cv; TILEPAL[_n] = _gr; PAL_OF[_n] = 12; ART[_n] = (lambda n=_n: _CANVAS[n])

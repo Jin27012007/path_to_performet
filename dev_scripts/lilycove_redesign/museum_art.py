@@ -6,6 +6,7 @@ from PIL import Image
 
 W, H = 160, 96
 OUT = (64, 72, 104); DK = (96, 96, 120)
+TL = (96, 152, 168); TD = (64, 112, 136)          # teal roof (palette 12 slots 14, 15)
 WH, LG, MG, GG, GY = (248, 248, 248), (216, 216, 216), (168, 176, 184), (136, 144, 152), (128, 128, 136)
 GL1, GL2, GL3 = (200, 208, 224), (152, 176, 208), (136, 176, 208)
 
@@ -31,23 +32,21 @@ def building():
     rect(40, RT - 4, W - 40, RT, MG); rect(40, RT - 4, W - 40, RT - 3, WH)      # ridge cap
     # the portico's cross gable: ridge at x 80 from the main ridge to the pediment apex (y 24);
     # left slope lit, right slope in shade, seams across the slopes every 8 px
-    CL, CR, AP = 48, 112, 24
+    CL, CR, AP = 48, 112, 40                                # low pediment: 1:2 slope, apex at y 40
+    def ped_top(x): return AP + (abs(2 * x - 159) - 1) // 4
     for y in range(RT, RB):
         for x in range(CL, CR):
-            top_edge = AP + abs(x + 0.5 - 80) - 0.5           # the pediment's sloped top edge
-            if y >= top_edge + 0: continue
-            left = x < 80
-            c = MG if left else GY
-            if y % 8 == 7: c = GG if left else DK               # seams
-            if x in (79, 80): c = WH if left else MG            # ridge
+            if y >= ped_top(x): continue
+            c = TL                                               # the central roof in teal (the sides stay grey)
+            if y % 8 == 7: c = TD                                # seams
+            if x in (79, 80): c = GL1                            # ridge
             put(x, y, c)
     rect(CL, RT, CL + 1, RB, OUT); rect(CR - 1, RT, CR, RB, OUT)      # the gable's side edges
     # pediment (front of the cross gable), white with a grey frame
-    for y in range(AP, RB):
-        half = y - AP
-        for x in range(80 - half, 80 + half):
-            put(x, y, WH)
-        put(80 - half - 1, y, MG); put(80 + half, y, MG)
+    for x in range(CL, CR):
+        t = ped_top(x)
+        for y in range(t, RB): put(x, y, WH)
+        put(x, t, MG)
     for x in range(CL, CR): put(x, RB - 1, MG)
     # eave / cornice
     rect(0, RB, W, RB + 3, WH); rect(0, RB + 3, W, RB + 4, MG)
