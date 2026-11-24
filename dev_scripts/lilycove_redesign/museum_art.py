@@ -20,28 +20,27 @@ def building():
     def rect(x0, y0, x1, y1, c):
         for y in range(max(0, y0), min(H, y1)):
             for x in range(max(0, x0), min(W, x1)): put(x, y, c)
-    RT, RB = 16, 56                                        # main ridge row, eave row
-    # main hipped roof: front slope, 45-degree hips through tile corners, seams every 8 px
-    for y in range(RT, RB):
-        inset = RB - y
-        for x in range(inset, W - inset):
+    RT, RB = 16, 56                                        # top of the central roof, eave row
+    # side roofs: one rectangular metal slab behind, seen from above (standing seams every 8 px)
+    ST = 24
+    for y in range(ST, RB):
+        for x in range(W):
             c = GG
             if x % 8 in (3, 4): c = MG if x % 8 == 3 else GY
-            if x < inset + 2 or x >= W - inset - 2: c = MG
             put(x, y, c)
-    rect(40, RT - 4, W - 40, RT, MG); rect(40, RT - 4, W - 40, RT - 3, WH)      # ridge cap
-    # the portico's cross gable: ridge at x 80 from the main ridge to the pediment apex (y 24);
-    # left slope lit, right slope in shade, seams across the slopes every 8 px
+    rect(0, ST, W, ST + 3, MG); rect(0, ST, W, ST + 1, WH)            # back edge (cap)
+    rect(112, ST + 3, 116, RB, GY)                                     # shadow of the central roof
     CL, CR, AP = 48, 112, 40                                # low pediment: 1:2 slope, apex at y 40
     def ped_top(x): return AP + (abs(2 * x - 159) - 1) // 4
-    for y in range(RT, RB):
+    for y in range(RT - 8, RB):
         for x in range(CL, CR):
             if y >= ped_top(x): continue
             c = TL                                               # the central roof in teal (the sides stay grey)
             if y % 8 == 7: c = TD                                # seams
             if x in (79, 80): c = GL1                            # ridge
             put(x, y, c)
-    rect(CL, RT, CL + 1, RB, OUT); rect(CR - 1, RT, CR, RB, OUT)      # the gable's side edges
+    rect(CL, RT - 8, CL + 1, RB, OUT); rect(CR - 1, RT - 8, CR, RB, OUT)
+    rect(CL, RT - 8, CR, RT - 4, TD); rect(CL + 1, RT - 8, CR - 1, RT - 7, GL1)      # ridge cap of the central roof      # the gable's side edges
     # pediment (front of the cross gable), white with a grey frame
     for x in range(CL, CR):
         t = ped_top(x)
