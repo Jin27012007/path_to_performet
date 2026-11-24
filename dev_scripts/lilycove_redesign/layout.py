@@ -429,7 +429,7 @@ for (_x, _y, _s, _wl, _w) in DISTRICT2:
     hoenn_house(_x, _y, _s, _wl)
     if not _w: put(_x + 2, _y + 3, T(0x021, 1, 0))            # this house has no interior
 art('stall', 29, -8, bottom='grass')                          # fruit stall (2 x 3), facing the square
-for (tx_, ty_) in ((18, -9), (25, -9), (34, -9), (38, -9), (38, 2), (17, -1), (28, 3), (38, 7)):
+for (tx_, ty_) in ((17, -8), (21, -8), (37, -8), (39, -8), (38, 2), (17, -1), (28, 3), (38, 7)):
     tree1(tx_, ty_)
 def _free(x, y):
     v = M[y + OY][x + OX]
@@ -439,9 +439,16 @@ for (fx_, fy_) in ((23, -4), (23, -5), (29, -2), (29, -1), (22, 2), (17, 6), (18
                    (18, 9), (23, 9), (26, 8), (27, 9), (33, 9), (35, 8), (39, 9)):
     if _free(fx_, fy_): put(fx_, fy_, FLOWERS)
 # forests around the quarter, redrawn with their 2-column tree pairs aligned (no half trees)
-trees(0, -12, 16, 0, grass_above=False)                       # west of the quarter, above district 1
-trees(16, -12, 42, -11, grass_above=False)                    # north of the fence
-fill(42, -9, 45, 11, GRASS); trees(42, -12, 44, 2, grass_above=False)   # strip between the fence and the hotel
+# The whole northern forest, redrawn as one pattern: tree pairs start on even columns and every block's
+# trunk row is on an odd row, so neighbouring blocks line up (no half trees, no mismatched rows).
+fill(-14, -8, -13, 2, GRASS)                                  # a grass column between the west forest and the museum
+trees(-16, -12, -14, 2, grass_above=False)                    # west edge, down to row 1
+trees(-14, -12, 0, -8, grass_above=False)                     # above the museum (trunks on row -9)
+trees(0, -12, 16, 0, grass_above=False)                       # west of district 2, above district 1 (trunks on row -1)
+trees(16, -12, 42, -8, grass_above=False)                     # north of district 2 (trunks on row -9)
+fill(42, -9, 45, 11, GRASS); trees(42, -12, 44, 2, grass_above=False)   # strip between district 2 and the hotel
+fill(44, -8, 71, -7, GRASS); fill(70, -12, 71, -8, GRASS)      # (the hotel's forest ends on row -9; grass by the sea)
+trees(44, -12, 70, -8, grass_above=False)                     # behind the hotel (trunks on row -9)
 # (no fence: the quarter opens onto the forest and the main street)
 # sand autotile: a grass edge on each side that touches grass
 for (x, y) in B2:
