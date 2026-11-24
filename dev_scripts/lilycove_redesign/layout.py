@@ -187,7 +187,7 @@ for dx_ in (4, 5):                                                  # the glass 
     _k = ('museum_new', dx_, 5, None, 'paving'); _pmu.DOOR_KEYS.add(_k); put(-11 + dx_, -3, ('ART', _k, 0, 3))
 # everything below mirrors around the street's axis (x -> -13 - x)
 paving(-11, -2, -1, -1)                                             # terrace in front of the museum
-paving(-14, -8, -11, -1); paving(-1, -8, 0, -1)                     # paved all around the museum (east and west)
+paving(-12, -8, -11, -1); paving(-1, -8, 0, -1)                     # paved all around the museum (one column each side)
 paving(-8, -1, -4, 1)                                               # path: the street running up to the doors (4 wide)
 paving(-10, 1, -2, 3)                                               # forecourt by the street
 art('museum_sculpture', -10, -1, bottom='grass', walk_rows=1)       # two steel sculptures on the lawns
@@ -458,9 +458,7 @@ for (fx_, fy_) in ((23, -4), (23, -5), (29, -2), (29, -1), (22, 2), (17, 6), (18
 # forests around the quarter, redrawn with their 2-column tree pairs aligned (no half trees)
 # The whole northern forest, redrawn as one pattern: tree pairs start on even columns and every block's
 # trunk row is on an odd row, so neighbouring blocks line up (no half trees, no mismatched rows).
-fill(-14, -8, -13, 2, GRASS)                                  # a grass column between the west forest and the museum
-trees(-16, -12, -14, 2, grass_above=False)                    # west edge, down to row 1
-paving(-14, -8, -13, -1)                                      # ...paved beside the museum
+trees(-16, -12, -12, 2, grass_above=False)                    # west edge (two pairs deep), down to row 1
 trees(-14, -12, 0, -8, grass_above=False)                     # above the museum (trunks on row -9)
 trees(0, -12, 16, 0, grass_above=False)                       # west of district 2, above district 1 (trunks on row -1)
 trees(16, -12, 42, -8, grass_above=False)                     # north of district 2 (trunks on row -9)
@@ -502,8 +500,12 @@ for bx_ in (18, 21, 32, 35): art('bench', bx_, 23, bottom='paving')
 sign(44, 10)                                                 # beach / hotel sign at the top of the sand road
 
 # ================= soft grass fringe wherever plain paving meets grass ==================================
+_TREE_MT = {0x1ce, 0x1cf, 0x1d4, 0x1d5, 0x1d6, 0x1d7, 0x1dc, 0x1dd, 0x1e4, 0x1e5, 0x1e6, 0x1e7}
+_FR_X = _FR_Y = None                                                    # set per cell: trees count as grass by the museum
 def _grassy(v):
-    if isinstance(v, int): return (v & 0x3ff) in (0x001, 0x002, 0x004)
+    if isinstance(v, int):
+        if _FR_X is not None and -12 <= _FR_X - OX <= -1 and -8 <= _FR_Y - OY <= -1 and (v & 0x3ff) in _TREE_MT: return True
+        return (v & 0x3ff) in (0x001, 0x002, 0x004)
     return isinstance(v, tuple) and v[0] == 'ART' and v[1][4] == 'grass'
 _PAVE = ('paving', 0, 0, None, 'water')
 # potted palms on the paving that touch grass stand on grass instead (the paving around them then
@@ -525,6 +527,7 @@ for Y in range(1, H - 1):
         v = M[Y][X]
         if not (isinstance(v, tuple) and v[1] == _PAVE): continue
         if 14 <= X - OX <= 40 and 23 <= Y - OY <= 39: continue                  # the plaza keeps clean kerbs
+        _FR_X, _FR_Y = X, Y
         n, s, w, e = (_grassy(M[Y - 1][X]), _grassy(M[Y + 1][X]), _grassy(M[Y][X - 1]), _grassy(M[Y][X + 1]))
         bits = ''.join(ch for ch, f in (('N', n), ('S', s), ('W', w), ('E', e)) if f)
         for ch, (dx, dy), (o1, o2) in (('a', (-1, -1), (n, w)), ('b', (1, -1), (n, e)), ('c', (-1, 1), (s, w)), ('d', (1, 1), (s, e))):
@@ -532,4 +535,5 @@ for Y in range(1, H - 1):
         if bits:
             name = ('fringeP_' if X - OX <= -9 and 3 <= Y - OY <= 25 else 'fringe_') + bits   # strip seen from Route 121 (x <= -9, rows 3..25): primary
             _new[(X, Y)] = ('ART', (_pa3.fringe_art(name, bits), 0, 0, None, 'paving'), v[2], v[3])
+_FR_X = _FR_Y = None
 for (X, Y), v in _new.items(): M[Y][X] = v
