@@ -163,7 +163,14 @@ def build(M, festival_ids):
                 mid = free_meta.pop(0); meta_by_sig[sig] = mid; new_metas[mid] = ents; new_attrs[mid] = attr
             art_ids[key] = mid; continue
         if name.startswith('copy:'):              # an existing metatile's top layer over another floor
-            prim = False; top = list(metas[int(name[5:], 16) - 512][4:])
+            prim = False; top = []
+            for e in metas[int(name[5:], 16) - 512][4:]:      # re-add the source tiles' pixels (their ids get reused)
+                ti = e & 0x3ff
+                if ti < 512: top.append(e); continue
+                t = [list(r) for r in tiles[ti - 512]]
+                if e & 0x400: t = [r[::-1] for r in t]
+                if e & 0x800: t = t[::-1]
+                top.append(add_tile(t) | (e & 0xF000))
         elif name.startswith('pcopy:'):           # same, for a primary (General) metatile
             _pm = open(os.path.join(REPO, 'data/tilesets/primary/general/metatiles.bin'), 'rb').read()
             prim = False; top = list(struct.unpack_from('<8H', _pm, int(name[6:], 16) * 16)[4:])
