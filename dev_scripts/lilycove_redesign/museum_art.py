@@ -22,14 +22,14 @@ def building():
             for x in range(max(0, x0), min(W, x1)): put(x, y, c)
     RT, RB = 16, 56                                        # top of the central roof, eave row
     # side roofs: one rectangular metal slab behind, seen from above (standing seams every 8 px)
-    ST = 24
+    ST = 21
     for y in range(ST, RB):
         for x in range(W):
             c = GG
-            if x % 8 in (3, 4): c = MG if x % 8 == 3 else GY
+            if x % 8 in (3, 4): c = GY
             put(x, y, c)
     rect(0, ST, W, ST + 3, MG); rect(0, ST, W, ST + 1, WH)            # back edge (cap)
-    rect(112, ST + 3, 116, RB, GY)                                     # shadow of the central roof
+    pass
     CL, CR, AP = 48, 112, 40                                # low pediment: 1:2 slope, apex at y 40
     def ped_top(x): return AP + (abs(2 * x - 159) - 1) // 4
     for y in range(RT - 8, RB):
@@ -49,10 +49,10 @@ def building():
     for x in range(CL, CR):
         t = ped_top(x)
         for y in range(t, RB): put(x, y, WH)
-        put(x, t, MG)
+        put(x, t, OUT)                                           # the pediment's frame in line art
     for x in range(CL, CR): put(x, RB - 1, MG)
-    # eave / cornice
-    rect(0, RB, W, RB + 3, WH); rect(0, RB + 3, W, RB + 4, MG)
+    # eave / cornice: a dark line where the roofs end, a white band, a grey shadow line
+    rect(0, RB, W, RB + 1, OUT); rect(0, RB + 1, W, RB + 3, WH); rect(0, RB + 3, W, RB + 4, MG)
     # low walls with tall windows (bands on the 8 px grid)
     WT, WB = RB + 4, 88
     rect(0, WT, W, WB, LG)
@@ -61,14 +61,18 @@ def building():
         rect(bx + 1, 65, bx + 7, 84, GL2)
         rect(bx + 1, 65, bx + 7, 72, GL1)
         rect(bx + 1, 78, bx + 7, 84, GL3)
-    for x in (8, 151): rect(x, WT, x + 1, WB, MG)
-    rect(0, WB, W, H - 1, MG); rect(0, H - 1, W, H, GY)
+    rect(0, WB, W, WB + 1, OUT); rect(0, WB + 1, W, H - 1, MG); rect(0, H - 1, W, H, OUT)   # plinth, closed below
     # portico under the pediment: shaded porch, four columns, glass doors, steps
     rect(CL, WT, CR, WB, DK)
+    pass
     rect(64, 68, 96, WB, OUT); rect(65, 69, 95, WB, GL2); rect(65, 69, 95, 75, GL1); rect(79, 69, 81, WB, OUT)
-    for cx in (52, 60, 96, 104):
+    for cx in (52, 60, 96, 104):                                     # columns, outlined on both sides
         rect(cx, WT, cx + 4, WB, WH)
-    rect(CL - 8, WB, CR + 8, H, WH); rect(CL - 8, WB + 2, CR + 8, WB + 3, MG)
+    rect(CL, WB + 1, CR, H - 1, WH); rect(CL, WB + 4, CR, WB + 5, MG)   # steps, as wide as the porch
+    # the building's outer sides reach the canvas edge: close them with line art
+    for y in range(H):
+        for x in (0, W - 1):
+            if p[x, y][3]: p[x, y] = OUT + (255,)
     snap = [[p[x, y][3] for x in range(W)] for y in range(H)]
     for y in range(H):
         for x in range(W):
