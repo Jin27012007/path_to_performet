@@ -32,7 +32,9 @@ rect(37, 9, 43, 10)       # between the two stairs
 rect(37, 6, 38, 7)        # up to the Safari Zone door
 rect(30, 12, 34, 12)      # to the stairs from the west plain
 rect(30, 8, 31, 9)        # stairs top -> west path
-rect(0, 6, 31, 7)         # west, to Route 120
+rect(5, 6, 31, 7)         # west plain...
+rect(5, 6, 6, 11)         # ...down to the Route 120 path, which arrives on rows 10-11
+rect(0, 10, 6, 11)
 def pathlike(x, y):
     if not (0 <= x < W and 0 <= y < H): return True
     return (x, y) in P or mt(x, y) not in GRASSLIKE
@@ -44,7 +46,7 @@ for (x, y) in P:
     put(x, y, m)
 
 # 3. berry plantations: soft soil rows, trees placed as objects below
-FIELDS = [((2, 7), (9, 11)), ((50, 55), (8, 10))]      # (x0, x1), soil rows
+FIELDS = [((9, 14), (9, 11)), ((50, 55), (8, 10))]      # (x0, x1), soil rows
 FIELD_CELLS = []
 for (x0, x1), rows in FIELDS:
     for y in rows:
@@ -56,7 +58,7 @@ for (x0, x1), rows in FIELDS:                           # rows the player walks 
 
 # 4. organic tall grass
 rnd = random.Random(121)
-BLOBS = [(14, 9.3, 3.4, 1.4), (23.5, 8.8, 3.2, 1.3), (4, 12.9, 3.4, 1.0), (49, 14.2, 8.5, 0.9),
+BLOBS = [(17.2, 9.4, 2.2, 1.3), (2.4, 7.6, 1.9, 1.2), (23.5, 8.8, 3.2, 1.3), (4, 12.9, 3.4, 1.0), (49, 14.2, 8.5, 0.9),
          (64, 10, 3.2, 1.5), (47, 9.6, 1.7, 1.8), (62.5, 2.6, 3.6, 1.1), (50, 2.6, 3.4, 1.1), (30.5, 2.6, 3.2, 1.0)]
 for cx, cy, rx, ry in BLOBS:
     for y in range(H):
@@ -97,11 +99,12 @@ for o in objs:
     if (o['x'], o['y']) in MOVES and o['graphics_id'] != 'OBJ_EVENT_GFX_BERRY_TREE': o['x'], o['y'] = MOVES[(o['x'], o['y'])]
 # no trainers and no item balls on the route any more
 objs[:] = [o for o in objs if o['trainer_type'] == 'TRAINER_TYPE_NONE' and o['graphics_id'] != 'OBJ_EVENT_GFX_ITEM_BALL']
-# a row of police officers at the Lilycove end keeps residents out of the wild part; the path stays open
+# a row of police officers at the start of the route (Route 120 side) keeps residents out; the path stays open
+PX = 0
 for y in range(2, 15):                                  # land rows only (water below)
-    if (M[y][74] >> 10) & 3 or (74, y) in P: continue
-    objs.append({'graphics_id': 'OBJ_EVENT_GFX_POLICEMAN', 'x': 74, 'y': y, 'elevation': 3,
-                 'movement_type': 'MOVEMENT_TYPE_FACE_RIGHT', 'movement_range_x': 0, 'movement_range_y': 0,
+    if (M[y][PX] >> 10) & 3 or (PX, y) in P: continue
+    objs.append({'graphics_id': 'OBJ_EVENT_GFX_POLICEMAN', 'x': PX, 'y': y, 'elevation': 3,
+                 'movement_type': 'MOVEMENT_TYPE_FACE_LEFT', 'movement_range_x': 0, 'movement_range_y': 0,
                  'trainer_type': 'TRAINER_TYPE_NONE', 'trainer_sight_or_berry_tree_id': '0',
                  'script': 'Route121_EventScript_Policeman', 'flag': '0'})
 json.dump(d, open(os.path.join(REPO, 'data/maps/Route121/map.json'), 'w'), indent=2)
